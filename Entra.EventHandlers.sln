@@ -30,6 +30,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0FF09482
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entra.EventHandlers.Abstractions.UnitTests", "abstractions\Entra.EventHandlers.Abstractions.UnitTests\Entra.EventHandlers.Abstractions.UnitTests.csproj", "{103E99FE-26E1-40C3-A6D6-21D8D2F867B6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3ACF14DD-769A-4744-AF40-C4E5BD20E835}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{FD5E70EB-8570-4887-A5BA-D15BFADE53D1}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\publish.yml = .github\workflows\publish.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +70,7 @@ Global
 		{3DDB3505-4A26-43B7-94D8-52F486A22EB5} = {7DD0B6A1-A2EA-4CAE-96E8-60F255F844F9}
 		{0FF09482-C786-4810-986E-7CBDE938E9BC} = {521A4349-1280-4EA6-8E7B-1C888938E217}
 		{103E99FE-26E1-40C3-A6D6-21D8D2F867B6} = {0FF09482-C786-4810-986E-7CBDE938E9BC}
+		{FD5E70EB-8570-4887-A5BA-D15BFADE53D1} = {3ACF14DD-769A-4744-AF40-C4E5BD20E835}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19EF6B17-5B32-4D91-9F16-C0DDFF52FD22}
