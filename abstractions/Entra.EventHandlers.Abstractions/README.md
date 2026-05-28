@@ -1,13 +1,16 @@
 # Entra.EventHandlers.Abstractions
 
 **License:** MIT  
-**Author:** Jakub Szubarga Szubarga.NET
+**Author:** Jakub Szubarga — Szubarga.NET
 
 This package contains the public abstractions, event types, and protocol
 definitions for building Entra ID Authentication Event Handlers.
 
 It is intentionally lightweight, dependency‑free, and framework‑agnostic.
 You can reference it freely in open‑source or commercial projects.
+
+All public types include full XML documentation for a first‑class developer
+experience.
 
 ---
 
@@ -25,6 +28,9 @@ ecosystem:
 
 These types represent the JSON protocol used by Entra ID custom authentication
 flows.
+
+The abstractions are stable, versioned, and safe to depend on in long‑term
+projects.
 
 ---
 

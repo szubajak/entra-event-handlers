@@ -3,10 +3,32 @@ using System.Text.Json.Serialization;
 
 namespace Entra.EventHandlers.Abstractions.Responses;
 
+/// <summary>
+/// Represents the response returned to Microsoft Entra for an
+/// AttributeCollectionSubmit event.
+///
+/// Handlers use this type to construct a valid response according to the
+/// Entra custom extension contract.
+/// </summary>
+/// <remarks>
+/// For the official response schema, see:
+/// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
+/// </remarks>
 public class AttributeCollectionSubmitResponse : EntraEventResponse<AttributeCollectionSubmitResponsePayload>
 {
 }
 
+/// <summary>
+/// Payload for the response to an AttributeCollectionSubmit event.
+/// Specifies the action(s) that Entra should perform after the user
+/// submits attribute values.
+///
+/// This model mirrors the JSON structure expected by Microsoft Entra.
+/// </summary>
+/// <remarks>
+/// For detailed response structure and action definitions, see:
+/// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
+/// </remarks>
 public class AttributeCollectionSubmitResponsePayload : EntraEventResponsePayload
 {
     [JsonPropertyName("@odata.type")]

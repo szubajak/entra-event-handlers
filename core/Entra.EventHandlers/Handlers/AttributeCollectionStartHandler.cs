@@ -1,13 +1,13 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.ResponseBuilders;
-using Mediator;
 
 namespace Entra.EventHandlers.Handlers;
 
-public class AttributeCollectionStartHandler : IRequestHandler<AttributeCollectionStartEvent, AttributeCollectionStartResponse>
+public class AttributeCollectionStartHandler : IAttributeCollectionStartHandler
 {
-    public async ValueTask<AttributeCollectionStartResponse> Handle(AttributeCollectionStartEvent request, CancellationToken cancellationToken)
+    public async Task<AttributeCollectionStartResponse> Handle(AttributeCollectionStartEvent request, CancellationToken cancellationToken)
     {
         // Simulate some async work
         await Task.Delay(1, cancellationToken);
