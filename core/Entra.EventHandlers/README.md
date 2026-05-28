@@ -70,6 +70,9 @@ These packages will be published to NuGet soon.
 This package is licensed under the **Business Source License (BSL)**.  
 See the [LICENSE](./LICENSE) file for details.
 
+For commercial production use, enterprise licensing, or support inquiries:
+📧 jakub.szubarga@gmail.com
+
 The abstractions package is MIT‑licensed and can be used freely.
 
 ---
@@ -78,4 +81,3 @@ The abstractions package is MIT‑licensed and can be used freely.
 
 Full documentation, examples, and production templates will be available in the
 main repository as the ecosystem evolves.
-

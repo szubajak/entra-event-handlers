@@ -1,7 +1,8 @@
 # Entra.EventHandlers.Abstractions
 
 **License:** MIT  
-**Author:** Jakub Szubarga — Szubarga.NET
+**Author:** Jakub Szubarga (Szubarga.NET)
+This package is free for all use cases, including commercial use.
 
 This package contains the public abstractions, event types, and protocol
 definitions for building Entra ID Authentication Event Handlers.

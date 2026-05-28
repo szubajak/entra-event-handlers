@@ -4,6 +4,31 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+	<!-- NuGet metadata -->
+	<PackageId>Entra.EventHandlers.Abstractions</PackageId>
+	<Version>1.0.0</Version>
+	<Authors>Jakub Szubarga</Authors>
+	<Company>Szubarga.NET Jakub Szubarga</Company>
+	<Description>Public abstractions and protocol definitions for Microsoft Entra ID Authentication Event Handlers.</Description>
+	<PackageTags>Entra;EntraID;AzureAD;AzureAD-B2C;Authentication;EventHandlers;Identity;OIDC;CIAM;ExternalID;CustomAuthExtension;MicrosoftGraph;EventProcessing</PackageTags>
+	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+	<PackageReleaseNotes>Initial release of Entra Event Handlers abstractions.</PackageReleaseNotes>
+	<Authors>Jakub Szubarga</Authors>
+	<PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
+  <ItemGroup>
+	<None Include="LICENSE" Pack="true" PackagePath="" />
+	<None Include="README.md" Pack="true" PackagePath="" />
+	<None Include="icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
 </Project>
