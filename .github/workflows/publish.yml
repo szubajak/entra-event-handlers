@@ -28,5 +28,6 @@ jobs:
       - name: Pack Abstractions
         run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build
 
-      - name: Publish with Trusted Publishing
-        run: dotnet nuget push **/*.nupkg --source "https://api.nuget.org/v3/index.json" --skip-duplicate
+      - name: Publish to NuGet
+        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
