@@ -28,8 +28,5 @@ jobs:
       - name: Pack Abstractions
         run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build
 
-      - name: Ensure NuGet.org uses v3 endpoint
-        run: dotnet nuget update source nuget.org --source https://api.nuget.org/v3/index.json
-
       - name: Publish with Trusted Publishing
-        run: dotnet nuget push **/*.nupkg --source nuget.org --skip-duplicate
+        run: dotnet nuget push **/*.nupkg --source "https://api.nuget.org/v3/index.json" --skip-duplicate
