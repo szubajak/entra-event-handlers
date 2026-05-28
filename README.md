@@ -67,30 +67,30 @@ This package is also licensed under the **Business Source License (BSL)**.
 
 The ecosystem is intentionally split into layers:
 
+```
 ┌──────────────────────────────────────────────┐
 │ Entra.EventHandlers.Abstractions (MIT)       │
 │ Public contract, protocol types, interfaces  │
 └──────────────────────────────────────────────┘
-▲
-│
+                 ▲
+                 │
 ┌──────────────────────────────────────────────┐
 │ Entra.EventHandlers (BSL)                    │
 │ Implementation, builders, pipelines          │
 └──────────────────────────────────────────────┘
-▲
-│
+                 ▲
+                 │
 ┌──────────────────────────────────────────────┐
 │ Entra.EventHandlers.AzureFunctions (BSL)     │
 │ Hosting, DI, runtime integration             │
 └──────────────────────────────────────────────┘
-
+```
 
 This separation ensures:
-
-- **Maximum adoption** (MIT abstractions)  
-- **Commercial protection** (BSL implementation)  
-- **Clean extensibility**  
-- **Stable public API surface**  
+- **Maximum adoption** (MIT abstractions)
+- **Commercial protection** (BSL implementation)
+- **Clean extensibility**
+- **Stable public API surface**
 
 ---
 
