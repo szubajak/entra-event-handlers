@@ -1,21 +1,9 @@
 ﻿using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Builders.Interfaces;
 
-namespace Entra.EventHandlers.ResponseBuilders;
-
-public interface IAttributeCollectionSubmitResponseBuilderStart
-{
-    IAttributeCollectionSubmitResponseBuilderFinal ContinueWithDefaultBehavior();
-    IAttributeCollectionSubmitResponseBuilderFinal ModifyAttributeValues(Dictionary<string, object> attributes);
-    IAttributeCollectionSubmitResponseBuilderFinal ShowBlockPage(string title, string message);
-    IAttributeCollectionSubmitResponseBuilderFinal ShowValidationError(string message, Dictionary<string, string> attributeErrors);
-}
-
-public interface IAttributeCollectionSubmitResponseBuilderFinal
-{
-    AttributeCollectionSubmitResponse Build();
-}
+namespace Entra.EventHandlers.Builders.ResponseBuilders;
 
 public class AttributeCollectionSubmitResponseBuilder : IAttributeCollectionSubmitResponseBuilderStart, IAttributeCollectionSubmitResponseBuilderFinal
 {

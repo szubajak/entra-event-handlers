@@ -1,9 +1,10 @@
-﻿using Entra.EventHandlers.Abstractions.Actions;
+﻿using AutoFixture;
+using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Protocol;
-using Entra.EventHandlers.ResponseBuilders;
+using Entra.EventHandlers.Builders.ResponseBuilders;
 using FluentAssertions;
 
-namespace Entra.EventHandlers.UnitTests.ResponseBuilders;
+namespace Entra.EventHandlers.UnitTests.Builders.ResponseBuilders;
 
 public class AttributeCollectionStartResponseBuilderTests
 {
@@ -15,7 +16,7 @@ public class AttributeCollectionStartResponseBuilderTests
     }
 
     [Fact]
-    public void ContinueWithDefaultBehavior_Build_Success()
+    public void Build_ReturnsResponseWith_ContinueWithDefaultBehaviorAction()
     {
         // Act
         var response = _sut
@@ -33,13 +34,18 @@ public class AttributeCollectionStartResponseBuilderTests
     }
 
     [Fact]
-    public void SetPrefillValues_Build_Success()
+    public void Build_ReturnsResponseWith_PrefillValuesAction()
     {
         // Arrange
+        var fixture = new Fixture();
+
+        var (input1, val1) = (fixture.Create<string>(), fixture.Create<string>());
+        var (input2, val2) = (fixture.Create<string>(), fixture.Create<bool>());
+
         var inputs = new Dictionary<string, object>
         {
-            { "key1", "value1,value2,value3" },
-            { "key2", true }
+            [input1] = val1,
+            [input2] = val2
         };
 
         // Act
@@ -64,11 +70,51 @@ public class AttributeCollectionStartResponseBuilderTests
     }
 
     [Fact]
-    public void ShowBlockPage_Build_Success()
+    public void Build_ReturnsResponseWith_PrefillValuesAction_UsingFluentBuilder()
     {
         // Arrange
-        var title = "Hold tight...";
-        var message = "Your access request is already processing. You'll be notified when your request has been approved.";
+        var fixture = new Fixture();
+
+        var (input1, val1) = (fixture.Create<string>(), fixture.Create<string>());
+        var (input2, val2) = (fixture.Create<string>(), fixture.Create<bool>());
+
+        // Act
+        var response = _sut
+            .SetPrefillValues()
+                .Add(input1, val1)
+                .Add(input2, val2)
+            .Done()
+            .Build();
+
+        // Assert
+        response.Should().NotBeNull();
+        response.Data.Should().NotBeNull();
+        response.Data.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionStart.ResponseData);
+        response.Data.Actions.Should().HaveCount(1);
+
+        var action = response.Data.Actions
+            .Single()
+            .Should()
+            .BeOfType<SetPrefillValuesAction>()
+            .Subject;
+
+        action.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionStart.SetPrefillValues);
+
+        action.Inputs.Should().BeEquivalentTo(new Dictionary<string, object>
+        {
+            [input1] = val1,
+            [input2] = val2
+        });
+    }
+
+    [Fact]
+    public void Build_ReturnsResponseWith_ShowBlockPageAction()
+    {
+        // Arrange
+        var fixture = new Fixture();
+
+        var title = fixture.Create<string>();
+        var message = fixture.Create<string>();
 
         // Act
         var response = _sut

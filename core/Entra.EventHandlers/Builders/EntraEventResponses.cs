@@ -1,4 +1,6 @@
-﻿namespace Entra.EventHandlers.ResponseBuilders;
+﻿using Entra.EventHandlers.Builders.ResponseBuilders;
+
+namespace Entra.EventHandlers.Builders;
 
 /// <summary>
 /// Provides entry points for constructing Microsoft Entra event responses.

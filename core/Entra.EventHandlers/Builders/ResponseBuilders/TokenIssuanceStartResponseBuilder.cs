@@ -1,17 +1,8 @@
 ﻿using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Builders.Interfaces;
 
-namespace Entra.EventHandlers.ResponseBuilders;
-
-public interface ITokenIssuanceStartResponseBuilderStart
-{
-    ITokenIssuanceStartResponseBuilderFinal ProvideClaimsForToken(Dictionary<string, object> claims);
-}
-
-public interface ITokenIssuanceStartResponseBuilderFinal
-{
-    TokenIssuanceStartResponse Build();
-}
+namespace Entra.EventHandlers.Builders.ResponseBuilders;
 
 public class TokenIssuanceStartResponseBuilder : ITokenIssuanceStartResponseBuilderStart, ITokenIssuanceStartResponseBuilderFinal
 {
