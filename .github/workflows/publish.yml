@@ -29,10 +29,10 @@ jobs:
         run: dotnet build core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Pack --no-restore
 
       - name: Run Abstractions Unit Tests
-        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj --configuration Release --no-build --verbosity normal
+        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj --configuration Release --verbosity normal
 
       - name: Run Core Unit Tests
-        run: dotnet test core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj --configuration Release --no-build --verbosity normal
+        run: dotnet test core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj --configuration Release --verbosity normal
 
       - name: Pack Abstractions
         run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build
