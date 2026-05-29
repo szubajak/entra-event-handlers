@@ -26,7 +26,7 @@ jobs:
         run: dotnet build -c Release --no-restore
        
       - name: Pack Abstractions
-        run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Pack --no-build
+        run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build
 
       - name: Pack Core
         run: dotnet pack src/Entra.EventHandlers/Entra.EventHandlers.csproj -c Pack --no-build
