@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
 
 	<PackageId>Entra.EventHandlers</PackageId>
-	<Version>1.0.10</Version>
+	<Version>1.0.11</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
@@ -43,7 +43,12 @@
 	<None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.0.10" />
+  <ItemGroup Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'">
+	<ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Pack'">
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.0.11" />
+  </ItemGroup>
+
 </Project>
