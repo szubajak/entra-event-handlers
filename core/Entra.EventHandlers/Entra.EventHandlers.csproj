@@ -1,13 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+	<PackageId>Entra.EventHandlers</PackageId>
+	<Version>1.0.9</Version>
+	<Authors>Jakub Szubarga</Authors>
+	<Company>Szubarga.NET Jakub Szubarga</Company>
+
+	<Description>
+		Core implementation library for Microsoft Entra ID Authentication Event Handlers.
+		Includes request processing pipeline, validation, routing, serialization helpers,
+		and extensibility points for building custom authentication flows.
+	</Description>
+
+	<PackageTags>
+		Entra;EntraID;AzureAD;AzureAD-B2C;Authentication;EventHandlers;Identity;
+		OIDC;CIAM;ExternalID;CustomAuthExtension;MicrosoftGraph;EventProcessing
+	</PackageTags>
+
+	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
+
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageIcon>icon.png</PackageIcon>
+
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+	<PackageReleaseNotes>
+		Initial release of Entra Event Handlers core implementation.
+	</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
+	<None Include="LICENSE" Pack="true" PackagePath="" />
+	<None Include="README.md" Pack="true" PackagePath="" />
+	<None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
+  <ItemGroup>
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.0.9" />
+  </ItemGroup>
 </Project>
