@@ -29,7 +29,7 @@ jobs:
         run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build
 
       - name: Pack Core
-        run: dotnet pack src/Entra.EventHandlers/Entra.EventHandlers.csproj -c Pack --no-build
+        run: dotnet pack core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Pack --no-build
     
       - name: Publish to NuGet
         run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
