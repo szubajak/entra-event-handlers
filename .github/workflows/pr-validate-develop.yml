@@ -1,0 +1,33 @@
+name: PR Validation (develop)
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  validate:
+    name: Validate PR to develop
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build Abstractions
+        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+
+      - name: Build Core
+        run: dotnet build core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Release --no-restore
+
+      - name: Run Abstractions Unit Tests
+        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj --configuration Release --verbosity normal
+
+      - name: Run Core Unit Tests
+        run: dotnet test core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj --configuration Release --verbosity normal
