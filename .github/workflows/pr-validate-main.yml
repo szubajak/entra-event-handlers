@@ -1,0 +1,40 @@
+name: PR Validation (main)
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    name: Validate PR to main
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure PR comes from develop
+        run: |
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo "ERROR: Only 'develop' can be merged into 'main'."
+            exit 1
+          fi
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build Abstractions
+        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+
+      - name: Build Core
+        run: dotnet build core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Release --no-restore
+
+      - name: Run Abstractions Unit Tests
+        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj --configuration Release --verbosity normal
+
+      - name: Run Core Unit Tests
+        run: dotnet test core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj --configuration Release --verbosity normal

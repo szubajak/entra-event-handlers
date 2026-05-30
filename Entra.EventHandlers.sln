@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3ACF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{FD5E70EB-8570-4887-A5BA-D15BFADE53D1}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\pr-validate-develop.yml = .github\workflows\pr-validate-develop.yml
+		.github\workflows\pr-validate-main.yml = .github\workflows\pr-validate-main.yml
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 	EndProjectSection
 EndProject
