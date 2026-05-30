@@ -7,7 +7,7 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.Abstractions</PackageId>
-	<Version>1.0.28</Version>
+	<Version>1.0.29</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 	<Description>Public abstractions and protocol definitions for Microsoft Entra ID Authentication Event Handlers.</Description>
