@@ -5,6 +5,12 @@ using Entra.EventHandlers.Builders.Interfaces;
 
 namespace Entra.EventHandlers.Builders.ResponseBuilders;
 
+/// <summary>
+/// Concrete implementation of the response builder for the
+/// AttributeCollectionSubmit event. This builder enforces the
+/// valid action set for this event and produces a fully
+/// constructed <see cref="AttributeCollectionSubmitResponse"/>.
+/// </summary>
 public class AttributeCollectionSubmitResponseBuilder : IAttributeCollectionSubmitResponseBuilderStart, IAttributeCollectionSubmitResponseBuilderFinal
 {
     private EntraAction? _action;
@@ -48,6 +54,14 @@ public class AttributeCollectionSubmitResponseBuilder : IAttributeCollectionSubm
         return this;
     }
 
+    /// <summary>
+    /// Builds the response object using the configured action.
+    /// </summary>
+    /// <remarks>
+    /// The <c>_action</c> field is guaranteed to be non-null because
+    /// the builder API ensures that exactly one action is selected
+    /// before <see cref="Build"/> can be called.
+    /// </remarks>
     public AttributeCollectionSubmitResponse Build() => new()
     {
         Data = new()
