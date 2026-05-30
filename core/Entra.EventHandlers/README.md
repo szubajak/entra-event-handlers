@@ -1,7 +1,7 @@
 # Entra.EventHandlers
 
 **License:** Business Source License (BSL)  
-**Author:** Jakub Szubarga — Szubarga.NET
+**Author:** Jakub Szubarga (Szubarga.NET)
 
 This package contains the full implementation layer for the Entra Event
 Handlers ecosystem. It builds on top of the MIT‑licensed
@@ -15,25 +15,62 @@ production‑ready authentication event extensions.
 
 This package extends the abstractions with implementation features such as:
 
-- Fluent **response builders** for all Entra event types  
-  - `AttributeCollectionStartResponseBuilder`  
-  - `AttributeCollectionSubmitResponseBuilder`  
-  - `TokenIssuanceStartResponseBuilder`
+### ✔ Fluent response builders
 
-- A unified entry point:  
-  - `EntraEventResponses.AttributeCollectionStart()`  
-  - `EntraEventResponses.AttributeCollectionSubmit()`  
-  - `EntraEventResponses.TokenIssuanceStart()`
+Strongly‑typed, ergonomic builders for constructing valid Entra responses:
 
-These builders provide a strongly‑typed, discoverable, and ergonomic way to
-construct valid Entra responses without manually crafting JSON payloads.
+- `AttributeCollectionStartResponseBuilder`
+- `AttributeCollectionSubmitResponseBuilder`
+- `TokenIssuanceStartResponseBuilder`
+- `PrefillValuesBuilder` (for attribute prefill scenarios)
 
-More features will be added over time, including:
+These builders eliminate manual JSON crafting and ensure protocol‑correct
+response payloads.
 
-- Validation and error handling helpers  
+### ✔ Unified entry point
+
+A single, discoverable API surface for creating responses:
+
+```csharp
+EntraEventResponses.AttributeCollectionStart();
+EntraEventResponses.AttributeCollectionSubmit();
+EntraEventResponses.TokenIssuanceStart();
+```
+
+### ✔ Base handler infrastructure
+
+Production‑ready base classes that provide:
+
+- Structured logging  
+- Correlation scoping  
+- Execution timing  
+- Protocol‑level validation (`@odata.type`)  
+- Consistent exception handling  
+- A clean override point (`HandleCore`)  
+
+Example:
+
+```csharp
+public abstract class AttributeCollectionStartHandlerBase
+    : IAttributeCollectionStartHandler
+{
+    protected abstract Task<AttributeCollectionStartResponse> HandleCore(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken);
+}
+```
+
+These base handlers remove boilerplate and ensure consistent behavior across all
+custom extensions.
+
+### ✔ Extensibility pipeline (in progress)
+
+Future versions will include:
+
+- Handler composition and routing  
 - Execution pipeline components  
-- Routing and handler composition  
-- Logging and telemetry hooks  
+- Validation helpers  
+- Telemetry hooks  
 - Test utilities  
 - Integration helpers for Azure Functions and other hosts  
 
@@ -65,13 +102,65 @@ These packages will be published to NuGet soon.
 
 ---
 
+## 🛠 Example: Building a Response
+
+```csharp
+return EntraEventResponses
+    .AttributeCollectionStart()
+    .ShowBlockPage("Error", "Unexpected error occurred.")
+    .Build();
+```
+
+With prefill:
+
+```csharp
+return EntraEventResponses
+    .AttributeCollectionStart()
+    .PrefillValues(p => p
+        .With("email", "user@example.com")
+        .With("country", "PL"))
+    .Build();
+```
+
+---
+
+## 🛠 Example: Implementing a Handler
+
+```csharp
+public class MyStartHandler : AttributeCollectionStartHandlerBase
+{
+    public MyStartHandler(ILogger<MyStartHandler> logger) : base(logger) {}
+
+    protected override Task<AttributeCollectionStartResponse> HandleCore(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken)
+    {
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .Allow()
+                .Build());
+    }
+}
+```
+
+The base class automatically provides:
+
+- CorrelationId logging  
+- EventType/EventName scoping  
+- Duration measurement  
+- Validation  
+- Exception handling  
+
+---
+
 ## 🔒 License
 
 This package is licensed under the **Business Source License (BSL)**.  
-See the [LICENSE](./LICENSE) file for details.
+See the `LICENSE` file for details.
 
-For commercial production use, enterprise licensing, or support inquiries:
-📧 jakub.szubarga@gmail.com
+For commercial production use, enterprise licensing, or support inquiries:  
+📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
 

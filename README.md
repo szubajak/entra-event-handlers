@@ -1,6 +1,6 @@
 # Entra Event Handlers — .NET Ecosystem
 
-A modern, strongly‑typed, developer‑friendly ecosystem for building
+A modern, strongly‑typed, developer‑friendly ecosystem for building  
 **Microsoft Entra ID Authentication Event Handlers** in .NET.
 
 This solution provides:
@@ -10,6 +10,7 @@ This solution provides:
 - BSL‑licensed **Azure Functions integration**
 - Fluent response builders
 - Protocol‑accurate request/response models
+- Base handler infrastructure (logging, validation, timing, correlation)
 - A clean, extensible architecture designed for production workloads
 
 ---
@@ -38,7 +39,15 @@ The full implementation layer built on top of the abstractions:
 
 - Fluent response builders  
 - Strongly‑typed construction of Entra responses  
-- Future: validation, routing, pipelines, telemetry, DI helpers  
+- `PrefillValuesBuilder` for attribute prefill scenarios  
+- Unified entry point (`EntraEventResponses.*`)  
+- Base handler infrastructure:
+  - Structured logging  
+  - Correlation scoping  
+  - Execution timing  
+  - Protocol‑level validation (`@odata.type`)  
+  - Consistent exception handling  
+  - Clean override point (`HandleCore`)  
 
 This package is licensed under the **Business Source License (BSL)**  
 and becomes MIT after the Change Date.
@@ -77,6 +86,7 @@ The ecosystem is intentionally split into layers:
 ┌──────────────────────────────────────────────┐
 │ Entra.EventHandlers (BSL)                    │
 │ Implementation, builders, pipelines          │
+│ Base handlers, validation, logging           │
 └──────────────────────────────────────────────┘
                  ▲
                  │
@@ -87,10 +97,63 @@ The ecosystem is intentionally split into layers:
 ```
 
 This separation ensures:
-- **Maximum adoption** (MIT abstractions)
-- **Commercial protection** (BSL implementation)
-- **Clean extensibility**
-- **Stable public API surface**
+
+- **Maximum adoption** (MIT abstractions)  
+- **Commercial protection** (BSL implementation)  
+- **Clean extensibility**  
+- **Stable public API surface**  
+
+---
+
+## 🛠 Example: Building a Response
+
+```csharp
+return EntraEventResponses
+    .AttributeCollectionStart()
+    .ShowBlockPage("Error", "Unexpected error occurred.")
+    .Build();
+```
+
+With prefill:
+
+```csharp
+return EntraEventResponses
+    .AttributeCollectionStart()
+    .PrefillValues(p => p
+        .With("email", "user@example.com")
+        .With("country", "PL"))
+    .Build();
+```
+
+---
+
+## 🛠 Example: Implementing a Handler
+
+```csharp
+public class MyStartHandler : AttributeCollectionStartHandlerBase
+{
+    public MyStartHandler(ILogger<MyStartHandler> logger) : base(logger) {}
+
+    protected override Task<AttributeCollectionStartResponse> HandleCore(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken)
+    {
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .Allow()
+                .Build());
+    }
+}
+```
+
+The base class automatically provides:
+
+- CorrelationId logging  
+- EventType/EventName scoping  
+- Duration measurement  
+- Validation  
+- Exception handling  
 
 ---
 
@@ -142,9 +205,7 @@ Implementation packages follow a controlled contribution model due to BSL.
 
 ## 🧑‍💻 Author
 
-**Jakub Szubarga**  
-Szubarga.NET
+**Jakub Szubarga (Szubarga.NET)**
 
----
 
 If you find this ecosystem useful, consider starring the repository ⭐
