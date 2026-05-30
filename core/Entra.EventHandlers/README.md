@@ -170,3 +170,4 @@ The abstractions package is MIT‑licensed and can be used freely.
 
 Full documentation, examples, and production templates will be available in the
 main repository as the ecosystem evolves.
+
