@@ -67,8 +67,6 @@ public class TokenIssuanceStartResponseSerializationTests
     public void ResponseWithNoAdditionalClaims_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
         var expectedJson =
         $$"""
         {
