@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace Entra.EventHandlers.Handlers.Base;
 
 /// <summary>
-/// Provides a base implementation of <see cref="IAttributeCollectionStartHandler"/>
+/// Provides a base implementation of <see cref="IAttributeCollectionSubmitHandler"/>
 /// that applies shared processing behavior such as structured logging,
 /// correlation scoping, execution timing, and exception handling.
 /// Derived classes should override <see cref="HandleCore"/> to implement
@@ -16,16 +16,16 @@ namespace Entra.EventHandlers.Handlers.Base;
 /// This base class also validates incoming events according to the Entra
 /// protocol contract before invoking handler logic.
 /// </summary>
-public abstract class AttributeCollectionStartHandlerBase(ILogger<AttributeCollectionStartHandlerBase> logger) : IAttributeCollectionStartHandler
+public abstract class AttributeCollectionSubmitHandlerBase(ILogger<AttributeCollectionSubmitHandlerBase> logger) : IAttributeCollectionSubmitHandler
 {
-    private readonly ILogger<AttributeCollectionStartHandlerBase> _logger =  logger;
+    private readonly ILogger<AttributeCollectionSubmitHandlerBase> _logger =  logger;
 
     /// <remarks>
-    /// This method performs protocol-level validation (including <c>@odata.type</c>
+    /// This method performs protocol‑level validation (including <c>@odata.type</c>
     /// verification), establishes a logging scope with correlation identifiers,
     /// measures execution duration, and applies consistent exception handling.
     /// </remarks>
-    public async Task<AttributeCollectionStartResponse> Handle(AttributeCollectionStartEvent request, CancellationToken cancellationToken)
+    public async Task<AttributeCollectionSubmitResponse> Handle(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken)
     {
         using var scope = _logger.BeginScope(new Dictionary<string, object?>
         {
@@ -63,7 +63,7 @@ public abstract class AttributeCollectionStartHandlerBase(ILogger<AttributeColle
                 sw.ElapsedMilliseconds);
 
             return EntraEventResponses
-                .AttributeCollectionStart()
+                .AttributeCollectionSubmit()
                 .ShowBlockPage("Error", "Unexpected error occurred.")
                 .Build();
         }
@@ -71,8 +71,8 @@ public abstract class AttributeCollectionStartHandlerBase(ILogger<AttributeColle
 
     /// <summary>
     /// Contains the event‑specific business logic for handling the
-    /// AttributeCollectionStart event. Implementations should override
+    /// AttributeCollectionSubmit event. Implementations should override
     /// this method instead of <see cref="Handle"/>.
     /// </summary>
-    protected abstract Task<AttributeCollectionStartResponse> HandleCore(AttributeCollectionStartEvent request, CancellationToken cancellationToken);
+    protected abstract Task<AttributeCollectionSubmitResponse> HandleCore(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken);
 }
