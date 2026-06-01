@@ -156,10 +156,24 @@ The base class automatically provides:
 
 ## 🔒 License
 
-This package is licensed under the **Business Source License (BSL)**.  
-See the `LICENSE` file for details.
+This package is licensed under the **Business Source License (BSL)**.
 
-For commercial production use, enterprise licensing, or support inquiries:  
+See:
+- [LICENSE](LICENSE) — full BSL terms  
+- [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) — commercial licensing terms  
+
+A commercial license is required for production use by organizations with more than 5 employees.
+
+A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current and future BSL‑licensed packages.
+
+### Commercial License Pricing
+
+- **Developer License** — €99 / developer / year  
+- **Team License** — €399 / year  
+- **Enterprise License** — €1499 / year  
+
+To purchase a license or request an invoice:
+
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
