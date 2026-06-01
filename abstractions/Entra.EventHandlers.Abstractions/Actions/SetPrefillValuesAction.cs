@@ -35,5 +35,5 @@ public class SetPrefillValuesAction : EntraAction
     /// attribute collection flow.
     /// </summary>
     [JsonPropertyName("inputs")]
-    public Dictionary<string, object> Inputs { get; set; } = [];
+    public Dictionary<string, object> Inputs { get; init; } = [];
 }

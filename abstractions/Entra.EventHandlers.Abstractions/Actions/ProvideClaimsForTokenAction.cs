@@ -34,5 +34,5 @@ public class ProvideClaimsForTokenAction : EntraAction
     /// by claim name. Values may be primitives or JSON-serializable objects.
     /// </summary>
     [JsonPropertyName("claims")]
-    public Dictionary<string, object> Claims { get; set; } = [];
+    public Dictionary<string, object> Claims { get; init; } = [];
 }

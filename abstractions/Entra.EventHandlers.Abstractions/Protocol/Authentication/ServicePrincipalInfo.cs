@@ -18,25 +18,25 @@ public class ServicePrincipalInfo
     /// Gets or sets the object ID of the service principal in the tenant.
     /// </summary>
     [JsonPropertyName("id")]
-    public Guid? Id { get; set; }
+    public Guid? Id { get; init; }
 
     /// <summary>
     /// Gets or sets the application (client) ID associated with the service
     /// principal.
     /// </summary>
     [JsonPropertyName("appId")]
-    public Guid? AppId { get; set; }
+    public Guid? AppId { get; init; }
 
     /// <summary>
     /// Gets or sets the display name of the application as registered in
     /// Microsoft Entra.
     /// </summary>
     [JsonPropertyName("appDisplayName")]
-    public string? AppDisplayName { get; set; }
+    public string? AppDisplayName { get; init; }
 
     /// <summary>
     /// Gets or sets the display name of the service principal instance.
     /// </summary>
     [JsonPropertyName("displayName")]
-    public string? DisplayName { get; set; }
+    public string? DisplayName { get; init; }
 }

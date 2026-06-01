@@ -17,19 +17,19 @@ public class ClientInfo
     /// Gets or sets the IP address of the client that initiated the request.
     /// </summary>
     [JsonPropertyName("ip")]
-    public string? Ip { get; set; }
+    public string? Ip { get; init; }
 
     /// <summary>
     /// Gets or sets the locale of the client, typically in the form
     /// <c>language-region</c> (for example, <c>en-US</c>).
     /// </summary>
     [JsonPropertyName("locale")]
-    public string? Locale { get; set; }
+    public string? Locale { get; init; }
 
     /// <summary>
     /// Gets or sets the market associated with the client request, such as
     /// <c>en-US</c> or <c>pl-PL</c>.
     /// </summary>
     [JsonPropertyName("market")]
-    public string? Market { get; set; }
+    public string? Market { get; init; }
 }

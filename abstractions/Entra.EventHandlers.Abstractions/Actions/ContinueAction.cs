@@ -6,13 +6,14 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// <summary>
 /// Represents an action that instructs Microsoft Entra to continue the flow
 /// using the default behavior for the current event. This action does not
-/// modify attributes or interrupt the flow.
+/// modify attributes, interrupt the flow, or provide additional data.
 /// </summary>
 /// <remarks>
 /// The concrete <c>@odata.type</c> value is provided by the
 /// <see cref="ContinueActionType"/> passed to the constructor. This action is
-/// typically used when the custom extension does not need to alter the default
-/// processing of the attribute collection or token issuance flow.
+/// supported only for events that define a continue‑with‑default‑behavior
+/// contract, such as AttributeCollectionStart, AttributeCollectionSubmit,
+/// and EmailOtpSend.
 /// </remarks>
 public class ContinueAction(ContinueActionType type) : EntraAction
 {

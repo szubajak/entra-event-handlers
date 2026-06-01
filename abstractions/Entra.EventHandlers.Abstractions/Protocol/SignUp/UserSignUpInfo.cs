@@ -24,12 +24,12 @@ public class UserSignUpInfo
     /// provided by Microsoft Entra.
     /// </summary>
     [JsonPropertyName("attributes")]
-    public Dictionary<string, DirectoryAttributeValue>? Attributes { get; set; }
+    public Dictionary<string, DirectoryAttributeValue>? Attributes { get; init; }
 
     /// <summary>
     /// Gets or sets the collection of identities associated with the user,
     /// such as email, phone number, or external identity provider bindings.
     /// </summary>
     [JsonPropertyName("identities")]
-    public IEnumerable<IdentityInfo>? Identities { get; set; }
+    public IEnumerable<IdentityInfo>? Identities { get; init; }
 }
