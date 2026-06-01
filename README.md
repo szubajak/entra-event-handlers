@@ -182,6 +182,27 @@ This model keeps the ecosystem open while supporting sustainable development.
 
 ---
 
+## 💼 Commercial Licensing
+
+The **Entra.EventHandlers (Core)** and **Entra.EventHandlers.AzureFunctions** packages are licensed under the Business Source License (BSL).
+
+A commercial license covers the entire Entra Event Handlers ecosystem,
+including all current and future BSL‑licensed packages.
+
+Commercial licenses are available:
+
+- Developer License — €99 / developer / year  
+- Team License — €399 / year  
+- Enterprise License — €1499 / year  
+
+To purchase a license, contact:
+
+📧 jakub.szubarga@gmail.com
+
+➡️ See [LICENSE-COMMERCIAL.md](core/Entra.EventHandlers/LICENSE-COMMERCIAL.md) for full commercial terms.
+
+---
+
 ## 🚀 Roadmap
 
 Upcoming features include:
