@@ -76,8 +76,23 @@ return EntraEventResponses
 
 ## 🔒 License
 
-This package is licensed under the **Business Source License (BSL)**.  
-The abstractions package is MIT‑licensed.
+This package is licensed under the **Business Source License (BSL)**.
+
+See:
+- [LICENSE](https://github.com/szubajak/entra-event-handlers/blob/main/core/Entra.EventHandlers/LICENSE)
+- [LICENSE-COMMERCIAL.md](https://github.com/szubajak/entra-event-handlers/blob/main/core/Entra.EventHandlers/LICENSE-COMMERCIAL.md)
+
+A commercial license is required for production use by organizations with more than 5 employees.
+
+A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current and future BSL‑licensed packages.
+
+### Commercial License Pricing
+
+- **Developer License** — €99 / developer / year  
+- **Team License** — €399 / year  
+- **Enterprise License** — €1499 / year  
 
 For commercial licensing or support:  
 📧 **jakub.szubarga@gmail.com**
+
+The abstractions package is MIT‑licensed and can be used freely.
