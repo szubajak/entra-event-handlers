@@ -6,7 +6,7 @@
 
 	 <!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers</PackageId>
-	<Version>1.0.28</Version>
+	<Version>1.0.30</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 	<Description>Core implementation library for Microsoft Entra ID Authentication Event Handlers. Includes request processing pipeline, validation, routing, serialization helpers, and extensibility points for building custom authentication flows.</Description>
@@ -42,6 +42,6 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.0.28" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.0.30" PrivateAssets="all" />
   </ItemGroup>
 </Project>
