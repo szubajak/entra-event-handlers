@@ -31,6 +31,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entra.EventHandlers.Abstractions.UnitTests", "abstractions\Entra.EventHandlers.Abstractions.UnitTests\Entra.EventHandlers.Abstractions.UnitTests.csproj", "{103E99FE-26E1-40C3-A6D6-21D8D2F867B6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3ACF14DD-769A-4744-AF40-C4E5BD20E835}"
+	ProjectSection(SolutionItems) = preProject
+		FUNDING.yml = FUNDING.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{FD5E70EB-8570-4887-A5BA-D15BFADE53D1}"
 	ProjectSection(SolutionItems) = preProject
