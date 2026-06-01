@@ -22,40 +22,40 @@ public class AuthenticationContext
     /// and diagnostics across distributed systems.
     /// </summary>
     [JsonPropertyName("correlationId")]
-    public Guid CorrelationId { get; set; }
+    public Guid CorrelationId { get; init; }
 
     /// <summary>
     /// Gets or sets information about the client application that initiated
     /// the request, including IP address, locale, and market.
     /// </summary>
     [JsonPropertyName("client")]
-    public ClientInfo? Client { get; set; }
+    public ClientInfo? Client { get; init; }
 
     /// <summary>
     /// Gets or sets the authentication protocol used for the request
     /// (for example, <c>OAUTH2.0</c>).
     /// </summary>
     [JsonPropertyName("protocol")]
-    public string? Protocol { get; set; }
+    public string? Protocol { get; init; }
 
     /// <summary>
     /// Gets or sets information about the client service principal associated
     /// with the request, if applicable.
     /// </summary>
     [JsonPropertyName("clientServicePrincipal")]
-    public ServicePrincipalInfo? ClientServicePrincipal { get; set; }
+    public ServicePrincipalInfo? ClientServicePrincipal { get; init; }
 
     /// <summary>
     /// Gets or sets information about the resource service principal targeted
     /// by the request, if applicable.
     /// </summary>
     [JsonPropertyName("resourceServicePrincipal")]
-    public ServicePrincipalInfo? ResourceServicePrincipal { get; set; }
+    public ServicePrincipalInfo? ResourceServicePrincipal { get; init; }
 
     /// <summary>
     /// Gets or sets information about the user involved in the request,
     /// if the event is associated with a user identity.
     /// </summary>
     [JsonPropertyName("user")]
-    public UserInfo? User { get; set; }
+    public UserInfo? User { get; init; }
 }

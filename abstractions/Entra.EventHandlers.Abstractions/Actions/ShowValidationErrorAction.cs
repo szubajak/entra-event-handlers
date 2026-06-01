@@ -32,7 +32,7 @@ public class ShowValidationErrorAction : EntraAction
     /// Gets or sets the general validation message displayed to the user.
     /// </summary>
     [JsonPropertyName("message")]
-    public required string Message { get; set; }
+    public required string Message { get; init; }
 
     /// <summary>
     /// Gets or sets the collection of per-attribute validation errors, keyed
@@ -40,5 +40,5 @@ public class ShowValidationErrorAction : EntraAction
     /// corresponding attribute.
     /// </summary>
     [JsonPropertyName("attributeErrors")]
-    public Dictionary<string, string> AttributeErrors { get; set; } = [];
+    public Dictionary<string, string> AttributeErrors { get; init; } = [];
 }
