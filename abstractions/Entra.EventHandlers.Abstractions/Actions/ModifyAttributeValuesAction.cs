@@ -35,5 +35,5 @@ public class ModifyAttributeValuesAction : EntraAction
     /// Each entry replaces the corresponding value submitted by the user.
     /// </summary>
     [JsonPropertyName("attributes")]
-    public Dictionary<string, object> Attributes { get; set; } = [];
+    public Dictionary<string, object> Attributes { get; init; } = [];
 }

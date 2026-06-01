@@ -110,6 +110,30 @@ public static class EntraOdataTypes
     }
 
     /// <summary>
+    /// OData type identifiers for the EmailOtpSend event.
+    /// </summary>
+    public static class EmailOtpSend
+    {
+        /// <summary>
+        /// The OData type for the callout data payload.
+        /// </summary>
+        public const string CalloutData =
+            "microsoft.graph.onOtpSendCalloutData";
+
+        /// <summary>
+        /// The OData type for the response data payload.
+        /// </summary>
+        public const string ResponseData =
+            "microsoft.graph.OnOtpSendResponseData";
+
+        /// <summary>
+        /// The OData type for the continue-with-default-behavior action.
+        /// </summary>
+        public const string ContinueWithDefaultBehavior =
+            "microsoft.graph.OtpSend.continueWithDefaultBehavior";
+    }
+
+    /// <summary>
     /// OData type identifiers for directory attribute value types.
     /// </summary>
     public static class DirectoryAttributes

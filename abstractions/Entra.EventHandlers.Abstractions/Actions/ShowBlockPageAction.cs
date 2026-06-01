@@ -33,12 +33,12 @@ public class ShowBlockPageAction(ShowBlockPageActionType type) : EntraAction
     /// Gets or sets the title displayed at the top of the block page.
     /// </summary>
     [JsonPropertyName("title")]
-    public required string Title { get; set; }
+    public required string Title { get; init; }
 
     /// <summary>
     /// Gets or sets the message shown to the user explaining why the flow
     /// cannot continue.
     /// </summary>
     [JsonPropertyName("message")]
-    public required string Message { get; set; }
+    public required string Message { get; init; }
 }

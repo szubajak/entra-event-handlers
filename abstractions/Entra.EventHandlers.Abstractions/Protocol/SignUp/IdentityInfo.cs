@@ -19,19 +19,19 @@ public class IdentityInfo
     /// (for example, <c>email</c>, <c>federated</c>, or <c>phoneNumber</c>).
     /// </summary>
     [JsonPropertyName("signInType")]
-    public string? SignInType { get; set; }
+    public string? SignInType { get; init; }
 
     /// <summary>
     /// Gets or sets the issuer of the identity, such as the tenant domain
     /// (<c>contoso.onmicrosoft.com</c>) or an external identity provider.
     /// </summary>
     [JsonPropertyName("issuer")]
-    public string? Issuer { get; set; }
+    public string? Issuer { get; init; }
 
     /// <summary>
     /// Gets or sets the identifier assigned by the issuer for this identity,
     /// such as an email address or external provider subject ID.
     /// </summary>
     [JsonPropertyName("issuerAssignedId")]
-    public string? IssuerAssignedId { get; set; }
+    public string? IssuerAssignedId { get; init; }
 }

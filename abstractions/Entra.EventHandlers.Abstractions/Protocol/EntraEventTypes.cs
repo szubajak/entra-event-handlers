@@ -24,4 +24,10 @@ public static class EntraEventTypes
     /// </summary>
     public const string TokenIssuanceStart = 
         "microsoft.graph.authenticationEvent.tokenIssuanceStart";
+
+    /// <summary>
+    /// The event type for the EmailOtpSend event.
+    /// </summary>
+    public const string EmailOtpSend =
+        "microsoft.graph.authenticationEvent.emailOtpSend";
 }
