@@ -1,3 +1,11 @@
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak)
+
+[![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
+[![License: MIT (Abstractions)](https://img.shields.io/badge/License-MIT-blue.svg)](abstractions/Entra.EventHandlers.Abstractions/LICENSE)
+
+[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
+[![License: BSL (Core)](https://img.shields.io/badge/License-BSL-orange.svg)](core/Entra.EventHandlers/LICENSE)
+
 # Entra Event Handlers — .NET Ecosystem
 
 A modern, strongly‑typed, developer‑friendly ecosystem for building  
@@ -200,6 +208,14 @@ repository as the ecosystem evolves.
 
 Contributions to the MIT abstractions package are welcome.  
 Implementation packages follow a controlled contribution model due to BSL.
+
+---
+
+## ❤️ Support the project
+
+If you find this library useful, consider sponsoring development:
+
+👉 https://github.com/sponsors/szubajak
 
 ---
 
