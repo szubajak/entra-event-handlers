@@ -10,7 +10,7 @@ namespace Entra.EventHandlers.Builders;
 /// <remarks>
 /// These builders are part of the extended feature set and offer a structured,
 /// discoverable way to construct responses for AttributeCollectionStart,
-/// AttributeCollectionSubmit, and TokenIssuanceStart events.
+/// AttributeCollectionSubmit, TokenIssuanceStart, and EmailOtpSend events.
 /// </remarks>
 public class EntraEventResponses
 {
@@ -28,4 +28,9 @@ public class EntraEventResponses
     /// Creates a builder for constructing a TokenIssuanceStart response.
     /// </summary>
     public static TokenIssuanceStartResponseBuilder TokenIssuanceStart() => new();
+
+    /// <summary>
+    /// Creates a builder for constructing a EmailOtpSend response.
+    /// </summary>
+    public static EmailOtpSendResponseBuilder EmailOtpSend() => new();
 }
