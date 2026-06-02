@@ -51,5 +51,5 @@ public class AttributeCollectionStartEventPayload : EntraEventPayload
     /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionstart-retrieve-return-data
     /// </remarks>
     [JsonPropertyName("userSignUpInfo")]
-    public UserSignUpInfo? UserSignUpInfo { get; set; }
+    public UserSignUpInfo? UserSignUpInfo { get; init; }
 }

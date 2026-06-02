@@ -30,7 +30,7 @@ public abstract class EntraEventPayload : IHaveOdataType
     /// the derived payload type.
     /// </summary>
     [JsonPropertyName("@odata.type")]
-    public string? RawOdataType { get; set; }
+    public string? RawOdataType { get; init; }
 
     /// <summary>
     /// Gets the expected <c>@odata.type</c> discriminator for the payload.
@@ -43,28 +43,28 @@ public abstract class EntraEventPayload : IHaveOdataType
     /// Gets or sets the identifier of the tenant in which the event occurred.
     /// </summary>
     [JsonPropertyName("tenantId")]
-    public Guid TenantId { get; set; }
+    public Guid TenantId { get; init; }
 
     /// <summary>
     /// Gets or sets the identifier of the authentication event listener that
     /// triggered the custom extension.
     /// </summary>
     [JsonPropertyName("authenticationEventListenerId")]
-    public Guid AuthenticationEventListenerId { get; set; }
+    public Guid AuthenticationEventListenerId { get; init; }
 
     /// <summary>
     /// Gets or sets the identifier of the custom authentication extension
     /// associated with this event.
     /// </summary>
     [JsonPropertyName("customAuthenticationExtensionId")]
-    public Guid CustomAuthenticationExtensionId { get; set; }
+    public Guid CustomAuthenticationExtensionId { get; init; }
 
     /// <summary>
     /// Gets or sets the authentication context containing correlation
     /// information and other metadata relevant to the event.
     /// </summary>
     [JsonPropertyName("authenticationContext")]
-    public required AuthenticationContext AuthenticationContext { get; set; }
+    public required AuthenticationContext AuthenticationContext { get; init; }
 
     /// <summary>
     /// Validates that the raw <c>@odata.type</c> value matches the expected
