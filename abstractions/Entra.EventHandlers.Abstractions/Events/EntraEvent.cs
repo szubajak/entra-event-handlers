@@ -57,13 +57,13 @@ public abstract class EntraEvent<TPayload> : EntraEvent
     /// Gets or sets the source of the event as provided by Microsoft Entra.
     /// </summary>
     [JsonPropertyName("source")]
-    public required string Source { get; set; }
+    public required string Source { get; init; }
 
     /// <summary>
     /// Gets or sets the strongly-typed payload containing event-specific data.
     /// </summary>
     [JsonPropertyName("data")]
-    public required TPayload Data { get; set; }
+    public required TPayload Data { get; init; }
 
     /// <summary>
     /// Gets the correlation identifier extracted from the event payload.
