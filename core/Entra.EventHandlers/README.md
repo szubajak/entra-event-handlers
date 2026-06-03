@@ -3,11 +3,10 @@
 **License:** Business Source License (BSL)  
 **Author:** Jakub Szubarga (Szubarga.NET)
 
-This package contains the full implementation layer for the Entra Event
-Handlers ecosystem. It builds on top of the MIT‑licensed
-**Entra.EventHandlers.Abstractions** package and provides higher‑level
-functionality for constructing responses, composing handlers, and building
-production‑ready authentication event extensions.
+This package contains the full implementation layer for the Entra Event Handlers ecosystem.
+It builds on top of the MIT‑licensed Entra.EventHandlers.Abstractions package and provides
+higher‑level functionality for constructing responses, composing handlers, and building
+production‑ready Microsoft Entra External ID Authentication Event Handler extensions.
 
 ---
 
@@ -22,6 +21,7 @@ Strongly‑typed, ergonomic builders for constructing valid Entra responses:
 - `AttributeCollectionStartResponseBuilder`
 - `AttributeCollectionSubmitResponseBuilder`
 - `TokenIssuanceStartResponseBuilder`
+- `EmailOtpSendResponseBuilder`
 - `PrefillValuesBuilder` (for attribute prefill scenarios)
 
 These builders eliminate manual JSON crafting and ensure protocol‑correct
@@ -35,6 +35,7 @@ A single, discoverable API surface for creating responses:
 EntraEventResponses.AttributeCollectionStart();
 EntraEventResponses.AttributeCollectionSubmit();
 EntraEventResponses.TokenIssuanceStart();
+EntraEventResponses.EmailOtpSend();
 ```
 
 ### ✔ Base handler infrastructure
@@ -98,11 +99,11 @@ This implementation package is licensed under the **Business Source License (BSL
   - DI wiring  
   - Minimal boilerplate for production deployments  
 
-These packages will be published to NuGet soon.
-
 ---
 
 ## 🛠 Example: Building a Response
+
+Block page example:
 
 ```csharp
 return EntraEventResponses
@@ -111,14 +112,23 @@ return EntraEventResponses
     .Build();
 ```
 
-With prefill:
+Prefill example:
 
 ```csharp
 return EntraEventResponses
     .AttributeCollectionStart()
-    .PrefillValues(p => p
+    .SetPrefillValues(p => p
         .With("email", "user@example.com")
         .With("country", "PL"))
+    .Build();
+```
+
+Continue with default behavior:
+
+```csharp
+return EntraEventResponses
+    .AttributeCollectionStart()
+    .ContinueWithDefaultBehavior()
     .Build();
 ```
 
@@ -138,7 +148,7 @@ public class MyStartHandler : AttributeCollectionStartHandlerBase
         return Task.FromResult(
             EntraEventResponses
                 .AttributeCollectionStart()
-                .Allow()
+                .ContinueWithDefaultBehavior()
                 .Build());
     }
 }
