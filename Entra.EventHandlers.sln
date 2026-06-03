@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{02EA
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		CHANGELOG.md = CHANGELOG.md
+		LICENSE-COMMERCIAL.md = LICENSE-COMMERCIAL.md
 		README.md = README.md
 		temp.json = temp.json
 	EndProjectSection
@@ -42,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entra.EventHandlers.AzureFunctions", "functions\Entra.EventHandlers.AzureFunctions\Entra.EventHandlers.AzureFunctions.csproj", "{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +67,10 @@ Global
 		{103E99FE-26E1-40C3-A6D6-21D8D2F867B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{103E99FE-26E1-40C3-A6D6-21D8D2F867B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{103E99FE-26E1-40C3-A6D6-21D8D2F867B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +83,7 @@ Global
 		{0FF09482-C786-4810-986E-7CBDE938E9BC} = {521A4349-1280-4EA6-8E7B-1C888938E217}
 		{103E99FE-26E1-40C3-A6D6-21D8D2F867B6} = {0FF09482-C786-4810-986E-7CBDE938E9BC}
 		{FD5E70EB-8570-4887-A5BA-D15BFADE53D1} = {3ACF14DD-769A-4744-AF40-C4E5BD20E835}
+		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0} = {22767692-65DA-4B0E-A296-F4DCB4FB8CC0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19EF6B17-5B32-4D91-9F16-C0DDFF52FD22}

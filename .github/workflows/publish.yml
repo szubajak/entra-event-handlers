@@ -28,6 +28,9 @@ jobs:
       - name: Build Core
         run: dotnet build core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Pack --no-restore
 
+      - name: Build AzureFunctions
+        run: dotnet build functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj -c Pack --no-restore
+
       - name: Run Abstractions Unit Tests
         run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj --configuration Release --verbosity normal
 
@@ -39,6 +42,9 @@ jobs:
 
       - name: Pack Core
         run: dotnet pack core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Pack --no-build
+
+      - name: Pack AzureFunctions
+        run: dotnet pack functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj -c Pack --no-build
     
       - name: Publish to NuGet
         run: dotnet nuget push "**/bin/Pack/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

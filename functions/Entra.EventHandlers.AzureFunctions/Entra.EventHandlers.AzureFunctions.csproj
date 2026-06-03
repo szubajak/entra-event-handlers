@@ -4,13 +4,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-	 <!-- NuGet metadata -->
-	<PackageId>Entra.EventHandlers</PackageId>
+	<!-- NuGet metadata -->
+	<PackageId>Entra.EventHandlers.AzureFunctions</PackageId>
 	<Version>1.2.0</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
-	<Description>Core implementation library for Microsoft Entra ID Authentication Event Handlers. Includes request processing pipeline, validation, routing, serialization helpers, and extensibility points for building custom authentication flows.</Description>
-	<PackageTags>Entra;EntraID;AzureAD;AzureAD-B2C;Authentication;EventHandlers;Identity;OIDC;CIAM;ExternalID;CustomAuthExtension;MicrosoftGraph;EventProcessing</PackageTags>
+	<Description>Azure Functions hosting adapter for Microsoft Entra ID Authentication Event Handlers. Provides request/response adapters, function base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
+	<PackageTags>Entra;EntraID;AzureAD;AzureAD-B2C;Authentication;EventHandlers;Identity;OIDC;CIAM;ExternalID;CustomAuthExtension;MicrosoftGraph;EventProcessing;AzureFunctions;Serverless</PackageTags>
 
 	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
@@ -24,7 +24,7 @@
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-	<PackageReleaseNotes>Initial release of Entra Event Handlers core implementation.</PackageReleaseNotes>
+	<PackageReleaseNotes>Initial release of Azure Functions hosting adapter for Entra Event Handlers.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,14 +35,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.52.0" />
   </ItemGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
+    <ProjectReference Include="..\..\core\Entra.EventHandlers\Entra.EventHandlers.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.2.0" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers" Version="1.2.0" PrivateAssets="all" />
   </ItemGroup>
 </Project>
