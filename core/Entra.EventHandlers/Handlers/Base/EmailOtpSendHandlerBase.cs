@@ -16,9 +16,9 @@ namespace Entra.EventHandlers.Handlers.Base;
 /// This base class also validates incoming events according to the Entra
 /// protocol contract before invoking handler logic.
 /// </summary>
-public abstract class EmailOtpSendBase(ILogger<EmailOtpSendBase> logger) : IEmailOtpSendHandler
+public abstract class EmailOtpSendHandlerBase(ILogger<EmailOtpSendHandlerBase> logger) : IEmailOtpSendHandler
 {
-    private readonly ILogger<EmailOtpSendBase> _logger =  logger;
+    private readonly ILogger<EmailOtpSendHandlerBase> _logger =  logger;
 
     /// <remarks>
     /// This method performs protocol-level validation (including <c>@odata.type</c>

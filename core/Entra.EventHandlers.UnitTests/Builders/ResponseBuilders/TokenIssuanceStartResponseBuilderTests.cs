@@ -50,4 +50,28 @@ public class TokenIssuanceStartResponseBuilderTests
         action.OdataType.Should().Be(EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken);
         action.Claims.Should().BeEquivalentTo(claims);
     }
+
+    [Fact]
+    public void Build_WithEmptyClaims_ReturnsActionWithEmptyClaimsObject()
+    {
+        // Arrange
+        var claims = new Dictionary<string, object>();
+
+        // Act
+        var response = _sut
+            .ProvideClaimsForToken(claims)
+            .Build();
+
+        // Assert
+        response.Should().NotBeNull();
+        response.Data.Should().NotBeNull();
+
+        var action = response.Data.Actions
+            .Single()
+            .Should()
+            .BeOfType<ProvideClaimsForTokenAction>()
+            .Subject;
+
+        action.Claims.Should().BeEmpty();
+    }
 }
