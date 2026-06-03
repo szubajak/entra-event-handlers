@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Entra.EventHandlers.UnitTests.Logging;
+namespace Entra.EventHandlers.UnitTests.Utils;
 
 public readonly record struct LogEntry(LogLevel Level, string Message, Exception? Exception, object? State);
 
