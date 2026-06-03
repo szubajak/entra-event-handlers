@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+	<!-- NuGet metadata -->
+	<PackageId>Entra.EventHandlers.AzureFunctions</PackageId>
+	<Version>1.2.0</Version>
+	<Authors>Jakub Szubarga</Authors>
+	<Company>Szubarga.NET Jakub Szubarga</Company>
+	<Description>Azure Functions hosting adapter for Microsoft Entra ID Authentication Event Handlers. Provides request/response adapters, function base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
+	<PackageTags>Entra;EntraID;AzureAD;AzureAD-B2C;Authentication;EventHandlers;Identity;OIDC;CIAM;ExternalID;CustomAuthExtension;MicrosoftGraph;EventProcessing;AzureFunctions;Serverless</PackageTags>
+
+	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
+
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<PackageReadmeFile>README.NuGet.md</PackageReadmeFile>
+	<PackageIcon>icon.png</PackageIcon>
+
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+	<PackageReleaseNotes>Initial release of Azure Functions hosting adapter for Entra Event Handlers.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.52.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Entra.EventHandlers\Entra.EventHandlers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Pack'">
+	<PackageReference Include="Entra.EventHandlers" Version="1.2.0" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

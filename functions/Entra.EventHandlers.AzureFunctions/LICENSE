@@ -14,7 +14,7 @@ License.
 ---
 
 Licensed Work:
-Entra.EventHandlers (community library for Microsoft Entra External ID Authentication Event Handlers)
+Entra.EventHandlers.AzureFunctions (Azure Functions adapter for Microsoft Entra External ID Authentication Event Handlers)
 
 Additional Use Grant:
 Production use is permitted for individuals and organizations with fewer than

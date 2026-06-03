@@ -1,10 +1,19 @@
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak)
 
+## Packages
+
+### Abstractions
 [![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
 [![License: MIT (Abstractions)](https://img.shields.io/badge/License-MIT-blue.svg)](abstractions/Entra.EventHandlers.Abstractions/LICENSE)
 
+### Core
 [![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
 [![License: BSL (Core)](https://img.shields.io/badge/License-BSL-orange.svg)](core/Entra.EventHandlers/LICENSE)
+
+### AzureFunctions
+[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)
+[![License: BSL (AzureFunctions)](https://img.shields.io/badge/License-BSL-orange.svg)](functions/Entra.EventHandlers.AzureFunctions/LICENSE)
+
 
 # Entra Event Handlers — .NET Ecosystem
 
@@ -149,7 +158,7 @@ public class MyStartHandler : AttributeCollectionStartHandlerBase
         return Task.FromResult(
             EntraEventResponses
                 .AttributeCollectionStart()
-                .Allow()
+                .ContinueWithDefaultBehavior()
                 .Build());
     }
 }
@@ -199,7 +208,7 @@ To purchase a license, contact:
 
 📧 jakub.szubarga@gmail.com
 
-➡️ See [LICENSE-COMMERCIAL.md](core/Entra.EventHandlers/LICENSE-COMMERCIAL.md) for full commercial terms.
+➡️ See [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) for full commercial terms.
 
 ---
 
