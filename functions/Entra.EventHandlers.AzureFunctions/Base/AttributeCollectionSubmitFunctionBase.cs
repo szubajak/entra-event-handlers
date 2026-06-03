@@ -6,13 +6,13 @@ using Microsoft.Azure.Functions.Worker.Http;
 
 namespace Entra.EventHandlers.AzureFunctions.Base;
 
-public abstract class TokenIssuanceStartFunctionBase(ITokenIssuanceStartHandler handler)
+public abstract class AttributeCollectionSubmitFunctionBase(IAttributeCollectionSubmitHandler handler)
 {
-    private readonly ITokenIssuanceStartHandler _handler = handler;
+    private readonly IAttributeCollectionSubmitHandler _handler = handler;
 
     protected async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
     {
-        var evt = await HttpRequestAdapter.ReadEvent<TokenIssuanceStartEvent>(req);
+        var evt = await HttpRequestAdapter.ReadEvent<AttributeCollectionSubmitEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);
         return await HttpResponseAdapter.From(req, response);
     }

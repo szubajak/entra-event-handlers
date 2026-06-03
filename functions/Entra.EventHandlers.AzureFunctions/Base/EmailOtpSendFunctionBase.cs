@@ -6,13 +6,13 @@ using Microsoft.Azure.Functions.Worker.Http;
 
 namespace Entra.EventHandlers.AzureFunctions.Base;
 
-public abstract class TokenIssuanceStartFunctionBase(ITokenIssuanceStartHandler handler)
+public abstract class EmailOtpSendFunctionBase(IEmailOtpSendHandler handler)
 {
-    private readonly ITokenIssuanceStartHandler _handler = handler;
+    private readonly IEmailOtpSendHandler _handler = handler;
 
     protected async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
     {
-        var evt = await HttpRequestAdapter.ReadEvent<TokenIssuanceStartEvent>(req);
+        var evt = await HttpRequestAdapter.ReadEvent<EmailOtpSendEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);
         return await HttpResponseAdapter.From(req, response);
     }
