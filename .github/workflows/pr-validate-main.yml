@@ -33,6 +33,9 @@ jobs:
       - name: Build Core
         run: dotnet build core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Release --no-restore
 
+      - name: Build AzureFunctions
+        run: dotnet build functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj -c Release --no-restore
+
       - name: Run Abstractions Unit Tests
         run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj --configuration Release --verbosity normal
 
