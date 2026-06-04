@@ -1,8 +1,9 @@
-﻿using Entra.EventHandlers.Abstractions.Interfaces;
+﻿using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AzureFunctions.Adapters;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.Routing;
 
@@ -11,50 +12,67 @@ namespace Entra.EventHandlers.AzureFunctions.Routing;
 /// custom extension events to the appropriate strongly‑typed handler.
 /// </summary>
 /// <remarks>
-/// This router performs polymorphic deserialization of <see cref="EntraEvent"/>
-/// and resolves the matching <see cref="IEntraEventHandler"/> implementation
-/// based on the runtime event type. Consumers should inherit from this class
-/// and expose a single HTTP‑triggered function that delegates to <see cref="Run"/>.
+/// This router performs polymorphic deserialization of <see cref="EntraEvent"/>,
+/// resolves the matching <see cref="IEntraEventHandler"/> implementation based
+/// on the runtime event type, and converts known exceptions into standardized
+/// <see cref="EntraErrorResponse"/> results. Consumers should inherit from this
+/// class and expose a single HTTP‑triggered function that delegates to <see cref="Run"/>.
 /// </remarks>
-public abstract class EntraEventRouterFunctionBase(IServiceProvider services)
+public abstract class EntraEventRouterFunctionBase(ILogger<EntraEventRouterFunctionBase> logger, IEntraEventHandlerResolver resolver)
 {
-    private readonly IServiceProvider _services = services;
+    private readonly ILogger<EntraEventRouterFunctionBase> _logger = logger;
+    private readonly IEntraEventHandlerResolver _resolver = resolver;
 
     /// <summary>
     /// Executes the routing pipeline: deserializes the incoming event,
-    /// resolves the correct handler, invokes it, and returns the response
-    /// as an HTTP result.
+    /// resolves the correct handler, invokes it, and returns a structured
+    /// HTTP response. Known exceptions such as deserialization, validation,
+    /// or handler‑resolution failures are converted into standardized
+    /// <see cref="EntraErrorResponse"/> results.
     /// </summary>
     protected async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
     {
-        var evt = await HttpRequestAdapter.ReadEvent(req);
-        var eventType = evt.GetType();
-
-        var handler = ResolveHandler(eventType);
-        if (handler is null)
+        try
         {
+            var evt = await HttpRequestAdapter.ReadEvent(req);
+            var handler = _resolver.Resolve(evt.GetType());
+
+            var response = await ((dynamic)handler).Handle((dynamic)evt, context.CancellationToken);
+            return await HttpResponseAdapter.From(req, response);
+        }
+        catch (Exception ex) when (ex is EntraValidationException or EntraDeserializationException or EntraHandlerNotFoundException)
+        {
+            _logger.LogWarning(ex, "Handled expected Entra exception.");
+
+            var code = ex switch
+            {
+                EntraValidationException => EntraErrorCodes.ValidationError,
+                EntraDeserializationException => EntraErrorCodes.DeserializationError,
+                EntraHandlerNotFoundException => EntraErrorCodes.HandlerNotFound,
+
+                _ => throw new InvalidOperationException("Unreachable: catch filter guarantees only known Entra exceptions.")
+            };
+
             return await HttpResponseAdapter.BadRequest(
                 req,
-                $"No handler registered for event type '{evt.GetType().Name}'."
-            );
+                new EntraErrorResponse
+                {
+                    Error = code,
+                    Details = ex.Message
+                });
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception while processing Entra event.");
 
-        var response = await ((dynamic)handler).Handle((dynamic)evt, context.CancellationToken);
-
-        return await HttpResponseAdapter.From(req, response);
+            return await HttpResponseAdapter.ServerError(
+                req,
+                new EntraErrorResponse
+                {
+                    Error = EntraErrorCodes.UnhandledException,
+                    Details = "An unexpected error occurred."
+                });
+        }
     }
 
-    /// <summary>
-    /// Attempts to locate a registered handler whose generic request type
-    /// matches the runtime type of the incoming event.
-    /// </summary>
-    private IEntraEventHandler? ResolveHandler(Type eventType) =>
-        _services.GetServices<IEntraEventHandler>()
-            .FirstOrDefault(h =>
-                h.GetType()
-                 .GetInterfaces()
-                 .Any(i =>
-                     i.IsGenericType &&
-                     i.GetGenericTypeDefinition() == typeof(IEntraEventHandler<,>) &&
-                     i.GetGenericArguments()[0] == eventType));
 }

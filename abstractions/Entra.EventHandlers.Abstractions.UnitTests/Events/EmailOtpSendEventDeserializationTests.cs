@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Protocol.Authentication;
@@ -10,8 +11,29 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Events;
 
 public class EmailOtpSendEventDeserializationTests
 {
+    private static string GetMinimalEventRequest(string odataType = "microsoft.graph.onOtpSendCalloutData") =>
+        $$"""
+        {
+          "type": "microsoft.graph.authenticationEvent.emailOtpSend",
+          "source": "/tenants/00000000-0000-0000-0000-000000000000/applications/00000000-0000-0000-0000-000000000000",
+          "data": {
+            "@odata.type": "{{odataType}}",
+            "otpContext": {
+                "identifier": "someone@example.com",
+                "oneTimeCode": "123456"
+            },
+            "tenantId": "00000000-0000-0000-0000-000000000000",
+            "authenticationEventListenerId": "00000000-0000-0000-0000-000000000000",
+            "customAuthenticationExtensionId": "00000000-0000-0000-0000-000000000000",
+            "authenticationContext": {
+              "correlationId": "00000000-0000-0000-0000-000000000000"
+            }
+          }
+        }
+        """;
+
     [Fact]
-    public void Deserializes_FullEventRequest_Correctly()
+    public void FullEventRequest_DeserializesCorrectly()
     {
         // Arrange
         var fixture = new Fixture();
@@ -130,43 +152,10 @@ public class EmailOtpSendEventDeserializationTests
     }
 
     [Fact]
-    public void Deserializes_MinimalEventRequest_Correctly()
+    public void MinimalEventRequest_DeserializesCorrectly()
     {
-        // Arrange
-        var fixture = new Fixture();
-
-        var tenantId = fixture.Create<Guid>();
-        var appId = fixture.Create<Guid>();
-        var listenerId = fixture.Create<Guid>();
-        var extensionId = fixture.Create<Guid>();
-        var correlationId = fixture.Create<Guid>();
-
-        var identifier = "someone@example.com";
-        var otp = fixture.Create<string>();
-
-        var json =
-        $$"""
-        {
-          "type": "microsoft.graph.authenticationEvent.emailOtpSend",
-          "source": "/tenants/{{tenantId}}/applications/{{appId}}",
-          "data": {
-            "@odata.type": "microsoft.graph.onOtpSendCalloutData",
-            "otpContext": {
-                "identifier": "{{identifier}}",
-                "oneTimeCode": "{{otp}}"
-            },
-            "tenantId": "{{tenantId}}",
-            "authenticationEventListenerId": "{{listenerId}}",
-            "customAuthenticationExtensionId": "{{extensionId}}",
-            "authenticationContext": {
-              "correlationId": "{{correlationId}}"
-            }
-          }
-        }
-        """;
-
         // Act
-        var result = JsonSerializer.Deserialize<EntraEvent>(json);
+        var result = JsonSerializer.Deserialize<EntraEvent>(GetMinimalEventRequest());
 
         // Assert
         using (new AssertionScope())
@@ -174,26 +163,25 @@ public class EmailOtpSendEventDeserializationTests
             var evt = result.Should().BeOfType<EmailOtpSendEvent>().Which;
             evt.Validate();
 
-            evt.Type.Should().Be(EntraEventTypes.EmailOtpSend);
-            evt.Source.Should().Be($"/tenants/{tenantId}/applications/{appId}");
-
-            var payload = evt.Data;
-            payload.Should().NotBeNull();
-            payload.OdataType.Should().Be(EntraOdataTypes.EmailOtpSend.CalloutData);
-            payload.TenantId.Should().Be(tenantId);
-            payload.AuthenticationEventListenerId.Should().Be(listenerId);
-            payload.CustomAuthenticationExtensionId.Should().Be(extensionId);
-
-            var ctx = payload.AuthenticationContext;
+            var ctx = evt.Data.AuthenticationContext;
             ctx.Should().NotBeNull();
-            ctx.CorrelationId.Should().Be(correlationId);
-
-            var otpContext = payload.OtpContext;
-            otpContext.Should().NotBeNull();
-            otpContext.Identifier.Should().Be(identifier);
-            otpContext.OneTimeCode.Should().Be(otp);
-
-            evt.CorrelationId.Should().Be(payload.AuthenticationContext.CorrelationId);
+            ctx.Client.Should().BeNull();
+            ctx.ClientServicePrincipal.Should().BeNull();
+            ctx.ResourceServicePrincipal.Should().BeNull();
+            ctx.Protocol.Should().BeNull();
         }
+    }
+
+    [Fact]
+    public void InvalidOdataType_ThrowsEntraValidationException()
+    {
+        var evt = JsonSerializer.Deserialize<EntraEvent>(GetMinimalEventRequest(odataType: "invalid"));
+
+        // Act
+        Action act = () => ((EmailOtpSendEvent)evt!).Validate();
+
+        // Assert
+        act.Should().Throw<EntraValidationException>()
+           .WithMessage("*@odata.type*");
     }
 }

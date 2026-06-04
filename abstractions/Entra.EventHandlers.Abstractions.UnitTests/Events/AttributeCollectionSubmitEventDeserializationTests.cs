@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Protocol.Authentication;
@@ -11,8 +12,26 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Events;
 
 public class AttributeCollectionSubmitEventDeserializationTests
 {
+    private static string GetMinimalEventRequest(string odataType = "microsoft.graph.onAttributeCollectionSubmitCalloutData") =>
+        $$"""
+        {
+          "type": "microsoft.graph.authenticationEvent.attributeCollectionSubmit",
+          "source": "/tenants/00000000-0000-0000-0000-000000000000/applications/00000000-0000-0000-0000-000000000000",
+          "data": {
+            "@odata.type": "{{odataType}}",
+            "tenantId": "00000000-0000-0000-0000-000000000000",
+            "authenticationEventListenerId": "00000000-0000-0000-0000-000000000000",
+            "customAuthenticationExtensionId": "00000000-0000-0000-0000-000000000000",
+            "authenticationContext": {
+              "correlationId": "00000000-0000-0000-0000-000000000000"
+            },
+            "userSignUpInfo": {}
+          }
+        }
+        """;
+
     [Fact]
-    public void Deserializes_FullEventRequest_Correctly()
+    public void FullEventRequest_DeserializesCorrectly()
     {
         // Arrange
         var fixture = new Fixture();
@@ -212,35 +231,8 @@ public class AttributeCollectionSubmitEventDeserializationTests
     [Fact]
     public void Deserializes_MinimalEventRequest_Correctly()
     {
-        // Arrange
-        var fixture = new Fixture();
-
-        var tenantId = fixture.Create<Guid>();
-        var appId = fixture.Create<Guid>();
-        var listenerId = fixture.Create<Guid>();
-        var extensionId = fixture.Create<Guid>();
-        var correlationId = fixture.Create<Guid>();
-
-        var json =
-        $$"""
-        {
-          "type": "microsoft.graph.authenticationEvent.attributeCollectionSubmit",
-          "source": "/tenants/{{tenantId}}/applications/{{appId}}",
-          "data": {
-            "@odata.type": "microsoft.graph.onAttributeCollectionSubmitCalloutData",
-            "tenantId": "{{tenantId}}",
-            "authenticationEventListenerId": "{{listenerId}}",
-            "customAuthenticationExtensionId": "{{extensionId}}",
-            "authenticationContext": {
-              "correlationId": "{{correlationId}}"
-            },
-            "userSignUpInfo": {}
-          }
-        }
-        """;
-
         // Act
-        var result = JsonSerializer.Deserialize<EntraEvent>(json);
+        var result = JsonSerializer.Deserialize<EntraEvent>(GetMinimalEventRequest());
 
         // Assert
         using (new AssertionScope())
@@ -248,21 +240,32 @@ public class AttributeCollectionSubmitEventDeserializationTests
             var evt = result.Should().BeOfType<AttributeCollectionSubmitEvent>().Which;
             evt.Validate();
 
-            evt.Type.Should().Be(EntraEventTypes.AttributeCollectionSubmit);
-            evt.Source.Should().Be($"/tenants/{tenantId}/applications/{appId}");
-
             var payload = evt.Data;
-            payload.Should().NotBeNull();
-            payload.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionSubmit.CalloutData);
-            payload.TenantId.Should().Be(tenantId);
-            payload.AuthenticationEventListenerId.Should().Be(listenerId);
-            payload.CustomAuthenticationExtensionId.Should().Be(extensionId);
+
+            var signUp = payload.UserSignUpInfo;
+            signUp.Should().NotBeNull();
+            signUp.Identities.Should().BeNull();
+            signUp.Attributes.Should().BeNull();
 
             var ctx = payload.AuthenticationContext;
             ctx.Should().NotBeNull();
-            ctx.CorrelationId.Should().Be(correlationId);
-
-            evt.CorrelationId.Should().Be(payload.AuthenticationContext.CorrelationId);
+            ctx.Client.Should().BeNull();
+            ctx.ClientServicePrincipal.Should().BeNull();
+            ctx.ResourceServicePrincipal.Should().BeNull();
+            ctx.Protocol.Should().BeNull();
         }
+    }
+
+    [Fact]
+    public void InvalidOdataType_ThrowsEntraValidationException()
+    {
+        var evt = JsonSerializer.Deserialize<EntraEvent>(GetMinimalEventRequest(odataType: "invalid"));
+
+        // Act
+        Action act = () => ((AttributeCollectionSubmitEvent)evt!).Validate();
+
+        // Assert
+        act.Should().Throw<EntraValidationException>()
+           .WithMessage("*@odata.type*");
     }
 }

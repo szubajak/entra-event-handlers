@@ -1,4 +1,5 @@
 ﻿using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.AzureFunctions.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Entra.EventHandlers.AzureFunctions.DI;
@@ -24,6 +25,8 @@ public static class EntraEventHandlersFunctionExtensions
             services.AddTransient(typeof(IEntraEventHandler), type);
             services.AddTransient(iface, type);
         }
+
+        services.AddSingleton<IEntraEventHandlerResolver, EntraEventHandlerResolver>();
 
         return services;
     }
