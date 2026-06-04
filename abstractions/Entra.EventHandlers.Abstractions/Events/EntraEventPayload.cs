@@ -1,4 +1,5 @@
-﻿using Entra.EventHandlers.Abstractions.Interfaces;
+﻿using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Protocol.Authentication;
 using System.Text.Json.Serialization;
 
@@ -75,7 +76,7 @@ public abstract class EntraEventPayload : IHaveOdataType
     {
         if (!string.Equals(RawOdataType, OdataType, StringComparison.OrdinalIgnoreCase))
         {
-            throw new InvalidOperationException($"Invalid @odata.type. Expected '{OdataType}', got '{RawOdataType}'.");
+            throw new EntraValidationException($"Invalid @odata.type. Expected '{OdataType}', got '{RawOdataType}'.");
         }
     }
 }
