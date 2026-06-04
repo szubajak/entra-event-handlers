@@ -55,6 +55,7 @@ public abstract class EntraEventRouterFunctionBase(
                 EntraValidationException => EntraErrorCodes.ValidationError,
                 EntraDeserializationException => EntraErrorCodes.DeserializationError,
                 EntraHandlerNotFoundException => EntraErrorCodes.HandlerNotFound,
+
                 _ => throw new InvalidOperationException("Unreachable: catch filter guarantees only known Entra exceptions.")
             };
 
@@ -79,4 +80,5 @@ public abstract class EntraEventRouterFunctionBase(
                 });
         }
     }
+
 }
