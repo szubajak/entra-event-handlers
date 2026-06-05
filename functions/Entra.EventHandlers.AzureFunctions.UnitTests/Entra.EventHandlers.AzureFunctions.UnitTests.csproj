@@ -14,8 +14,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="[7.2.0]" />
-    <PackageReference Include="FluentAssertions.Json" Version="[6.1.0]" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.6.0" />
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
+    <ProjectReference Include="..\..\common\Entra.EventHandlers.TestUtils\Entra.EventHandlers.TestUtils.csproj" />
+    <ProjectReference Include="..\Entra.EventHandlers.AzureFunctions\Entra.EventHandlers.AzureFunctions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

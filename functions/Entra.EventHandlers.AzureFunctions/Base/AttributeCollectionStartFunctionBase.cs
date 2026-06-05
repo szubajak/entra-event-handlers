@@ -6,14 +6,19 @@ using Microsoft.Azure.Functions.Worker.Http;
 
 namespace Entra.EventHandlers.AzureFunctions.Base;
 
-public abstract class AttributeCollectionStartFunctionBase(IAttributeCollectionStartHandler handler)
+public abstract class AttributeCollectionStartFunctionBase(
+    IAttributeCollectionStartHandler handler,
+    IHttpRequestAdapter requestAdapter,
+    IHttpResponseAdapter responseAdapter)
 {
     private readonly IAttributeCollectionStartHandler _handler = handler;
+    private readonly IHttpRequestAdapter _requestAdapter = requestAdapter;
+    private readonly IHttpResponseAdapter _responseAdapter = responseAdapter;
 
     protected async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
     {
-        var evt = await HttpRequestAdapter.ReadEvent<AttributeCollectionStartEvent>(req);
+        var evt = await _requestAdapter.ReadEvent<AttributeCollectionStartEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);
-        return await HttpResponseAdapter.From(req, response);
+        return await _responseAdapter.From(req, response);
     }
 }
