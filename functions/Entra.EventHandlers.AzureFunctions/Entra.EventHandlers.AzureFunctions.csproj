@@ -6,7 +6,7 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AzureFunctions</PackageId>
-	<Version>1.2.3</Version>
+	<Version>1.2.4</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 	<Description>Azure Functions hosting adapter for Microsoft Entra ID Authentication Event Handlers. Provides request/response adapters, function base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.52.0" />
+    <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +44,6 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers" Version="1.2.3" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers" Version="1.2.4" PrivateAssets="all" />
   </ItemGroup>
 </Project>

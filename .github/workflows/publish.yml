@@ -36,6 +36,9 @@ jobs:
       - name: Run Core Unit Tests
         run: dotnet test core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj --configuration Release --verbosity normal
 
+      - name: Run AzureFunctions Unit Tests
+        run: dotnet test functions/Entra.EventHandlers.AzureFunctions.UnitTests/Entra.EventHandlers.AzureFunctions.UnitTests.csproj --configuration Release --verbosity normal
+
       - name: Pack Abstractions
         run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build
 
