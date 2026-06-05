@@ -7,6 +7,14 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.2.4 — 2026‑06‑05
+
+### Added
+
+#### Exception Types
+- Added `EntraDeserializationException`, `EntraHandlerNotFoundException` and `EntraValidationException` exceptions.
+- Added `EntraErrorCodes` and `EntraErrorResponse`.
+
 ## v1.2.1 — 2026‑06‑03
 
 ### Modified
