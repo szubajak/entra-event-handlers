@@ -45,6 +45,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entra.EventHandlers.AzureFunctions", "functions\Entra.EventHandlers.AzureFunctions\Entra.EventHandlers.AzureFunctions.csproj", "{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1A72B1B2-4A72-4380-972D-2D5CF4A4C19C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entra.EventHandlers.AzureFunctions.UnitTests", "functions\Entra.EventHandlers.AzureFunctions.UnitTests\Entra.EventHandlers.AzureFunctions.UnitTests.csproj", "{9FD83285-793D-4EBF-A88E-FF2601C350C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{F00143B3-2266-4E58-978F-FDBF65AA0E7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entra.EventHandlers.TestUtils", "common\Entra.EventHandlers.TestUtils\Entra.EventHandlers.TestUtils.csproj", "{37DC6EAF-DB16-4EEC-9AFA-2BB2524F3081}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +79,14 @@ Global
 		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FD83285-793D-4EBF-A88E-FF2601C350C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD83285-793D-4EBF-A88E-FF2601C350C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD83285-793D-4EBF-A88E-FF2601C350C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD83285-793D-4EBF-A88E-FF2601C350C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37DC6EAF-DB16-4EEC-9AFA-2BB2524F3081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37DC6EAF-DB16-4EEC-9AFA-2BB2524F3081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37DC6EAF-DB16-4EEC-9AFA-2BB2524F3081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37DC6EAF-DB16-4EEC-9AFA-2BB2524F3081}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +100,9 @@ Global
 		{103E99FE-26E1-40C3-A6D6-21D8D2F867B6} = {0FF09482-C786-4810-986E-7CBDE938E9BC}
 		{FD5E70EB-8570-4887-A5BA-D15BFADE53D1} = {3ACF14DD-769A-4744-AF40-C4E5BD20E835}
 		{5782DB20-8DCB-4A35-8AB7-B9698F6885A0} = {22767692-65DA-4B0E-A296-F4DCB4FB8CC0}
+		{1A72B1B2-4A72-4380-972D-2D5CF4A4C19C} = {22767692-65DA-4B0E-A296-F4DCB4FB8CC0}
+		{9FD83285-793D-4EBF-A88E-FF2601C350C9} = {1A72B1B2-4A72-4380-972D-2D5CF4A4C19C}
+		{37DC6EAF-DB16-4EEC-9AFA-2BB2524F3081} = {F00143B3-2266-4E58-978F-FDBF65AA0E7D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19EF6B17-5B32-4D91-9F16-C0DDFF52FD22}

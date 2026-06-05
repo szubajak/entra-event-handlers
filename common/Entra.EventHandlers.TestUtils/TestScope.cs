@@ -1,4 +1,4 @@
-﻿namespace Entra.EventHandlers.UnitTests.Utils;
+﻿namespace Entra.EventHandlers.TestUtils;
 
 public sealed class TestScope(object state) : IDisposable
 {
