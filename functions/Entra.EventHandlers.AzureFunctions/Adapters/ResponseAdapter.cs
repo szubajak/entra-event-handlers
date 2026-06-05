@@ -10,7 +10,7 @@ namespace Entra.EventHandlers.AzureFunctions.Adapters;
 /// Provides an abstraction for writing <see cref="EntraEventResponse"/> and
 /// <see cref="EntraErrorResponse"/> objects into an <see cref="HttpResponseData"/> instance.
 /// </summary>
-public interface IAzureFunctionsResponseAdapter
+public interface IResponseAdapter
 {
     /// <summary>
     /// Creates an HTTP 200 OK response containing the serialized
@@ -63,7 +63,7 @@ public interface IAzureFunctionsResponseAdapter
     Task<HttpResponseData> ServerError(HttpRequestData req, EntraErrorResponse error);
 }
 
-public sealed class AzureFunctionsResponseAdapter : IAzureFunctionsResponseAdapter
+public sealed class ResponseAdapter : IResponseAdapter
 {
     /// <inheritdoc />
     public async Task<HttpResponseData> From(HttpRequestData req, EntraEventResponse response)

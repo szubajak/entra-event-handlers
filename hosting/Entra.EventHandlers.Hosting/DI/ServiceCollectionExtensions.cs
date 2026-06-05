@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Entra.EventHandlers.Hosting.DI;
 
-public static class EntraEventHandlersHostingExtensions
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntraEventHandlersHosting(this IServiceCollection services)
     {

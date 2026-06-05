@@ -18,22 +18,10 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore Entra.EventHandlers.sln
 
-      - name: Build Abstractions
-        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+      - name: Build
+        run: dotnet build Entra.EventHandlers.sln -c Release --no-restore
 
-      - name: Build Core
-        run: dotnet build core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Release --no-restore
-
-      - name: Build AzureFunctions
-        run: dotnet build functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj -c Release --no-restore
-
-      - name: Run Abstractions Unit Tests
-        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj --configuration Release --verbosity normal
-
-      - name: Run Core Unit Tests
-        run: dotnet test core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj --configuration Release --verbosity normal
-
-      - name: Run AzureFunctions Unit Tests
-        run: dotnet test functions/Entra.EventHandlers.AzureFunctions.UnitTests/Entra.EventHandlers.AzureFunctions.UnitTests.csproj --configuration Release --verbosity normal
+      - name: Run Unit Tests
+        run: dotnet test Entra.EventHandlers.sln -c Release --no-build --verbosity normal

@@ -7,10 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Entra.EventHandlers.Hosting.UnitTests.DI;
 
-public class EntraEventHandlersHostingExtensionsTests
+public class ServiceCollectionExtensionsTests
 {
     [Fact]
-    public void AddEntraEventHandlersForFunctions_RegistersTestHandler()
+    public void AddEntraEventHandlersHosting_RegistersTestHandler()
     {
         // Arrange
         var services = new ServiceCollection();
@@ -29,7 +29,7 @@ public class EntraEventHandlersHostingExtensionsTests
 
 
     [Fact]
-    public void AddEntraEventHandlersForFunctions_RegistersResolver()
+    public void AddEntraEventHandlersHosting_RegistersResolver()
     {
         // Arrange
         var services = new ServiceCollection();

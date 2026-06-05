@@ -10,8 +10,8 @@ namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
 public sealed class TestRouter(
     ILogger<EntraEventRouterFunctionBase> logger,
     IEntraEventHandlerResolver resolver,
-    IAzureFunctionsRequestAdapter requestAdapter,
-    IAzureFunctionsResponseAdapter responseAdapter)
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
     : EntraEventRouterFunctionBase(logger, resolver, requestAdapter, responseAdapter)
 {
     public Task<HttpResponseData> RunAsync(HttpRequestData req, FunctionContext ctx)

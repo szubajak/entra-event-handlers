@@ -20,14 +20,14 @@ public class EntraEventRouterFunctionBaseTests
 
     private readonly TestLogger<EntraEventRouterFunctionBase> _logger = new();
     private readonly IEntraEventHandlerResolver _resolver;
-    private readonly IAzureFunctionsRequestAdapter _requestAdapter;
-    private readonly IAzureFunctionsResponseAdapter _responseAdapter;
+    private readonly IRequestAdapter _requestAdapter;
+    private readonly IResponseAdapter _responseAdapter;
 
     public EntraEventRouterFunctionBaseTests()
     {
         _resolver = Substitute.For<IEntraEventHandlerResolver>();
-        _requestAdapter = Substitute.For<IAzureFunctionsRequestAdapter>();
-        _responseAdapter = Substitute.For<IAzureFunctionsResponseAdapter>();
+        _requestAdapter = Substitute.For<IRequestAdapter>();
+        _responseAdapter = Substitute.For<IResponseAdapter>();
 
         _sut = new TestRouter(_logger, _resolver, _requestAdapter, _responseAdapter);
     }

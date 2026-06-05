@@ -22,13 +22,13 @@ namespace Entra.EventHandlers.AzureFunctions.Routing;
 public abstract class EntraEventRouterFunctionBase(
     ILogger<EntraEventRouterFunctionBase> logger,
     IEntraEventHandlerResolver resolver,
-    IAzureFunctionsRequestAdapter requestAdapter,
-    IAzureFunctionsResponseAdapter responseAdapter)
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
 {
     private readonly ILogger<EntraEventRouterFunctionBase> _logger = logger;
     private readonly IEntraEventHandlerResolver _resolver = resolver;
-    private readonly IAzureFunctionsRequestAdapter _requestAdapter = requestAdapter;
-    private readonly IAzureFunctionsResponseAdapter _responseAdapter = responseAdapter;
+    private readonly IRequestAdapter _requestAdapter = requestAdapter;
+    private readonly IResponseAdapter _responseAdapter = responseAdapter;
 
     /// <summary>
     /// Executes the routing pipeline: deserializes the incoming event,
