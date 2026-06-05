@@ -9,7 +9,7 @@ namespace Entra.EventHandlers.AzureFunctions.Adapters;
 /// Provides an abstraction for reading and deserializing incoming Entra events
 /// from an <see cref="HttpRequestData"/> instance.
 /// </summary>
-public interface IHttpRequestAdapter
+public interface IAzureFunctionsRequestAdapter
 {
     /// <summary>
     /// Deserializes the incoming request body into a strongly typed Entra event.
@@ -45,7 +45,7 @@ public interface IHttpRequestAdapter
     Task<EntraEvent> ReadEvent(HttpRequestData req);
 }
 
-public sealed class HttpRequestAdapter : IHttpRequestAdapter
+public sealed class AzureFunctionsRequestAdapter : IAzureFunctionsRequestAdapter
 {
     /// <inheritdoc />
     public async Task<TEvent> ReadEvent<TEvent>(HttpRequestData req)

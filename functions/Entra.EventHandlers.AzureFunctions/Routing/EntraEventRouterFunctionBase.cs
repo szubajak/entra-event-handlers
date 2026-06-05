@@ -1,6 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AzureFunctions.Adapters;
+using Entra.EventHandlers.Hosting.Resolvers;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -21,13 +22,13 @@ namespace Entra.EventHandlers.AzureFunctions.Routing;
 public abstract class EntraEventRouterFunctionBase(
     ILogger<EntraEventRouterFunctionBase> logger,
     IEntraEventHandlerResolver resolver,
-    IHttpRequestAdapter requestAdapter,
-    IHttpResponseAdapter responseAdapter)
+    IAzureFunctionsRequestAdapter requestAdapter,
+    IAzureFunctionsResponseAdapter responseAdapter)
 {
     private readonly ILogger<EntraEventRouterFunctionBase> _logger = logger;
     private readonly IEntraEventHandlerResolver _resolver = resolver;
-    private readonly IHttpRequestAdapter _requestAdapter = requestAdapter;
-    private readonly IHttpResponseAdapter _responseAdapter = responseAdapter;
+    private readonly IAzureFunctionsRequestAdapter _requestAdapter = requestAdapter;
+    private readonly IAzureFunctionsResponseAdapter _responseAdapter = responseAdapter;
 
     /// <summary>
     /// Executes the routing pipeline: deserializes the incoming event,

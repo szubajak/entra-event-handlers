@@ -8,12 +8,12 @@ namespace Entra.EventHandlers.AzureFunctions.Base;
 
 public abstract class TokenIssuanceStartFunctionBase(
     ITokenIssuanceStartHandler handler,
-    IHttpRequestAdapter requestAdapter,
-    IHttpResponseAdapter responseAdapter)
+    IAzureFunctionsRequestAdapter requestAdapter,
+    IAzureFunctionsResponseAdapter responseAdapter)
 {
     private readonly ITokenIssuanceStartHandler _handler = handler;
-    private readonly IHttpRequestAdapter _requestAdapter = requestAdapter;
-    private readonly IHttpResponseAdapter _responseAdapter = responseAdapter;
+    private readonly IAzureFunctionsRequestAdapter _requestAdapter = requestAdapter;
+    private readonly IAzureFunctionsResponseAdapter _responseAdapter = responseAdapter;
 
     protected async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
     {

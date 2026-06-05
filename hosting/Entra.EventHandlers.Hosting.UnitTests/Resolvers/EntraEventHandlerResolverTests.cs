@@ -1,11 +1,11 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.AzureFunctions.DI;
-using Entra.EventHandlers.AzureFunctions.Routing;
-using Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
+using Entra.EventHandlers.Hosting.DI;
+using Entra.EventHandlers.Hosting.Resolvers;
+using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
+namespace Entra.EventHandlers.Hosting.UnitTests.Resolvers;
 
 public class EntraEventHandlerResolverTests
 {
@@ -42,7 +42,7 @@ public class EntraEventHandlerResolverTests
     {
         // Arrange
         var services = new ServiceCollection();
-        services.AddEntraEventHandlersForFunctions();
+        services.AddEntraEventHandlersHosting();
 
         var provider = services.BuildServiceProvider();
 

@@ -1,16 +1,13 @@
 ﻿using Entra.EventHandlers.Abstractions.Interfaces;
-using Entra.EventHandlers.AzureFunctions.Adapters;
-using Entra.EventHandlers.AzureFunctions.Routing;
+using Entra.EventHandlers.Hosting.Resolvers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Entra.EventHandlers.AzureFunctions.DI;
+namespace Entra.EventHandlers.Hosting.DI;
 
-public static class EntraEventHandlersFunctionExtensions
+public static class EntraEventHandlersHostingExtensions
 {
-    public static IServiceCollection AddEntraEventHandlersForFunctions(this IServiceCollection services)
+    public static IServiceCollection AddEntraEventHandlersHosting(this IServiceCollection services)
     {
-        services.AddSingleton<IHttpRequestAdapter, HttpRequestAdapter>();
-        services.AddSingleton<IHttpResponseAdapter, HttpResponseAdapter>();
         services.AddSingleton<IEntraEventHandlerResolver, EntraEventHandlerResolver>();
 
         services.Scan(scan => scan
