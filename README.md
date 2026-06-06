@@ -1,34 +1,77 @@
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak)
 
-## Packages
-
-### Abstractions
-[![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
-[![License: MIT (Abstractions)](https://img.shields.io/badge/License-MIT-blue.svg)](abstractions/Entra.EventHandlers.Abstractions/LICENSE)
-
-### Core
-[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
-[![License: BSL (Core)](https://img.shields.io/badge/License-BSL-orange.svg)](core/Entra.EventHandlers/LICENSE)
-
-### AzureFunctions
-[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)
-[![License: BSL (AzureFunctions)](https://img.shields.io/badge/License-BSL-orange.svg)](functions/Entra.EventHandlers.AzureFunctions/LICENSE)
-
-
 # Entra Event Handlers — .NET Ecosystem
 
 A modern, strongly‑typed, developer‑friendly ecosystem for building  
-**Microsoft Entra ID Authentication Event Handlers** in .NET.
+**Microsoft Entra External ID Authentication Event Handlers** in .NET.
 
-This solution provides:
+This repository provides:
 
 - MIT‑licensed **public abstractions**
-- BSL‑licensed **full implementation**
-- BSL‑licensed **Azure Functions integration**
+- BSL‑licensed **core implementation**
+- BSL‑licensed **Azure Functions hosting adapter**
+- BSL‑licensed **ASP.NET Core hosting adapter**
 - Fluent response builders
 - Protocol‑accurate request/response models
 - Base handler infrastructure (logging, validation, timing, correlation)
 - A clean, extensible architecture designed for production workloads
+
+---
+
+## Packages
+
+### **Abstractions**
+[![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
+[![License: MIT (Abstractions)](https://img.shields.io/badge/License-MIT-blue.svg)](abstractions/Entra.EventHandlers.Abstractions/LICENSE)
+
+### **Core**
+[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
+[![License: BSL (Core)](https://img.shields.io/badge/License-BSL-orange.svg)](core/Entra.EventHandlers/LICENSE)
+
+### **Azure Functions**
+[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)
+[![License: BSL (AzureFunctions)](https://img.shields.io/badge/License-BSL-orange.svg)](functions/Entra.EventHandlers.AzureFunctions/LICENSE)
+
+### **ASP.NET Core**
+[![NuGet AspNetCore](https://img.shields.io/nuget/v/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)
+[![License: BSL (AspNetCore)](https://img.shields.io/badge/License-BSL-orange.svg)](api/Entra.EventHandlers.AspNetCore/LICENSE)
+
+---
+
+## 🧩 Architecture Overview
+
+The ecosystem is intentionally split into layers:
+
+```
+┌──────────────────────────────────────────────────────────┐
+│ Entra.EventHandlers.Abstractions (MIT)                   │
+│ Public contract, protocol types, interfaces              │
+└──────────────────────────────────────────────────────────┘
+                          ▲
+                          │
+┌──────────────────────────────────────────────────────────┐
+│ Entra.EventHandlers (BSL)                                │
+│ Implementation, builders, base handlers, validation      │
+└──────────────────────────────────────────────────────────┘
+                          ▲
+                          │
+┌──────────────────────────────────────────────────────────┐
+│ Hosting Adapters (BSL)                                   │
+│                                                          │
+│ • Entra.EventHandlers.AzureFunctions                     │
+│   Azure Functions hosting adapter                        │
+│                                                          │
+│ • Entra.EventHandlers.AspNetCore                         │
+│   ASP.NET Core hosting adapter                           │
+└──────────────────────────────────────────────────────────┘
+```
+
+This separation ensures:
+
+- **Maximum adoption** (MIT abstractions)  
+- **Commercial protection** (BSL implementation)  
+- **Clean extensibility**  
+- **Stable public API surface**  
 
 ---
 
@@ -44,7 +87,7 @@ Lightweight, dependency‑free abstractions defining the public contract:
 - Directory attribute primitives  
 - Interfaces for building custom handlers  
 
-This package is safe to reference in any open‑source or commercial project.
+Safe to reference in any open‑source or commercial project.
 
 ➡️ *See the package README for details.*
 
@@ -66,59 +109,38 @@ The full implementation layer built on top of the abstractions:
   - Consistent exception handling  
   - Clean override point (`HandleCore`)  
 
-This package is licensed under the **Business Source License (BSL)**  
-and becomes MIT after the Change Date.
-
 ➡️ *See the package README for details.*
 
 ---
 
 ### **3. Entra.EventHandlers.AzureFunctions** (BSL)
 
-Azure Functions integration for production deployments:
+Azure Functions hosting adapter:
 
-- Automatic request parsing  
+- Automatic request deserialization  
+- Automatic handler resolution  
 - Automatic response serialization  
 - DI wiring  
 - Minimal boilerplate  
-- Future: middleware, logging, correlation, metrics  
-
-This package is also licensed under the **Business Source License (BSL)**.
+- Router function model (multi‑event)  
+- Single‑event function base classes
 
 ➡️ *See the package README for details.*
 
 ---
 
-## 🧩 Architecture Overview
+## **4. Entra.EventHandlers.AspNetCore** (BSL)
 
-The ecosystem is intentionally split into layers:
+ASP.NET Core hosting adapter:
 
-```
-┌──────────────────────────────────────────────┐
-│ Entra.EventHandlers.Abstractions (MIT)       │
-│ Public contract, protocol types, interfaces  │
-└──────────────────────────────────────────────┘
-                 ▲
-                 │
-┌──────────────────────────────────────────────┐
-│ Entra.EventHandlers (BSL)                    │
-│ Implementation, builders, pipelines          │
-│ Base handlers, validation, logging           │
-└──────────────────────────────────────────────┘
-                 ▲
-                 │
-┌──────────────────────────────────────────────┐
-│ Entra.EventHandlers.AzureFunctions (BSL)     │
-│ Hosting, DI, runtime integration             │
-└──────────────────────────────────────────────┘
-```
+- Minimal API endpoint integration  
+- Router endpoint model (multi‑event)  
+- Single‑event endpoint base classes  
+- Automatic request/response handling  
+- DI integration  
+- Clean, testable hosting model  
 
-This separation ensures:
-
-- **Maximum adoption** (MIT abstractions)  
-- **Commercial protection** (BSL implementation)  
-- **Clean extensibility**  
-- **Stable public API surface**  
+➡️ *See the package README for details.*
 
 ---
 
@@ -136,9 +158,10 @@ With prefill:
 ```csharp
 return EntraEventResponses
     .AttributeCollectionStart()
-    .PrefillValues(p => p
-        .With("email", "user@example.com")
-        .With("country", "PL"))
+    .SetPrefillValues()
+        .Add("email", "user@example.com")
+        .Add("country", "PL")
+    .Done()
     .Build();
 ```
 
@@ -193,20 +216,17 @@ This model keeps the ecosystem open while supporting sustainable development.
 
 ## 💼 Commercial Licensing
 
-The **Entra.EventHandlers (Core)** and **Entra.EventHandlers.AzureFunctions** packages are licensed under the Business Source License (BSL).
+A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current and future BSL‑licensed packages.
 
-A commercial license covers the entire Entra Event Handlers ecosystem,
-including all current and future BSL‑licensed packages.
+## Pricing
 
-Commercial licenses are available:
+- **Developer License** — €99 / developer / year  
+- **Team License** — €399 / year  
+- **Enterprise License** — €1499 / year  
 
-- Developer License — €99 / developer / year  
-- Team License — €399 / year  
-- Enterprise License — €1499 / year  
+For commercial licensing or support:
 
-To purchase a license, contact:
-
-📧 jakub.szubarga@gmail.com
+📧 **jakub.szubarga@gmail.com**
 
 ➡️ See [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) for full commercial terms.
 
@@ -214,16 +234,14 @@ To purchase a license, contact:
 
 ## 🚀 Roadmap
 
-Upcoming features include:
-
-- Validation and error‑handling helpers  
-- Execution pipeline and middleware  
-- Handler routing  
-- Logging and telemetry hooks  
-- Test utilities  
-- Full documentation site  
-- Production templates for Azure Functions  
-- Sample implementations and scenarios  
+Planned enhancements include:
+- Handler composition (pre/post processing)
+- Execution pipeline components
+- Telemetry and OpenTelemetry hooks
+- Test utilities and mocks
+- Full documentation site
+- Production templates for Azure Functions and ASP.NET Core
+- Sample implementations and scenarios
 
 ---
 

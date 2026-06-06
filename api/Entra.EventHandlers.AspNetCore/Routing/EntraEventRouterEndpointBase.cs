@@ -1,4 +1,5 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.AspNetCore.Abstractions;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Microsoft.AspNetCore.Http;
@@ -22,11 +23,10 @@ public abstract class EntraEventRouterEndpointBase(
     IEntraEventHandlerResolver resolver,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter)
+    : EntraEndpointBase(requestAdapter, responseAdapter)
 {
     private readonly ILogger<EntraEventRouterEndpointBase> _logger = logger;
     private readonly IEntraEventHandlerResolver _resolver = resolver;
-    private readonly IRequestAdapter _requestAdapter = requestAdapter;
-    private readonly IResponseAdapter _responseAdapter = responseAdapter;
 
     /// <summary>
     /// Executes the routing pipeline: deserializes the incoming event,
@@ -35,15 +35,15 @@ public abstract class EntraEventRouterEndpointBase(
     /// or handler‑resolution failures are converted into standardized
     /// <see cref="EntraErrorResponse"/> results.
     /// </summary>
-    public async Task Invoke(HttpContext httpContext)
+    protected override async Task Invoke(HttpContext httpContext)
     {
         try
         {
-            var evt = await _requestAdapter.ReadEvent(httpContext);
+            var evt = await RequestAdapter.ReadEvent(httpContext);
             var handler = _resolver.Resolve(evt.GetType());
 
             var response = await ((dynamic)handler).Handle((dynamic)evt, httpContext.RequestAborted);
-            await _responseAdapter.WriteOk(httpContext, response);
+            await ResponseAdapter.WriteOk(httpContext, response);
         }
         catch (Exception ex) when (ex is EntraValidationException or EntraDeserializationException or EntraHandlerNotFoundException)
         {
@@ -57,7 +57,7 @@ public abstract class EntraEventRouterEndpointBase(
                 _ => throw new InvalidOperationException("Unreachable: catch filter guarantees only known Entra exceptions.")
             };
 
-            await _responseAdapter.WriteBadRequest(
+            await ResponseAdapter.WriteBadRequest(
                 httpContext,
                 new EntraErrorResponse
                 {
@@ -69,7 +69,7 @@ public abstract class EntraEventRouterEndpointBase(
         {
             _logger.LogError(ex, "Unhandled exception while processing Entra event.");
 
-            await _responseAdapter.WriteServerError(
+            await ResponseAdapter.WriteServerError(
                 httpContext,
                 new EntraErrorResponse
                 {

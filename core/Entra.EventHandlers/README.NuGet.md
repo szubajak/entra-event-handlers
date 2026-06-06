@@ -1,15 +1,14 @@
 # Entra.EventHandlers
 
-Production‑ready implementation layer for Microsoft Entra Authentication Event
-Handlers. This package builds on top of the MIT‑licensed
-**Entra.EventHandlers.Abstractions** and provides fluent response builders,
-base handler infrastructure, and utilities for constructing custom extensions.
+Production‑ready implementation layer for Microsoft Entra External ID Authentication Event Handlers.  
+This package builds on top of the MIT‑licensed **Entra.EventHandlers.Abstractions** and provides fluent response builders, base handler infrastructure, and utilities for constructing custom extensions.
 
 ---
 
 ## 🚀 Features
 
 ### ✔ Fluent Response Builders
+
 Strongly‑typed builders for constructing valid Entra responses:
 
 - `AttributeCollectionStartResponseBuilder`
@@ -18,7 +17,13 @@ Strongly‑typed builders for constructing valid Entra responses:
 - `EmailOtpSendResponseBuilder`
 - `PrefillValuesBuilder`
 
+These builders eliminate manual JSON crafting and ensure protocol‑correct payloads.
+
+---
+
 ### ✔ Unified Entry Point
+
+A single, discoverable API surface for creating responses:
 
 ```csharp
 EntraEventResponses.AttributeCollectionStart();

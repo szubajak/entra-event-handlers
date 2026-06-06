@@ -1,9 +1,9 @@
-# Entra.EventHandlers.AzureFunctions
+# Entra.EventHandlers.AspNetCore
 
 **License:** Business Source License (BSL)  
 **Author:** Jakub Szubarga (Szubarga.NET)
 
-This package provides the **Azure Functions hosting adapter** for the Entra Event Handlers ecosystem. It enables production‑ready **Microsoft Entra External ID Authentication Event Handler** extensions to run inside Azure Functions with minimal boilerplate, full DI support, structured error handling, and complete testability.
+This package provides the **ASP.NET Core hosting adapter** for the Entra Event Handlers ecosystem. It enables production‑ready **Microsoft Entra External ID Authentication Event Handler** extensions to run inside ASP.NET Core with minimal boilerplate, full DI support, structured error handling, and complete testability.
 
 ---
 
@@ -11,7 +11,7 @@ This package provides the **Azure Functions hosting adapter** for the Entra Even
 
 ### ✔ Full routing pipeline
 
-The recommended hosting model is the **router function**, powered by `EntraEventRouterFunctionBase`. It provides:
+The recommended hosting model is the **router endpoint**, powered by `EntraEventRouterEndpointBase`. It provides:
 
 - Automatic request deserialization  
 - Automatic handler resolution  
@@ -20,27 +20,26 @@ The recommended hosting model is the **router function**, powered by `EntraEvent
 - Structured error mapping  
 - Logging for expected and unexpected exceptions  
 
-This allows a **single Azure Function** to host **multiple Entra event types** cleanly.
+This allows a **single ASP.NET Core endpoint** to host **multiple Entra event types** cleanly.
 
 ---
 
-## 🧩 Minimal Router Function
+## 🧩 Minimal Router Endpoint
 
 ```csharp
-public sealed class EntraRouterFunction : EntraEventRouterFunctionBase
+public sealed class EntraRouterEndpoint : EntraEventRouterEndpointBase
 {
-    public EntraRouterFunction(
-        ILogger<EntraEventRouterFunctionBase> logger,
+    public EntraRouterEndpoint(
+        ILogger<EntraEventRouterEndpointBase> logger,
         IEntraEventHandlerResolver resolver,
         IRequestAdapter requestAdapter,
         IResponseAdapter responseAdapter)
         : base(logger, resolver, requestAdapter, responseAdapter) {}
 
-    [Function("EntraRouter")]
-    public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        FunctionContext ctx)
-        => Run(req, ctx);
+    public override void Map(IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapPost("/entra/router", Invoke);
+    }
 }
 ```
 
@@ -72,7 +71,7 @@ public interface IEntraEventHandlerResolver
 }
 ```
 
-This enables multi‑event hosting behind a single Azure Function.
+This enables multi‑event hosting behind a single ASP.NET Core endpoint.
 
 ---
 
@@ -81,19 +80,18 @@ This enables multi‑event hosting behind a single Azure Function.
 You can use the simple single‑event hosting model:
 
 ```csharp
-public sealed class TokenIssuanceStartFunction : TokenIssuanceStartFunctionBase
+public sealed class TokenIssuanceStartEndpoint : TokenIssuanceStartEndpointBase
 {
-    public TokenIssuanceStartFunction(
+    public TokenIssuanceStartEndpoint(
         ITokenIssuanceStartHandler handler,
         IRequestAdapter requestAdapter,
         IResponseAdapter responseAdapter)
         : base(handler, requestAdapter, responseAdapter) {}
 
-    [Function("TokenIssuanceStart")]
-    public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        FunctionContext ctx)
-        => Run(req, ctx);
+    public override void Map(IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapPost("/entra/tokenissuancestart", Invoke);
+    }
 }
 ```
 
@@ -103,7 +101,7 @@ public sealed class TokenIssuanceStartFunction : TokenIssuanceStartFunctionBase
 
 The router and adapters are fully testable thanks to the abstractions.  
 Unit tests are available in the  
-[Entra.EventHandlers.AzureFunctions.UnitTests](../Entra.EventHandlers.AzureFunctions.UnitTests) project.
+[Entra.EventHandlers.AspNetCore.UnitTests](../Entra.EventHandlers.AspNetCore.UnitTests) project.
 
 ---
 
@@ -111,7 +109,7 @@ Unit tests are available in the
 
 - **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
 - **Entra.EventHandlers** — core implementation layer (BSL)
-- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
 
 ---
 

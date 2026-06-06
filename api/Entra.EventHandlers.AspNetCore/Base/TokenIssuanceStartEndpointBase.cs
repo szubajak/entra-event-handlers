@@ -1,5 +1,6 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.AspNetCore.Abstractions;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Microsoft.AspNetCore.Http;
 
@@ -9,15 +10,14 @@ public abstract class TokenIssuanceStartEndpointBase(
     ITokenIssuanceStartHandler handler,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter)
+    : EntraEndpointBase(requestAdapter, responseAdapter)
 {
     private readonly ITokenIssuanceStartHandler _handler = handler;
-    private readonly IRequestAdapter _requestAdapter = requestAdapter;
-    private readonly IResponseAdapter _responseAdapter = responseAdapter;
 
-    public async Task Invoke(HttpContext httpContext)
+    protected override async Task Invoke(HttpContext httpContext)
     {
-        var evt = await _requestAdapter.ReadEvent<TokenIssuanceStartEvent>(httpContext);
+        var evt = await RequestAdapter.ReadEvent<TokenIssuanceStartEvent>(httpContext);
         var response = await _handler.Handle(evt, httpContext.RequestAborted);
-        await _responseAdapter.WriteOk(httpContext, response);
+        await ResponseAdapter.WriteOk(httpContext, response);
     }
 }

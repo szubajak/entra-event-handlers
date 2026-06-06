@@ -1,6 +1,6 @@
-# Entra.EventHandlers.AzureFunctions
+# Entra.EventHandlers.AspNetCore
 
-**Azure Functions hosting adapter for Microsoft Entra External ID Authentication Event Handlers.**  
+**ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers.**  
 Provides minimal‑boilerplate hosting, full DI support, structured error handling, and complete testability.
 
 **License:** Business Source License (BSL)  
@@ -10,7 +10,7 @@ Provides minimal‑boilerplate hosting, full DI support, structured error handli
 
 ## ✨ Features
 
-- 🚀 **Single Function → Multiple Entra Event Types**  
+- 🚀 **Single Endpoint → Multiple Entra Event Types**  
 - 🔄 **Automatic request deserialization & response serialization**  
 - 🧩 **Dynamic handler resolution via DI**  
 - 🛡 **Structured error mapping (400/500)**  
@@ -19,23 +19,22 @@ Provides minimal‑boilerplate hosting, full DI support, structured error handli
 
 ---
 
-## 🧩 Minimal Router Function
+## 🧩 Minimal Router Endpoint
 
 ```csharp
-public sealed class EntraRouterFunction : EntraEventRouterFunctionBase
+public sealed class EntraRouterEndpoint : EntraEventRouterEndpointBase
 {
-    public EntraRouterFunction(
-        ILogger<EntraEventRouterFunctionBase> logger,
+    public EntraRouterEndpoint(
+        ILogger<EntraEventRouterEndpointBase> logger,
         IEntraEventHandlerResolver resolver,
         IRequestAdapter requestAdapter,
         IResponseAdapter responseAdapter)
         : base(logger, resolver, requestAdapter, responseAdapter) {}
 
-    [Function("EntraRouter")]
-    public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        FunctionContext ctx)
-        => Run(req, ctx);
+    public override void Map(IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapPost("/entra/router", Invoke);
+    }
 }
 ```
 
@@ -58,22 +57,21 @@ This automatically registers:
 
 ## 📦 Optional: Single‑Event Base Classes
 
-If you prefer one function per event type:
+If you prefer one endpoint per event type:
 
 ```csharp
-public sealed class TokenIssuanceStartFunction : TokenIssuanceStartFunctionBase
+public sealed class TokenIssuanceStartEndpoint : TokenIssuanceStartEndpointBase
 {
-    public TokenIssuanceStartFunction(
+    public TokenIssuanceStartEndpoint(
         ITokenIssuanceStartHandler handler,
         IRequestAdapter requestAdapter,
         IResponseAdapter responseAdapter)
         : base(handler, requestAdapter, responseAdapter) {}
 
-    [Function("TokenIssuanceStart")]
-    public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        FunctionContext ctx)
-        => Run(req, ctx);
+    public override void Map(IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapPost("/entra/tokenissuancestart", Invoke);
+    }
 }
 ```
 
