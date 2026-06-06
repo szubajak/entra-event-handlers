@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\core\Entra.EventHandlers\Entra.EventHandlers.csproj" />
+    <ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

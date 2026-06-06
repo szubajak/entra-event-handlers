@@ -1,6 +1,6 @@
-# Entra.EventHandlers — Commercial License Terms
+# Entra.EventHandlers.AspNetCore — Commercial License Terms
 
-The Entra.EventHandlers package is licensed under the Business Source License (BSL).  
+The Entra.EventHandlers.AspNetCore package is licensed under the Business Source License (BSL).  
 A commercial license is required for production use by organizations with more than 5 employees or for any use not permitted under the BSL.
 
 Commercial licenses are available directly from the author.

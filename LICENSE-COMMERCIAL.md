@@ -1,15 +1,16 @@
 # Entra Event Handlers — Commercial License Terms
 
-The Entra Event Handlers ecosystem includes multiple packages licensed under the
-Business Source License (BSL). A commercial license is required for production
-use by organizations with more than 5 employees or for any use not permitted
+The Entra Event Handlers ecosystem includes multiple packages licensed under the  
+Business Source License (BSL). A commercial license is required for production  
+use by organizations with more than 5 employees or for any use not permitted  
 under the BSL.
 
-This commercial license applies to **all BSL‑licensed packages** in this
+This commercial license applies to **all BSL‑licensed packages** in this  
 repository, including but not limited to:
 
-- Entra.EventHandlers (Core)
-- Entra.EventHandlers.AzureFunctions
+- Entra.EventHandlers (Core)  
+- Entra.EventHandlers.AzureFunctions  
+- Entra.EventHandlers.AspNetCore  
 - Any future BSL‑licensed extensions or integrations
 
 Commercial licenses are available directly from the author.

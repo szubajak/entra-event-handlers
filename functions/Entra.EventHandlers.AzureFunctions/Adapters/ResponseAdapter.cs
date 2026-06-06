@@ -63,6 +63,11 @@ public interface IResponseAdapter
     Task<HttpResponseData> ServerError(HttpRequestData req, EntraErrorResponse error);
 }
 
+/// <summary>
+/// Default Azure Functions implementation of <see cref="IResponseAdapter"/> that
+/// creates <see cref="HttpResponseData"/> instances containing serialized Entra
+/// event responses or error payloads.
+/// </summary>
 public sealed class ResponseAdapter : IResponseAdapter
 {
     /// <inheritdoc />

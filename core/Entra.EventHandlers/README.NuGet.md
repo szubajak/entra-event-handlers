@@ -15,6 +15,7 @@ Strongly‑typed builders for constructing valid Entra responses:
 - `AttributeCollectionStartResponseBuilder`
 - `AttributeCollectionSubmitResponseBuilder`
 - `TokenIssuanceStartResponseBuilder`
+- `EmailOtpSendResponseBuilder`
 - `PrefillValuesBuilder`
 
 ### ✔ Unified Entry Point
@@ -23,6 +24,7 @@ Strongly‑typed builders for constructing valid Entra responses:
 EntraEventResponses.AttributeCollectionStart();
 EntraEventResponses.AttributeCollectionSubmit();
 EntraEventResponses.TokenIssuanceStart();
+EntraEventResponses.EmailOtpSend();
 ```
 
 ### ✔ Base Handler Infrastructure
@@ -48,7 +50,7 @@ public class MyStartHandler : AttributeCollectionStartHandlerBase
         return Task.FromResult(
             EntraEventResponses
                 .AttributeCollectionStart()
-                .Allow()
+                .ContinueWithDefaultBehavior()
                 .Build());
     }
 }
@@ -59,9 +61,10 @@ public class MyStartHandler : AttributeCollectionStartHandlerBase
 ```csharp
 return EntraEventResponses
     .AttributeCollectionStart()
-    .PrefillValues(p => p
-        .With("email", "user@example.com")
-        .With("country", "PL"))
+    .SetPrefillValues()
+        .Add("email", "user@example.com")
+        .Add("country", "PL")
+    .Done()
     .Build();
 ```
 
@@ -71,6 +74,7 @@ return EntraEventResponses
 
 - **Entra.EventHandlers.Abstractions** — protocol types (MIT)  
 - **Entra.EventHandlers.AzureFunctions** — Azure Functions integration (BSL)
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)
 
 ---
 

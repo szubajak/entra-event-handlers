@@ -73,7 +73,7 @@ Future versions will include:
 - Validation helpers  
 - Telemetry hooks  
 - Test utilities  
-- Integration helpers for Azure Functions and other hosts  
+- Integration helpers for Azure Functions and ASP.NET Core  
 
 ---
 
@@ -98,6 +98,10 @@ This implementation package is licensed under the **Business Source License (BSL
   - Automatic request/response handling  
   - DI wiring  
   - Minimal boilerplate for production deployments  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+  - Middleware‑based request/response handling  
+  - DI integration  
+  - Minimal hosting boilerplate  
 
 ---
 
@@ -117,9 +121,10 @@ Prefill example:
 ```csharp
 return EntraEventResponses
     .AttributeCollectionStart()
-    .SetPrefillValues(p => p
-        .With("email", "user@example.com")
-        .With("country", "PL"))
+    .SetPrefillValues()
+        .Add("email", "user@example.com")
+        .Add("country", "PL")
+    .Done()
     .Build();
 ```
 

@@ -14,7 +14,7 @@ License.
 ---
 
 Licensed Work:
-Entra.EventHandlers.AzureFunctions (Azure Functions adapter for Microsoft Entra External ID Authentication Event Handlers)
+Entra.EventHandlers.AspNetCore (ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers)
 
 Additional Use Grant:
 Production use is permitted for individuals and organizations with fewer than
@@ -43,7 +43,7 @@ USE OF THE LICENSED WORK.
 
 ---
 
-This package contains the full Azure Functions hosting adapter implementation,
+This package contains the full ASP.NET Core hosting adapter implementation,
 builders, and production-ready components for the Entra Event Handlers
 ecosystem. The public abstractions are available separately under the
 MIT License.

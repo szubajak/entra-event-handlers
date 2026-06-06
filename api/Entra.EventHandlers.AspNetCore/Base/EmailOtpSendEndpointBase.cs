@@ -1,0 +1,23 @@
+﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.AspNetCore.Adapters;
+using Microsoft.AspNetCore.Http;
+
+namespace Entra.EventHandlers.AspNetCore.Base;
+
+public abstract class EmailOtpSendEndpointBase(
+    IEmailOtpSendHandler handler,
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
+{
+    private readonly IEmailOtpSendHandler _handler = handler;
+    private readonly IRequestAdapter _requestAdapter = requestAdapter;
+    private readonly IResponseAdapter _responseAdapter = responseAdapter;
+
+    public async Task Invoke(HttpContext httpContext)
+    {
+        var evt = await _requestAdapter.ReadEvent<EmailOtpSendEvent>(httpContext);
+        var response = await _handler.Handle(evt, httpContext.RequestAborted);
+        await _responseAdapter.WriteOk(httpContext, response);
+    }
+}

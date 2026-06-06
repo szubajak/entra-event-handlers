@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{02EA
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		CHANGELOG.md = CHANGELOG.md
+		LICENSE = LICENSE
 		LICENSE-COMMERCIAL.md = LICENSE-COMMERCIAL.md
 		README.md = README.md
 		temp.json = temp.json
