@@ -43,6 +43,6 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.2.6" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.2.7" PrivateAssets="all" />
   </ItemGroup>
 </Project>
