@@ -1,6 +1,6 @@
 # Entra.EventHandlers — Commercial License Terms
 
-The Entra.EventHandlers package is licensed under the Business Source License (BSL).
+The Entra.EventHandlers package is licensed under the Business Source License (BSL).  
 A commercial license is required for production use by organizations with more than 5 employees or for any use not permitted under the BSL.
 
 Commercial licenses are available directly from the author.
@@ -33,5 +33,5 @@ An invoice will be issued, and a license key will be delivered upon payment.
 
 ## Contact
 
-For questions, custom agreements, or enterprise support:
+For questions, custom agreements, or enterprise support:  
 **jakub.szubarga@gmail.com**

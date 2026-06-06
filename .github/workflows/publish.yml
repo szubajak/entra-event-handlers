@@ -3,7 +3,10 @@ name: Publish NuGets
 on:
   push:
     tags:
-      - 'v*'
+      - 'Entra.EventHandlers-v*'
+      - 'Entra.EventHandlers.Abstractions-v*'
+      - 'Entra.EventHandlers.AzureFunctions-v*'
+      - 'Entra.EventHandlers.AspNetCore-v*'
 
 permissions:
   id-token: write
@@ -12,41 +15,66 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
+    env:
+      TAG: ${{ github.ref_name }}
+
     steps:
       - uses: actions/checkout@v6
+
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
 
+      - name: Extract package info
+        id: extract
+        run: |
+          echo "TAG=${TAG}"
+          PACKAGE=$(echo "$TAG" | sed -E 's/(.*)-v[0-9]+\.[0-9]+\.[0-9]+/\1/')
+          VERSION=$(echo "$TAG" | sed -E 's/.*-v([0-9]+\.[0-9]+\.[0-9]+)/\1/')
+          echo "PACKAGE=$PACKAGE" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Detected PACKAGE=$PACKAGE VERSION=$VERSION"
+
       - name: Restore
-        run: dotnet restore
-       
-      - name: Build Abstractions
-        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+        run: dotnet restore Entra.EventHandlers.sln
 
-      - name: Build Core
-        run: dotnet build core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Pack --no-restore
+      - name: Build
+        run: dotnet build Entra.EventHandlers.sln -c Release --no-restore
 
-      - name: Build AzureFunctions
-        run: dotnet build functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj -c Pack --no-restore
+      - name: Run Unit Tests
+        run: dotnet test Entra.EventHandlers.sln -c Release --no-build --verbosity normal
 
-      - name: Run Abstractions Unit Tests
-        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj --configuration Release --verbosity normal
+      - name: Resolve project path
+        id: resolve
+        run: |
+          case "$PACKAGE" in
+            Entra.EventHandlers)
+              PROJECT_PATH="core/Entra.EventHandlers/Entra.EventHandlers.csproj"
+              ;;
+            Entra.EventHandlers.Abstractions)
+              PROJECT_PATH="abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj"
+              ;;
+            Entra.EventHandlers.AzureFunctions)
+              PROJECT_PATH="functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj"
+              ;;
+            Entra.EventHandlers.AspNetCore)
+              PROJECT_PATH="api/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj"
+              ;;
+            *)
+              echo "Unknown package: $PACKAGE"
+              exit 1
+              ;;
+          esac
 
-      - name: Run Core Unit Tests
-        run: dotnet test core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj --configuration Release --verbosity normal
+          echo "PROJECT_PATH=$PROJECT_PATH" >> $GITHUB_ENV
+          echo "Resolved project path: $PROJECT_PATH"
 
-      - name: Run AzureFunctions Unit Tests
-        run: dotnet test functions/Entra.EventHandlers.AzureFunctions.UnitTests/Entra.EventHandlers.AzureFunctions.UnitTests.csproj --configuration Release --verbosity normal
+      - name: Pack selected NuGet
+        run: dotnet pack $PROJECT_PATH -c Pack --no-build -p:PackageVersion=$VERSION
 
-      - name: Pack Abstractions
-        run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build
-
-      - name: Pack Core
-        run: dotnet pack core/Entra.EventHandlers/Entra.EventHandlers.csproj -c Pack --no-build
-
-      - name: Pack AzureFunctions
-        run: dotnet pack functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj -c Pack --no-build
-    
       - name: Publish to NuGet
-        run: dotnet nuget push "**/bin/Pack/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push "$(dirname $PROJECT_PATH)/bin/Pack/*.nupkg" \
+             --api-key ${{ secrets.NUGET_API_KEY }} \
+             --source https://api.nuget.org/v3/index.json \
+             --skip-duplicate

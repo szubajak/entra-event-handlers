@@ -1,6 +1,6 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 
-namespace Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
+namespace Entra.EventHandlers.TestHelpers;
 
 public sealed class TestEvent : EntraEvent
 {
