@@ -70,11 +70,23 @@ jobs:
           echo "PROJECT_PATH=$PROJECT_PATH" >> $GITHUB_ENV
           echo "Resolved project path: $PROJECT_PATH"
 
+      - name: Determine pack configuration
+        id: packconfig
+        run: |
+          if grep -q "<Configuration>Pack</Configuration>" "$PROJECT_PATH"; then
+            echo "PACK_CONFIG=Pack" >> $GITHUB_ENV
+            echo "Using Pack configuration"
+          else
+            echo "PACK_CONFIG=Release" >> $GITHUB_ENV
+            echo "Using Release configuration"
+          fi
+
       - name: Pack selected NuGet
-        run: dotnet pack $PROJECT_PATH -c Pack --no-build -p:PackageVersion=$VERSION
+        run: dotnet pack $PROJECT_PATH -c $PACK_CONFIG --no-build -p:PackageVersion=$VERSION
 
       - name: Publish to NuGet
-        run: dotnet nuget push "$(dirname $PROJECT_PATH)/bin/Pack/*.nupkg" \
+        run: dotnet nuget push "$(dirname $PROJECT_PATH)/bin/$PACK_CONFIG/*.nupkg" \
              --api-key ${{ secrets.NUGET_API_KEY }} \
              --source https://api.nuget.org/v3/index.json \
              --skip-duplicate
+
