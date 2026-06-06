@@ -85,8 +85,4 @@ jobs:
         run: dotnet pack $PROJECT_PATH -c $PACK_CONFIG --no-build -p:PackageVersion=$VERSION
 
       - name: Publish to NuGet
-        run: dotnet nuget push "$(dirname $PROJECT_PATH)/bin/$PACK_CONFIG/*.nupkg" \
-             --api-key ${{ secrets.NUGET_API_KEY }} \
-             --source https://api.nuget.org/v3/index.json \
-             --skip-duplicate
-
+        run: dotnet nuget push "$(dirname $PROJECT_PATH)/bin/$PACK_CONFIG/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
