@@ -43,6 +43,7 @@ USE OF THE LICENSED WORK.
 
 ---
 
-This package contains the full implementation, builders, and production-ready
-components for the Entra Event Handlers ecosystem. The public abstractions are
-available separately under the MIT License.
+This package contains the full Azure Functions hosting adapter implementation,
+builders, and production-ready components for the Entra Event Handlers
+ecosystem. The public abstractions are available separately under the
+MIT License.

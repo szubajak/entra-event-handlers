@@ -3,16 +3,16 @@
 **License:** Business Source License (BSL)  
 **Author:** Jakub Szubarga (Szubarga.NET)
 
-This package contains the full implementation layer for the Entra Event Handlers ecosystem.
-It builds on top of the MIT‑licensed Entra.EventHandlers.Abstractions package and provides
-higher‑level functionality for constructing responses, composing handlers, and building
-production‑ready Microsoft Entra External ID Authentication Event Handler extensions.
+This package contains the **core implementation layer** for the Entra Event Handlers ecosystem.  
+It builds on the MIT‑licensed **Entra.EventHandlers.Abstractions** package and provides the full developer experience for constructing responses, composing handlers, and building production‑ready **Microsoft Entra External ID Authentication Event Handler** extensions.
 
 ---
 
 ## ✨ What This Package Provides
 
-This package extends the abstractions with implementation features such as:
+This package extends the abstractions with high‑level implementation features, including:
+
+---
 
 ### ✔ Fluent response builders
 
@@ -24,8 +24,9 @@ Strongly‑typed, ergonomic builders for constructing valid Entra responses:
 - `EmailOtpSendResponseBuilder`
 - `PrefillValuesBuilder` (for attribute prefill scenarios)
 
-These builders eliminate manual JSON crafting and ensure protocol‑correct
-response payloads.
+These builders eliminate manual JSON crafting and ensure protocol‑correct payloads.
+
+---
 
 ### ✔ Unified entry point
 
@@ -37,6 +38,8 @@ EntraEventResponses.AttributeCollectionSubmit();
 EntraEventResponses.TokenIssuanceStart();
 EntraEventResponses.EmailOtpSend();
 ```
+
+This makes response construction consistent across all event types.
 
 ### ✔ Base handler infrastructure
 
@@ -64,16 +67,17 @@ public abstract class AttributeCollectionStartHandlerBase
 These base handlers remove boilerplate and ensure consistent behavior across all
 custom extensions.
 
-### ✔ Extensibility pipeline (in progress)
+### ✔ Extensibility pipeline (roadmap)
 
-Future versions will include:
+Future versions of the Core package will introduce optional developer‑experience enhancements such as:
 
-- Handler composition and routing  
-- Execution pipeline components  
-- Validation helpers  
-- Telemetry hooks  
-- Test utilities  
-- Integration helpers for Azure Functions and other hosts  
+- Handler composition (pre/post processing, chaining)
+- Additional execution‑pipeline components
+- Telemetry and OpenTelemetry integration hooks
+- Test utilities and mocks for handler testing
+
+Hosting‑specific features (routing, DI, request/response adapters) are provided by the
+**Entra.EventHandlers.AzureFunctions** and **Entra.EventHandlers.AspNetCore** packages.
 
 ---
 
@@ -95,9 +99,7 @@ This implementation package is licensed under the **Business Source License (BSL
 
 - **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
 - **Entra.EventHandlers.AzureFunctions** — Azure Functions integration (BSL)  
-  - Automatic request/response handling  
-  - DI wiring  
-  - Minimal boilerplate for production deployments  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
 
 ---
 
@@ -117,9 +119,10 @@ Prefill example:
 ```csharp
 return EntraEventResponses
     .AttributeCollectionStart()
-    .SetPrefillValues(p => p
-        .With("email", "user@example.com")
-        .With("country", "PL"))
+    .SetPrefillValues()
+        .Add("email", "user@example.com")
+        .Add("country", "PL")
+    .Done()
     .Build();
 ```
 

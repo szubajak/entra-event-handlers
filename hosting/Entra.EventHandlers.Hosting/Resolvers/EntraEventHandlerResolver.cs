@@ -1,7 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Interfaces;
 
-namespace Entra.EventHandlers.AzureFunctions.Routing;
+namespace Entra.EventHandlers.Hosting.Resolvers;
 
 /// <summary>
 /// Resolves the correct <see cref="IEntraEventHandler"/> implementation

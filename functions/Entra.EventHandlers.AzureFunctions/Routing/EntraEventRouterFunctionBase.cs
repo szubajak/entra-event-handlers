@@ -1,6 +1,8 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.AzureFunctions.Abstractions;
 using Entra.EventHandlers.AzureFunctions.Adapters;
+using Entra.EventHandlers.Hosting.Resolvers;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -21,13 +23,12 @@ namespace Entra.EventHandlers.AzureFunctions.Routing;
 public abstract class EntraEventRouterFunctionBase(
     ILogger<EntraEventRouterFunctionBase> logger,
     IEntraEventHandlerResolver resolver,
-    IHttpRequestAdapter requestAdapter,
-    IHttpResponseAdapter responseAdapter)
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
+    : EntraFunctionBase(requestAdapter, responseAdapter)
 {
     private readonly ILogger<EntraEventRouterFunctionBase> _logger = logger;
     private readonly IEntraEventHandlerResolver _resolver = resolver;
-    private readonly IHttpRequestAdapter _requestAdapter = requestAdapter;
-    private readonly IHttpResponseAdapter _responseAdapter = responseAdapter;
 
     /// <summary>
     /// Executes the routing pipeline: deserializes the incoming event,
@@ -36,15 +37,15 @@ public abstract class EntraEventRouterFunctionBase(
     /// or handler‑resolution failures are converted into standardized
     /// <see cref="EntraErrorResponse"/> results.
     /// </summary>
-    protected async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
+    protected override async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
     {
         try
         {
-            var evt = await _requestAdapter.ReadEvent(req);
+            var evt = await RequestAdapter.ReadEvent(req);
             var handler = _resolver.Resolve(evt.GetType());
 
             var response = await ((dynamic)handler).Handle((dynamic)evt, context.CancellationToken);
-            return await _responseAdapter.From(req, response);
+            return await ResponseAdapter.From(req, response);
         }
         catch (Exception ex) when (ex is EntraValidationException or EntraDeserializationException or EntraHandlerNotFoundException)
         {
@@ -58,7 +59,7 @@ public abstract class EntraEventRouterFunctionBase(
                 _ => throw new InvalidOperationException("Unreachable: catch filter guarantees only known Entra exceptions.")
             };
 
-            return await _responseAdapter.BadRequest(
+            return await ResponseAdapter.BadRequest(
                 req,
                 new EntraErrorResponse
                 {
@@ -70,7 +71,7 @@ public abstract class EntraEventRouterFunctionBase(
         {
             _logger.LogError(ex, "Unhandled exception while processing Entra event.");
 
-            return await _responseAdapter.ServerError(
+            return await ResponseAdapter.ServerError(
                 req,
                 new EntraErrorResponse
                 {

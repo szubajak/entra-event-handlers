@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\common\Entra.EventHandlers.TestUtils\Entra.EventHandlers.TestUtils.csproj" />
+    <ProjectReference Include="..\..\common\Entra.EventHandlers.TestHelpers\Entra.EventHandlers.TestHelpers.csproj" />
     <ProjectReference Include="..\Entra.EventHandlers.AzureFunctions\Entra.EventHandlers.AzureFunctions.csproj" />
   </ItemGroup>
 
