@@ -7,7 +7,7 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.0.0</Version>
+	<Version>1.0.1</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 	<Description>ASP.NET Core hosting adapter for Microsoft Entra ID Authentication Event Handlers. Provides request/response adapters, endpoint base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
@@ -45,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers" Version="1.2.5" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers" Version="1.2.6" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
