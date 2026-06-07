@@ -1,6 +1,6 @@
 ﻿using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.AspNetCore.Endpoints;
 using Entra.EventHandlers.Hosting.DI;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Entra.EventHandlers.AspNetCore.DI;
 
@@ -12,6 +12,9 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IRequestAdapter, RequestAdapter>();
         services.AddSingleton<IResponseAdapter, ResponseAdapter>();
+
+        services.AddTransient<TokenIssuanceStartEndpoint>();
+        services.AddTransient<EntraEventRouterEndpoint>();
 
         return services;
     }

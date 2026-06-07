@@ -10,8 +10,7 @@ namespace Entra.EventHandlers.AzureFunctions.Base;
 public abstract class EmailOtpSendFunctionBase(
     IEmailOtpSendHandler handler,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraFunctionBase(requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter) : EntraFunctionBase(requestAdapter, responseAdapter)
 {
     private readonly IEmailOtpSendHandler _handler = handler;
 

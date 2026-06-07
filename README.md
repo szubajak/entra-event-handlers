@@ -129,7 +129,7 @@ Azure Functions hosting adapter:
 
 ---
 
-## **4. Entra.EventHandlers.AspNetCore** (BSL)
+### **4. Entra.EventHandlers.AspNetCore** (BSL)
 
 ASP.NET Core hosting adapter:
 

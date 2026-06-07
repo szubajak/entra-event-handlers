@@ -3,51 +3,127 @@
 **License:** Business Source License (BSL)  
 **Author:** Jakub Szubarga (Szubarga.NET)
 
-This package provides the **ASP.NET Core hosting adapter** for the Entra Event Handlers ecosystem. It enables production‑ready **Microsoft Entra External ID Authentication Event Handler** extensions to run inside ASP.NET Core with minimal boilerplate, full DI support, structured error handling, and complete testability.
+This package provides the **ASP.NET Core hosting adapter** for the Entra Event Handlers ecosystem.  
+It enables production‑ready **Microsoft Entra External ID Authentication Event Handler** extensions to run inside ASP.NET Core with:
+
+- Minimal boilerplate  
+- Full DI support  
+- Unified exception handling  
+- Structured logging  
+- Clean endpoint mapping  
+- Complete testability  
 
 ---
 
 ## ✨ What This Package Provides
 
-### ✔ Full routing pipeline
+### ✔ Unified hosting pipeline  
+A consistent execution model for all Entra event handlers:
 
-The recommended hosting model is the **router endpoint**, powered by `EntraEventRouterEndpointBase`. It provides:
-
-- Automatic request deserialization  
-- Automatic handler resolution  
-- Automatic handler invocation  
-- Automatic response serialization  
+- Request deserialization  
+- Handler resolution  
+- Handler invocation  
+- Response serialization  
 - Structured error mapping  
-- Logging for expected and unexpected exceptions  
+- Logging for known and unknown exceptions  
 
-This allows a **single ASP.NET Core endpoint** to host **multiple Entra event types** cleanly.
+### ✔ Router endpoint (multi‑event hosting)  
+A single endpoint capable of hosting **multiple Entra event types**.
+
+### ✔ Single‑event endpoints  
+Explicit endpoints for scenarios where you want separate routes per event.
+
+### ✔ Endpoint mapping extensions  
+Consumers map endpoints using simple, explicit extension methods.
 
 ---
 
-## 🧩 Minimal Router Endpoint
+## 🚀 Quick Start
 
 ```csharp
-public sealed class EntraRouterEndpoint : EntraEventRouterEndpointBase
-{
-    public EntraRouterEndpoint(
-        ILogger<EntraEventRouterEndpointBase> logger,
-        IEntraEventHandlerResolver resolver,
-        IRequestAdapter requestAdapter,
-        IResponseAdapter responseAdapter)
-        : base(logger, resolver, requestAdapter, responseAdapter) {}
+var builder = WebApplication.CreateBuilder(args);
 
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("/entra/router", Invoke);
-    }
-}
+builder.Services.AddEntraEventHandlers();
+
+var app = builder.Build();
+
+// Option A: Multi‑event router
+app.MapEntraRouter();
+
+// Option B: Individual event endpoints
+// app.MapEntraTokenIssuanceStart();
+
+app.Run();
 ```
+
+---
+
+## 🧭 Endpoint Mapping Extensions
+
+This package exposes extension methods for clean, explicit endpoint registration:
+
+```csharp
+app.MapEntraRouter();                // Multi‑event router
+app.MapEntraTokenIssuanceStart();    // Single‑event endpoint
+```
+
+These extensions:
+
+- Resolve the endpoint class from DI  
+- Call its `Map()` method  
+- Attach the correct route  
+- Ensure unified exception handling and logging  
+
+### Default Routes
+
+| Endpoint             | Default Route                |
+|----------------------|------------------------------|
+| Router               | `/entra/router`              |
+| TokenIssuanceStart   | `/entra/tokenissuancestart`  |
+
+---
+
+## 🧩 Router Endpoint (Recommended)
+
+The router endpoint (EntraEventRouterEndpoint) provides:
+- Automatic event deserialization
+- Dynamic handler resolution
+- Automatic invocation
+- Structured error responses
+- Logging for expected and unexpected exceptions
+
+### Mapping the router
+
+```csharp
+app.MapEntraRouter();
+```
+
+This exposes a POST endpoint (default /entra/router) that can host multiple event types behind a single route.
+
+---
+
+## 📦 Single‑Event Endpoints
+
+If you prefer explicit per‑event routes, you can map individual endpoints:
+
+```csharp
+app.MapEntraTokenIssuanceStart();
+```
+
+This exposes a POST endpoint (default /entra/tokenissuancestart) that:
+- Deserializes the event
+- Invokes the correct handler
+- Writes the response
+- Logs exceptions
+- Uses the same unified pipeline as the router
+
+All single‑event endpoint classes are included in this package.
 
 ---
 
 ## 🛠 Dependency Injection
 
-Register all required components with a single call:
+Register all required components with:
 
 ```csharp
 services.AddEntraEventHandlers();
@@ -57,6 +133,13 @@ This automatically registers:
 - Request/response adapters
 - Handler resolver
 - All handlers implementing `IEntraEventHandler<,>`
+- All ASP.NET Core endpoint classes (router + single‑event endpoints)
+
+Endpoints are activated automatically when you map them:
+```csharp
+app.MapEntraRouter();
+app.MapEntraTokenIssuanceStart();
+```
 
 ---
 
@@ -75,25 +158,15 @@ This enables multi‑event hosting behind a single ASP.NET Core endpoint.
 
 ---
 
-## 📦 Optional: Single‑Event Base Classes
+## 🔧 Extensibility
 
-You can use the simple single‑event hosting model:
+All endpoints inherit from a unified execution pipeline with:
 
-```csharp
-public sealed class TokenIssuanceStartEndpoint : TokenIssuanceStartEndpointBase
-{
-    public TokenIssuanceStartEndpoint(
-        ITokenIssuanceStartHandler handler,
-        IRequestAdapter requestAdapter,
-        IResponseAdapter responseAdapter)
-        : base(handler, requestAdapter, responseAdapter) {}
+- Overridable logging hooks  
+- Centralized exception handling  
+- Consistent request/response processing  
 
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("/entra/tokenissuancestart", Invoke);
-    }
-}
-```
+This allows advanced consumers to customize behavior while keeping the core pipeline intact.
 
 ---
 

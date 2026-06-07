@@ -70,6 +70,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C5FBC0E4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entra.EventHandlers.AspNetCore.UnitTests", "api\Entra.EventHandlers.AspNetCore.UnitTests\Entra.EventHandlers.AspNetCore.UnitTests.csproj", "{6B4C61F4-B79D-42E7-AA90-69DBA0D7F726}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{8F4346C4-4144-4AC9-B1D4-0EE04A45F7B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiSample", "samples\ApiSample\ApiSample.csproj", "{BF8CBCAA-FD3C-49FB-946B-27807C1B3E1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +124,10 @@ Global
 		{6B4C61F4-B79D-42E7-AA90-69DBA0D7F726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B4C61F4-B79D-42E7-AA90-69DBA0D7F726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B4C61F4-B79D-42E7-AA90-69DBA0D7F726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8CBCAA-FD3C-49FB-946B-27807C1B3E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8CBCAA-FD3C-49FB-946B-27807C1B3E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8CBCAA-FD3C-49FB-946B-27807C1B3E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8CBCAA-FD3C-49FB-946B-27807C1B3E1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +150,7 @@ Global
 		{579D5320-F0CA-EA57-36FF-D15F91362959} = {F00143B3-2266-4E58-978F-FDBF65AA0E7D}
 		{C5FBC0E4-6E44-4857-A727-8D911AE1033F} = {C3316AAA-8449-4F15-82E6-F215758E3944}
 		{6B4C61F4-B79D-42E7-AA90-69DBA0D7F726} = {C5FBC0E4-6E44-4857-A727-8D911AE1033F}
+		{BF8CBCAA-FD3C-49FB-946B-27807C1B3E1E} = {8F4346C4-4144-4AC9-B1D4-0EE04A45F7B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19EF6B17-5B32-4D91-9F16-C0DDFF52FD22}
