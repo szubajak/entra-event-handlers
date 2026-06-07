@@ -19,7 +19,6 @@ public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestA
         Logger.LogError(ex, "Unhandled exception while processing Entra event.");
     }
 
-
     protected async Task Invoke(HttpContext httpContext)
     {
         try

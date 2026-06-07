@@ -50,7 +50,7 @@ public sealed class RequestAdapter : IRequestAdapter
 {
     /// <inheritdoc />
     public async Task<TEvent> ReadEvent<TEvent>(HttpContext context)
-    where TEvent : EntraEvent
+        where TEvent : EntraEvent
     {
         try
         {
