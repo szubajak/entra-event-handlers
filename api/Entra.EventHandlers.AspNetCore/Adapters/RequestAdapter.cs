@@ -1,6 +1,5 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Events;
-using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
 namespace Entra.EventHandlers.AspNetCore.Adapters;
@@ -51,9 +50,27 @@ public sealed class RequestAdapter : IRequestAdapter
 {
     /// <inheritdoc />
     public async Task<TEvent> ReadEvent<TEvent>(HttpContext context)
-        where TEvent : EntraEvent =>
-        await JsonSerializer.DeserializeAsync<TEvent>(context.Request.Body)
-            ?? throw new EntraDeserializationException("Unable to deserialize event.");
+        where TEvent : EntraEvent
+    {
+        try
+        {
+            using var reader = new StreamReader(context.Request.Body);
+            var body = await reader.ReadToEndAsync();
+
+            if (string.IsNullOrWhiteSpace(body))
+                throw new EntraDeserializationException("Request body is empty.");
+
+            return JsonSerializer.Deserialize<TEvent>(body) ?? throw new EntraDeserializationException("Unable to deserialize event.");
+        }
+        catch (JsonException ex)
+        {
+            throw new EntraDeserializationException("Invalid JSON payload.", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new EntraDeserializationException("Failed to deserialize event.", ex);
+        }
+    }
 
     /// <inheritdoc />
     public Task<EntraEvent> ReadEvent(HttpContext context)

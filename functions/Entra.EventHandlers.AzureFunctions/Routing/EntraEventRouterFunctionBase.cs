@@ -24,8 +24,7 @@ public abstract class EntraEventRouterFunctionBase(
     ILogger<EntraEventRouterFunctionBase> logger,
     IEntraEventHandlerResolver resolver,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraFunctionBase(requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter) : EntraFunctionBase(requestAdapter, responseAdapter)
 {
     private readonly ILogger<EntraEventRouterFunctionBase> _logger = logger;
     private readonly IEntraEventHandlerResolver _resolver = resolver;
