@@ -1,7 +1,7 @@
 # Entra.EventHandlers.AspNetCore
 
 **ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers.**  
-Provides minimal‑boilerplate hosting, full DI support, structured error handling, and complete testability.
+Provides minimal‑boilerplate hosting, full DI support, unified exception handling, structured logging, and complete testability.
 
 **License:** Business Source License (BSL)  
 **Author:** Jakub Szubarga (Szubarga.NET)
@@ -10,77 +10,80 @@ Provides minimal‑boilerplate hosting, full DI support, structured error handli
 
 ## ✨ Features
 
-- 🚀 **Single Endpoint → Multiple Entra Event Types**  
-- 🔄 **Automatic request deserialization & response serialization**  
-- 🧩 **Dynamic handler resolution via DI**  
-- 🛡 **Structured error mapping (400/500)**  
-- 🧪 **Fully unit‑testable**  
-- 🪶 **Minimal boilerplate**
+- 🚀 Single endpoint can host **multiple Entra event types**  
+- 🔄 Automatic request deserialization & response serialization  
+- 🧩 Dynamic handler resolution via DI  
+- 🛡 Structured error mapping (400/500)  
+- 🧪 Fully unit‑testable  
+- 🪶 Minimal boilerplate  
+- 🧭 Clean endpoint mapping extensions
 
 ---
 
-## 🧩 Minimal Router Endpoint
+## 🚀 Quick Start
 
 ```csharp
-public sealed class EntraRouterEndpoint : EntraEventRouterEndpointBase
-{
-    public EntraRouterEndpoint(
-        ILogger<EntraEventRouterEndpointBase> logger,
-        IEntraEventHandlerResolver resolver,
-        IRequestAdapter requestAdapter,
-        IResponseAdapter responseAdapter)
-        : base(logger, resolver, requestAdapter, responseAdapter) {}
+var builder = WebApplication.CreateBuilder(args);
 
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("/entra/router", Invoke);
-    }
-}
+builder.Services.AddEntraEventHandlers();
+
+var app = builder.Build();
+
+// Multi‑event router (recommended)
+app.MapEntraRouter();
+
+// Or map individual event endpoints
+// app.MapEntraTokenIssuanceStart();
+
+app.Run();
 ```
+
+---
+
+## 🧭 Endpoint Mapping Extensions
+
+```csharp
+app.MapEntraRouter();                // Multi‑event router
+app.MapEntraTokenIssuanceStart();    // Single‑event endpoint
+```
+
+### Default Routes
+
+| Endpoint           | Route                       |
+|--------------------|-----------------------------|
+| Router             | `/entra/router`             |
+| TokenIssuanceStart | `/entra/tokenissuancestart` |
 
 ---
 
 ## 🛠 Dependency Injection
 
-Register all required components with a single call:
-
 ```csharp
 services.AddEntraEventHandlers();
 ```
 
-This automatically registers:
-- Request/response adapters
-- Handler resolver
-- All handlers implementing `IEntraEventHandler<,>`
+Registers:
+
+- Request/response adapters  
+- Handler resolver  
+- All `IEntraEventHandler<,>` implementations  
+- All ASP.NET Core endpoint classes (router + single‑event)
 
 ---
 
-## 📦 Optional: Single‑Event Base Classes
+## 🔧 Extensibility
 
-If you prefer one endpoint per event type:
+All endpoints inherit from a unified execution pipeline with:
 
-```csharp
-public sealed class TokenIssuanceStartEndpoint : TokenIssuanceStartEndpointBase
-{
-    public TokenIssuanceStartEndpoint(
-        ITokenIssuanceStartHandler handler,
-        IRequestAdapter requestAdapter,
-        IResponseAdapter responseAdapter)
-        : base(handler, requestAdapter, responseAdapter) {}
-
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("/entra/tokenissuancestart", Invoke);
-    }
-}
-```
+- Overridable logging hooks  
+- Centralized exception handling  
+- Consistent request/response processing  
 
 ---
 
 ## 🔒 License
 
-This package is licensed under the **Business Source License (BSL)**.
-
+This package is licensed under the **Business Source License (BSL)**.  
 A commercial license is required for production use by organizations with more than 5 employees.
 
 ### Pricing
@@ -94,7 +97,3 @@ A commercial license is required for production use by organizations with more t
 The abstractions package is MIT‑licensed and can be used freely.
 
 ---
-
-## 📚 Documentation
-
-Full documentation, examples, and production templates will be available in the main repository as the ecosystem evolves.

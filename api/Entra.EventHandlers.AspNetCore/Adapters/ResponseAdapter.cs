@@ -1,6 +1,5 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Responses;
-using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
 namespace Entra.EventHandlers.AspNetCore.Adapters;
@@ -71,7 +70,8 @@ public class ResponseAdapter : IResponseAdapter
     {
         context.Response.StatusCode = StatusCodes.Status200OK;
         context.Response.ContentType = "application/json";
-        await JsonSerializer.SerializeAsync(context.Response.Body, response);
+        await JsonSerializer.SerializeAsync(context.Response.Body, response, response.GetType());
+        await context.Response.Body.FlushAsync();
     }
 
     /// <inheritdoc />
@@ -87,5 +87,6 @@ public class ResponseAdapter : IResponseAdapter
         context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";
         await JsonSerializer.SerializeAsync(context.Response.Body, error);
+        await context.Response.Body.FlushAsync();
     }
 }

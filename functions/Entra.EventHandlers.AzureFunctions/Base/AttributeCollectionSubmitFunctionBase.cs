@@ -10,8 +10,7 @@ namespace Entra.EventHandlers.AzureFunctions.Base;
 public abstract class AttributeCollectionSubmitFunctionBase(
     IAttributeCollectionSubmitHandler handler,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraFunctionBase(requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter) : EntraFunctionBase(requestAdapter, responseAdapter)
 {
     private readonly IAttributeCollectionSubmitHandler _handler = handler;
 

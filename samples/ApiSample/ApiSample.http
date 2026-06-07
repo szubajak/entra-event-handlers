@@ -1,0 +1,36 @@
+@ApiSample_HostAddress = http://localhost:5144
+
+GET {{ApiSample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### Token Issuance Start Example
+POST {{ApiSample_HostAddress}}/entra/tokenissuancestart
+Content-Type: application/json
+
+{
+  "type": "microsoft.graph.authenticationEvent.tokenIssuanceStart",
+  "source": "/tenants/11111111-2222-3333-4444-555555555555/applications/00000000-aaaa-bbbb-cccc-111111111111",
+  "correlationId": "12345678-1234-1234-1234-123456789abc",
+  "data": {
+    "tenantId": "11111111-2222-3333-4444-555555555555",
+    "authenticationEventListenerId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    "customAuthenticationExtensionId": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+    "authenticationContext": {
+      "correlationId": "98765432-4321-4321-4321-cba987654321",
+      "protocol": "OAUTH2.0",
+      "client": {
+        "ip": "192.168.1.10",
+        "locale": "en-US",
+        "market": "US"
+      },
+      "user": {
+        "id": "90847c2a-e29d-4d2f-9f54-c5b4d3f26471",
+        "displayName": "Casey Jensen",
+        "mail": "casey@contoso.com",
+        "userPrincipalName": "casey@contoso.com"
+      }
+    }
+  }
+}
+
+###

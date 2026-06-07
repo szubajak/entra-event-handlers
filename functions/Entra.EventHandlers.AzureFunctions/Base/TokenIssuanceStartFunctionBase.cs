@@ -10,8 +10,7 @@ namespace Entra.EventHandlers.AzureFunctions.Base;
 public abstract class TokenIssuanceStartFunctionBase(
     ITokenIssuanceStartHandler handler,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraFunctionBase(requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter) : EntraFunctionBase(requestAdapter, responseAdapter)
 {
     private readonly ITokenIssuanceStartHandler _handler = handler;
 
