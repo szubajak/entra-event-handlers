@@ -108,7 +108,7 @@ The sample shows:
 - How to structure clean, production‑ready handler logic  
 
 You can find the sample handlers in the repository under:  
-[Sample.Common](./samples/Sample.Common) project.
+[Sample.Common](../../samples/Sample.Common) project.
 
 ---
 

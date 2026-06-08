@@ -208,7 +208,7 @@ The sample shows:
 - How to structure a clean, production‑ready ASP.NET Core application for Entra event handling
 
 You can find the sample in the repository under:  
-[ApiSample](./samples/ApiSample) project.
+[ApiSample](../../samples/ApiSample) project.
 
 ---
 
