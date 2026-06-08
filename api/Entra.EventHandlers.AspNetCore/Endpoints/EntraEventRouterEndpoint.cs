@@ -12,6 +12,6 @@ public sealed class EntraEventRouterEndpoint(
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("/entra/router", Invoke);
+        endpoints.MapPost("router", Invoke);
     }
 }

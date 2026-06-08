@@ -55,12 +55,22 @@ Production‑ready base classes that provide:
 Example:
 
 ```csharp
-public abstract class AttributeCollectionStartHandlerBase
-    : IAttributeCollectionStartHandler
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
+    : AttributeCollectionStartHandlerBase(logger)
 {
-    protected abstract Task<AttributeCollectionStartResponse> HandleCore(
+    protected override Task<AttributeCollectionStartResponse> HandleCore(
         AttributeCollectionStartEvent request,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken)
+    {
+        // TODO: Add your custom logic here.
+        // For example: pre-fill attributes, validate input, or branch the flow.
+
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .ContinueWithDefaultBehavior()
+                .Build());
+    }
 }
 ```
 
@@ -140,18 +150,39 @@ return EntraEventResponses
 ## 🛠 Example: Implementing a Handler
 
 ```csharp
-public class MyStartHandler : AttributeCollectionStartHandlerBase
+public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger)
+    : TokenIssuanceStartHandlerBase(logger)
 {
-    public MyStartHandler(ILogger<MyStartHandler> logger) : base(logger) {}
-
-    protected override Task<AttributeCollectionStartResponse> HandleCore(
-        AttributeCollectionStartEvent request,
+    protected override Task<TokenIssuanceStartResponse> HandleCore(
+        TokenIssuanceStartEvent request,
         CancellationToken cancellationToken)
     {
+        // Extract user ID (GUID)
+        var userId = request.Data.AuthenticationContext?.User?.Id;
+
+        // Example: determine roles based on user ID
+        var roles = userId switch
+        {
+            // Example: special admin GUID
+            var id when id == Guid.Parse("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee")
+                => ["Admin", "PowerUser"],
+
+            // Default
+            _ => new[] { "User" }
+        };
+
+        // Example: add custom claims
+        var customClaims = new Dictionary<string, object>
+        {
+            { "tenantId", "contoso-eu" },
+            { "department", "Engineering" },
+            { "roles", roles }
+        };
+
         return Task.FromResult(
             EntraEventResponses
-                .AttributeCollectionStart()
-                .ContinueWithDefaultBehavior()
+                .TokenIssuanceStart()
+                .ProvideClaimsForToken(customClaims)
                 .Build());
     }
 }

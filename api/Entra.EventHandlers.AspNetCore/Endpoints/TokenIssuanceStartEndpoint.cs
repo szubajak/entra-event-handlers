@@ -12,6 +12,6 @@ public sealed class TokenIssuanceStartEndpoint(
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("/entra/tokenissuancestart", Invoke);
+        endpoints.MapPost("tokenissuancestart", Invoke);
     }
 }
