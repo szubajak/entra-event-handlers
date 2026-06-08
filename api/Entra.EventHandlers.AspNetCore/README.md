@@ -192,6 +192,26 @@ Unit tests are available in the
 
 ---
 
+## 📁 Samples
+
+This package includes a full ASP.NET Core sample demonstrating how to host Entra Event Handlers in a real Web API application:
+
+- **ApiSample** — minimal ASP.NET Core API using  
+  `EntraEventRouterEndpoint` and single‑event endpoint classes.
+
+The sample shows:
+
+- How to register handlers with `AddEntraEventHandlers()`
+- How to map the router endpoint using `app.MapEntraRouter()`
+- How to map individual single‑event endpoints
+- How the unified execution pipeline handles deserialization, resolution, invocation, and response writing
+- How to structure a clean, production‑ready ASP.NET Core application for Entra event handling
+
+You can find the sample in the repository under:  
+[ApiSample](../samples/ApiSample) project.
+
+---
+
 ## 🔒 License
 
 This package is licensed under the **Business Source License (BSL)**.

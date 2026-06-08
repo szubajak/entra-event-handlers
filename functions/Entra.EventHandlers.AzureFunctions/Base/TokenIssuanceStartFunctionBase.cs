@@ -4,17 +4,19 @@ using Entra.EventHandlers.AzureFunctions.Abstractions;
 using Entra.EventHandlers.AzureFunctions.Adapters;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.Base;
 
 public abstract class TokenIssuanceStartFunctionBase(
+    ILogger logger,
     ITokenIssuanceStartHandler handler,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EntraFunctionBase(requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter) : EntraFunctionBase(logger, requestAdapter, responseAdapter)
 {
     private readonly ITokenIssuanceStartHandler _handler = handler;
 
-    protected override async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
+    protected override async Task<HttpResponseData> Execute(HttpRequestData req, FunctionContext context)
     {
         var evt = await RequestAdapter.ReadEvent<TokenIssuanceStartEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);

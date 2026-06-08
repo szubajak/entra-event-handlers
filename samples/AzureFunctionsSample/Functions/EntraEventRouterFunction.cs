@@ -5,15 +5,19 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
+namespace AzureFunctionsSample.Functions;
 
-public sealed class TestRouter(
-    ILogger<EntraEventRouterFunctionBase> logger,
+public sealed class EntraEventRouterFunction(
+    ILogger<EntraEventRouterFunction> logger,
     IEntraEventHandlerResolver resolver,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter)
     : EntraEventRouterFunctionBase(logger, resolver, requestAdapter, responseAdapter)
 {
-    public Task<HttpResponseData> RunAsync(HttpRequestData req, FunctionContext ctx)
-        => Invoke(req, ctx);
+    [Function("Router")]
+    public Task<HttpResponseData> RunAsync(
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")]
+        HttpRequestData req,
+        FunctionContext context)
+        => Invoke(req, context);
 }

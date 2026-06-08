@@ -6,7 +6,7 @@ using Entra.EventHandlers.AspNetCore.Adapters;
 namespace Entra.EventHandlers.AspNetCore.Base;
 
 public abstract class AttributeCollectionStartEndpointBase(
-    ILogger<AttributeCollectionStartEndpointBase> logger,
+    ILogger logger,
     IAttributeCollectionStartHandler handler,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter) : EntraEndpointBase(logger, requestAdapter, responseAdapter)

@@ -2,8 +2,9 @@
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Builders;
 using Entra.EventHandlers.Handlers.Base;
+using Microsoft.Extensions.Logging;
 
-namespace ApiSample.Handlers;
+namespace Sample.Common.Handlers;
 
 public class AttributeCollectionSubmitHandler(ILogger<AttributeCollectionSubmitHandler> logger)
     : AttributeCollectionSubmitHandlerBase(logger)

@@ -2,19 +2,20 @@
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Builders;
 using Entra.EventHandlers.Handlers.Base;
+using Microsoft.Extensions.Logging;
 
-namespace ApiSample.Handlers;
+namespace Sample.Common.Handlers;
 
-public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
-    : AttributeCollectionStartHandlerBase(logger)
+public class EmailOtpSendHandler(ILogger<EmailOtpSendHandler> logger)
+    : EmailOtpSendHandlerBase(logger)
 {
-    protected override Task<AttributeCollectionStartResponse> HandleCore(
-        AttributeCollectionStartEvent request,
+    protected override Task<EmailOtpSendResponse> HandleCore(
+        EmailOtpSendEvent request,
         CancellationToken cancellationToken)
     {
         return Task.FromResult(
             EntraEventResponses
-                .AttributeCollectionStart()
+                .EmailOtpSend()
                 .ContinueWithDefaultBehavior()
                 .Build());
     }

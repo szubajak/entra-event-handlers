@@ -60,7 +60,8 @@ public sealed class RequestAdapter : IRequestAdapter
             if (string.IsNullOrWhiteSpace(body))
                 throw new EntraDeserializationException("Request body is empty.");
 
-            return JsonSerializer.Deserialize<TEvent>(body) ?? throw new EntraDeserializationException("Unable to deserialize event.");
+            return JsonSerializer.Deserialize<TEvent>(body)
+                ?? throw new EntraDeserializationException("Unable to deserialize event.");
         }
         catch (JsonException ex)
         {

@@ -27,20 +27,19 @@ This allows a **single Azure Function** to host **multiple Entra event types** c
 ## 🧩 Minimal Router Function
 
 ```csharp
-public sealed class EntraRouterFunction : EntraEventRouterFunctionBase
+public sealed class EntraEventRouterFunction(
+    ILogger<EntraEventRouterFunction> logger,
+    IEntraEventHandlerResolver resolver,
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
+    : EntraEventRouterFunctionBase(logger, resolver, requestAdapter, responseAdapter)
 {
-    public EntraRouterFunction(
-        ILogger<EntraEventRouterFunctionBase> logger,
-        IEntraEventHandlerResolver resolver,
-        IRequestAdapter requestAdapter,
-        IResponseAdapter responseAdapter)
-        : base(logger, resolver, requestAdapter, responseAdapter) {}
-
-    [Function("EntraRouter")]
+    [Function("Router")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        FunctionContext ctx)
-        => Run(req, ctx);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")]
+        HttpRequestData req,
+        FunctionContext context)
+        => Invoke(req, context);
 }
 ```
 
@@ -81,19 +80,19 @@ This enables multi‑event hosting behind a single Azure Function.
 You can use the simple single‑event hosting model:
 
 ```csharp
-public sealed class TokenIssuanceStartFunction : TokenIssuanceStartFunctionBase
+public sealed class TokenIssuanceStartFunction(
+    ILogger<TokenIssuanceStartFunction> logger,
+    ITokenIssuanceStartHandler handler,
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
+    : TokenIssuanceStartFunctionBase(logger, handler, requestAdapter, responseAdapter)
 {
-    public TokenIssuanceStartFunction(
-        ITokenIssuanceStartHandler handler,
-        IRequestAdapter requestAdapter,
-        IResponseAdapter responseAdapter)
-        : base(handler, requestAdapter, responseAdapter) {}
-
     [Function("TokenIssuanceStart")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        FunctionContext ctx)
-        => Run(req, ctx);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")]
+        HttpRequestData req,
+        FunctionContext context)
+        => Invoke(req, context);
 }
 ```
 
@@ -112,6 +111,25 @@ Unit tests are available in the
 - **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
 - **Entra.EventHandlers** — core implementation layer (BSL)
 - **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+
+---
+
+## 📁 Samples
+
+This package includes a full Azure Functions sample demonstrating how to host Entra Event Handlers in a real Function App:
+
+- **AzureFunctionsSample** — minimal HTTP‑trigger Function App using  
+  `EntraEventRouterFunctionBase` and single‑event function bases.
+
+The sample shows:
+
+- How to register handlers with `AddEntraEventHandlers()`
+- How to expose functions using `[Function]` and `[HttpTrigger]`
+- How to use the router function to handle multiple event types
+- How to structure a clean, production‑ready Function App
+
+You can find the sample in the repository under:
+[AzureFunctionsSample](../samples/AzureFunctionsSample) project.
 
 ---
 
