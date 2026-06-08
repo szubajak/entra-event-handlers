@@ -7,11 +7,11 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.Abstractions</PackageId>
-	<Version>1.2.9</Version>
+	<Version>1.2.10</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
-	<Description>Public abstractions and protocol definitions for Microsoft Entra ID Authentication Event Handlers.</Description>
-	<PackageTags>Entra;EntraID;AzureAD;AzureAD-B2C;Authentication;EventHandlers;Identity;OIDC;CIAM;ExternalID;CustomAuthExtension;MicrosoftGraph;EventProcessing</PackageTags>
+	<Description>Public abstractions and protocol definitions for Microsoft Entra External ID Authentication Event Handlers.</Description>
+	<PackageTags>entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;authentication-events;event-handlers;identity;authentication;dotnet;dotnet-library;csharp</PackageTags>
 	
 	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
@@ -25,7 +25,10 @@
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	  
-	<PackageReleaseNotes>Initial release of Entra Event Handlers abstractions.</PackageReleaseNotes>
+	<PackageReleaseNotes>
+	Initial public release of the Microsoft Entra External ID Authentication Event Handlers abstractions.
+	Includes protocol models, action types, and directory attribute primitives.
+	</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

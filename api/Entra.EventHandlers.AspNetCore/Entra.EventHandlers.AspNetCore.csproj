@@ -10,11 +10,11 @@
 
 	  <!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.0.4</Version>
+	<Version>1.0.5</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
-	<Description>ASP.NET Core hosting adapter for Microsoft Entra ID Authentication Event Handlers. Provides request/response adapters, endpoint base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
-	<PackageTags>Entra;EntraID;AzureAD;AzureAD-B2C;Authentication;EventHandlers;Identity;OIDC;CIAM;ExternalID;CustomAuthExtension;MicrosoftGraph;EventProcessing;AspNetCore;Middleware</PackageTags>
+	<Description>ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers. Provides request/response adapters, endpoint base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
+	<PackageTags>entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;authentication-events;event-handlers;identity;authentication;dotnet;aspnetcore;middleware;csharp</PackageTags>
 
 	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
@@ -28,7 +28,10 @@
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-	<PackageReleaseNotes>Initial release of ASP.NET Core hosting adapter for Entra Event Handlers.</PackageReleaseNotes>
+	<PackageReleaseNotes>
+	Initial public release of the ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers.
+	Includes request/response adapters, endpoint base classes, DI integration, and router endpoint.
+	</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -44,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers" Version="1.2.9" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers" Version="1.2.10" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
