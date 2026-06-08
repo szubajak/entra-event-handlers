@@ -129,7 +129,7 @@ The sample shows:
 - How to structure a clean, production‑ready Function App
 
 You can find the sample in the repository under:
-[AzureFunctionsSample](./samples/AzureFunctionsSample) project.
+[AzureFunctionsSample](../../samples/AzureFunctionsSample) project.
 
 ---
 
