@@ -18,24 +18,28 @@ This repository contains:
 
 ## Packages
 
-### **Abstractions**
+### **Abstractions**  
 Public protocol types and contracts (MIT).
-[![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
+
+[![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)  
 [![License: MIT (Abstractions)](https://img.shields.io/badge/License-MIT-blue.svg)](abstractions/Entra.EventHandlers.Abstractions/LICENSE)
 
-### **Core**
+### **Core**  
 Implementation layer: builders, handler bases, validation (BSL).
-[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
+
+[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)  
 [![License: BSL (Core)](https://img.shields.io/badge/License-BSL-orange.svg)](core/Entra.EventHandlers/LICENSE)
 
-### **Azure Functions**
+### **Azure Functions**  
 Azure Functions hosting adapter (BSL).
-[![NuGet AzureFunctions](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)
+
+[![NuGet AzureFunctions](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)  
 [![License: BSL (AzureFunctions)](https://img.shields.io/badge/License-BSL-orange.svg)](functions/Entra.EventHandlers.AzureFunctions/LICENSE)
 
-### **ASP.NET Core**
+### **ASP.NET Core**  
 ASP.NET Core hosting adapter (BSL).
-[![NuGet AspNetCore](https://img.shields.io/nuget/v/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)
+
+[![NuGet AspNetCore](https://img.shields.io/nuget/v/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)  
 [![License: BSL (AspNetCore)](https://img.shields.io/badge/License-BSL-orange.svg)](api/Entra.EventHandlers.AspNetCore/LICENSE)
 
 ---
@@ -43,27 +47,27 @@ ASP.NET Core hosting adapter (BSL).
 ## 🧩 Architecture Overview
 
 ```
-┌───────────────────────────────────────────────────────────┐
-│ Entra.EventHandlers.Abstractions (MIT)                    │
-│ Public contract, protocol types, interfaces               │
-└───────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│ Entra.EventHandlers.Abstractions (MIT)                   │
+│ Public contract, protocol types, interfaces              │
+└──────────────────────────────────────────────────────────┘
                           ▲
                           │
-┌───────────────────────────────────────────────────────────┐
-│ Entra.EventHandlers (BSL)                                 │
-│ Implementation layer: builders, base handlers, validation │
-└───────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│ Entra.EventHandlers (BSL)                                │
+│ Implementation layer: builders, base handlers, validation│
+└──────────────────────────────────────────────────────────┘
                           ▲
                           │
-┌───────────────────────────────────────────────────────────┐
-│ Hosting Adapters (BSL)                                    │
-│                                                           │
-│ • Entra.EventHandlers.AzureFunctions                      │
-│   Azure Functions hosting adapter                         │
-│                                                           │
-│ • Entra.EventHandlers.AspNetCore                          │
-│   ASP.NET Core hosting adapter                            │
-└───────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│ Hosting Adapters (BSL)                                   │
+│                                                          │
+│ • Entra.EventHandlers.AzureFunctions                     │
+│   Azure Functions hosting adapter                        │
+│                                                          │
+│ • Entra.EventHandlers.AspNetCore                         │
+│   ASP.NET Core hosting adapter                           │
+└──────────────────────────────────────────────────────────┘
 ```
 
 This layered design provides:
@@ -136,18 +140,15 @@ They demonstrate real‑world usage of the ecosystem across ASP.NET Core, Azure 
 
 ### **ASP.NET Core**
 - **ApiSample**  
-  Minimal API application using the router endpoint and single‑event endpoints.  
-  Demonstrates clean endpoint mapping, DI integration, and unified execution pipeline.
+  Minimal API application using the router endpoint and single‑event endpoints.
 
 ### **Azure Functions**
 - **AzureFunctionsSample**  
-  Minimal Function App using the router function and single‑event function bases.  
-  Demonstrates request/response adapters, DI wiring, and structured error handling.
+  Minimal Function App using the router function and single‑event function bases.
 
 ### **Shared Handler Logic**
 - **Sample.Common**  
-  Shared sample handlers used by both hosting models.  
-  Demonstrates how to inherit from handler base classes and use fluent response builders.
+  Shared sample handlers used by both hosting models.
 
 You can find the samples under the [samples](./samples) directory.
 
@@ -251,11 +252,11 @@ For commercial licensing or support:
 
 Planned enhancements include:
 
-- Handler composition (pre/post processing)
-- Execution pipeline components
-- Telemetry and OpenTelemetry integration
-- Test utilities and mocks
-- Full documentation site
+- Handler composition (pre/post processing)  
+- Execution pipeline components  
+- Telemetry and OpenTelemetry integration  
+- Test utilities and mocks  
+- Full documentation site  
 
 ---
 
@@ -284,6 +285,5 @@ If you find this library useful, consider sponsoring development:
 ## 🧑‍💻 Author
 
 **Jakub Szubarga (Szubarga.NET)**
-
 
 If you find this ecosystem useful, consider starring the repository ⭐
