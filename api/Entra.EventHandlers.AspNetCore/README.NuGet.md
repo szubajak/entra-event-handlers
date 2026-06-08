@@ -33,7 +33,10 @@ var app = builder.Build();
 app.MapEntraRouter();
 
 // Or map individual event endpoints
+// app.MapEntraAttributeCollectionStart();
+// app.MapEntraAttributeCollectionSubmit();
 // app.MapEntraTokenIssuanceStart();
+// app.MapEntraEmailOtpSend();
 
 app.Run();
 ```
@@ -49,10 +52,13 @@ app.MapEntraTokenIssuanceStart();    // Single‑event endpoint
 
 ### Default Routes
 
-| Endpoint           | Route                       |
-|--------------------|-----------------------------|
-| Router             | `/entra/router`             |
-| TokenIssuanceStart | `/entra/tokenissuancestart` |
+| Endpoint                    | Default Route                |
+|-----------------------------|------------------------------|
+| Router                      | `router`                     |
+| AttributeCollectionStart    | `attributecollectionstart`   |
+| AttributeCollectionSubmit   | `attributecollectionsubmit`  |
+| TokenIssuanceStart          | `tokenissuancestart`         |
+| EmailOtpSend                | `emailotpsend`               |
 
 ---
 
