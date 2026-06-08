@@ -6,11 +6,11 @@
 
 	 <!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers</PackageId>
-	<Version>1.2.9</Version>
+	<Version>1.2.10</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
-	<Description>Core implementation library for Microsoft Entra ID Authentication Event Handlers. Includes request processing pipeline, validation, routing, serialization helpers, and extensibility points for building custom authentication flows.</Description>
-	<PackageTags>Entra;EntraID;AzureAD;AzureAD-B2C;Authentication;EventHandlers;Identity;OIDC;CIAM;ExternalID;CustomAuthExtension;MicrosoftGraph;EventProcessing</PackageTags>
+	<Description>Core implementation library for Microsoft Entra External ID Authentication Event Handlers. Provides fluent response builders, handler base classes, validation, routing helpers, and extensibility points for building custom authentication flows.</Description>
+	<PackageTags>entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;authentication-events;event-handlers;identity;authentication;dotnet;dotnet-library;csharp;fluent-api</PackageTags>
 
 	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
@@ -24,7 +24,10 @@
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-	<PackageReleaseNotes>Initial release of Entra Event Handlers core implementation.</PackageReleaseNotes>
+	<PackageReleaseNotes>
+	Initial public release of the core implementation for Microsoft Entra External ID Authentication Event Handlers.
+	Includes fluent response builders, handler base classes, validation, and execution pipeline.
+	</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +46,6 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.2.9" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.2.10" PrivateAssets="all" />
   </ItemGroup>
 </Project>
