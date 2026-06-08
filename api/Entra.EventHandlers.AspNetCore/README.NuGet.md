@@ -87,6 +87,25 @@ All endpoints inherit from a unified execution pipeline with:
 
 ---
 
+## 📁 Samples
+
+A complete ASP.NET Core sample project is available in the repository:
+
+👉 **ApiSample**  
+https://github.com/szubajak/entra-event-handlers/tree/main/samples/ApiSample
+
+The sample demonstrates:
+
+- registering handlers with `AddEntraEventHandlers()`
+- mapping the router endpoint (`app.MapEntraRouter()`)
+- mapping individual single‑event endpoints
+- using the unified execution pipeline (deserialization → resolution → invocation → response)
+- structuring a clean, minimal ASP.NET Core API for Entra event handling
+
+This is the recommended starting point for building real Entra Event Handler extensions on ASP.NET Core.
+
+---
+
 ## 🔒 License
 
 This package is licensed under the **Business Source License (BSL)**.  

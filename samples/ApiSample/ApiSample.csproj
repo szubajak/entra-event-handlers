@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\api\Entra.EventHandlers.AspNetCore\Entra.EventHandlers.AspNetCore.csproj" />
+    <ProjectReference Include="..\Sample.Common\Sample.Common.csproj" />
   </ItemGroup>
 
 </Project>
