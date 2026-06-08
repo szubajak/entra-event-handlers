@@ -21,12 +21,12 @@ namespace Entra.EventHandlers.AzureFunctions.Routing;
 /// class and expose a single HTTP‑triggered function that delegates to <see cref="Run"/>.
 /// </remarks>
 public abstract class EntraEventRouterFunctionBase(
-    ILogger<EntraEventRouterFunctionBase> logger,
+    ILogger logger,
     IEntraEventHandlerResolver resolver,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EntraFunctionBase(requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter) : EntraFunctionBase(logger, requestAdapter, responseAdapter)
 {
-    private readonly ILogger<EntraEventRouterFunctionBase> _logger = logger;
+    private readonly ILogger _logger = logger;
     private readonly IEntraEventHandlerResolver _resolver = resolver;
 
     /// <summary>
@@ -36,47 +36,22 @@ public abstract class EntraEventRouterFunctionBase(
     /// or handler‑resolution failures are converted into standardized
     /// <see cref="EntraErrorResponse"/> results.
     /// </summary>
-    protected override async Task<HttpResponseData> Run(HttpRequestData req, FunctionContext context)
+    protected override async Task<HttpResponseData> Execute(HttpRequestData req, FunctionContext context)
     {
-        try
-        {
-            var evt = await RequestAdapter.ReadEvent(req);
-            var handler = _resolver.Resolve(evt.GetType());
+        var evt = await RequestAdapter.ReadEvent(req);
+        var handler = _resolver.Resolve(evt.GetType());
 
-            var response = await ((dynamic)handler).Handle((dynamic)evt, context.CancellationToken);
-            return await ResponseAdapter.From(req, response);
-        }
-        catch (Exception ex) when (ex is EntraValidationException or EntraDeserializationException or EntraHandlerNotFoundException)
-        {
-            _logger.LogWarning(ex, "Handled expected Entra exception.");
+        var response = await ((dynamic)handler).Handle((dynamic)evt, context.CancellationToken);
+        return await ResponseAdapter.From(req, response);
+    }
 
-            var code = ex switch
-            {
-                EntraValidationException => EntraErrorCodes.ValidationError,
-                EntraDeserializationException => EntraErrorCodes.DeserializationError,
-                EntraHandlerNotFoundException => EntraErrorCodes.HandlerNotFound,
-                _ => throw new InvalidOperationException("Unreachable: catch filter guarantees only known Entra exceptions.")
-            };
+    protected override void OnKnownException(Exception ex, FunctionContext context)
+    {
+        _logger.LogWarning(ex, "Router: handled expected Entra exception.");
+    }
 
-            return await ResponseAdapter.BadRequest(
-                req,
-                new EntraErrorResponse
-                {
-                    Error = code,
-                    Details = ex.Message
-                });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Unhandled exception while processing Entra event.");
-
-            return await ResponseAdapter.ServerError(
-                req,
-                new EntraErrorResponse
-                {
-                    Error = EntraErrorCodes.UnhandledException,
-                    Details = "An unexpected error occurred."
-                });
-        }
+    protected override void OnUnhandledException(Exception ex, FunctionContext context)
+    {
+        _logger.LogError(ex, "Router: unhandled exception while processing Entra event.");
     }
 }

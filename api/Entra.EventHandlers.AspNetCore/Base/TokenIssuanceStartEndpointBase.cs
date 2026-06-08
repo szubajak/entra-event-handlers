@@ -6,7 +6,7 @@ using Entra.EventHandlers.AspNetCore.Adapters;
 namespace Entra.EventHandlers.AspNetCore.Base;
 
 public abstract class TokenIssuanceStartEndpointBase(
-    ILogger<TokenIssuanceStartEndpointBase> logger,
+    ILogger logger,
     ITokenIssuanceStartHandler handler,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter) : EntraEndpointBase(logger, requestAdapter, responseAdapter)

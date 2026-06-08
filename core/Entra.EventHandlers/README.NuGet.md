@@ -96,6 +96,24 @@ return EntraEventResponses
 
 ---
 
+## 📁 Samples
+
+Sample handler implementations are available in the repository:
+
+👉 **Sample.Common**  
+https://github.com/szubajak/entra-event-handlers/tree/main/samples/Sample.Common
+
+These samples demonstrate:
+
+- how to inherit from the Core handler base classes  
+- how to use fluent response builders (`EntraEventResponses.*`)  
+- how to construct block pages, prefill values, and custom claims  
+- how to structure clean, production‑ready handler logic  
+
+They are shared by both the ASP.NET Core and Azure Functions sample applications.
+
+---
+
 ## 📦 Related Packages
 
 - **Entra.EventHandlers.Abstractions** — protocol types (MIT)  

@@ -17,12 +17,12 @@ namespace Entra.EventHandlers.AspNetCore.Routing;
 /// class and map an HTTP endpoint that delegates to <see cref="Invoke"/>.
 /// </remarks>
 public abstract class EntraEventRouterEndpointBase(
-    ILogger<EntraEventRouterEndpointBase> logger,
+    ILogger logger,
     IEntraEventHandlerResolver resolver,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter) : EntraEndpointBase(logger, requestAdapter, responseAdapter)
 {
-    private readonly ILogger<EntraEventRouterEndpointBase> _logger = logger;
+    private readonly ILogger _logger = logger;
     private readonly IEntraEventHandlerResolver _resolver = resolver;
 
     /// <summary>
@@ -50,5 +50,4 @@ public abstract class EntraEventRouterEndpointBase(
     {
         _logger.LogError(ex, "Router: unhandled exception while processing Entra event.");
     }
-
 }

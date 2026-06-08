@@ -10,138 +10,35 @@ It builds on the MIT‑licensed **Entra.EventHandlers.Abstractions** package and
 
 ## ✨ What This Package Provides
 
-This package extends the abstractions with high‑level implementation features, including:
+This package extends the MIT‑licensed **Entra.EventHandlers.Abstractions** with the full developer‑experience layer for building Microsoft Entra External ID Authentication Event Handlers.
+
+It provides:
+
+- **Fluent, strongly‑typed response builders**  
+  For constructing valid protocol‑correct responses without manual JSON.
+
+- **Unified entry point**  
+  A single API surface (`EntraEventResponses.*`) for all event types.
+
+- **Production‑ready base handler classes**  
+  With structured logging, validation, correlation IDs, and exception handling.
+
+- **Clean override model**  
+  Implement your logic in `HandleCore` while the base class manages the pipeline.
+
+Hosting (routing, DI, request/response adapters) is provided by the  
+**Entra.EventHandlers.AspNetCore** and **Entra.EventHandlers.AzureFunctions** packages.
 
 ---
 
-### ✔ Fluent response builders
-
-Strongly‑typed, ergonomic builders for constructing valid Entra responses:
-
-- `AttributeCollectionStartResponseBuilder`
-- `AttributeCollectionSubmitResponseBuilder`
-- `TokenIssuanceStartResponseBuilder`
-- `EmailOtpSendResponseBuilder`
-- `PrefillValuesBuilder` (for attribute prefill scenarios)
-
-These builders eliminate manual JSON crafting and ensure protocol‑correct payloads.
-
----
-
-### ✔ Unified entry point
-
-A single, discoverable API surface for creating responses:
-
-```csharp
-EntraEventResponses.AttributeCollectionStart();
-EntraEventResponses.AttributeCollectionSubmit();
-EntraEventResponses.TokenIssuanceStart();
-EntraEventResponses.EmailOtpSend();
-```
-
-This makes response construction consistent across all event types.
-
-### ✔ Base handler infrastructure
-
-Production‑ready base classes that provide:
-
-- Structured logging  
-- Correlation scoping  
-- Execution timing  
-- Protocol‑level validation (`@odata.type`)  
-- Consistent exception handling  
-- A clean override point (`HandleCore`)  
-
-Example:
-
-```csharp
-public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
-    : AttributeCollectionStartHandlerBase(logger)
-{
-    protected override Task<AttributeCollectionStartResponse> HandleCore(
-        AttributeCollectionStartEvent request,
-        CancellationToken cancellationToken)
-    {
-        // TODO: Add your custom logic here.
-        // For example: pre-fill attributes, validate input, or branch the flow.
-
-        return Task.FromResult(
-            EntraEventResponses
-                .AttributeCollectionStart()
-                .ContinueWithDefaultBehavior()
-                .Build());
-    }
-}
-```
-
-These base handlers remove boilerplate and ensure consistent behavior across all
-custom extensions.
-
-### ✔ Extensibility pipeline (roadmap)
-
-Future versions of the Core package will introduce optional developer‑experience enhancements such as:
-
-- Handler composition (pre/post processing, chaining)
-- Additional execution‑pipeline components
-- Telemetry and OpenTelemetry integration hooks
-- Test utilities and mocks for handler testing
-
-Hosting‑specific features (routing, DI, request/response adapters) are provided by the
-**Entra.EventHandlers.AzureFunctions** and **Entra.EventHandlers.AspNetCore** packages.
-
----
-
-## 🧩 Relationship to the Abstractions Package
-
-This package depends on:
-
-- **Entra.EventHandlers.Abstractions** (MIT)
-
-The abstractions define the protocol and public contract.  
-This package provides the implementation and developer experience on top of it.
-
-You are free to use the abstractions in any project (open‑source or commercial).  
-This implementation package is licensed under the **Business Source License (BSL)**.
-
----
-
-## 📦 Related Packages
-
-- **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
-- **Entra.EventHandlers.AzureFunctions** — Azure Functions integration (BSL)  
-- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
-
----
-
-## 🛠 Example: Building a Response
-
-Block page example:
-
-```csharp
-return EntraEventResponses
-    .AttributeCollectionStart()
-    .ShowBlockPage("Error", "Unexpected error occurred.")
-    .Build();
-```
-
-Prefill example:
+## 🛠 Building Responses
 
 ```csharp
 return EntraEventResponses
     .AttributeCollectionStart()
     .SetPrefillValues()
         .Add("email", "user@example.com")
-        .Add("country", "PL")
     .Done()
-    .Build();
-```
-
-Continue with default behavior:
-
-```csharp
-return EntraEventResponses
-    .AttributeCollectionStart()
-    .ContinueWithDefaultBehavior()
     .Build();
 ```
 
@@ -188,13 +85,38 @@ public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger
 }
 ```
 
-The base class automatically provides:
+The base class handles:
 
-- CorrelationId logging  
-- EventType/EventName scoping  
-- Duration measurement  
-- Validation  
-- Exception handling  
+- Logging
+- Validation
+- Correlation IDs
+- Exception handling
+
+---
+
+## 📁 Samples
+
+This package includes a set of sample handler implementations demonstrating how to build real Entra Event Handler logic using the Core package:
+
+- **Sample.Common** — shared sample handlers used by both the ASP.NET Core and Azure Functions samples.
+
+The sample shows:
+
+- How to implement handlers by inheriting from the base classes  
+- How to use fluent response builders (`EntraEventResponses.*`)  
+- How to construct block pages, prefill values, and custom claims  
+- How to structure clean, production‑ready handler logic  
+
+You can find the sample handlers in the repository under:  
+[Sample.Common](./samples/Sample.Common) project.
+
+---
+
+## 📦 Related Packages
+
+- **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
+- **Entra.EventHandlers** — core implementation layer (BSL)
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
 
 ---
 

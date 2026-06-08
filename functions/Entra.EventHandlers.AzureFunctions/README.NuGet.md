@@ -22,20 +22,19 @@ Provides minimal‑boilerplate hosting, full DI support, structured error handli
 ## 🧩 Minimal Router Function
 
 ```csharp
-public sealed class EntraRouterFunction : EntraEventRouterFunctionBase
+public sealed class EntraEventRouterFunction(
+    ILogger<EntraEventRouterFunction> logger,
+    IEntraEventHandlerResolver resolver,
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
+    : EntraEventRouterFunctionBase(logger, resolver, requestAdapter, responseAdapter)
 {
-    public EntraRouterFunction(
-        ILogger<EntraEventRouterFunctionBase> logger,
-        IEntraEventHandlerResolver resolver,
-        IRequestAdapter requestAdapter,
-        IResponseAdapter responseAdapter)
-        : base(logger, resolver, requestAdapter, responseAdapter) {}
-
-    [Function("EntraRouter")]
+    [Function("Router")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        FunctionContext ctx)
-        => Run(req, ctx);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")]
+        HttpRequestData req,
+        FunctionContext context)
+        => Invoke(req, context);
 }
 ```
 
@@ -61,21 +60,40 @@ This automatically registers:
 If you prefer one function per event type:
 
 ```csharp
-public sealed class TokenIssuanceStartFunction : TokenIssuanceStartFunctionBase
+public sealed class TokenIssuanceStartFunction(
+    ILogger<TokenIssuanceStartFunction> logger,
+    ITokenIssuanceStartHandler handler,
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
+    : TokenIssuanceStartFunctionBase(logger, handler, requestAdapter, responseAdapter)
 {
-    public TokenIssuanceStartFunction(
-        ITokenIssuanceStartHandler handler,
-        IRequestAdapter requestAdapter,
-        IResponseAdapter responseAdapter)
-        : base(handler, requestAdapter, responseAdapter) {}
-
     [Function("TokenIssuanceStart")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        FunctionContext ctx)
-        => Run(req, ctx);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")]
+        HttpRequestData req,
+        FunctionContext context)
+        => Invoke(req, context);
 }
 ```
+
+---
+
+## 📁 Samples
+
+A complete Azure Functions sample project is available in the repository:
+
+👉 **AzureFunctionsSample**  
+https://github.com/szubajak/entra-event-handlers/tree/main/samples/AzureFunctionsSample
+
+The sample demonstrates:
+
+- registering handlers with `AddEntraEventHandlers()`
+- using the router function (`EntraEventRouterFunctionBase`)
+- using single‑event function bases
+- exposing functions with `[Function]` and `[HttpTrigger]`
+- structuring a clean, minimal Function App for Entra event handling
+
+This is the recommended starting point for building real Entra Event Handler extensions on Azure Functions.
 
 ---
 

@@ -51,9 +51,28 @@ public sealed class RequestAdapter : IRequestAdapter
 {
     /// <inheritdoc />
     public async Task<TEvent> ReadEvent<TEvent>(HttpRequestData req)
-        where TEvent : EntraEvent =>
-        await JsonSerializer.DeserializeAsync<TEvent>(req.Body)
-            ?? throw new EntraDeserializationException("Unable to deserialize event.");
+        where TEvent : EntraEvent
+    {
+        try
+        {
+            using var reader = new StreamReader(req.Body);
+            var body = await reader.ReadToEndAsync();
+
+            if (string.IsNullOrWhiteSpace(body))
+                throw new EntraDeserializationException("Request body is empty.");
+
+            return JsonSerializer.Deserialize<TEvent>(body)
+                ?? throw new EntraDeserializationException("Unable to deserialize event.");
+        }
+        catch (JsonException ex)
+        {
+            throw new EntraDeserializationException("Invalid JSON payload.", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new EntraDeserializationException("Failed to deserialize event.", ex);
+        }
+    }
 
     /// <inheritdoc />
     public Task<EntraEvent> ReadEvent(HttpRequestData req) =>

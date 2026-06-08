@@ -6,7 +6,7 @@ using Entra.EventHandlers.AspNetCore.Adapters;
 namespace Entra.EventHandlers.AspNetCore.Base;
 
 public abstract class EmailOtpSendEndpointBase(
-    ILogger<EmailOtpSendEndpointBase> logger,
+    ILogger logger,
     IEmailOtpSendHandler handler,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter) : EntraEndpointBase(logger, requestAdapter, responseAdapter)

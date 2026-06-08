@@ -66,7 +66,7 @@ public class EntraEventRouterFunctionBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
             e.Exception == exception &&
-            e.Message.Contains("Handled expected Entra exception"));
+            e.Message.Contains("Router: handled expected Entra exception."));
     }
 
     [Fact]
@@ -104,7 +104,7 @@ public class EntraEventRouterFunctionBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
             e.Exception == exception &&
-            e.Message.Contains("Handled expected Entra exception"));
+            e.Message.Contains("Router: handled expected Entra exception."));
     }
 
     [Fact]
@@ -147,7 +147,7 @@ public class EntraEventRouterFunctionBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
             e.Exception == exception &&
-            e.Message.Contains("Handled expected Entra exception"));
+            e.Message.Contains("Router: handled expected Entra exception."));
     }
 
     [Fact]
@@ -182,7 +182,7 @@ public class EntraEventRouterFunctionBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&
             e.Exception == exception &&
-            e.Message.Contains("Unhandled exception while processing Entra event"));
+            e.Message.Contains("Router: unhandled exception while processing Entra event."));
     }
 
     [Fact]
