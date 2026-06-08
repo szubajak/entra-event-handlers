@@ -12,11 +12,14 @@ builder.Services.AddEntraEventHandlers();
 
 var app = builder.Build();
 
-// Map Entra Router
+// Recommended: Map Entra Router (one endpoint to handle all events)
 app.MapEntraRouter();
 
-// Map Specific Entra Event
+// Optional: Map Specific Entra Events 
+app.MapEntraAttributeCollectionStart();
+app.MapEntraAttributeCollectionSubmit();
 app.MapEntraTokenIssuanceStart();
+app.MapEntraEmailOtpSend();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
