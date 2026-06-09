@@ -1,24 +1,27 @@
-﻿using Entra.EventHandlers.Abstractions.Protocol;
+﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Protocol;
 using System.Text.Json.Serialization;
 
 namespace Entra.EventHandlers.Abstractions.Actions;
 
 /// <summary>
-/// Represents an action that modifies one or more attribute values submitted by
-/// the user during the AttributeCollectionSubmit event. This action allows a
-/// custom extension to transform, normalize, or override attribute values
-/// before Microsoft Entra continues the sign-up flow.
+/// Represents an action returned to Microsoft Entra during an
+/// <see cref="AttributeCollectionSubmitEvent"/>. The action modifies one or
+/// more attribute values submitted by the user before Entra continues the
+/// attribute collection flow.
 /// </summary>
 /// <remarks>
+/// The concrete <c>@odata.type</c> value is defined by the Entra protocol and
+/// identifies this action as a modify‑attribute‑values instruction.  
+///
 /// The <c>attributes</c> dictionary contains the updated attribute values keyed
 /// by attribute name. Any attribute included in this dictionary replaces the
 /// corresponding value submitted by the user. Attributes not included remain
 /// unchanged.
 ///
-/// This action is only valid in the AttributeCollectionSubmit response and is
-/// ignored in other event types.
+/// This action is valid only in the AttributeCollectionSubmit response.
 ///
-/// For details on modifying attribute values, see:
+/// For details, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
 /// </remarks>
 public class ModifyAttributeValuesAction : EntraAction

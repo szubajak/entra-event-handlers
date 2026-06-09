@@ -7,11 +7,19 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
-## v1.3.0 — 2026‑06‑08
+## v1.3.0 — 2026‑06‑09
 
 ### Updated
 
 - Updated NuGet metadata
+- Updated XML documentation
+
+### Added
+
+- Added `PasswordSubmitEvent` request model.
+- Added `PasswordSubmitEventPayload` including encrypted password context support.
+- Added `PasswordSubmitAction` and `PasswordSubmitActionType`
+- Added `IPasswordSubmitHandler` for handling PasswordSubmit events.
 
 ## v1.2.4 — 2026‑06‑05
 

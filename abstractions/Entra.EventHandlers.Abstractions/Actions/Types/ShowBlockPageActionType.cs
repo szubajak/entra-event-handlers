@@ -1,4 +1,5 @@
-﻿using static Entra.EventHandlers.Abstractions.Protocol.EntraOdataTypes;
+﻿using Entra.EventHandlers.Abstractions.Events;
+using static Entra.EventHandlers.Abstractions.Protocol.EntraOdataTypes;
 
 namespace Entra.EventHandlers.Abstractions.Actions.Types;
 
@@ -8,23 +9,22 @@ namespace Entra.EventHandlers.Abstractions.Actions.Types;
 /// event context.
 /// </summary>
 /// <remarks>
-/// Microsoft Entra uses different <c>@odata.type</c> values depending on whether
-/// the block page is returned during AttributeCollectionStart or
-/// AttributeCollectionSubmit. This type provides strongly typed access to those
-/// values.
+/// Microsoft Entra uses different <c>@odata.type</c> values depending on the
+/// event in which a block‑page action is returned. This type provides strongly
+/// typed access to those values and ensures correct protocol usage.
 /// </remarks>
 public sealed record ShowBlockPageActionType(string Value)
 {
     /// <summary>
-    /// Gets the OData type for a block page action returned during the
-    /// AttributeCollectionStart event.
+    /// The OData type for the action that displays a block page to the user
+    /// during the <see cref="AttributeCollectionStartEvent"/>.
     /// </summary>
     public static readonly ShowBlockPageActionType AttributeCollectionStartShowBlockPage =
         new(AttributeCollectionStart.ShowBlockPage);
 
     /// <summary>
-    /// Gets the OData type for a block page action returned during the
-    /// AttributeCollectionSubmit event.
+    /// The OData type for the action that displays a block page to the user
+    /// during the <see cref="AttributeCollectionSubmitEvent"/>.
     /// </summary>
     public static readonly ShowBlockPageActionType AttributeCollectionSubmitShowBlockPage =
         new(AttributeCollectionSubmit.ShowBlockPage);
