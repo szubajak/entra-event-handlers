@@ -59,7 +59,3 @@ nunit-*.xml
 
 # Visual Studio
 .vs/
-
-# Temporary
-temp.json
-/aspnetcore/Entra.EventHandlers.AspNetCore/Properties/
