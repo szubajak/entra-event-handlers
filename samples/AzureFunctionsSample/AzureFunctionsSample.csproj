@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\functions\Entra.EventHandlers.AzureFunctions\Entra.EventHandlers.AzureFunctions.csproj" />
+    <ProjectReference Include="..\..\azurefunctions\Entra.EventHandlers.AzureFunctions\Entra.EventHandlers.AzureFunctions.csproj" />
     <ProjectReference Include="..\Sample.Common\Sample.Common.csproj" />
   </ItemGroup>
 

@@ -37,13 +37,13 @@ jobs:
           echo "Detected PACKAGE=$PACKAGE VERSION=$VERSION"
 
       - name: Restore
-        run: dotnet restore Entra.EventHandlers.sln
+        run: dotnet restore Entra.EventHandlers.slnx
 
       - name: Build
-        run: dotnet build Entra.EventHandlers.sln -c Release --no-restore
+        run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
 
       - name: Run Unit Tests
-        run: dotnet test Entra.EventHandlers.sln -c Release --no-build --verbosity normal
+        run: dotnet test Entra.EventHandlers.slnx -c Release --no-build --verbosity normal
 
       - name: Resolve project path
         id: resolve
@@ -56,10 +56,10 @@ jobs:
               PROJECT_PATH="abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj"
               ;;
             Entra.EventHandlers.AzureFunctions)
-              PROJECT_PATH="functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj"
+              PROJECT_PATH="azurefunctions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj"
               ;;
             Entra.EventHandlers.AspNetCore)
-              PROJECT_PATH="api/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj"
+              PROJECT_PATH="aspnetcore/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj"
               ;;
             *)
               echo "Unknown package: $PACKAGE"

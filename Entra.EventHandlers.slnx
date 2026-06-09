@@ -1,0 +1,56 @@
+<Solution>
+  <Folder Name="/.config/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="CHANGELOG.md" />
+    <File Path="LICENSE" />
+    <File Path="LICENSE-COMMERCIAL.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/.github/">
+    <File Path="FUNDING.yml" />
+  </Folder>
+  <Folder Name="/.github/workflows/">
+    <File Path=".github/workflows/pr-validate-develop.yml" />
+    <File Path=".github/workflows/pr-validate-main.yml" />
+    <File Path=".github/workflows/publish.yml" />
+  </Folder>
+  <Folder Name="/abstractions/">
+    <Project Path="abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/abstractions/tests/">
+    <Project Path="abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/aspnetcore/">
+    <Project Path="aspnetcore/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj" />
+  </Folder>
+  <Folder Name="/aspnetcore/tests/">
+    <Project Path="aspnetcore/Entra.EventHandlers.AspNetCore.UnitTests/Entra.EventHandlers.AspNetCore.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/azurefunctions/">
+    <Project Path="azurefunctions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj" />
+  </Folder>
+  <Folder Name="/azurefunctions/tests/">
+    <Project Path="azurefunctions/Entra.EventHandlers.AzureFunctions.UnitTests/Entra.EventHandlers.AzureFunctions.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/common/">
+    <Project Path="common/Entra.EventHandlers.TestHelpers/Entra.EventHandlers.TestHelpers.csproj" />
+  </Folder>
+  <Folder Name="/core/">
+    <Project Path="core/Entra.EventHandlers/Entra.EventHandlers.csproj" />
+  </Folder>
+  <Folder Name="/core/tests/">
+    <Project Path="core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/hosting/">
+    <Project Path="hosting/Entra.EventHandlers.Hosting/Entra.EventHandlers.Hosting.csproj" />
+  </Folder>
+  <Folder Name="/hosting/tests/">
+    <Project Path="hosting/Entra.EventHandlers.Hosting.UnitTests/Entra.EventHandlers.Hosting.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/ApiSample/ApiSample.csproj" />
+    <Project Path="samples/AzureFunctionsSample/AzureFunctionsSample.csproj" />
+    <Project Path="samples/Sample.Common/Sample.Common.csproj" />
+  </Folder>
+</Solution>

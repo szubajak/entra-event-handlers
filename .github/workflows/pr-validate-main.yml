@@ -25,10 +25,10 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore
-        run: dotnet restore Entra.EventHandlers.sln
+        run: dotnet restore Entra.EventHandlers.slnx
 
       - name: Build
-        run: dotnet build Entra.EventHandlers.sln -c Release --no-restore
+        run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
 
       - name: Run Unit Tests
-        run: dotnet test Entra.EventHandlers.sln -c Release --no-build --verbosity normal
+        run: dotnet test Entra.EventHandlers.slnx -c Release --no-build --verbosity normal

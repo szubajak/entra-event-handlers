@@ -34,13 +34,13 @@ Implementation layer: builders, handler bases, validation (BSL).
 Azure Functions hosting adapter (BSL).
 
 [![NuGet AzureFunctions](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)  
-[![License: BSL (AzureFunctions)](https://img.shields.io/badge/License-BSL-orange.svg)](functions/Entra.EventHandlers.AzureFunctions/LICENSE)
+[![License: BSL (AzureFunctions)](https://img.shields.io/badge/License-BSL-orange.svg)](azurefunctions/Entra.EventHandlers.AzureFunctions/LICENSE)
 
 ### **ASP.NET Core**  
 ASP.NET Core hosting adapter (BSL).
 
 [![NuGet AspNetCore](https://img.shields.io/nuget/v/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)  
-[![License: BSL (AspNetCore)](https://img.shields.io/badge/License-BSL-orange.svg)](api/Entra.EventHandlers.AspNetCore/LICENSE)
+[![License: BSL (AspNetCore)](https://img.shields.io/badge/License-BSL-orange.svg)](aspnetcore/Entra.EventHandlers.AspNetCore/LICENSE)
 
 ---
 
