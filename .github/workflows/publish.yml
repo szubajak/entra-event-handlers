@@ -56,10 +56,10 @@ jobs:
               PROJECT_PATH="abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj"
               ;;
             Entra.EventHandlers.AzureFunctions)
-              PROJECT_PATH="functions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj"
+              PROJECT_PATH="azurefunctions/Entra.EventHandlers.AzureFunctions/Entra.EventHandlers.AzureFunctions.csproj"
               ;;
             Entra.EventHandlers.AspNetCore)
-              PROJECT_PATH="api/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj"
+              PROJECT_PATH="aspnetcore/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj"
               ;;
             *)
               echo "Unknown package: $PACKAGE"

@@ -62,4 +62,4 @@ nunit-*.xml
 
 # Temporary
 temp.json
-/api/Entra.EventHandlers.AspNetCore/Properties/
+/aspnetcore/Entra.EventHandlers.AspNetCore/Properties/
