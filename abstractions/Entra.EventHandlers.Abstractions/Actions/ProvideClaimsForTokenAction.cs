@@ -1,21 +1,24 @@
-﻿using Entra.EventHandlers.Abstractions.Protocol;
+﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Protocol;
 using System.Text.Json.Serialization;
 
 namespace Entra.EventHandlers.Abstractions.Actions;
 
 /// <summary>
-/// Represents an action that provides additional claims to be included in the
-/// token during the TokenIssuanceStart event. This action allows a custom
-/// extension to compute or override claims before Microsoft Entra issues the
-/// final token.
+/// Represents an action returned to Microsoft Entra during a
+/// <see cref="TokenIssuanceStartEvent"/>. The action provides additional
+/// claims to be included in the issued token, allowing a custom extension
+/// to compute or override claims before Entra completes token issuance.
 /// </summary>
 /// <remarks>
-/// The <c>claims</c> dictionary contains the claim names and their values to be
-/// added to the token. Any claim included in this dictionary is merged into the
-/// outgoing token, replacing existing values if the claim already exists.
+/// The concrete <c>@odata.type</c> value is defined by the Entra protocol and
+/// identifies this action as a provide‑claims instruction.
 ///
-/// This action is only valid in the TokenIssuanceStart response and is ignored
-/// for other event types.
+/// The <c>claims</c> dictionary contains the claim names and their values to be
+/// added to the outgoing token. Any claim included in this dictionary replaces
+/// an existing claim with the same name.
+///
+/// This action is valid only in the TokenIssuanceStart response.
 ///
 /// For details on providing claims during token issuance, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-claims-provider-reference

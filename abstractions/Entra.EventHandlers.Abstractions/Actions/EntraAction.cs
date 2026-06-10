@@ -6,14 +6,16 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// <summary>
 /// Base type for all Microsoft Entra custom extension actions. Each derived
 /// action represents a specific instruction that can be returned in a response
-/// to influence the authentication or attribute collection flow.
+/// to influence the authentication, attribute collection, token issuance, OTP,
+/// or password‑migration flow.
 /// </summary>
 /// <remarks>
 /// Concrete action types define their own <c>@odata.type</c> discriminator and
 /// payload structure according to the Microsoft Entra custom extension
 /// contract. Actions may instruct Entra to continue the flow, display a block
-/// page, prefill attribute values, return validation errors, or modify claims
-/// during token issuance.
+/// page, prefill attribute values, return validation errors, modify claims
+/// during token issuance, or control the just‑in‑time password migration flow
+/// (for example: migrate, require reset, retry, or block).
 ///
 /// For details on supported actions and response schemas, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-overview
@@ -24,6 +26,7 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 [JsonDerivedType(typeof(ModifyAttributeValuesAction))]
 [JsonDerivedType(typeof(ShowValidationErrorAction))]
 [JsonDerivedType(typeof(ProvideClaimsForTokenAction))]
+[JsonDerivedType(typeof(PasswordSubmitAction))]
 public abstract class EntraAction : IHaveOdataType
 {
     /// <summary>

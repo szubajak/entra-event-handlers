@@ -1,4 +1,5 @@
-﻿using static Entra.EventHandlers.Abstractions.Protocol.EntraOdataTypes;
+﻿using Entra.EventHandlers.Abstractions.Events;
+using static Entra.EventHandlers.Abstractions.Protocol.EntraOdataTypes;
 
 namespace Entra.EventHandlers.Abstractions.Actions.Types;
 
@@ -16,23 +17,24 @@ namespace Entra.EventHandlers.Abstractions.Actions.Types;
 public sealed record ContinueActionType(string Value)
 {
     /// <summary>
-    /// Gets the OData type for a continue‑with‑default‑behavior action returned
-    /// during the AttributeCollectionStart event.
+    /// The OData type for the action that instructs Entra to continue with its
+    /// default behavior during the <see cref="AttributeCollectionStartEvent"/>.
     /// </summary>
     public static readonly ContinueActionType AttributeCollectionStartContinueWithDefaultBehavior =
         new(AttributeCollectionStart.ContinueWithDefaultBehavior);
 
     /// <summary>
-    /// Gets the OData type for a continue‑with‑default‑behavior action returned
-    /// during the AttributeCollectionSubmit event.
+    /// The OData type for the action that instructs Entra to continue with its
+    /// default behavior during the <see cref="AttributeCollectionSubmitEvent"/>.
     /// </summary>
     public static readonly ContinueActionType AttributeCollectionSubmitContinueWithDefaultBehavior =
         new(AttributeCollectionSubmit.ContinueWithDefaultBehavior);
 
     /// <summary>
-    /// Gets the OData type for a continue‑with‑default‑behavior action returned
-    /// during the EmailOtpSend event.
+    /// The OData type for the action that instructs Entra to continue with its
+    /// default behavior during the <see cref="EmailOtpSendEvent"/>.
     /// </summary>
     public static readonly ContinueActionType EmailOtpSendContinueWithDefaultBehavior =
         new(EmailOtpSend.ContinueWithDefaultBehavior);
 }
+

@@ -1,14 +1,24 @@
-﻿namespace Entra.EventHandlers.Abstractions.Protocol;
+﻿using Entra.EventHandlers.Abstractions.Events;
+
+namespace Entra.EventHandlers.Abstractions.Protocol;
 
 /// <summary>
-/// Provides the OData type identifiers used by Microsoft Entra for
-/// authentication event callouts, responses, actions, and directory
-/// attribute values.
+/// Provides the OData <c>@odata.type</c> identifiers used by Microsoft Entra
+/// for authentication event callouts, responses, and action types. These
+/// constants act as type discriminators during polymorphic serialization
+/// and deserialization of event payloads.
 /// </summary>
+/// <remarks>
+/// All values must match the Microsoft Graph contract exactly. They are used
+/// internally by the SDK to bind incoming event requests to the correct
+/// strongly typed models.
+/// </remarks>
 public static class EntraOdataTypes
 {
     /// <summary>
-    /// OData type identifiers for the AttributeCollectionStart event.
+    /// OData type identifiers for the
+    /// <see cref="AttributeCollectionStartEvent"/> request and its related
+    /// response and action types.
     /// </summary>
     public static class AttributeCollectionStart
     {
@@ -25,26 +35,28 @@ public static class EntraOdataTypes
             "microsoft.graph.onAttributeCollectionStartResponseData";
 
         /// <summary>
-        /// The OData type for the continue-with-default-behavior action.
+        /// The action that instructs Entra to continue with its default behavior.
         /// </summary>
         public const string ContinueWithDefaultBehavior =
             "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior";
 
         /// <summary>
-        /// The OData type for the show-block-page action.
+        /// The action that displays a block page to the user.
         /// </summary>
         public const string ShowBlockPage =
             "microsoft.graph.attributeCollectionStart.showBlockPage";
 
         /// <summary>
-        /// The OData type for the set-prefill-values action.
+        /// The action that sets prefill values for the attribute collection form.
         /// </summary>
         public const string SetPrefillValues =
             "microsoft.graph.attributeCollectionStart.setPrefillValues";
     }
 
     /// <summary>
-    /// OData type identifiers for the AttributeCollectionSubmit event.
+    /// OData type identifiers for the
+    /// <see cref="AttributeCollectionSubmitEvent"/> request and its related
+    /// response and action types.
     /// </summary>
     public static class AttributeCollectionSubmit
     {
@@ -61,32 +73,34 @@ public static class EntraOdataTypes
             "microsoft.graph.onAttributeCollectionSubmitResponseData";
 
         /// <summary>
-        /// The OData type for the continue-with-default-behavior action.
+        /// The action that instructs Entra to continue with its default behavior.
         /// </summary>
         public const string ContinueWithDefaultBehavior =
             "microsoft.graph.attributeCollectionSubmit.continueWithDefaultBehavior";
 
         /// <summary>
-        /// The OData type for the show-block-page action.
+        /// The action that displays a block page to the user.
         /// </summary>
         public const string ShowBlockPage =
             "microsoft.graph.attributeCollectionSubmit.showBlockPage";
 
         /// <summary>
-        /// The OData type for the modify-attribute-values action.
+        /// The action that modifies submitted attribute values before validation.
         /// </summary>
         public const string ModifyAttributeValues =
             "microsoft.graph.attributeCollectionSubmit.modifyAttributeValues";
 
         /// <summary>
-        /// The OData type for the show-validation-error action.
+        /// The action that returns a validation error to the user.
         /// </summary>
         public const string ShowValidationError =
             "microsoft.graph.attributeCollectionSubmit.showValidationError";
     }
 
     /// <summary>
-    /// OData type identifiers for the TokenIssuanceStart event.
+    /// OData type identifiers for the
+    /// <see cref="TokenIssuanceStartEvent"/> request and its related
+    /// response and action types.
     /// </summary>
     public static class TokenIssuanceStart
     {
@@ -103,14 +117,16 @@ public static class EntraOdataTypes
             "microsoft.graph.onTokenIssuanceStartResponseData";
 
         /// <summary>
-        /// The OData type for the provide-claims-for-token action.
+        /// The action that provides additional claims to include in the issued token.
         /// </summary>
         public const string ProvideClaimsForToken =
             "microsoft.graph.tokenIssuanceStart.provideClaimsForToken";
     }
 
     /// <summary>
-    /// OData type identifiers for the EmailOtpSend event.
+    /// OData type identifiers for the
+    /// <see cref="EmailOtpSendEvent"/> request and its related response
+    /// and action types.
     /// </summary>
     public static class EmailOtpSend
     {
@@ -127,10 +143,55 @@ public static class EntraOdataTypes
             "microsoft.graph.OnOtpSendResponseData";
 
         /// <summary>
-        /// The OData type for the continue-with-default-behavior action.
+        /// The action that instructs Entra to continue with its default behavior.
         /// </summary>
         public const string ContinueWithDefaultBehavior =
             "microsoft.graph.OtpSend.continueWithDefaultBehavior";
+    }
+
+    /// <summary>
+    /// OData type identifiers for the
+    /// <see cref="PasswordSubmitEvent"/> request and its related response
+    /// and action types.
+    /// </summary>
+    public static class PasswordSubmit
+    {
+        /// <summary>
+        /// The OData type for the callout data payload.
+        /// </summary>
+        public const string CalloutData =
+            "microsoft.graph.onPasswordSubmitCalloutData";
+
+        /// <summary>
+        /// The OData type for the response data payload.
+        /// </summary>
+        public const string ResponseData =
+            "microsoft.graph.onPasswordSubmitResponseData";
+
+        /// <summary>
+        /// The action that migrates the user’s password to a new system.
+        /// </summary>
+        public const string MigratePassword =
+            "microsoft.graph.passwordSubmit.MigratePassword";
+
+        /// <summary>
+        /// The OData type for the action that indicates the submitted password is
+        /// correct but weak, and instructs the user to reset their password.
+        /// </summary>
+        public const string UpdatePassword =
+            "microsoft.graph.passwordSubmit.UpdatePassword";
+
+        /// <summary>
+        /// The action that instructs the user to retry password submission.
+        /// </summary>
+        public const string Retry =
+            "microsoft.graph.passwordSubmit.Retry";
+
+        /// <summary>
+        /// The action that blocks the password submission attempt.
+        /// </summary>
+        public const string Block =
+            "microsoft.graph.passwordSubmit.Block";
     }
 
     /// <summary>
