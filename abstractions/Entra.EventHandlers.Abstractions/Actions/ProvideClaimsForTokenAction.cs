@@ -23,7 +23,7 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// For details on providing claims during token issuance, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-claims-provider-reference
 /// </remarks>
-public class ProvideClaimsForTokenAction : EntraAction
+public sealed class ProvideClaimsForTokenAction : EntraAction
 {
     /// <summary>
     /// Gets the OData type discriminator for the action, identifying it as a

@@ -24,7 +24,7 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// For details, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
 /// </remarks>
-public class ModifyAttributeValuesAction : EntraAction
+public sealed class ModifyAttributeValuesAction : EntraAction
 {
     /// <summary>
     /// Gets the OData type discriminator for the action, identifying it as a

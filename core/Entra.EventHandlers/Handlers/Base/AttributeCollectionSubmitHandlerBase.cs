@@ -16,9 +16,9 @@ namespace Entra.EventHandlers.Handlers.Base;
 /// This base class also validates incoming events according to the Entra
 /// protocol contract before invoking handler logic.
 /// </summary>
-public abstract class AttributeCollectionSubmitHandlerBase(ILogger<AttributeCollectionSubmitHandlerBase> logger) : IAttributeCollectionSubmitHandler
+public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAttributeCollectionSubmitHandler
 {
-    private readonly ILogger<AttributeCollectionSubmitHandlerBase> _logger =  logger;
+    protected ILogger Logger { get; } = logger;
 
     /// <remarks>
     /// This method performs protocol‑level validation (including <c>@odata.type</c>
@@ -27,7 +27,7 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger<AttributeColl
     /// </remarks>
     public async Task<AttributeCollectionSubmitResponse> Handle(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken)
     {
-        using var scope = _logger.BeginScope(new Dictionary<string, object?>
+        using var scope = Logger.BeginScope(new Dictionary<string, object?>
         {
             ["CorrelationId"] = request.CorrelationId,
             ["EventType"] = request.Type,
@@ -36,7 +36,7 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger<AttributeColl
 
         var sw = Stopwatch.StartNew();
 
-        _logger.LogInformation("Handling event");
+        Logger.LogInformation("Handling event");
 
         try
         {
@@ -46,7 +46,7 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger<AttributeColl
 
             sw.Stop();
 
-            _logger.LogInformation(
+            Logger.LogInformation(
                 "Successfully handled event. DurationMs={Duration}, Action={ActionType}",
                 sw.ElapsedMilliseconds,
                 response?.Data?.Actions?.FirstOrDefault()?.OdataType);
@@ -57,7 +57,7 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger<AttributeColl
         {
             sw.Stop();
 
-            _logger.LogError(
+            Logger.LogError(
                 ex,
                 "Unhandled exception. DurationMs={Duration}",
                 sw.ElapsedMilliseconds);

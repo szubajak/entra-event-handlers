@@ -10,7 +10,7 @@ namespace Entra.EventHandlers.Builders.ResponseBuilders;
 /// valid action set for this event and produces a fully
 /// constructed <see cref="TokenIssuanceStartResponse"/>.
 /// </summary>
-public class TokenIssuanceStartResponseBuilder : ITokenIssuanceStartResponseBuilderStart, ITokenIssuanceStartResponseBuilderFinal
+public sealed class TokenIssuanceStartResponseBuilder : ITokenIssuanceStartResponseBuilderStart, ITokenIssuanceStartResponseBuilderFinal
 {
     private EntraAction? _action;
 

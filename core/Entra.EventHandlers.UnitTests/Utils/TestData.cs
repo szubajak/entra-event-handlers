@@ -54,4 +54,16 @@ public static class TestData
                 OtpContext = fixture.Create<OtpContext>()
             }
         };
+
+    public static PasswordSubmitEvent CreatePasswordSubmitEvent(IFixture fixture, bool valid = true) =>
+        new()
+        {
+            Source = fixture.Create<string>(),
+            Data = new PasswordSubmitEventPayload
+            {
+                RawOdataType = valid ? EntraOdataTypes.PasswordSubmit.CalloutData : "invalid",
+                AuthenticationContext = fixture.Create<AuthenticationContext>(),
+                EncryptedPasswordContext = fixture.Create<string>()
+            }
+        };
 }

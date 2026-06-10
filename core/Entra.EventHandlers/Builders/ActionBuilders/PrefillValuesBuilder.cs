@@ -7,7 +7,7 @@ namespace Entra.EventHandlers.Builders.ActionBuilders;
 /// Internal implementation of the fluent builder used to construct the
 /// <c>inputs</c> dictionary for the SetPrefillValues action.
 /// </summary>
-public class PrefillValuesBuilder(AttributeCollectionStartResponseBuilder parent) : IPrefillValuesBuilder
+public sealed class PrefillValuesBuilder(AttributeCollectionStartResponseBuilder parent) : IPrefillValuesBuilder
 {
     private readonly AttributeCollectionStartResponseBuilder _parent = parent;
     private readonly Dictionary<string, object> _inputs = [];

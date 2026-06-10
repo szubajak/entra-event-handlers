@@ -21,7 +21,7 @@ namespace Entra.EventHandlers.Abstractions.Events;
 /// For the official Microsoft schema and field descriptions, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-email-otp-send-data
 /// </remarks>
-public class EmailOtpSendEvent : EntraEvent<EmailOtpSendEventPayload>
+public sealed class EmailOtpSendEvent : EntraEvent<EmailOtpSendEventPayload>
 {
     public override string Type => EntraEventTypes.EmailOtpSend;
 }
@@ -38,7 +38,7 @@ public class EmailOtpSendEvent : EntraEvent<EmailOtpSendEventPayload>
 /// See the official documentation for details:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-email-otp-send-data
 /// </remarks>
-public class EmailOtpSendEventPayload : EntraEventPayload
+public sealed class EmailOtpSendEventPayload : EntraEventPayload
 {
     public override string OdataType { get; } = EntraOdataTypes.EmailOtpSend.CalloutData;
 

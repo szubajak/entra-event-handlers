@@ -14,7 +14,7 @@ namespace Entra.EventHandlers.Abstractions.Responses;
 /// For the official response schema, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
 /// </remarks>
-public class AttributeCollectionSubmitResponse : EntraEventResponse<AttributeCollectionSubmitResponsePayload>
+public sealed class AttributeCollectionSubmitResponse : EntraEventResponse<AttributeCollectionSubmitResponsePayload>
 {
 }
 
@@ -29,7 +29,7 @@ public class AttributeCollectionSubmitResponse : EntraEventResponse<AttributeCol
 /// For detailed response structure and action definitions, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
 /// </remarks>
-public class AttributeCollectionSubmitResponsePayload : EntraEventResponsePayload
+public sealed class AttributeCollectionSubmitResponsePayload : EntraEventResponsePayload
 {
     [JsonPropertyName("@odata.type")]
     public override string OdataType { get; } = EntraOdataTypes.AttributeCollectionSubmit.ResponseData;

@@ -18,7 +18,7 @@ namespace Entra.EventHandlers.Abstractions.Protocol.SignUp;
 /// The <c>value</c> property contains the raw attribute value, which may be
 /// deserialized as a <see cref="System.Text.Json.JsonElement"/>.
 /// </remarks>
-public class DirectoryAttributeValue : IHaveOdataType
+public sealed class DirectoryAttributeValue : IHaveOdataType
 {
     /// <summary>
     /// Gets the OData type discriminator for the directory attribute value.

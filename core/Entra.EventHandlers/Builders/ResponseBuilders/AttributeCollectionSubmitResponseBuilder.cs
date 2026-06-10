@@ -11,7 +11,7 @@ namespace Entra.EventHandlers.Builders.ResponseBuilders;
 /// valid action set for this event and produces a fully
 /// constructed <see cref="AttributeCollectionSubmitResponse"/>.
 /// </summary>
-public class AttributeCollectionSubmitResponseBuilder : IAttributeCollectionSubmitResponseBuilderStart, IAttributeCollectionSubmitResponseBuilderFinal
+public sealed class AttributeCollectionSubmitResponseBuilder : IAttributeCollectionSubmitResponseBuilderStart, IAttributeCollectionSubmitResponseBuilderFinal
 {
     private EntraAction? _action;
 

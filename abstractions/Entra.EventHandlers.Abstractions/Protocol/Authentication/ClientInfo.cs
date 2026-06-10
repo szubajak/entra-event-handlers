@@ -11,7 +11,7 @@ namespace Entra.EventHandlers.Abstractions.Protocol.Authentication;
 /// context and may be used for diagnostics, localization, or conditional logic
 /// in custom extension handlers.
 /// </remarks>
-public class ClientInfo
+public sealed class ClientInfo
 {
     /// <summary>
     /// Gets or sets the IP address of the client that initiated the request.

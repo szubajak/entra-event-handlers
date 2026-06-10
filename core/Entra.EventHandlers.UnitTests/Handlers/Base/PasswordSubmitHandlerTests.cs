@@ -3,23 +3,27 @@ using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Interfaces;
+using Entra.EventHandlers.Protocol.PasswordSubmit;
 using Entra.EventHandlers.TestHelpers;
 using Entra.EventHandlers.UnitTests.Utils;
 using Entra.EventHandlers.UnitTests.Utils.Handlers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using NSubstitute;
 
 namespace Entra.EventHandlers.UnitTests.Handlers.Base;
 
-public class AttributeCollectionStartHandlerBaseTests
+public class PasswordSubmitHandlerTests
 {
-    private readonly TestAttributeCollectionStartHandler _sut;
+    private readonly TestPasswordSubmitHandler _sut;
 
     private readonly TestLogger _logger = new();
+    private readonly IPasswordContextCryptoService _cryptoService = Substitute.For<IPasswordContextCryptoService>();
 
-    public AttributeCollectionStartHandlerBaseTests()
+    public PasswordSubmitHandlerTests()
     {
-        _sut = new TestAttributeCollectionStartHandler(_logger);
+        _sut = new TestPasswordSubmitHandler(_logger, _cryptoService);
     }
 
     [Fact]
@@ -27,11 +31,15 @@ public class AttributeCollectionStartHandlerBaseTests
     {
         // Arrange
         var fixture = new Fixture();
-        var evt = TestData.CreateAttributeCollectionStartEvent(fixture);
+        var evt = TestData.CreatePasswordSubmitEvent(fixture);
+
+        var decrypted = fixture.Create<DecryptedPasswordContext>();
+        _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
+               .Returns(decrypted);
 
         using var cts = new CancellationTokenSource();
 
-        var expectedResponse = new AttributeCollectionStartResponse();
+        var expectedResponse = new PasswordSubmitResponse();
         _sut.ResponseToReturn = expectedResponse;
 
         // Act
@@ -39,6 +47,7 @@ public class AttributeCollectionStartHandlerBaseTests
 
         // Assert
         response.Should().Be(expectedResponse);
+        _sut.PassedDecryptedPasswordContext.Should().Be(decrypted);
 
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
         _sut.CoreTest.PassedCancellationToken.Should().Be(cts.Token);
@@ -58,7 +67,7 @@ public class AttributeCollectionStartHandlerBaseTests
 
         dict.Should().ContainKey("CorrelationId").WhoseValue.Should().Be(evt.CorrelationId);
         dict.Should().ContainKey("EventType").WhoseValue.Should().Be(evt.Type);
-        dict.Should().ContainKey("EventName").WhoseValue.Should().Be(nameof(AttributeCollectionStartEvent));
+        dict.Should().ContainKey("EventName").WhoseValue.Should().Be(nameof(PasswordSubmitEvent));
     }
 
     [Fact]
@@ -66,7 +75,11 @@ public class AttributeCollectionStartHandlerBaseTests
     {
         // Arrange
         var fixture = new Fixture();
-        var evt = TestData.CreateAttributeCollectionStartEvent(fixture);
+        var evt = TestData.CreatePasswordSubmitEvent(fixture);
+
+        var decrypted = fixture.Create<DecryptedPasswordContext>();
+        _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
+               .Returns(decrypted);
 
         _sut.CoreTest.ShouldThrow = true;
 
@@ -82,14 +95,15 @@ public class AttributeCollectionStartHandlerBaseTests
 
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
+        response.Data.Nonce.Should().Be(decrypted.Nonce);
 
         var action = response.Data.Actions
             .Single()
             .Should()
-            .BeOfType<ShowBlockPageAction>()
+            .BeOfType<PasswordSubmitAction>()
             .Subject;
 
-        action.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionStart.ShowBlockPage);
+        action.OdataType.Should().Be(EntraOdataTypes.PasswordSubmit.Block);
     }
 
     [Fact]
@@ -97,23 +111,12 @@ public class AttributeCollectionStartHandlerBaseTests
     {
         // Arrange
         var fixture = new Fixture();
-        var evt = TestData.CreateAttributeCollectionStartEvent(fixture, valid: false);
+        var evt = TestData.CreatePasswordSubmitEvent(fixture, valid: false);
 
         // Act
-        var response = await _sut.Handle(evt, CancellationToken.None);
+        Func<Task> act = () => _sut.Handle(evt, CancellationToken.None);
 
         // Assert
-        _sut.CoreTest.HandleCoreCallCount.Should().Be(0);
-
-        response.Should().NotBeNull();
-        response.Data.Should().NotBeNull();
-
-        var action = response.Data.Actions
-            .Single()
-            .Should()
-            .BeOfType<ShowBlockPageAction>()
-            .Subject;
-
-        action.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionStart.ShowBlockPage);
+        await act.Should().ThrowAsync<Exception>();
     }
 }
