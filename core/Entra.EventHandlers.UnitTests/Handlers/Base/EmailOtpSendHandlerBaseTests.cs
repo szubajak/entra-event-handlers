@@ -3,7 +3,6 @@ using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
-using Entra.EventHandlers.Handlers.Base;
 using Entra.EventHandlers.TestHelpers;
 using Entra.EventHandlers.UnitTests.Utils;
 using Entra.EventHandlers.UnitTests.Utils.Handlers;
@@ -16,7 +15,7 @@ public class EmailOtpSendHandlerBaseTests
 {
     private readonly TestEmailOtpSendHandler _sut;
 
-    private readonly TestLogger<EmailOtpSendHandlerBase> _logger = new();
+    private readonly TestLogger _logger = new();
 
     public EmailOtpSendHandlerBaseTests()
     {

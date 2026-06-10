@@ -4,7 +4,7 @@ namespace Entra.EventHandlers.TestHelpers;
 
 public readonly record struct LogEntry(LogLevel Level, string Message, Exception? Exception, object? State);
 
-public sealed class TestLogger<T> : ILogger<T>
+public abstract class TestLoggerBase : ILogger
 {
     private readonly List<LogEntry> _entries = [];
     private readonly Stack<object> _scopes = new();
@@ -36,4 +36,12 @@ public sealed class TestLogger<T> : ILogger<T>
             exception,
             state));
     }
+}
+
+public sealed class TestLogger : TestLoggerBase
+{
+}
+
+public sealed class TestLogger<T> : TestLoggerBase, ILogger<T>
+{
 }

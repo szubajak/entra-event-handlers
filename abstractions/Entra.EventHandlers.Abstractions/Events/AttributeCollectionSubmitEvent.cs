@@ -15,7 +15,7 @@ namespace Entra.EventHandlers.Abstractions.Events;
 ///
 /// For the official event schema and processing guidance, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
-public class AttributeCollectionSubmitEvent : EntraEvent<AttributeCollectionSubmitEventPayload>
+public sealed class AttributeCollectionSubmitEvent : EntraEvent<AttributeCollectionSubmitEventPayload>
 {
     public override string Type => EntraEventTypes.AttributeCollectionSubmit;
 }
@@ -35,7 +35,7 @@ public class AttributeCollectionSubmitEvent : EntraEvent<AttributeCollectionSubm
 /// For detailed payload structure and supported actions, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
 /// </remarks>
-public class AttributeCollectionSubmitEventPayload : EntraEventPayload
+public sealed class AttributeCollectionSubmitEventPayload : EntraEventPayload
 {
     public override string OdataType { get; } = EntraOdataTypes.AttributeCollectionSubmit.CalloutData;
 

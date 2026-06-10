@@ -33,4 +33,9 @@ public class EntraEventResponses
     /// Creates a builder for constructing a EmailOtpSend response.
     /// </summary>
     public static EmailOtpSendResponseBuilder EmailOtpSend() => new();
+
+    /// <summary>
+    /// Creates a builder for constructing a PasswordSubmit response.
+    /// </summary>
+    public static PasswordSubmitResponseBuilder PasswordSubmit() => new();
 }

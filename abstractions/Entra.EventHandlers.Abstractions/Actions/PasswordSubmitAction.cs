@@ -17,7 +17,7 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// Each action corresponds to a specific outcome in the password migration
 /// flow as defined by the Microsoft Entra protocol.
 /// </remarks>
-public class PasswordSubmitAction(PasswordSubmitActionType type) : EntraAction
+public sealed class PasswordSubmitAction(PasswordSubmitActionType type) : EntraAction
 {
     /// <summary>
     /// Gets the OData type discriminator for the action, as defined by the

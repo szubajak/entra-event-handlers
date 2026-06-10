@@ -11,7 +11,7 @@ namespace Entra.EventHandlers.Builders.ResponseBuilders;
 /// set for this event and produces a fully constructed
 /// <see cref="EmailOtpSendResponse"/>.
 /// </summary>
-public class EmailOtpSendResponseBuilder : IEmailOtpSendResponseBuilderStart, IEmailOtpSendResponseBuilderFinal
+public sealed class EmailOtpSendResponseBuilder : IEmailOtpSendResponseBuilderStart, IEmailOtpSendResponseBuilderFinal
 {
     private EntraAction? _action;
 

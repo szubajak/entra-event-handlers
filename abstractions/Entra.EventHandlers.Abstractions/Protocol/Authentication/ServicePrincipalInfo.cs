@@ -12,7 +12,7 @@ namespace Entra.EventHandlers.Abstractions.Protocol.Authentication;
 /// context and may be used for diagnostics, authorization decisions, or
 /// conditional logic in custom extension handlers.
 /// </remarks>
-public class ServicePrincipalInfo
+public sealed class ServicePrincipalInfo
 {
     /// <summary>
     /// Gets or sets the object ID of the service principal in the tenant.

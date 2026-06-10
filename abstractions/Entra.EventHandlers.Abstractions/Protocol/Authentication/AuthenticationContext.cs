@@ -14,7 +14,7 @@ namespace Entra.EventHandlers.Abstractions.Protocol.Authentication;
 /// For details on the authentication context structure, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-overview
 /// </remarks>
-public class AuthenticationContext
+public sealed class AuthenticationContext
 {
     /// <summary>
     /// Gets or sets the correlation identifier associated with the event.

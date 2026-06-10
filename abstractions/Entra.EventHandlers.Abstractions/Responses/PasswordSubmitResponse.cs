@@ -14,7 +14,7 @@ namespace Entra.EventHandlers.Abstractions.Responses;
 /// For the official response schema and guidance, see:
 /// https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-migrate-passwords-just-in-time
 /// </remarks>
-public class PasswordSubmitResponse : EntraEventResponse<PasswordSubmitResponsePayload>
+public sealed class PasswordSubmitResponse : EntraEventResponse<PasswordSubmitResponsePayload>
 {
 }
 
@@ -35,7 +35,7 @@ public class PasswordSubmitResponse : EntraEventResponse<PasswordSubmitResponseP
 /// For detailed response structure and supported actions, see:
 /// https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-migrate-passwords-just-in-time
 /// </remarks>
-public class PasswordSubmitResponsePayload : EntraEventResponsePayload
+public sealed class PasswordSubmitResponsePayload : EntraEventResponsePayload
 {
     [JsonPropertyName("@odata.type")]
     public override string OdataType { get; } = EntraOdataTypes.PasswordSubmit.ResponseData;

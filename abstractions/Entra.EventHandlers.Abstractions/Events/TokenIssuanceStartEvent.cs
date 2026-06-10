@@ -11,7 +11,7 @@ namespace Entra.EventHandlers.Abstractions.Events;
 /// For the official event schema and processing guidance, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-claims-provider-reference
 /// </remarks>
-public class TokenIssuanceStartEvent : EntraEvent<TokenIssuanceStartEventPayload>
+public sealed class TokenIssuanceStartEvent : EntraEvent<TokenIssuanceStartEventPayload>
 {
     public override string Type => EntraEventTypes.TokenIssuanceStart;
 }
@@ -27,7 +27,7 @@ public class TokenIssuanceStartEvent : EntraEvent<TokenIssuanceStartEventPayload
 /// For detailed event payload structure and supported claim operations, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-claims-provider-reference
 /// </remarks>
-public class TokenIssuanceStartEventPayload : EntraEventPayload
+public sealed class TokenIssuanceStartEventPayload : EntraEventPayload
 {
     public override string OdataType { get; } = EntraOdataTypes.TokenIssuanceStart.CalloutData;
 }

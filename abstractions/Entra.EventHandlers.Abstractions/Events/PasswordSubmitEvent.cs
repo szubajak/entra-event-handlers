@@ -20,7 +20,7 @@ namespace Entra.EventHandlers.Abstractions.Events;
 /// For the official Microsoft schema and field descriptions, see:
 /// https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-migrate-passwords-just-in-time
 /// </remarks>
-public class PasswordSubmitEvent : EntraEvent<PasswordSubmitEventPayload>
+public sealed class PasswordSubmitEvent : EntraEvent<PasswordSubmitEventPayload>
 {
     public override string Type => EntraEventTypes.PasswordSubmit;
 }
@@ -41,7 +41,7 @@ public class PasswordSubmitEvent : EntraEvent<PasswordSubmitEventPayload>
 /// For detailed field definitions and processing guidance, see:
 /// https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-migrate-passwords-just-in-time
 /// </remarks>
-public class PasswordSubmitEventPayload : EntraEventPayload
+public sealed class PasswordSubmitEventPayload : EntraEventPayload
 {
     public override string OdataType { get; } = EntraOdataTypes.PasswordSubmit.CalloutData;
 

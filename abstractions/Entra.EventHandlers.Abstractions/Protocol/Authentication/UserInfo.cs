@@ -12,7 +12,7 @@ namespace Entra.EventHandlers.Abstractions.Protocol.Authentication;
 /// conditional logic, or diagnostics within custom extension handlers.
 /// Not all fields are guaranteed to be populated for every event.
 /// </remarks>
-public class UserInfo
+public sealed class UserInfo
 {
     /// <summary>
     /// Gets or sets the company name associated with the user.

@@ -24,7 +24,7 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// For details on returning validation errors, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
 /// </remarks>
-public class ShowValidationErrorAction : EntraAction
+public sealed class ShowValidationErrorAction : EntraAction
 {
     /// <summary>
     /// Gets the OData type discriminator for the action, identifying it as a

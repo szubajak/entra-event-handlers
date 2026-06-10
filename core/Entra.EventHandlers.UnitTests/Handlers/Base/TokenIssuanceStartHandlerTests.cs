@@ -2,7 +2,6 @@
 using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Responses;
-using Entra.EventHandlers.Handlers.Base;
 using Entra.EventHandlers.TestHelpers;
 using Entra.EventHandlers.UnitTests.Utils;
 using Entra.EventHandlers.UnitTests.Utils.Handlers;
@@ -15,7 +14,7 @@ public class TokenIssuanceStartHandlerTests
 {
     private readonly TestTokenIssuanceStartHandler _sut;
 
-    private readonly TestLogger<TokenIssuanceStartHandlerBase> _logger = new();
+    private readonly TestLogger _logger = new();
 
     public TokenIssuanceStartHandlerTests()
     {
