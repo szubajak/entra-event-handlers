@@ -7,6 +7,12 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.3.2 — 2026‑06‑10
+
+### Updated
+
+- Updated README.md
+
 ## v1.3.1 — 2026‑06‑10
 
 ### Updated
