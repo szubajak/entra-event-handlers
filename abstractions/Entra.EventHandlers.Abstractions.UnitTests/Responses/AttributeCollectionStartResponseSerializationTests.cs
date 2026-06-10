@@ -40,10 +40,7 @@ public class AttributeCollectionStartResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        var actual = JToken.Parse(json).ToString();
-        var expected = JToken.Parse(expectedJson).ToString();
-
-        actual.Should().Be(expected);
+        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
     }
 
     [Fact]
@@ -95,10 +92,7 @@ public class AttributeCollectionStartResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        var actual = JToken.Parse(json).ToString();
-        var expected = JToken.Parse(expectedJson).ToString();
-
-        actual.Should().Be(expected);
+        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
     }
 
     [Fact]
@@ -145,9 +139,6 @@ public class AttributeCollectionStartResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        var actual = JToken.Parse(json).ToString();
-        var expected = JToken.Parse(expectedJson).ToString();
-
-        actual.Should().Be(expected);
+        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
     }
 }

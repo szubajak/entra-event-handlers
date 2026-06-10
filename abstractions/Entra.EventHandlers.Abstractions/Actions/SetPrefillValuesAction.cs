@@ -1,23 +1,26 @@
-﻿using Entra.EventHandlers.Abstractions.Protocol;
+﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Protocol;
 using System.Text.Json.Serialization;
 
 namespace Entra.EventHandlers.Abstractions.Actions;
 
 /// <summary>
-/// Represents an action that provides prefilled attribute values during the
-/// AttributeCollectionStart event. This action allows a custom extension to
-/// supply default or computed values before the user begins the attribute
-/// collection flow.
+/// Represents an action returned to Microsoft Entra during an
+/// <see cref="AttributeCollectionStartEvent"/>. The action provides prefilled
+/// attribute values that are shown to the user as initial input when the
+/// attribute collection flow begins.
 /// </summary>
 /// <remarks>
+/// The concrete <c>@odata.type</c> value is defined by the Entra protocol and
+/// identifies this action as a set‑prefill‑values instruction.
+///
 /// The <c>inputs</c> dictionary contains attribute names and their corresponding
 /// prefilled values. Any attribute included in this dictionary is displayed to
 /// the user with the provided value as the initial input.
 ///
-/// This action is only valid in the AttributeCollectionStart response and is
-/// ignored for other event types.
+/// This action is valid only in the AttributeCollectionStart response.
 ///
-/// For details on pre-filling attribute values, see:
+/// For details on pre‑filling attribute values, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionstart-retrieve-return-data
 /// </remarks>
 public class SetPrefillValuesAction : EntraAction

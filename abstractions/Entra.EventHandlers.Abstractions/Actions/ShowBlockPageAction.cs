@@ -1,23 +1,28 @@
 ﻿using Entra.EventHandlers.Abstractions.Actions.Types;
+using Entra.EventHandlers.Abstractions.Events;
 using System.Text.Json.Serialization;
 
 namespace Entra.EventHandlers.Abstractions.Actions;
 
 /// <summary>
-/// Represents an action that interrupts the flow and displays a block page to
-/// the user. This action is used to stop the sign-up or attribute collection
-/// process and present a custom message explaining why the flow cannot
-/// continue.
+/// Represents an action returned to Microsoft Entra during an
+/// <see cref="AttributeCollectionStartEvent"/> or
+/// <see cref="AttributeCollectionSubmitEvent"/>. The action displays a block
+/// page to the user and stops the current flow, presenting a custom title and
+/// message that explain why the process cannot continue.
 /// </summary>
 /// <remarks>
-/// The <c>title</c> and <c>message</c> fields define the content shown to the
-/// user. The concrete <c>@odata.type</c> value is provided by the
+/// The concrete <c>@odata.type</c> value is provided by the
 /// <see cref="ShowBlockPageActionType"/> passed to the constructor.
 ///
-/// This action is valid in both AttributeCollectionStart and
+/// The <c>title</c> and <c>message</c> fields define the content shown to the
+/// user on the block page. This action immediately terminates the current
+/// attribute collection step and prevents further progression.
+///
+/// This action is valid only in AttributeCollectionStart and
 /// AttributeCollectionSubmit responses.
 ///
-/// For details on block page actions, see:
+/// For details on block‑page actions, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-overview
 /// </remarks>
 public class ShowBlockPageAction(ShowBlockPageActionType type) : EntraAction

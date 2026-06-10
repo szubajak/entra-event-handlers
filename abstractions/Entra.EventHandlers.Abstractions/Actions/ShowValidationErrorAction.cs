@@ -1,20 +1,25 @@
-﻿using Entra.EventHandlers.Abstractions.Protocol;
+﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Protocol;
 using System.Text.Json.Serialization;
 
 namespace Entra.EventHandlers.Abstractions.Actions;
 
 /// <summary>
-/// Represents an action that stops the attribute collection flow and returns
-/// validation errors to the user. This action is used when one or more
-/// submitted attribute values fail server-side validation.
+/// Represents an action returned to Microsoft Entra during an
+/// <see cref="AttributeCollectionSubmitEvent"/>. The action stops the
+/// attribute collection flow and returns validation errors to the user when
+/// one or more submitted attribute values fail server‑side validation.
 /// </summary>
 /// <remarks>
-/// The <c>message</c> field provides a general validation error message shown
-/// at the top of the page. The <c>attributeErrors</c> dictionary contains
-/// per-attribute error messages keyed by attribute name.
+/// The concrete <c>@odata.type</c> value is defined by the Entra protocol and
+/// identifies this action as a validation‑error instruction.
 ///
-/// This action is only valid in the AttributeCollectionSubmit response and is
-/// ignored for other event types.
+/// The <c>message</c> field provides a general validation message displayed at
+/// the top of the page. The <c>attributeErrors</c> dictionary contains
+/// per‑attribute error messages keyed by attribute name, allowing the UI to
+/// highlight specific fields that require correction.
+///
+/// This action is valid only in the AttributeCollectionSubmit response.
 ///
 /// For details on returning validation errors, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionsubmit-retrieve-return-data
