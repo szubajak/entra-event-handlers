@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.UnitTests.Utils.Handlers;
 
-public class TestAttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandlerBase> logger)
+public class TestAttributeCollectionStartHandler(ILogger logger)
     : AttributeCollectionStartHandlerBase(logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();

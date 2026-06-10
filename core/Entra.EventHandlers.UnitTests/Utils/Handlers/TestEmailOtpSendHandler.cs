@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.UnitTests.Utils.Handlers;
 
-public class TestEmailOtpSendHandler(ILogger<EmailOtpSendHandlerBase> logger)
+public class TestEmailOtpSendHandler(ILogger logger)
     : EmailOtpSendHandlerBase(logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();

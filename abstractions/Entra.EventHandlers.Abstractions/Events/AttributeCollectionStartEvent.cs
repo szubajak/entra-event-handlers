@@ -16,7 +16,7 @@ namespace Entra.EventHandlers.Abstractions.Events;
 /// For the official Microsoft schema and field descriptions, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionstart-retrieve-return-data
 /// </remarks>
-public class AttributeCollectionStartEvent : EntraEvent<AttributeCollectionStartEventPayload>
+public sealed class AttributeCollectionStartEvent : EntraEvent<AttributeCollectionStartEventPayload>
 {
     public override string Type => EntraEventTypes.AttributeCollectionStart;
 }
@@ -33,7 +33,7 @@ public class AttributeCollectionStartEvent : EntraEvent<AttributeCollectionStart
 /// See the official documentation for details:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionstart-retrieve-return-data
 /// </remarks>
-public class AttributeCollectionStartEventPayload : EntraEventPayload
+public sealed class AttributeCollectionStartEventPayload : EntraEventPayload
 {
     public override string OdataType { get; } = EntraOdataTypes.AttributeCollectionStart.CalloutData;
 

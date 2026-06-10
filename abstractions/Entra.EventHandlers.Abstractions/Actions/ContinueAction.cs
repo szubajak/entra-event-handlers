@@ -15,7 +15,7 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// contract, such as AttributeCollectionStart, AttributeCollectionSubmit,
 /// and EmailOtpSend.
 /// </remarks>
-public class ContinueAction(ContinueActionType type) : EntraAction
+public sealed class ContinueAction(ContinueActionType type) : EntraAction
 {
     /// <summary>
     /// Gets the OData type discriminator for the action, as defined by the

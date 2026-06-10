@@ -14,7 +14,7 @@ namespace Entra.EventHandlers.Abstractions.Responses;
 /// For the official response schema, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-email-otp-send-data
 /// </remarks>
-public class EmailOtpSendResponse : EntraEventResponse<EmailOtpSendResponsePayload>
+public sealed class EmailOtpSendResponse : EntraEventResponse<EmailOtpSendResponsePayload>
 {
 }
 
@@ -28,7 +28,7 @@ public class EmailOtpSendResponse : EntraEventResponse<EmailOtpSendResponsePaylo
 /// For detailed response structure and action definitions, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-email-otp-send-data
 /// </remarks>
-public class EmailOtpSendResponsePayload : EntraEventResponsePayload
+public sealed class EmailOtpSendResponsePayload : EntraEventResponsePayload
 {
     [JsonPropertyName("@odata.type")]
     public override string OdataType { get; } = EntraOdataTypes.EmailOtpSend.ResponseData;

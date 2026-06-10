@@ -16,7 +16,7 @@ namespace Entra.EventHandlers.Abstractions.Protocol.SignUp;
 /// by attribute name. The <c>identities</c> collection describes the sign-in
 /// identities associated with the user.
 /// </remarks>
-public class UserSignUpInfo
+public sealed class UserSignUpInfo
 {
     /// <summary>
     /// Gets or sets the directory attributes associated with the user, keyed

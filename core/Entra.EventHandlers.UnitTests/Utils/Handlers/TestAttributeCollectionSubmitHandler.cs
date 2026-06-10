@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.UnitTests.Utils.Handlers;
 
-public class TestAttributeCollectionSubmitHandler(ILogger<AttributeCollectionSubmitHandlerBase> logger)
+public class TestAttributeCollectionSubmitHandler(ILogger logger)
     : AttributeCollectionSubmitHandlerBase(logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();

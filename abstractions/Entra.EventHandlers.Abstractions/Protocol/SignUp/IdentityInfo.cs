@@ -12,7 +12,7 @@ namespace Entra.EventHandlers.Abstractions.Protocol.SignUp;
 /// information and may be used to validate identity bindings, enforce
 /// restrictions on allowed sign-in types, or correlate external identities.
 /// </remarks>
-public class IdentityInfo
+public sealed class IdentityInfo
 {
     /// <summary>
     /// Gets or sets the type of sign-in method used by the identity

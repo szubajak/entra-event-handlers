@@ -7,6 +7,13 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.3.1 — 2026‑06‑10
+
+### Updated
+
+- Updated XML documentation
+- Seal contract classes
+
 ## v1.3.0 — 2026‑06‑09
 
 ### Updated

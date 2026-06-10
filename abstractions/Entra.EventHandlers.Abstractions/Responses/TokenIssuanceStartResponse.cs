@@ -14,7 +14,7 @@ namespace Entra.EventHandlers.Abstractions.Responses;
 /// For the official response schema and guidance, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-claims-provider-reference
 /// </remarks>
-public class TokenIssuanceStartResponse : EntraEventResponse<TokenIssuanceStartResponsePayload>
+public sealed class TokenIssuanceStartResponse : EntraEventResponse<TokenIssuanceStartResponsePayload>
 {
 }
 
@@ -30,7 +30,7 @@ public class TokenIssuanceStartResponse : EntraEventResponse<TokenIssuanceStartR
 /// see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-claims-provider-reference
 /// </remarks>
-public class TokenIssuanceStartResponsePayload : EntraEventResponsePayload
+public sealed class TokenIssuanceStartResponsePayload : EntraEventResponsePayload
 {
     [JsonPropertyName("@odata.type")]
     public override string OdataType { get; } = EntraOdataTypes.TokenIssuanceStart.ResponseData;

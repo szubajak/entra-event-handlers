@@ -25,7 +25,7 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// For details on block‑page actions, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-overview
 /// </remarks>
-public class ShowBlockPageAction(ShowBlockPageActionType type) : EntraAction
+public sealed class ShowBlockPageAction(ShowBlockPageActionType type) : EntraAction
 {
     /// <summary>
     /// Gets the OData type discriminator for the action, as defined by the

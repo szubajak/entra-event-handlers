@@ -17,7 +17,7 @@ namespace Entra.EventHandlers.Abstractions.Protocol.Otp;
 /// For details on the OTP send event payload, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-email-otp-send-data
 /// </remarks>
-public class OtpContext
+public sealed class OtpContext
 {
     /// <summary>
     /// Gets the identifier associated with the OTP delivery target.

@@ -23,7 +23,7 @@ namespace Entra.EventHandlers.Abstractions.Actions;
 /// For details on pre‑filling attribute values, see:
 /// https://learn.microsoft.com/en-us/entra/identity-platform/custom-extension-onattributecollectionstart-retrieve-return-data
 /// </remarks>
-public class SetPrefillValuesAction : EntraAction
+public sealed class SetPrefillValuesAction : EntraAction
 {
     /// <summary>
     /// Gets the OData type discriminator for the action, identifying it as a
