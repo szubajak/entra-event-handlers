@@ -60,14 +60,19 @@ public sealed class PasswordSubmitResponseBuilder :
     /// </remarks>
     public PasswordSubmitResponse Build()
     {
+        if (_nonce is null)
+            throw new InvalidOperationException("Nonce must be set before building the response.");
+
+        if (_action is null)
+            throw new InvalidOperationException("An action must be selected before building the response.");
+
         return new PasswordSubmitResponse
         {
             Data = new PasswordSubmitResponsePayload
             {
-                Nonce = _nonce!,
-                Actions = [_action!]
+                Nonce = _nonce,
+                Actions = [_action]
             }
         };
     }
 }
-

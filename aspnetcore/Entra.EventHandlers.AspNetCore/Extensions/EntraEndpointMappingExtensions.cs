@@ -32,6 +32,13 @@ public static class EntraEndpointMappingExtensions
         return endpoints;
     }
 
+    public static IEndpointRouteBuilder MapPasswordSubmit(this IEndpointRouteBuilder endpoints)
+    {
+        var ep = endpoints.ServiceProvider.GetRequiredService<PasswordSubmitEndpoint>();
+        ep.Map(endpoints);
+        return endpoints;
+    }
+
     public static IEndpointRouteBuilder MapEntraRouter(this IEndpointRouteBuilder endpoints)
     {
         var ep = endpoints.ServiceProvider.GetRequiredService<EntraEventRouterEndpoint>();

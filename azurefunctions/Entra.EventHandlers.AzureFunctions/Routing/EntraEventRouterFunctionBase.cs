@@ -36,7 +36,7 @@ public abstract class EntraEventRouterFunctionBase(
     /// or handler‑resolution failures are converted into standardized
     /// <see cref="EntraErrorResponse"/> results.
     /// </summary>
-    protected override async Task<HttpResponseData> Execute(HttpRequestData req, FunctionContext context)
+    protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
     {
         var evt = await RequestAdapter.ReadEvent(req);
         var handler = _resolver.Resolve(evt.GetType());
@@ -45,13 +45,13 @@ public abstract class EntraEventRouterFunctionBase(
         return await ResponseAdapter.From(req, response);
     }
 
-    protected override void OnKnownException(Exception ex, FunctionContext context)
+    protected override Task OnExceptionAsync(Exception ex, FunctionContext context, bool isEntraException)
     {
-        _logger.LogWarning(ex, "Router: handled expected Entra exception.");
-    }
+        if (isEntraException)
+            Logger.LogWarning(ex, "Router: handled expected Entra exception.");
+        else
+            Logger.LogError(ex, "Router: unhandled exception while processing Entra event.");
 
-    protected override void OnUnhandledException(Exception ex, FunctionContext context)
-    {
-        _logger.LogError(ex, "Router: unhandled exception while processing Entra event.");
+        return Task.CompletedTask;
     }
 }

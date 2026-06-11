@@ -33,8 +33,8 @@ public sealed class EntraEventRouterFunction(
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")]
         HttpRequestData req,
-        FunctionContext context)
-        => Invoke(req, context);
+        FunctionContext context) =>
+        InvokeAsync(req, context);
 }
 ```
 
@@ -71,8 +71,8 @@ public sealed class TokenIssuanceStartFunction(
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")]
         HttpRequestData req,
-        FunctionContext context)
-        => Invoke(req, context);
+        FunctionContext context) =>
+        InvokeAsync(req, context);
 }
 ```
 
@@ -115,6 +115,10 @@ The abstractions package is MIT‑licensed and can be used freely.
 
 ---
 
-## 📚 Documentation
+## 📘 Further Reading
 
-Full documentation, examples, and production templates will be available in the main repository as the ecosystem evolves.
+For a deeper look into Microsoft Entra External ID Authentication Event Handlers
+and the design of this ecosystem, see the full article:
+
+➡️ **Entra External ID — .NET Handlers Deep Dive**  
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

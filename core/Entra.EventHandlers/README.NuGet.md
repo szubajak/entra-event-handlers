@@ -15,6 +15,7 @@ Strongly‑typed builders for constructing valid Entra responses:
 - `AttributeCollectionSubmitResponseBuilder`
 - `TokenIssuanceStartResponseBuilder`
 - `EmailOtpSendResponseBuilder`
+- `PasswordSubmitResponseBuilder`
 - `PrefillValuesBuilder`
 
 These builders eliminate manual JSON crafting and ensure protocol‑correct payloads.
@@ -30,6 +31,7 @@ EntraEventResponses.AttributeCollectionStart();
 EntraEventResponses.AttributeCollectionSubmit();
 EntraEventResponses.TokenIssuanceStart();
 EntraEventResponses.EmailOtpSend();
+EntraEventResponses.PasswordSubmit();
 ```
 
 ### ✔ Base Handler Infrastructure
@@ -144,3 +146,13 @@ For commercial licensing or support:
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
+
+---
+
+## 📘 Further Reading
+
+For a deeper look into Microsoft Entra External ID Authentication Event Handlers
+and the design of this ecosystem, see the full article:
+
+➡️ **Entra External ID — .NET Handlers Deep Dive**  
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

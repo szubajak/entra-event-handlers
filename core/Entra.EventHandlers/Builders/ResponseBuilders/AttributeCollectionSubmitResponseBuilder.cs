@@ -62,11 +62,17 @@ public sealed class AttributeCollectionSubmitResponseBuilder : IAttributeCollect
     /// the builder API ensures that exactly one action is selected
     /// before <see cref="Build"/> can be called.
     /// </remarks>
-    public AttributeCollectionSubmitResponse Build() => new()
+    public AttributeCollectionSubmitResponse Build()
     {
-        Data = new()
+        if (_action is null)
+            throw new InvalidOperationException("An action must be selected before building the response.");
+
+        return new AttributeCollectionSubmitResponse
         {
-            Actions = [_action!]
-        }
-    };
+            Data = new AttributeCollectionSubmitResponsePayload
+            {
+                Actions = [_action]
+            }
+        };
+    }
 }

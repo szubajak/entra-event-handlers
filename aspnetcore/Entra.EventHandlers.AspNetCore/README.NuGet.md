@@ -37,6 +37,7 @@ app.MapEntraRouter();
 // app.MapEntraAttributeCollectionSubmit();
 // app.MapEntraTokenIssuanceStart();
 // app.MapEntraEmailOtpSend();
+// app.MapPasswordSubmit();
 
 app.Run();
 ```
@@ -59,6 +60,7 @@ app.MapEntraTokenIssuanceStart();    // Single‑event endpoint
 | AttributeCollectionSubmit   | `attributecollectionsubmit`  |
 | TokenIssuanceStart          | `tokenissuancestart`         |
 | EmailOtpSend                | `emailotpsend`               |
+| PasswordSubmit              | `passwordsubmit`             |
 
 ---
 
@@ -122,3 +124,11 @@ A commercial license is required for production use by organizations with more t
 The abstractions package is MIT‑licensed and can be used freely.
 
 ---
+
+## 📘 Further Reading
+
+For a deeper look into Microsoft Entra External ID Authentication Event Handlers
+and the design of this ecosystem, see the full article:
+
+➡️ **Entra External ID — .NET Handlers Deep Dive**  
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

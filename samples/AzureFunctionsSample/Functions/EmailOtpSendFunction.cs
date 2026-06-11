@@ -18,6 +18,6 @@ public sealed class EmailOtpSendFunction(
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "emailotpsend")]
         HttpRequestData req,
-        FunctionContext context)
-        => Invoke(req, context);
+        FunctionContext context) =>
+        InvokeAsync(req, context);
 }

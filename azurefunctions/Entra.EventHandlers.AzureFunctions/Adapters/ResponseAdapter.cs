@@ -75,7 +75,7 @@ public sealed class ResponseAdapter : IResponseAdapter
     {
         var http = req.CreateResponse(HttpStatusCode.OK);
         http.Headers.Add("Content-Type", "application/json");
-        await JsonSerializer.SerializeAsync(http.Body, response);
+        await JsonSerializer.SerializeAsync(http.Body, response, response.GetType());
         return http;
     }
 
