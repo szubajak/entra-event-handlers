@@ -33,11 +33,17 @@ public sealed class TokenIssuanceStartResponseBuilder : ITokenIssuanceStartRespo
     /// the builder API ensures that exactly one action is selected
     /// before <see cref="Build"/> can be called.
     /// </remarks>
-    public TokenIssuanceStartResponse Build() => new()
+    public TokenIssuanceStartResponse Build()
     {
-        Data = new()
+        if (_action is null)
+            throw new InvalidOperationException("An action must be selected before building the response.");
+
+        return new TokenIssuanceStartResponse
         {
-            Actions = [_action!]
-        }
-    };
+            Data = new TokenIssuanceStartResponsePayload
+            {
+                Actions = [_action]
+            }
+        };
+    }
 }

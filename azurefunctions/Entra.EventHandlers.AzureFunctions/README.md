@@ -38,8 +38,8 @@ public sealed class EntraEventRouterFunction(
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")]
         HttpRequestData req,
-        FunctionContext context)
-        => Invoke(req, context);
+        FunctionContext context) =>
+        InvokeAsync(req, context);
 }
 ```
 
@@ -91,8 +91,8 @@ public sealed class TokenIssuanceStartFunction(
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")]
         HttpRequestData req,
-        FunctionContext context)
-        => Invoke(req, context);
+        FunctionContext context) =>
+        InvokeAsync(req, context);
 }
 ```
 
@@ -155,9 +155,3 @@ To purchase a license or request an invoice:
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
-
----
-
-## 📚 Documentation
-
-Full documentation, examples, and production templates will be available in the main repository as the ecosystem evolves.

@@ -13,7 +13,7 @@ public abstract class AttributeCollectionSubmitEndpointBase(
 {
     private readonly IAttributeCollectionSubmitHandler _handler = handler;
 
-    protected override async Task Execute(HttpContext httpContext)
+    protected override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEvent<AttributeCollectionSubmitEvent>(httpContext);
         var response = await _handler.Handle(evt, httpContext.RequestAborted);

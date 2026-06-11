@@ -16,7 +16,7 @@ public abstract class EmailOtpSendFunctionBase(
 {
     private readonly IEmailOtpSendHandler _handler = handler;
 
-    protected override async Task<HttpResponseData> Execute(HttpRequestData req, FunctionContext context)
+    protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
     {
         var evt = await RequestAdapter.ReadEvent<EmailOtpSendEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);

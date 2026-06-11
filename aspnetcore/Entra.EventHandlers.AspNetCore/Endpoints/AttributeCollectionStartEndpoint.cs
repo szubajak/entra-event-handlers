@@ -12,6 +12,6 @@ public sealed class AttributeCollectionStartEndpoint(
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("attributecollectionstart", Invoke);
+        endpoints.MapPost("attributecollectionstart", InvokeAsync);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.Hosting.Extensions;
 
 namespace Entra.EventHandlers.AspNetCore.Abstractions;
 
@@ -9,43 +10,37 @@ public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestA
     protected IRequestAdapter RequestAdapter { get; } = requestAdapter;
     protected IResponseAdapter ResponseAdapter { get; } = responseAdapter;
 
-    protected virtual void OnKnownException(Exception ex, HttpContext context)
+    protected virtual Task OnExceptionAsync(Exception ex, HttpContext context, bool isEntraException)
     {
-        Logger.LogWarning(ex, "Handled expected Entra exception.");
+        if (isEntraException)
+            Logger.LogWarning(ex, "Handled expected Entra exception.");
+        else
+            Logger.LogError(ex, "Unhandled exception while processing Entra event.");
+
+        return Task.CompletedTask;
     }
 
-    protected virtual void OnUnhandledException(Exception ex, HttpContext context)
-    {
-        Logger.LogError(ex, "Unhandled exception while processing Entra event.");
-    }
-
-    protected async Task Invoke(HttpContext httpContext)
+    protected async Task InvokeAsync(HttpContext httpContext)
     {
         try
         {
-            await Execute(httpContext);
+            await ExecuteAsync(httpContext);
         }
-        catch (Exception ex) when (ex is EntraValidationException or EntraDeserializationException or EntraHandlerNotFoundException)
+        catch (Exception ex) when (ex.IsEntraException())
         {
-            OnKnownException(ex, httpContext);
+            await OnExceptionAsync(ex, httpContext, isEntraException: true);
 
             await ResponseAdapter.WriteBadRequest(
                 httpContext,
                 new EntraErrorResponse
                 {
-                    Error = ex switch
-                    {
-                        EntraValidationException => EntraErrorCodes.ValidationError,
-                        EntraDeserializationException => EntraErrorCodes.DeserializationError,
-                        EntraHandlerNotFoundException => EntraErrorCodes.HandlerNotFound,
-                        _ => EntraErrorCodes.ValidationError
-                    },
+                    Error = ex.ToEntraErrorCode(),
                     Details = ex.Message
                 });
         }
         catch (Exception ex)
         {
-            OnUnhandledException(ex, httpContext);
+            await OnExceptionAsync(ex, httpContext, isEntraException: false);
 
             await ResponseAdapter.WriteServerError(
                 httpContext,
@@ -57,7 +52,7 @@ public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestA
         }
     }
 
-    protected abstract Task Execute(HttpContext httpContext);
+    protected abstract Task ExecuteAsync(HttpContext httpContext);
 
     public abstract void Map(IEndpointRouteBuilder endpoints);
 }

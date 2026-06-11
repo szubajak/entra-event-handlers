@@ -57,11 +57,17 @@ public sealed class AttributeCollectionStartResponseBuilder : IAttributeCollecti
     /// the builder API ensures that exactly one action is selected
     /// before <see cref="Build"/> can be called.
     /// </remarks>
-    public AttributeCollectionStartResponse Build() => new()
+    public AttributeCollectionStartResponse Build()
     {
-        Data = new()
+        if (_action is null)
+            throw new InvalidOperationException("An action must be selected before building the response.");
+
+        return new AttributeCollectionStartResponse
         {
-            Actions = [_action!]
-        }
-    };
+            Data = new AttributeCollectionStartResponsePayload
+            {
+                Actions = [_action]
+            }
+        };
+    }
 }

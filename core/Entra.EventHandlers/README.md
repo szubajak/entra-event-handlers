@@ -143,10 +143,3 @@ To purchase a license or request an invoice:
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
-
----
-
-## 📚 Documentation
-
-Full documentation, examples, and production templates will be available in the
-main repository as the ecosystem evolves.

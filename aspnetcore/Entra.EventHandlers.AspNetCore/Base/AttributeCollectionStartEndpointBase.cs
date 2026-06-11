@@ -13,7 +13,7 @@ public abstract class AttributeCollectionStartEndpointBase(
 {
     private readonly IAttributeCollectionStartHandler _handler = handler;
 
-    protected override async Task Execute(HttpContext httpContext)
+    protected override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEvent<AttributeCollectionStartEvent>(httpContext);
         var response = await _handler.Handle(evt, httpContext.RequestAborted);

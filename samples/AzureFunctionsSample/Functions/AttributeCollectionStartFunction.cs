@@ -18,6 +18,6 @@ public sealed class AttributeCollectionStartFunction(
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "attributecollectionstart")]
         HttpRequestData req,
-        FunctionContext context)
-        => Invoke(req, context);
+        FunctionContext context) => 
+        InvokeAsync(req, context);
 }

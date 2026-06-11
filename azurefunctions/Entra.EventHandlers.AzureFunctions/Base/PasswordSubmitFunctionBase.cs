@@ -8,17 +8,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.Base;
 
-public abstract class AttributeCollectionSubmitFunctionBase(
+public abstract class PasswordSubmitFunctionBase(
     ILogger logger,
-    IAttributeCollectionSubmitHandler handler,
+    IPasswordSubmitHandler handler,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter) : EntraFunctionBase(logger, requestAdapter, responseAdapter)
 {
-    private readonly IAttributeCollectionSubmitHandler _handler = handler;
+    private readonly IPasswordSubmitHandler _handler = handler;
 
     protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
     {
-        var evt = await RequestAdapter.ReadEvent<AttributeCollectionSubmitEvent>(req);
+        var evt = await RequestAdapter.ReadEvent<PasswordSubmitEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);
         return await ResponseAdapter.From(req, response);
     }
