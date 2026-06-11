@@ -18,6 +18,6 @@ public sealed class TokenIssuanceStartFunction(
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")]
         HttpRequestData req,
-        FunctionContext context)
-        => Invoke(req, context);
+        FunctionContext context) =>
+        InvokeAsync(req, context);
 }

@@ -12,6 +12,6 @@ public sealed class AttributeCollectionSubmitEndpoint(
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("attributecollectionsubmit", Invoke);
+        endpoints.MapPost("attributecollectionsubmit", InvokeAsync);
     }
 }

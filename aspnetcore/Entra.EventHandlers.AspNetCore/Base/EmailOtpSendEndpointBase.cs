@@ -13,7 +13,7 @@ public abstract class EmailOtpSendEndpointBase(
 {
     private readonly IEmailOtpSendHandler _handler = handler;
 
-    protected override async Task Execute(HttpContext httpContext)
+    protected override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEvent<EmailOtpSendEvent>(httpContext);
         var response = await _handler.Handle(evt, httpContext.RequestAborted);

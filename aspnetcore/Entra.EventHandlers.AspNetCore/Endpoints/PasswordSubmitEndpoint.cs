@@ -4,14 +4,14 @@ using Entra.EventHandlers.AspNetCore.Base;
 
 namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
-public sealed class EmailOtpSendEndpoint(
-    ILogger<EmailOtpSendEndpoint> logger,
-    IEmailOtpSendHandler handler,
+public sealed class PasswordSubmitEndpoint(
+    ILogger<TokenIssuanceStartEndpoint> logger,
+    IPasswordSubmitHandler handler,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EmailOtpSendEndpointBase(logger, handler, requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter) : PasswordSubmitEndpointBase(logger, handler, requestAdapter, responseAdapter)
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("emailotpsend", InvokeAsync);
+        endpoints.MapPost("passwordsubmit", InvokeAsync);
     }
 }

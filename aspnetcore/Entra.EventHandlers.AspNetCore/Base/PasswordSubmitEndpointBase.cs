@@ -5,17 +5,17 @@ using Entra.EventHandlers.AspNetCore.Adapters;
 
 namespace Entra.EventHandlers.AspNetCore.Base;
 
-public abstract class TokenIssuanceStartEndpointBase(
+public abstract class PasswordSubmitEndpointBase(
     ILogger logger,
-    ITokenIssuanceStartHandler handler,
+    IPasswordSubmitHandler handler,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter) : EntraEndpointBase(logger, requestAdapter, responseAdapter)
 {
-    private readonly ITokenIssuanceStartHandler _handler = handler;
+    private readonly IPasswordSubmitHandler _handler = handler;
 
     protected override async Task ExecuteAsync(HttpContext httpContext)
     {
-        var evt = await RequestAdapter.ReadEvent<TokenIssuanceStartEvent>(httpContext);
+        var evt = await RequestAdapter.ReadEvent<PasswordSubmitEvent>(httpContext);
         var response = await _handler.Handle(evt, httpContext.RequestAborted);
         await ResponseAdapter.WriteOk(httpContext, response);
     }

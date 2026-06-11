@@ -1,4 +1,5 @@
-﻿using Entra.EventHandlers.Builders.ResponseBuilders;
+﻿using Entra.EventHandlers.Builders.Interfaces;
+using Entra.EventHandlers.Builders.ResponseBuilders;
 
 namespace Entra.EventHandlers.Builders;
 
@@ -17,25 +18,30 @@ public class EntraEventResponses
     /// <summary>
     /// Creates a builder for constructing an AttributeCollectionStart response.
     /// </summary>
-    public static AttributeCollectionStartResponseBuilder AttributeCollectionStart() => new();
+    public static IAttributeCollectionStartResponseBuilderStart AttributeCollectionStart() =>
+        new AttributeCollectionStartResponseBuilder();
 
     /// <summary>
     /// Creates a builder for constructing an AttributeCollectionSubmit response.
     /// </summary>
-    public static AttributeCollectionSubmitResponseBuilder AttributeCollectionSubmit() => new();
+    public static IAttributeCollectionSubmitResponseBuilderStart AttributeCollectionSubmit() =>
+        new AttributeCollectionSubmitResponseBuilder();
 
     /// <summary>
     /// Creates a builder for constructing a TokenIssuanceStart response.
     /// </summary>
-    public static TokenIssuanceStartResponseBuilder TokenIssuanceStart() => new();
+    public static ITokenIssuanceStartResponseBuilderStart TokenIssuanceStart() =>
+        new TokenIssuanceStartResponseBuilder();
 
     /// <summary>
     /// Creates a builder for constructing a EmailOtpSend response.
     /// </summary>
-    public static EmailOtpSendResponseBuilder EmailOtpSend() => new();
+    public static IEmailOtpSendResponseBuilderStart EmailOtpSend() =>
+        new EmailOtpSendResponseBuilder();
 
     /// <summary>
     /// Creates a builder for constructing a PasswordSubmit response.
     /// </summary>
-    public static PasswordSubmitResponseBuilder PasswordSubmit() => new();
+    public static IPasswordSubmitResponseBuilderStart PasswordSubmit() =>
+        new PasswordSubmitResponseBuilder();
 }

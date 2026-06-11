@@ -14,6 +14,6 @@ public sealed class TestRouter(
     IResponseAdapter responseAdapter)
     : EntraEventRouterFunctionBase(logger, resolver, requestAdapter, responseAdapter)
 {
-    public Task<HttpResponseData> RunAsync(HttpRequestData req, FunctionContext ctx)
-        => Invoke(req, ctx);
+    public Task<HttpResponseData> RunAsync(HttpRequestData req, FunctionContext ctx) =>
+        InvokeAsync(req, ctx);
 }

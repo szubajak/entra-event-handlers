@@ -32,7 +32,7 @@ public abstract class EntraEventRouterEndpointBase(
     /// or handler‑resolution failures are converted into standardized
     /// <see cref="EntraErrorResponse"/> results.
     /// </summary>
-    protected override async Task Execute(HttpContext httpContext)
+    protected override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEvent(httpContext);
         var handler = _resolver.Resolve(evt.GetType());
@@ -41,13 +41,13 @@ public abstract class EntraEventRouterEndpointBase(
         await ResponseAdapter.WriteOk(httpContext, response);
     }
 
-    protected override void OnKnownException(Exception ex, HttpContext context)
+    protected override Task OnExceptionAsync(Exception ex, HttpContext context, bool isEntraException)
     {
-        _logger.LogWarning(ex, "Router: handled expected Entra exception.");
-    }
+        if (isEntraException)
+            Logger.LogWarning(ex, "Router: handled expected Entra exception.");
+        else
+            Logger.LogError(ex, "Router: unhandled exception while processing Entra event.");
 
-    protected override void OnUnhandledException(Exception ex, HttpContext context)
-    {
-        _logger.LogError(ex, "Router: unhandled exception while processing Entra event.");
+        return Task.CompletedTask;
     }
 }

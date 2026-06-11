@@ -18,6 +18,6 @@ public sealed class EntraEventRouterFunction(
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")]
         HttpRequestData req,
-        FunctionContext context)
-        => Invoke(req, context);
+        FunctionContext context) =>
+        InvokeAsync(req, context);
 }
