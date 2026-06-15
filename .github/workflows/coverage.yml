@@ -42,6 +42,13 @@ jobs:
           -targetdir:coverage \
           -reporttypes:Html
 
+      - name: Debug coverage contents
+        run: |
+          for f in $(find . -name "*coverage.xml"); do
+            echo "---- $f ----"
+            grep "<module" -n "$f"
+          done
+
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v7
         with:
