@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Entra.EventHandlers.TestHelpers;
@@ -41,18 +42,86 @@ public class EntraEventRouterEndpointBaseTests
 
         var httpContext = new DefaultHttpContext();
 
-        _requestAdapter.ReadEvent(Arg.Is(httpContext)).Throws(exception);
+        _requestAdapter.ReadEvent(httpContext).Throws(exception);
 
         // Act
         await _sut.Invoke(httpContext);
 
         // Assert
-        await _responseAdapter
-            .Received()
+        _ = _responseAdapter
+            .Received(1)
             .WriteBadRequest(
                 httpContext,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.DeserializationError &&
+                    e.Details == errorMessage
+                ));
+
+        _logger.Entries.Should().ContainSingle(e =>
+            e.Level == LogLevel.Warning &&
+            e.Exception == exception &&
+            e.Message.Contains("Router: handled expected Entra exception."));
+    }
+
+    [Fact]
+    public async Task Run_WhenHandlerNotFound_ReturnsBadRequestWithHandlerNotFoundError()
+    {
+        // Arrange
+        var httpContext = new DefaultHttpContext();
+
+        var entraEvent = new TestEvent();
+        _requestAdapter.ReadEvent(httpContext).Returns(entraEvent);
+
+        var exception = new EntraHandlerNotFoundException(entraEvent.GetType());
+        _resolver.Resolve(entraEvent.GetType()).Throws(exception);
+
+        // Act
+        await _sut.Invoke(httpContext);
+
+        // Assert
+        _ = _responseAdapter
+            .Received(1)
+            .WriteBadRequest(
+                httpContext,
+                Arg.Is<EntraErrorResponse>(e =>
+                    e.Error == EntraErrorCodes.HandlerNotFound &&
+                    !string.IsNullOrEmpty(e.Details) &&
+                    e.Details.Contains(entraEvent.GetType().Name)
+          ));
+
+        _logger.Entries.Should().ContainSingle(e =>
+            e.Level == LogLevel.Warning &&
+            e.Exception == exception &&
+            e.Message.Contains("Router: handled expected Entra exception."));
+    }
+
+    [Fact]
+    public async Task Run_ValidationFails_ReturnsBadRequestWithValidationError()
+    {
+        // Arrange
+        var fixture = new Fixture();
+        var httpContext = new DefaultHttpContext();
+
+        var entraEvent = new TestEvent();
+        _requestAdapter.ReadEvent(httpContext).Returns(entraEvent);
+
+        var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
+        _resolver.Resolve(entraEvent.GetType()).Returns(handler);
+
+        var errorMessage = fixture.Create<string>();
+        var exception = new EntraValidationException(errorMessage);
+        handler.Handle(entraEvent, httpContext.RequestAborted).Throws(exception);
+
+        // Act
+        await _sut.Invoke(httpContext);
+
+        // Assert
+        _ = _responseAdapter
+            .Received(1)
+            .WriteBadRequest(
+                httpContext,
+                Arg.Is<EntraErrorResponse>(e =>
+                    e.Error == EntraErrorCodes.ValidationError &&
                     e.Details == errorMessage
                 ));
 

@@ -54,6 +54,8 @@ public class EntraEventRouterFunctionBaseTests
         var result = await _sut.RunAsync(request, ctx);
 
         // Assert
+        result.Should().Be(response);
+
         _ = _responseAdapter
             .Received(1)
             .BadRequest(
@@ -91,6 +93,8 @@ public class EntraEventRouterFunctionBaseTests
         var result = await _sut.RunAsync(request, ctx);
 
         // Assert
+        result.Should().Be(response);
+
         _ = _responseAdapter
             .Received(1)
             .BadRequest(
@@ -135,6 +139,8 @@ public class EntraEventRouterFunctionBaseTests
         var result = await _sut.RunAsync(request, ctx);
 
         // Assert
+        result.Should().Be(response);
+
         _ = _responseAdapter
             .Received(1)
             .BadRequest(
@@ -170,6 +176,8 @@ public class EntraEventRouterFunctionBaseTests
         var result = await _sut.RunAsync(request, ctx);
 
         // Assert
+        result.Should().Be(response);
+
         _ = _responseAdapter
             .Received(1)
             .ServerError(
