@@ -15,10 +15,12 @@ public class AttributeCollectionSubmitHandlerBaseTests
 {
     private readonly TestAttributeCollectionSubmitHandler _sut;
 
-    private readonly TestLogger _logger = new();
+    private readonly TestLogger _logger;
 
     public AttributeCollectionSubmitHandlerBaseTests()
     {
+        _logger = new TestLogger();
+
         _sut = new TestAttributeCollectionSubmitHandler(_logger);
     }
 

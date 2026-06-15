@@ -2,7 +2,6 @@
 using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AzureFunctions.Adapters;
-using Entra.EventHandlers.AzureFunctions.Routing;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
@@ -16,20 +15,21 @@ namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
 
 public class EntraEventRouterFunctionBaseTests
 {
-    private readonly TestRouter _sut;
+    private readonly TestEntraEventRouterFunctionBase _sut;
 
-    private readonly TestLogger<EntraEventRouterFunctionBase> _logger = new();
+    private readonly TestLogger _logger;
     private readonly IEntraEventHandlerResolver _resolver;
     private readonly IRequestAdapter _requestAdapter;
     private readonly IResponseAdapter _responseAdapter;
 
     public EntraEventRouterFunctionBaseTests()
     {
+        _logger = new TestLogger();
         _resolver = Substitute.For<IEntraEventHandlerResolver>();
         _requestAdapter = Substitute.For<IRequestAdapter>();
         _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestRouter(_logger, _resolver, _requestAdapter, _responseAdapter);
+        _sut = new TestEntraEventRouterFunctionBase(_logger, _resolver, _requestAdapter, _responseAdapter);
     }
 
     [Fact]

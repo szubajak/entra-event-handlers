@@ -7,8 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
 
-public sealed class TestRouter(
-    ILogger<EntraEventRouterFunctionBase> logger,
+public sealed class TestEntraEventRouterFunctionBase(
+    ILogger logger,
     IEntraEventHandlerResolver resolver,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter)

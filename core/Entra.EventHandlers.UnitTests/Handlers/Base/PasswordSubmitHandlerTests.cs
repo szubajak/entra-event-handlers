@@ -18,11 +18,14 @@ public class PasswordSubmitHandlerTests
 {
     private readonly TestPasswordSubmitHandler _sut;
 
-    private readonly TestLogger _logger = new();
-    private readonly IPasswordContextCryptoService _cryptoService = Substitute.For<IPasswordContextCryptoService>();
+    private readonly TestLogger _logger;
+    private readonly IPasswordContextCryptoService _cryptoService;
 
     public PasswordSubmitHandlerTests()
     {
+        _logger = new TestLogger();
+        _cryptoService = Substitute.For<IPasswordContextCryptoService>();
+
         _sut = new TestPasswordSubmitHandler(_logger, _cryptoService);
     }
 
