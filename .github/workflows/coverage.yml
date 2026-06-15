@@ -38,7 +38,7 @@ jobs:
 
       - name: Generate HTML report
         run: reportgenerator \
-          -reports:./**/coverage.xml \
+          -reports:**/*coverage.xml \
           -targetdir:coverage \
           -reporttypes:Html
 
