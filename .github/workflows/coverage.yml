@@ -49,7 +49,7 @@ jobs:
         run: ~/.dotnet/tools/reportgenerator \
           -reports:**/*coverage.xml \
           -targetdir:coverage \
-          -reporttypes:"Html;Badge"
+          -reporttypes:"Html;Badges;TextSummary"
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v7
