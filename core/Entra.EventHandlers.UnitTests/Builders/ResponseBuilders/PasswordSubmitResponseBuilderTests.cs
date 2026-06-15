@@ -114,4 +114,31 @@ public class PasswordSubmitResponseBuilderTests
         action.Should().BeOfType<PasswordSubmitAction>();
         action.OdataType.Should().Be(EntraOdataTypes.PasswordSubmit.Block);
     }
+
+    [Fact]
+    public void Build_ThrowsInvalidOperationException_WhenNoActionWasSelected()
+    {
+        // Arrange
+        _sut.WithNonce("test-nonce");
+    
+        // Act
+        Action act = () => _sut.Build();
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>()
+            .WithMessage("An action must be selected before building the response.");
+    }
+
+    [Fact]
+    public void Build_ThrowsInvalidOperationException_WhenNonceIsMissing()
+    {
+        // Act
+        Action act = () => _sut.Build();
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>()
+            .WithMessage("Nonce must be set before building the response.");
+    }
 }

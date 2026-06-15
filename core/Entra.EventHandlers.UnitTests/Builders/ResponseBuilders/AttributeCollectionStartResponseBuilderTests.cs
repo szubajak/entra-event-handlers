@@ -137,4 +137,16 @@ public class AttributeCollectionStartResponseBuilderTests
         action.Title.Should().Be(title);
         action.Message.Should().Be(message);
     }
+
+    [Fact]
+    public void Build_ThrowsInvalidOperationException_WhenNoActionWasSelected()
+    {
+        // Act
+        Action act = () => _sut.Build();
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>()
+            .WithMessage("An action must be selected before building the response.");
+    }
 }
