@@ -102,20 +102,19 @@ public class ServiceCollectionExtensionsTests
 
     private static void RegisterAllHandlersAsSubstitutes(IServiceCollection services)
     {
+        static IEnumerable<Type> GetAllHandlerInterfaces()
+        {
+            var handlerBase = typeof(IEntraEventHandler<,>);
+
+            return handlerBase.Assembly
+                .GetTypes()
+                .Where(t => t.IsInterface && t != handlerBase)
+                .Where(t => t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == handlerBase));
+        }
+
         foreach (var handler in GetAllHandlerInterfaces())
         {
             services.AddTransient(handler, _ => Substitute.For([handler], []));
         }
-    }
-
-    public static IEnumerable<Type> GetAllHandlerInterfaces()
-    {
-        var handlerBase = typeof(IEntraEventHandler<,>);
-
-        return handlerBase.Assembly
-            .GetTypes()
-            .Where(t => t.IsInterface && t != handlerBase)
-            .Where(t => t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == handlerBase));
-    }
-
+    }  
 }
