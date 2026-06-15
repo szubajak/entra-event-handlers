@@ -33,6 +33,13 @@ jobs:
               /p:CoverletOutput=./TestResults/$(basename $proj)-coverage.xml
           done
 
+      - name: Debug coverage contents
+        run: |
+          for f in $(find . -name "*coverage.xml"); do
+            echo "---- $f ----"
+            grep "<module" -n "$f" || true
+          done
+
       - name: Install ReportGenerator
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
@@ -41,13 +48,6 @@ jobs:
           -reports:**/*coverage.xml \
           -targetdir:coverage \
           -reporttypes:Html
-
-      - name: Debug coverage contents
-        run: |
-          for f in $(find . -name "*coverage.xml"); do
-            echo "---- $f ----"
-            grep "<module" -n "$f"
-          done
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v7
