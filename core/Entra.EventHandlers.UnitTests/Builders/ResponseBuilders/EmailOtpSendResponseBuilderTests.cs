@@ -31,4 +31,16 @@ public class EmailOtpSendResponseBuilderTests
         action.Should().BeOfType<ContinueAction>();
         action.OdataType.Should().Be(EntraOdataTypes.EmailOtpSend.ContinueWithDefaultBehavior);
     }
+
+    [Fact]
+    public void Build_ThrowsInvalidOperationException_WhenNoActionWasSelected()
+    {
+        // Act
+        Action act = () => _sut.Build();
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>()
+            .WithMessage("An action must be selected before building the response.");
+    }
 }
