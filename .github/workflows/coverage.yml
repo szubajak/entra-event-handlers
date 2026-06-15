@@ -46,7 +46,7 @@ jobs:
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
       - name: Generate HTML report
-        run: reportgenerator \
+        run: ~/.dotnet/tools/reportgenerator \
           -reports:**/*coverage.xml \
           -targetdir:coverage \
           -reporttypes:"Html;Badge"
