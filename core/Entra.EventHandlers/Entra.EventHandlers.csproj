@@ -30,6 +30,10 @@
 	</PackageReleaseNotes>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+	<IsPackable>false</IsPackable>
+  </PropertyGroup>
+
   <ItemGroup>
 	<None Include="LICENSE" Pack="true" PackagePath="" />
 	<None Include="LICENSE-COMMERCIAL.md" Pack="true" PackagePath="" />

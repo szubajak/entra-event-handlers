@@ -1,0 +1,73 @@
+name: Code Coverage
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  coverage:
+    name: Generate code coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore solution
+        run: dotnet restore Entra.EventHandlers.slnx
+
+      - name: Test with coverage
+        run: |
+          for proj in $(find . -name "*.csproj" | grep UnitTests); do
+            echo "Running tests for $proj"
+            dotnet test "$proj" \
+              /p:CollectCoverage=true \
+              /p:CoverletOutputFormat=cobertura \
+              /p:CoverletOutput=./TestResults/$(basename $proj)-coverage.xml \
+              /p:Exclude="[Entra.EventHandlers.TestHelpers]*"
+          done
+
+      - name: Install ReportGenerator
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+      - name: Generate HTML report
+        run: reportgenerator \
+          -reports:**/*coverage.xml \
+          -targetdir:coverage \
+          -reporttypes:"Html;Badges;MarkdownSummaryGithub"
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-html
+          path: coverage
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./coverage
+
+      - name: Read Markdown summary
+        id: coverage
+        run: |
+          echo "summary<<EOF" >> $GITHUB_OUTPUT
+          cat coverage/SummaryGithub.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Comment PR with coverage summary
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          message: |
+            📊 **Code Coverage Report**
+
+            ${{ steps.coverage.outputs.summary }}
+
+            **Full HTML Report**
+            https://szubajak.github.io/entra-event-handlers/

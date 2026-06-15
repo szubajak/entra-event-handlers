@@ -2,9 +2,7 @@
 
 public sealed class EntraErrorResponse
 {
-    public string Error { get; init; } = default!;
+    public required string Error { get; init; }
 
     public string? Details { get; init; }
-
-    public string? Code { get; init; }
 }
