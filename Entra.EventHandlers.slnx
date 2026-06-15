@@ -14,6 +14,7 @@
     <File Path=".github/workflows/pr-validate-develop.yml" />
     <File Path=".github/workflows/pr-validate-main.yml" />
     <File Path=".github/workflows/publish.yml" />
+    <File Path="coverage.yml" />
   </Folder>
   <Folder Name="/abstractions/">
     <Project Path="abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj" />
