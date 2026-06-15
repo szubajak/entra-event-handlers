@@ -1,7 +1,8 @@
-[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak) 
-[![Coverage](https://szubajak.github.io/entra-event-handlers/badge_linecoverage.svg)](https://szubajak.github.io/entra-event-handlers/)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak)
 
 # Entra Event Handlers — .NET Ecosystem
+
+[![Coverage](https://szubajak.github.io/entra-event-handlers/badge_linecoverage.svg)](https://szubajak.github.io/entra-event-handlers/)
 
 A modern, strongly‑typed, developer‑focused ecosystem for building  
 **Microsoft Entra External ID Authentication Event Handlers** in .NET.
@@ -29,19 +30,22 @@ Public protocol types and contracts (MIT).
 ### **Core**  
 Implementation layer: builders, handler bases, validation (BSL).
 
-[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)  
+[![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
 [![License: BSL (Core)](https://img.shields.io/badge/License-BSL-orange.svg)](core/Entra.EventHandlers/LICENSE)
 
 ### **Azure Functions**  
 Azure Functions hosting adapter (BSL).
 
-[![NuGet AzureFunctions](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)  
+[![NuGet AzureFunctions](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)
 [![License: BSL (AzureFunctions)](https://img.shields.io/badge/License-BSL-orange.svg)](azurefunctions/Entra.EventHandlers.AzureFunctions/LICENSE)
 
 ### **ASP.NET Core**  
 ASP.NET Core hosting adapter (BSL).
 
-[![NuGet AspNetCore](https://img.shields.io/nuget/v/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)  
+[![NuGet AspNetCore](https://img.shields.io/nuget/v/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)
 [![License: BSL (AspNetCore)](https://img.shields.io/badge/License-BSL-orange.svg)](aspnetcore/Entra.EventHandlers.AspNetCore/LICENSE)
 
 ---
