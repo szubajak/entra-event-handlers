@@ -45,9 +45,6 @@ jobs:
       - name: Add dotnet tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
-      - name: Check ReportGenerator version
-        run: reportgenerator -?
-
       - name: Generate HTML report
         run: reportgenerator \
           -reports:**/*coverage.xml \
