@@ -1,8 +1,6 @@
 name: Code Coverage
 
 on:
-  push:
-    branches: [ main, develop ]
   pull_request:
     branches: [ develop ]
 
@@ -30,7 +28,8 @@ jobs:
             dotnet test "$proj" \
               /p:CollectCoverage=true \
               /p:CoverletOutputFormat=cobertura \
-              /p:CoverletOutput=./TestResults/$(basename $proj)-coverage.xml
+              /p:CoverletOutput=./TestResults/$(basename $proj)-coverage.xml \
+              /p:Exclude="[Entra.EventHandlers.TestHelpers]*"
           done
 
       - name: Debug coverage contents
