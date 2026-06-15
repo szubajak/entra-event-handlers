@@ -32,13 +32,6 @@ jobs:
               /p:Exclude="[Entra.EventHandlers.TestHelpers]*"
           done
 
-      - name: Debug coverage contents
-        run: |
-          for f in $(find . -name "*coverage.xml"); do
-            echo "---- $f ----"
-            grep "<module" -n "$f" || true
-          done
-
       - name: Install ReportGenerator
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
@@ -46,7 +39,7 @@ jobs:
         run: reportgenerator \
           -reports:**/*coverage.xml \
           -targetdir:coverage \
-          -reporttypes:"Html;Badges;TextSummary"
+          -reporttypes:"Html;Badges;MarkdownSummaryGithub"
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v7
@@ -60,22 +53,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./coverage
 
-      - name: Comment PR with coverage link
-        if: github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v3
-        with:
-            message: |
-                📊 **Code Coverage Report**
-                https://szubajak.github.io/entra-event-handlers/
-
-      - name: Read coverage summary
+      - name: Read Markdown summary
         id: coverage
         run: |
-          summary=$(cat coverage/Summary.txt)
-          summary="${summary//'%'/'%25'}"
-          summary="${summary//$'\n'/'%0A'}"
-          summary="${summary//$'\r'/'%0D'}"
-          echo "summary=$summary" >> $GITHUB_OUTPUT
+          echo "summary<<EOF" >> $GITHUB_OUTPUT
+          cat coverage/SummaryGithub.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Comment PR with coverage summary
         if: github.event_name == 'pull_request'
@@ -84,10 +67,7 @@ jobs:
           message: |
             📊 **Code Coverage Report**
 
-            **Line & Branch Coverage**
-            ```
             ${{ steps.coverage.outputs.summary }}
-            ```
 
             **Full HTML Report**
             https://szubajak.github.io/entra-event-handlers/
