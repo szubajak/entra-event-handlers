@@ -368,7 +368,7 @@ var assemblies = [
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.PasswordSubmitEndpoint", "rp": "Entra.EventHandlers.AspNetCore_PasswordSubmitEndpoint.html", "cl": 1, "ucl": 3, "cal": 4, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint", "rp": "Entra.EventHandlers.AspNetCore_TokenIssuanceStartEndpoint.html", "cl": 1, "ucl": 3, "cal": 4, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointMappingExtensions.html", "cl": 0, "ucl": 30, "cal": 30, "tl": 48, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "cl": 10, "ucl": 5, "cal": 15, "tl": 53, "cb": 1, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "cl": 12, "ucl": 3, "cal": 15, "tl": 53, "cb": 5, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Entra.EventHandlers.AzureFunctions",
@@ -406,7 +406,7 @@ var riskHotspots = [
   {
     "assembly": "Entra.EventHandlers.AspNetCore", "class": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "reportPath": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 36,
     "metrics": [
-      { "value": 260, "exceeded": true },
+      { "value": 57, "exceeded": true },
       { "value": 28, "exceeded": true },
     ]},
   {

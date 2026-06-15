@@ -3,19 +3,19 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/15/2026 - 18:58:13 |
-| Coverage date: | 06/15/2026 - 18:57:43 - 06/15/2026 - 18:58:10 |
+| Generated on: | 06/15/2026 - 21:07:53 |
+| Coverage date: | 06/15/2026 - 21:07:23 - 06/15/2026 - 21:07:51 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 84 |
 | Files: | 79 |
-| **Line coverage:** | 74.6% (581 of 778) |
-| Covered lines: | 581 |
-| Uncovered lines: | 197 |
+| **Line coverage:** | 74.9% (583 of 778) |
+| Covered lines: | 583 |
+| Uncovered lines: | 195 |
 | Coverable lines: | 778 |
 | Total lines: | 3462 |
-| **Branch coverage:** | 46.7% (71 of 152) |
-| Covered branches: | 71 |
+| **Branch coverage:** | 49.3% (75 of 152) |
+| Covered branches: | 75 |
 | Total branches: | 152 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -90,11 +90,11 @@
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 31.6%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 32.7%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**31.6%**|**2.7%**|
+|**Entra.EventHandlers.AspNetCore**|**32.7%**|**13.8%**|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|54%|0%|
 |Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|0%|0%|
 |Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter|0%||
@@ -111,7 +111,7 @@
 |Entra.EventHandlers.AspNetCore.Endpoints.PasswordSubmitEndpoint|25%||
 |Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint|25%||
 |Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions|0%||
-|Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|66.6%|3.3%|
+|Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|80%|16.6%|
 
 </details>
 <details><summary>Entra.EventHandlers.AzureFunctions - 40.8%</summary>
