@@ -1,5 +1,5 @@
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak)
-[![Coverage](https://szubajak.github.io/entra-event-handlers/coverage/badge_linecoverage.svg)](https://szubajak.github.io/entra-event-handlers/)
+[![Coverage](https://szubajak.github.io/entra-event-handlers/badge_linecoverage.svg)](https://szubajak.github.io/entra-event-handlers/)
 
 # Entra Event Handlers — .NET Ecosystem
 

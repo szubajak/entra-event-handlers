@@ -40,13 +40,10 @@ jobs:
           done
 
       - name: Install ReportGenerator
-        run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 5.5.10
-
-      - name: Add dotnet tools to PATH
-        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
       - name: Generate HTML report
-        run: ~/.dotnet/tools/reportgenerator \
+        run: reportgenerator \
           -reports:**/*coverage.xml \
           -targetdir:coverage \
           -reporttypes:"Html;Badges;TextSummary"
