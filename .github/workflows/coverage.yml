@@ -46,7 +46,7 @@ jobs:
         run: reportgenerator \
           -reports:**/*coverage.xml \
           -targetdir:coverage \
-          -reporttypes:Html
+          -reporttypes:Html;Badge
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v7
