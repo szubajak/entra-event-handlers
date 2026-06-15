@@ -1,4 +1,4 @@
-[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak)  
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak) 
 [![Coverage](https://szubajak.github.io/entra-event-handlers/badge_linecoverage.svg)](https://szubajak.github.io/entra-event-handlers/)
 
 # Entra Event Handlers — .NET Ecosystem
@@ -22,8 +22,8 @@ This repository contains:
 ### **Abstractions**  
 Public protocol types and contracts (MIT).
 
-[![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)  
-[![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)  
+[![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
 [![License: MIT (Abstractions)](https://img.shields.io/badge/License-MIT-blue.svg)](abstractions/Entra.EventHandlers.Abstractions/LICENSE)
 
 ### **Core**  
