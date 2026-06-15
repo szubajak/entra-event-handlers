@@ -391,15 +391,6 @@ var assemblies = [
       { "name": "Entra.EventHandlers.Hosting.Extensions.ExceptionExtensions", "rp": "Entra.EventHandlers.Hosting_ExceptionExtensions.html", "cl": 9, "ucl": 1, "cal": 10, "tl": 20, "cb": 11, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver", "rp": "Entra.EventHandlers.Hosting_EntraEventHandlerResolver.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 29, "cb": 5, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
-  {
-    "name": "Entra.EventHandlers.TestHelpers",
-    "classes": [
-      { "name": "Entra.EventHandlers.TestHelpers.LogEntry", "rp": "Entra.EventHandlers.TestHelpers_LogEntry.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 47, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestEvent", "rp": "Entra.EventHandlers.TestHelpers_TestEvent.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 10, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestHandler", "rp": "Entra.EventHandlers.TestHelpers_TestHandler.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestLoggerBase", "rp": "Entra.EventHandlers.TestHelpers_TestLoggerBase.html", "cl": 16, "ucl": 1, "cal": 17, "tl": 47, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestScope", "rp": "Entra.EventHandlers.TestHelpers_TestScope.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 7, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-    ]},
 ];
 
 var metrics = [{ "name": "Crap Score", "abbreviation": "crp", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" }, { "name": "Cyclomatic complexity", "abbreviation": "cc", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" }, { "name": "Line coverage", "abbreviation": "cov", "explanationUrl": "https://en.wikipedia.org/wiki/Code_coverage" }, { "name": "Branch coverage", "abbreviation": "bcov", "explanationUrl": "https://en.wikipedia.org/wiki/Code_coverage" }];
