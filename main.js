@@ -352,7 +352,7 @@ var assemblies = [
   {
     "name": "Entra.EventHandlers.AspNetCore",
     "classes": [
-      { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointBase.html", "cl": 4, "ucl": 33, "cal": 37, "tl": 58, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointBase.html", "cl": 20, "ucl": 17, "cal": 37, "tl": 58, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter", "rp": "Entra.EventHandlers.AspNetCore_RequestAdapter.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 79, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter", "rp": "Entra.EventHandlers.AspNetCore_ResponseAdapter.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 92, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Base.AttributeCollectionStartEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_AttributeCollectionStartEndpointBase.html", "cl": 2, "ucl": 5, "cal": 7, "tl": 22, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -368,7 +368,7 @@ var assemblies = [
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.PasswordSubmitEndpoint", "rp": "Entra.EventHandlers.AspNetCore_PasswordSubmitEndpoint.html", "cl": 1, "ucl": 3, "cal": 4, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint", "rp": "Entra.EventHandlers.AspNetCore_TokenIssuanceStartEndpoint.html", "cl": 1, "ucl": 3, "cal": 4, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointMappingExtensions.html", "cl": 0, "ucl": 30, "cal": 30, "tl": 48, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "cl": 3, "ucl": 12, "cal": 15, "tl": 53, "cb": 0, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "cl": 10, "ucl": 5, "cal": 15, "tl": 53, "cb": 1, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Entra.EventHandlers.AzureFunctions",
@@ -406,7 +406,7 @@ var riskHotspots = [
   {
     "assembly": "Entra.EventHandlers.AspNetCore", "class": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "reportPath": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 36,
     "metrics": [
-      { "value": 812, "exceeded": true },
+      { "value": 260, "exceeded": true },
       { "value": 28, "exceeded": true },
     ]},
   {
