@@ -8,19 +8,23 @@ on:
 
 jobs:
   coverage:
+    name: Generate code coverage
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-      - uses: actions/setup-dotnet@v5
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
 
-      - run: dotnet restore
+      - name: Restore solution
+        run: dotnet restore Entra.EventHandlers.slnx
 
       - name: Test with coverage
-        run: dotnet test Entra.EventHandlers.slnx \
+        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj \
           /p:CollectCoverage=true \
           /p:CoverletOutputFormat=cobertura \
           /p:CoverletOutput=./TestResults/coverage.xml

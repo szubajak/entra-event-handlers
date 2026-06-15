@@ -6,15 +6,23 @@ on:
 
 jobs:
   validate:
+    name: Validate PR to develop
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-      - uses: actions/setup-dotnet@v5
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
 
-      - run: dotnet restore Entra.EventHandlers.slnx
-      - run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
-      - run: dotnet test Entra.EventHandlers.slnx -c Release --no-build --verbosity normal
+      - name: Restore solution
+        run: dotnet restore Entra.EventHandlers.slnx
+
+      - name: Build solution (Release)
+        run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
+
+      - name: Run unit tests
+        run: dotnet test Entra.EventHandlers.slnx -c Release --no-build --verbosity normal
