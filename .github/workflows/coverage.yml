@@ -43,7 +43,7 @@ jobs:
         run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 5.5.10
 
       - name: Check ReportGenerator version
-        run: reportgenerator --version
+        run: reportgenerator -?
 
       - name: Generate HTML report
         run: reportgenerator \
