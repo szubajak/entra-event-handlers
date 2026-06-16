@@ -1,65 +1,57 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Interfaces;
-using Entra.EventHandlers.AzureFunctions.Adapters;
+using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 
-namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
+namespace Entra.EventHandlers.AspNetCore.UnitTests.Routing;
 
-public class EntraEventRouterFunctionBaseTests
+public class EntraEventRouterEndpointBaseTests
 {
-    private readonly TestEntraEventRouterFunctionBase _sut;
+    private readonly TestEntraEventRouterEndpointBase _sut;
 
     private readonly TestLogger _logger;
     private readonly IEntraEventHandlerResolver _resolver;
     private readonly IRequestAdapter _requestAdapter;
     private readonly IResponseAdapter _responseAdapter;
 
-    public EntraEventRouterFunctionBaseTests()
+    public EntraEventRouterEndpointBaseTests()
     {
         _logger = new TestLogger();
         _resolver = Substitute.For<IEntraEventHandlerResolver>();
         _requestAdapter = Substitute.For<IRequestAdapter>();
         _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEntraEventRouterFunctionBase(_logger, _resolver, _requestAdapter, _responseAdapter);
+        _sut = new TestEntraEventRouterEndpointBase(_logger, _resolver, _requestAdapter, _responseAdapter);
     }
 
     [Fact]
-    public async Task RunAsync_WhenDeserializationFails_ReturnsBadRequestWithDeserializationError()
+    public async Task InvokeAsync_WhenDeserializationFails_ReturnsBadRequestWithDeserializationError()
     {
         // Arrange
         var fixture = new Fixture();
 
-        var ctx = Substitute.For<FunctionContext>();
-        var request = Substitute.For<HttpRequestData>(ctx);
-        var response = Substitute.For<HttpResponseData>(ctx);
-
         var errorMessage = fixture.Create<string>();
         var exception = new EntraDeserializationException(errorMessage);
-        _requestAdapter.ReadEvent(request).Throws(exception);
 
-        _responseAdapter
-            .BadRequest(request, Arg.Any<EntraErrorResponse>())
-            .Returns(response);
+        var ctx = new DefaultHttpContext();
+
+        _requestAdapter.ReadEvent(ctx).Throws(exception);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        await _sut.Invoke(ctx);
 
         // Assert
-        result.Should().Be(response);
-
         _ = _responseAdapter
             .Received(1)
-            .BadRequest(
-                request,
+            .WriteBadRequest(
+                ctx,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.DeserializationError &&
                     e.Details == errorMessage
@@ -72,38 +64,30 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task RunAsync_WhenHandlerNotFound_ReturnsBadRequestWithHandlerNotFoundError()
+    public async Task InvokeAsync_WhenHandlerNotFound_ReturnsBadRequestWithHandlerNotFoundError()
     {
         // Arrange
-        var ctx = Substitute.For<FunctionContext>();
-        var request = Substitute.For<HttpRequestData>(ctx);
-        var response = Substitute.For<HttpResponseData>(ctx);
+        var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEvent(request).Returns(entraEvent);
+        _requestAdapter.ReadEvent(ctx).Returns(entraEvent);
 
         var exception = new EntraHandlerNotFoundException(entraEvent.GetType());
         _resolver.Resolve(entraEvent.GetType()).Throws(exception);
 
-        _responseAdapter
-            .BadRequest(request, Arg.Any<EntraErrorResponse>())
-            .Returns(response);
-
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        await _sut.Invoke(ctx);
 
         // Assert
-        result.Should().Be(response);
-
         _ = _responseAdapter
             .Received(1)
-            .BadRequest(
-                request,
+            .WriteBadRequest(
+                ctx,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.HandlerNotFound &&
                     !string.IsNullOrEmpty(e.Details) &&
                     e.Details.Contains(entraEvent.GetType().Name)
-                ));
+          ));
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -112,39 +96,30 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task RunAsync_ValidationFails_ReturnsBadRequestWithValidationError()
+    public async Task InvokeAsync_ValidationFails_ReturnsBadRequestWithValidationError()
     {
         // Arrange
         var fixture = new Fixture();
-
-        var ctx = Substitute.For<FunctionContext>();
-        var request = Substitute.For<HttpRequestData>(ctx);
-        var response = Substitute.For<HttpResponseData>(ctx);
+        var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEvent(request).Returns(entraEvent);
+        _requestAdapter.ReadEvent(ctx).Returns(entraEvent);
 
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var errorMessage = fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
-        handler.Handle(entraEvent, ctx.CancellationToken).Throws(exception);
-
-        _responseAdapter
-            .BadRequest(request, Arg.Any<EntraErrorResponse>())
-            .Returns(response);
+        handler.Handle(entraEvent, ctx.RequestAborted).Throws(exception);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        await _sut.Invoke(ctx);
 
         // Assert
-        result.Should().Be(response);
-
         _ = _responseAdapter
             .Received(1)
-            .BadRequest(
-                request,
+            .WriteBadRequest(
+                ctx,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.ValidationError &&
                     e.Details == errorMessage
@@ -157,36 +132,28 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task RunAsync_WhenUnexpectedExceptionThrown_ReturnsServerErrorWithUnhandledException()
+    public async Task InvokeAsync_WhenUnexpectedExceptionThrown_ReturnsServerErrorWithUnhandledException()
     {
         // Arrange
-        var ctx = Substitute.For<FunctionContext>();
-        var request = Substitute.For<HttpRequestData>(ctx);
-        var response = Substitute.For<HttpResponseData>(ctx);
+        var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEvent(request).Returns(entraEvent);
+        _requestAdapter.ReadEvent(ctx).Returns(entraEvent);
 
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var exception = new InvalidOperationException();
-        handler.Handle(entraEvent, ctx.CancellationToken).Throws(exception);
-
-        _responseAdapter
-            .ServerError(request, Arg.Any<EntraErrorResponse>())
-            .Returns(response);
+        handler.Handle(entraEvent, ctx.RequestAborted).Throws(exception);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        await _sut.Invoke(ctx);
 
         // Assert
-        result.Should().Be(response);
-
         _ = _responseAdapter
             .Received(1)
-            .ServerError(
-                request,
+            .WriteServerError(
+                ctx,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.UnhandledException &&
                     e.Details == "An unexpected error occurred."
@@ -199,29 +166,27 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task RunAsync_Success()
+    public async Task InvokeAsync_Success()
     {
         // Arrange
-        var ctx = Substitute.For<FunctionContext>();
-        var request = Substitute.For<HttpRequestData>(ctx);
-        var response = Substitute.For<HttpResponseData>(ctx);
+        var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEvent(request).Returns(entraEvent);
+        _requestAdapter.ReadEvent(ctx).Returns(entraEvent);
 
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var entraResponse = new TestResponse();
-        handler.Handle(entraEvent, ctx.CancellationToken).Returns(entraResponse);
+        handler.Handle(entraEvent, ctx.RequestAborted).Returns(entraResponse);
 
-        _responseAdapter.From(request, entraResponse).Returns(response);
+        _responseAdapter.WriteOk(ctx, entraResponse).Returns(Task.CompletedTask);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        await _sut.Invoke(ctx);
 
         // Assert
-        result.Should().Be(response);
-        _ = handler.Received(1).Handle(entraEvent, ctx.CancellationToken);
+        _ = handler.Received(1).Handle(entraEvent, ctx.RequestAborted);
+        _ = _responseAdapter.Received(1).WriteOk(ctx, entraResponse);
     }
 }

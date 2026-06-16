@@ -10,7 +10,7 @@
 
 	  <!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.0.6</Version>
+	<Version>1.0.7</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 	<Description>ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers. Provides request/response adapters, endpoint base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
