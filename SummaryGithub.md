@@ -3,20 +3,20 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/16/2026 - 11:47:22 |
-| Coverage date: | 06/16/2026 - 11:46:52 - 06/16/2026 - 11:47:20 |
+| Generated on: | 06/16/2026 - 15:34:17 |
+| Coverage date: | 06/16/2026 - 15:33:46 - 06/16/2026 - 15:34:15 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 84 |
 | Files: | 79 |
-| **Line coverage:** | 78.4% (610 of 778) |
-| Covered lines: | 610 |
-| Uncovered lines: | 168 |
-| Coverable lines: | 778 |
-| Total lines: | 3462 |
-| **Branch coverage:** | 65.1% (99 of 152) |
-| Covered branches: | 99 |
-| Total branches: | 152 |
+| **Line coverage:** | 82% (642 of 782) |
+| Covered lines: | 642 |
+| Uncovered lines: | 140 |
+| Coverable lines: | 782 |
+| Total lines: | 3464 |
+| **Branch coverage:** | 70.6% (113 of 160) |
+| Covered branches: | 113 |
+| Total branches: | 160 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -90,13 +90,13 @@
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 43.7%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 51.8%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**43.7%**|**72.2%**|
+|**Entra.EventHandlers.AspNetCore**|**51.8%**|**82.5%**|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|100%|100%|
-|Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|0%|0%|
+|Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|88.8%|87.5%|
 |Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter|0%||
 |Entra.EventHandlers.AspNetCore.Base.AttributeCollectionStartEndpointBase|28.5%||
 |Entra.EventHandlers.AspNetCore.Base.AttributeCollectionSubmitEndpointBase|28.5%||
@@ -114,13 +114,13 @@
 |Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|100%|80%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 45.8%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 58.1%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**45.8%**|**73.6%**|
+|**Entra.EventHandlers.AzureFunctions**|**58.1%**|**83.3%**|
 |Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|100%|100%|
-|Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|0%|0%|
+|Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|88.8%|87.5%|
 |Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter|0%||
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBas<br/>e|0%||
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionSubmitFunctionBa<br/>se|0%||
