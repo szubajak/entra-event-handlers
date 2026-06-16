@@ -352,7 +352,7 @@ var assemblies = [
   {
     "name": "Entra.EventHandlers.AspNetCore",
     "classes": [
-      { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointBase.html", "cl": 20, "ucl": 17, "cal": 37, "tl": 58, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointBase.html", "cl": 37, "ucl": 0, "cal": 37, "tl": 58, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter", "rp": "Entra.EventHandlers.AspNetCore_RequestAdapter.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 79, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter", "rp": "Entra.EventHandlers.AspNetCore_ResponseAdapter.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 92, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Base.AttributeCollectionStartEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_AttributeCollectionStartEndpointBase.html", "cl": 2, "ucl": 5, "cal": 7, "tl": 22, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -368,12 +368,12 @@ var assemblies = [
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.PasswordSubmitEndpoint", "rp": "Entra.EventHandlers.AspNetCore_PasswordSubmitEndpoint.html", "cl": 1, "ucl": 3, "cal": 4, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint", "rp": "Entra.EventHandlers.AspNetCore_TokenIssuanceStartEndpoint.html", "cl": 1, "ucl": 3, "cal": 4, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointMappingExtensions.html", "cl": 0, "ucl": 30, "cal": 30, "tl": 48, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "cl": 12, "ucl": 3, "cal": 15, "tl": 53, "cb": 5, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "cl": 15, "ucl": 0, "cal": 15, "tl": 53, "cb": 24, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Entra.EventHandlers.AzureFunctions",
     "classes": [
-      { "name": "Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase", "rp": "Entra.EventHandlers.AzureFunctions_EntraFunctionBase.html", "cl": 28, "ucl": 6, "cal": 34, "tl": 59, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase", "rp": "Entra.EventHandlers.AzureFunctions_EntraFunctionBase.html", "cl": 34, "ucl": 0, "cal": 34, "tl": 59, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter", "rp": "Entra.EventHandlers.AzureFunctions_RequestAdapter.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 80, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter", "rp": "Entra.EventHandlers.AzureFunctions_ResponseAdapter.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 97, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBase", "rp": "Entra.EventHandlers.AzureFunctions_AttributeCollectionStartFunctionBase.html", "cl": 0, "ucl": 7, "cal": 7, "tl": 25, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -404,16 +404,16 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
-    "assembly": "Entra.EventHandlers.AspNetCore", "class": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "reportPath": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 36,
-    "metrics": [
-      { "value": 57, "exceeded": true },
-      { "value": 28, "exceeded": true },
-    ]},
-  {
     "assembly": "Entra.EventHandlers.AzureFunctions", "class": "Entra.EventHandlers.AzureFunctions.Routing.EntraEventRouterFunctionBase", "reportPath": "Entra.EventHandlers.AzureFunctions_EntraEventRouterFunctionBase.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 40,
     "metrics": [
       { "value": 30, "exceeded": false },
       { "value": 30, "exceeded": true },
+    ]},
+  {
+    "assembly": "Entra.EventHandlers.AspNetCore", "class": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "reportPath": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 36,
+    "metrics": [
+      { "value": 28, "exceeded": false },
+      { "value": 28, "exceeded": true },
     ]},
 ];
 

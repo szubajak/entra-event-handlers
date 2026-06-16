@@ -3,19 +3,19 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/15/2026 - 21:07:53 |
-| Coverage date: | 06/15/2026 - 21:07:23 - 06/15/2026 - 21:07:51 |
+| Generated on: | 06/16/2026 - 10:33:50 |
+| Coverage date: | 06/16/2026 - 10:33:22 - 06/16/2026 - 10:33:48 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 84 |
 | Files: | 79 |
-| **Line coverage:** | 74.9% (583 of 778) |
-| Covered lines: | 583 |
-| Uncovered lines: | 195 |
+| **Line coverage:** | 78.2% (609 of 778) |
+| Covered lines: | 609 |
+| Uncovered lines: | 169 |
 | Coverable lines: | 778 |
 | Total lines: | 3462 |
-| **Branch coverage:** | 49.3% (75 of 152) |
-| Covered branches: | 75 |
+| **Branch coverage:** | 64.4% (98 of 152) |
+| Covered branches: | 98 |
 | Total branches: | 152 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -90,12 +90,12 @@
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 32.7%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 43.7%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**32.7%**|**13.8%**|
-|Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|54%|0%|
+|**Entra.EventHandlers.AspNetCore**|**43.7%**|**72.2%**|
+|Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|100%|100%|
 |Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|0%|0%|
 |Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter|0%||
 |Entra.EventHandlers.AspNetCore.Base.AttributeCollectionStartEndpointBase|28.5%||
@@ -111,15 +111,15 @@
 |Entra.EventHandlers.AspNetCore.Endpoints.PasswordSubmitEndpoint|25%||
 |Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint|25%||
 |Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions|0%||
-|Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|80%|16.6%|
+|Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|100%|80%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 40.8%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 45.8%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**40.8%**|**68.4%**|
-|Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|82.3%|0%|
+|**Entra.EventHandlers.AzureFunctions**|**45.8%**|**73.6%**|
+|Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|0%|0%|
 |Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter|0%||
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBas<br/>e|0%||
