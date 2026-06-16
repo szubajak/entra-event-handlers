@@ -1,44 +1,48 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.AzureFunctions.Adapters;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace Entra.EventHandlers.AspNetCore.UnitTests.Abstractions;
+namespace Entra.EventHandlers.AzureFunctions.UnitTests.Abstractions;
 
-public class EntraEndpointBaseTests
+public class EntraFunctionBaseTests
 {
-    private readonly TestEntraEndpointBase _sut;
+    private readonly TestEntraFunctionBase _sut;
 
     private readonly TestLogger _logger;
     private readonly IRequestAdapter _requestAdapter;
     private readonly IResponseAdapter _responseAdapter;
 
-    public EntraEndpointBaseTests()
+    public EntraFunctionBaseTests()
     {
         _logger = new TestLogger();
         _requestAdapter = Substitute.For<IRequestAdapter>();
         _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEntraEndpointBase(_logger, _requestAdapter, _responseAdapter);
+        _sut = new TestEntraFunctionBase(_logger, _requestAdapter, _responseAdapter);
     }
 
     [Fact]
     public async Task InvokeAsync_Calls_ExecuteAsync()
     {
         // Arrange
+        var ctx = Substitute.For<FunctionContext>();
+        var req = Substitute.For<HttpRequestData>(ctx);
+
         bool executed = false;
-        _sut.ExecuteDelegate = _ =>
+        _sut.ExecuteDelegate = (_, _) =>
         {
             executed = true;
-            return Task.CompletedTask;
+            return Task.FromResult(Substitute.For<HttpResponseData>(ctx));
         };
 
         // Act
-        await _sut.Invoke(new DefaultHttpContext());
+        await _sut.Invoke(req, ctx);
 
         // Assert
         executed.Should().BeTrue();
@@ -50,18 +54,19 @@ public class EntraEndpointBaseTests
         // Arrange
         var fixture = new Fixture();
 
+        var ctx = Substitute.For<FunctionContext>();
+        var req = Substitute.For<HttpRequestData>(ctx);
+
         var exception = new EntraValidationException(fixture.Create<string>());
 
-        _sut.ExecuteDelegate = _ => throw exception;
-
-        var ctx = new DefaultHttpContext();
+        _sut.ExecuteDelegate = (_, _) => throw exception;
 
         // Act
-        await _sut.Invoke(ctx);
+        await _sut.Invoke(req, ctx);
 
         // Assert
         await _responseAdapter.Received(1)
-            .WriteBadRequest(ctx, Arg.Any<EntraErrorResponse>());
+            .BadRequest(req, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -73,18 +78,19 @@ public class EntraEndpointBaseTests
     public async Task InvokeAsync_UnexpectedException_MapsToServerError()
     {
         // Arrange
+        var ctx = Substitute.For<FunctionContext>();
+        var req = Substitute.For<HttpRequestData>(ctx);
+
         var exception = new InvalidOperationException();
 
-        _sut.ExecuteDelegate = _ => throw exception;
-
-        var ctx = new DefaultHttpContext();
+        _sut.ExecuteDelegate = (_, _) => throw exception;
 
         // Act
-        await _sut.Invoke(ctx);
+        await _sut.Invoke(req, ctx);
 
         // Assert
         await _responseAdapter.Received(1)
-            .WriteServerError(ctx, Arg.Any<EntraErrorResponse>());
+            .ServerError(req, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&

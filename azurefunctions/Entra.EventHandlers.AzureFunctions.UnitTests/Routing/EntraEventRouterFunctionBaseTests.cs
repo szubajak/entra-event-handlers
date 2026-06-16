@@ -33,7 +33,7 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task Run_WhenDeserializationFails_ReturnsBadRequestWithDeserializationError()
+    public async Task RunAsync_WhenDeserializationFails_ReturnsBadRequestWithDeserializationError()
     {
         // Arrange
         var fixture = new Fixture();
@@ -72,7 +72,7 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task Run_WhenHandlerNotFound_ReturnsBadRequestWithHandlerNotFoundError()
+    public async Task RunAsync_WhenHandlerNotFound_ReturnsBadRequestWithHandlerNotFoundError()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();
@@ -112,7 +112,7 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task Run_ValidationFails_ReturnsBadRequestWithValidationError()
+    public async Task RunAsync_ValidationFails_ReturnsBadRequestWithValidationError()
     {
         // Arrange
         var fixture = new Fixture();
@@ -157,16 +157,21 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task Run_WhenUnexpectedExceptionThrown_ReturnsServerErrorWithUnhandledException()
+    public async Task RunAsync_WhenUnexpectedExceptionThrown_ReturnsServerErrorWithUnhandledException()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
-        var exception = new InvalidOperationException();
+        var entraEvent = new TestEvent();
+        _requestAdapter.ReadEvent(request).Returns(entraEvent);
 
-        _requestAdapter.ReadEvent(request).Throws(exception);
+        var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
+        _resolver.Resolve(entraEvent.GetType()).Returns(handler);
+
+        var exception = new InvalidOperationException();
+        handler.Handle(entraEvent, ctx.CancellationToken).Throws(exception);
 
         _responseAdapter
             .ServerError(request, Arg.Any<EntraErrorResponse>())
@@ -194,7 +199,7 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
-    public async Task Run_Success()
+    public async Task RunAsync_Success()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();
