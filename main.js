@@ -388,7 +388,7 @@ var assemblies = [
     "name": "Entra.EventHandlers.Hosting",
     "classes": [
       { "name": "Entra.EventHandlers.Hosting.DI.ServiceCollectionExtensions", "rp": "Entra.EventHandlers.Hosting_ServiceCollectionExtensions.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Hosting.Extensions.ExceptionExtensions", "rp": "Entra.EventHandlers.Hosting_ExceptionExtensions.html", "cl": 9, "ucl": 1, "cal": 10, "tl": 20, "cb": 11, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Hosting.Extensions.ExceptionExtensions", "rp": "Entra.EventHandlers.Hosting_ExceptionExtensions.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 20, "cb": 12, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver", "rp": "Entra.EventHandlers.Hosting_EntraEventHandlerResolver.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 29, "cb": 5, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
