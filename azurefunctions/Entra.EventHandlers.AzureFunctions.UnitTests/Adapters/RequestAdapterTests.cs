@@ -81,4 +81,23 @@ public class RequestAdapterTests
             .ThrowAsync<EntraDeserializationException>()
             .WithMessage("Failed to deserialize event.");
     }
+
+    [Fact]
+    public async Task ReadEvent_WhenJsonIsValid_ReturnsDeserializedEvent()
+    {
+        // Arrange
+        var expectedResult = new TestEvent();
+
+        var body = new MemoryStream(Encoding.UTF8.GetBytes("{}"));
+
+        var context = Substitute.For<FunctionContext>();
+        var req = new TestHttpRequestData(context, body);
+
+        // Act
+        var result = await _sut.ReadEvent<TestEvent>(req);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().BeEquivalentTo(expectedResult);
+    }
 }
