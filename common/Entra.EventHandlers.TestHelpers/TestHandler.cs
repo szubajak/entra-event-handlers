@@ -2,10 +2,16 @@
 
 namespace Entra.EventHandlers.TestHelpers;
 
-public sealed class TestHandler : IEntraEventHandler<TestEvent, TestResponse>
+public class TestHandler : IEntraEventHandler<TestEvent, TestResponse>
 {
-    public async Task<TestResponse> Handle(TestEvent request, CancellationToken cancellationToken = default)
+    public TestEvent? ReceivedEvent { get; private set; }
+
+    public CancellationToken? PassedCancellationToken { get; private set; }
+
+    public Task<TestResponse> Handle(TestEvent request, CancellationToken cancellationToken)
     {
-        return await Task.FromResult(new TestResponse());
+        ReceivedEvent = request;
+        PassedCancellationToken = cancellationToken;
+        return Task.FromResult(new TestResponse());
     }
 }

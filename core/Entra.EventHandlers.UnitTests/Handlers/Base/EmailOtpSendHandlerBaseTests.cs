@@ -15,10 +15,12 @@ public class EmailOtpSendHandlerBaseTests
 {
     private readonly TestEmailOtpSendHandler _sut;
 
-    private readonly TestLogger _logger = new();
+    private readonly TestLogger _logger;
 
     public EmailOtpSendHandlerBaseTests()
     {
+        _logger = new TestLogger();
+
         _sut = new TestEmailOtpSendHandler(_logger);
     }
 

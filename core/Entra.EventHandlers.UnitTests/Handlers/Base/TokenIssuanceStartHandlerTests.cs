@@ -14,10 +14,12 @@ public class TokenIssuanceStartHandlerTests
 {
     private readonly TestTokenIssuanceStartHandler _sut;
 
-    private readonly TestLogger _logger = new();
+    private readonly TestLogger _logger;
 
     public TokenIssuanceStartHandlerTests()
     {
+        _logger = new TestLogger();
+
         _sut = new TestTokenIssuanceStartHandler(_logger);
     }
 

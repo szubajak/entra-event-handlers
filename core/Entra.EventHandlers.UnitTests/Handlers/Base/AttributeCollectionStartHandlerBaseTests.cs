@@ -15,10 +15,12 @@ public class AttributeCollectionStartHandlerBaseTests
 {
     private readonly TestAttributeCollectionStartHandler _sut;
 
-    private readonly TestLogger _logger = new();
+    private readonly TestLogger _logger;
 
     public AttributeCollectionStartHandlerBaseTests()
     {
+        _logger = new TestLogger();
+
         _sut = new TestAttributeCollectionStartHandler(_logger);
     }
 
