@@ -53,14 +53,14 @@ public class ExceptionExtensionsTests
     };
 
     private static Exception CreateException(Type exceptionType) =>
-    (exceptionType ?? throw new ArgumentNullException(nameof(exceptionType))) switch
-    {
-        var t when t.GetConstructor([typeof(Type)]) is not null
-            => (Exception)t.GetConstructor([typeof(Type)])!.Invoke([typeof(object)]),
+        (exceptionType ?? throw new ArgumentNullException(nameof(exceptionType))) switch
+        {
+            var t when t.GetConstructor([typeof(Type)]) is not null
+                => (Exception)t.GetConstructor([typeof(Type)])!.Invoke([typeof(object)]),
 
-        var t when t.GetConstructor([typeof(string)]) is not null
-            => (Exception)t.GetConstructor([typeof(string)])!.Invoke(["test message"]),
+            var t when t.GetConstructor([typeof(string)]) is not null
+                => (Exception)t.GetConstructor([typeof(string)])!.Invoke(["test message"]),
 
-        var t => throw new InvalidOperationException($"Cannot create exception of type {t.Name}")
-    };
+            var t => throw new InvalidOperationException($"Cannot create exception of type {t.Name}")
+        };
 }

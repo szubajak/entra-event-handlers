@@ -10,7 +10,7 @@ namespace Entra.EventHandlers.Hosting.UnitTests.DI;
 public class ServiceCollectionExtensionsTests
 {
     [Fact]
-    public void AddEntraEventHandlersHosting_RegistersFakeHandler()
+    public void AddEntraEventHandlersHosting_RegistersTestHandler()
     {
         // Arrange
         var services = new ServiceCollection();
