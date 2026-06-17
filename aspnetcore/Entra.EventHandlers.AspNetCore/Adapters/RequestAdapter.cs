@@ -75,6 +75,6 @@ public sealed class RequestAdapter : IRequestAdapter
     }
 
     /// <inheritdoc />
-    public Task<EntraEvent> ReadEvent(HttpContext context)
-        => ReadEvent<EntraEvent>(context);
+    public Task<EntraEvent> ReadEvent(HttpContext context) =>
+        ReadEvent<EntraEvent>(context);
 }

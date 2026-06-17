@@ -1,4 +1,5 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
@@ -95,5 +96,32 @@ public class RequestAdapterTests
         // Assert
         result.Should().NotBeNull();
         result.Should().BeEquivalentTo(expectedResult);
+    }
+
+    [Fact]
+    public async Task ReadEvent_NonGeneric_Calls_Generic_With_EntraEvent()
+    {
+        // Arrange
+        var json =
+        """
+        { 
+          "type": "microsoft.graph.authenticationEvent.attributeCollectionStart",
+          "source": "source",
+          "data": {
+            "authenticationContext": {
+              "correlationId": "00000000-0000-0000-0000-000000000000"
+            }
+          }
+        }
+        """;
+
+        var ctx = new DefaultHttpContext();
+        ctx.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(json));
+
+        // Act
+        var result = await _sut.ReadEvent(ctx);
+
+        // Assert
+        result.Should().BeAssignableTo<EntraEvent>();
     }
 }
