@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using System.Net;
 using System.Security.Claims;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
@@ -19,5 +20,16 @@ public sealed class TestHttpRequestData(FunctionContext context, Stream body)
 
     public override string Method { get; } = "POST";
 
-    public override HttpResponseData CreateResponse() => throw new NotImplementedException("Not needed for tests.");
+    public HttpResponseData CreateResponse(HttpStatusCode statusCode)
+    {
+        var res = new TestHttpResponseData(FunctionContext)
+        {
+            StatusCode = statusCode
+        };
+
+        return res;
+    }
+
+    public override HttpResponseData CreateResponse() =>
+        CreateResponse(HttpStatusCode.OK);
 }
