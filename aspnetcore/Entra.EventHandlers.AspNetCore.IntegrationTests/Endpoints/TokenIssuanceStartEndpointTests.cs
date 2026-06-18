@@ -17,7 +17,6 @@ public class TokenIssuanceStartEndpointTests(TestAppFactory factory) : IClassFix
         // Arrange
         var payload = EventSamples.TokenIssuanceStart();
 
-
         // Act
         var response = await _client.PostAsync(
             "/tokenissuancestart",

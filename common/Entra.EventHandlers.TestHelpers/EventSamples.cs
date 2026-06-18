@@ -5,17 +5,17 @@ public static class EventSamples
     public static string AttributeCollectionStart(string odataType = "microsoft.graph.onAttributeCollectionStartCalloutData") =>
         $$"""
         {
-          "type": "microsoft.graph.authenticationEvent.attributeCollectionStart",
-          "source": "/tenants/00000000-0000-0000-0000-000000000000/applications/00000000-0000-0000-0000-000000000000",
-          "data": {
+            "type": "microsoft.graph.authenticationEvent.attributeCollectionStart",
+            "source": "/tenants/00000000-0000-0000-0000-000000000000/applications/00000000-0000-0000-0000-000000000000",
+            "data": {
             "@odata.type": "{{odataType}}",
             "tenantId": "00000000-0000-0000-0000-000000000000",
             "authenticationEventListenerId": "00000000-0000-0000-0000-000000000000",
             "customAuthenticationExtensionId": "00000000-0000-0000-0000-000000000000",
             "authenticationContext": {
-              "correlationId": "00000000-0000-0000-0000-000000000000"
+                "correlationId": "00000000-0000-0000-0000-000000000000"
             }
-          }
+            }
         }
         """;
 
@@ -90,5 +90,5 @@ public static class EventSamples
             }
           }
         }
-    """;
+        """;
 }
