@@ -3,8 +3,8 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/18/2026 - 07:59:55 |
-| Coverage date: | 06/18/2026 - 07:59:24 - 06/18/2026 - 07:59:53 |
+| Generated on: | 06/18/2026 - 12:16:59 |
+| Coverage date: | 06/18/2026 - 12:16:26 - 06/18/2026 - 12:16:57 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 84 |
@@ -13,7 +13,7 @@
 | Covered lines: | 674 |
 | Uncovered lines: | 102 |
 | Coverable lines: | 776 |
-| Total lines: | 3458 |
+| Total lines: | 3459 |
 | **Branch coverage:** | 71.8% (115 of 160) |
 | Covered branches: | 115 |
 | Total branches: | 160 |
