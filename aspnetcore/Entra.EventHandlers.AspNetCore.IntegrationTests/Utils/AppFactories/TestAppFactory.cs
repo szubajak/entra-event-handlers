@@ -1,10 +1,12 @@
 ﻿using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.AspNetCore.Endpoints;
+using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.Resolvers;
 using Entra.EventHandlers.AspNetCore.TestHost;
+using Entra.EventHandlers.Hosting.Resolvers;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
+namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.AppFactories;
 
 public class TestAppFactory : WebApplicationFactory<Program>
 {
@@ -32,8 +34,12 @@ public class TestAppFactory : WebApplicationFactory<Program>
             services.AddSingleton<IPasswordSubmitHandler>(sp => sp.GetRequiredService<TestPasswordSubmitHandler>());
             services.AddTransient<PasswordSubmitEndpoint>();
 
-            services.AddSingleton<IRequestAdapter, TestRequestAdapter>();
-            services.AddSingleton<IResponseAdapter, TestResponseAdapter>();
+            services.AddSingleton<EntraEventRouterEndpoint>();
+
+            services.AddSingleton<IEntraEventHandlerResolver, TestResolver>();
+
+            services.AddSingleton<IRequestAdapter, RequestAdapter>();
+            services.AddSingleton<IResponseAdapter, ResponseAdapter>();
         });
 
         builder.Configure(app =>
@@ -47,6 +53,8 @@ public class TestAppFactory : WebApplicationFactory<Program>
                 endpoints.ServiceProvider.GetRequiredService<TokenIssuanceStartEndpoint>().Map(endpoints);
                 endpoints.ServiceProvider.GetRequiredService<EmailOtpSendEndpoint>().Map(endpoints);
                 endpoints.ServiceProvider.GetRequiredService<PasswordSubmitEndpoint>().Map(endpoints);
+
+                endpoints.ServiceProvider.GetRequiredService<EntraEventRouterEndpoint>().Map(endpoints);
             });
         });
     }

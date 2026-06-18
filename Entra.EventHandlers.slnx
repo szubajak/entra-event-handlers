@@ -6,6 +6,7 @@
     <File Path="LICENSE" />
     <File Path="LICENSE-COMMERCIAL.md" />
     <File Path="README.md" />
+    <File Path="test.json" />
   </Folder>
   <Folder Name="/.github/">
     <File Path="FUNDING.yml" />

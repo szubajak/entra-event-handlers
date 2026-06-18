@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace Entra.EventHandlers.Abstractions.UnitTests.Events;
 
-public class TokenIssuanceStartEventDeserializationTests
+public class PasswordSubmitEventDeserializationTests
 {
     [Fact]
     public void FullEventRequest_DeserializesCorrectly()
@@ -22,6 +22,7 @@ public class TokenIssuanceStartEventDeserializationTests
         var appId = fixture.Create<Guid>();
         var listenerId = fixture.Create<Guid>();
         var extensionId = fixture.Create<Guid>();
+        var encryptedPasswordContext = fixture.Create<string>();
         var correlationId = fixture.Create<Guid>();
 
         var clientIp = fixture.Create<string>();
@@ -31,10 +32,6 @@ public class TokenIssuanceStartEventDeserializationTests
         var cspId = fixture.Create<Guid>();
         var cspAppDisplayName = fixture.Create<string>();
         var cspDisplayName = fixture.Create<string>();
-
-        var rspId = fixture.Create<Guid>();
-        var rspAppDisplayName = fixture.Create<string>();
-        var rspDisplayName = fixture.Create<string>();
 
         var userCompanyName = fixture.Create<string>();
         var userCreatedDateTime = fixture.Create<DateTime>().ToString("o");
@@ -52,13 +49,14 @@ public class TokenIssuanceStartEventDeserializationTests
         var json =
         $$"""
         {
-          "type": "microsoft.graph.authenticationEvent.tokenIssuanceStart",
+          "type": "microsoft.graph.authenticationEvent.passwordSubmit",
           "source": "/tenants/{{tenantId}}/applications/{{appId}}",
           "data": {
-            "@odata.type": "microsoft.graph.onTokenIssuanceStartCalloutData",
+            "@odata.type": "microsoft.graph.onPasswordSubmitCalloutData",
             "tenantId": "{{tenantId}}",
             "authenticationEventListenerId": "{{listenerId}}",
             "customAuthenticationExtensionId": "{{extensionId}}",
+            "encryptedPasswordContext": "{{encryptedPasswordContext}}", 
             "authenticationContext": {
               "correlationId": "{{correlationId}}",
               "client": {
@@ -72,12 +70,6 @@ public class TokenIssuanceStartEventDeserializationTests
                 "appId": "{{appId}}",
                 "appDisplayName": "{{cspAppDisplayName}}",
                 "displayName": "{{cspDisplayName}}"
-              },
-              "resourceServicePrincipal": {
-                "id": "{{rspId}}",
-                "appId": "{{appId}}",
-                "appDisplayName": "{{rspAppDisplayName}}",
-                "displayName": "{{rspDisplayName}}"
               },
               "user": {
                 "companyName": "{{userCompanyName}}",
@@ -105,18 +97,19 @@ public class TokenIssuanceStartEventDeserializationTests
         // Assert
         using (new AssertionScope())
         {
-            var evt = result.Should().BeOfType<TokenIssuanceStartEvent>().Which;
+            var evt = result.Should().BeOfType<PasswordSubmitEvent>().Which;
             evt.Validate();
 
-            evt.Type.Should().Be(EntraEventTypes.TokenIssuanceStart);
+            evt.Type.Should().Be(EntraEventTypes.PasswordSubmit);
             evt.Source.Should().Be($"/tenants/{tenantId}/applications/{appId}");
 
             var payload = evt.Data;
             payload.Should().NotBeNull();
-            payload.OdataType.Should().Be(EntraOdataTypes.TokenIssuanceStart.CalloutData);
+            payload.OdataType.Should().Be(EntraOdataTypes.PasswordSubmit.CalloutData);
             payload.TenantId.Should().Be(tenantId);
             payload.AuthenticationEventListenerId.Should().Be(listenerId);
             payload.CustomAuthenticationExtensionId.Should().Be(extensionId);
+            payload.EncryptedPasswordContext.Should().Be(encryptedPasswordContext);
 
             var ctx = payload.AuthenticationContext;
             ctx.Should().NotBeNull();
@@ -135,13 +128,6 @@ public class TokenIssuanceStartEventDeserializationTests
                     sp.AppDisplayName == cspAppDisplayName &&
                     sp.DisplayName == cspDisplayName
                 );
-            ctx.ResourceServicePrincipal.Should().NotBeNull()
-               .And.Subject.Should().Match<ServicePrincipalInfo>(x =>
-                   x.Id == rspId &&
-                   x.AppId == appId &&
-                   x.AppDisplayName == rspAppDisplayName &&
-                   x.DisplayName == rspDisplayName
-               );
             ctx.User.Should().NotBeNull()
                 .And.Subject.Should().Match<UserInfo>(x =>
                     x.CompanyName == userCompanyName &&
@@ -164,60 +150,15 @@ public class TokenIssuanceStartEventDeserializationTests
     }
 
     [Fact]
-    public void ExternalUser_DeserializesCorrectly()
-    {
-        // Arrange
-        var fixture = new Fixture();
-
-        var userCompanyName = fixture.Create<string>();
-        var userCreatedDateTime = fixture.Create<DateTime>().ToString("o");
-        var userDisplayName = fixture.Create<string>();
-        var userId = fixture.Create<Guid>();
-        var userMail = $"{fixture.Create<string>()}@example.com";
-        var userPreferredDataLocation = fixture.Create<string>();
-        var userPrincipalName = $"{fixture.Create<string>()}#EXT#@example.onmicrosoft.com";
-
-        var json =
-        $$"""
-        {
-          "companyName": "{{userCompanyName}}",
-          "createdDateTime": "{{userCreatedDateTime}}",
-          "displayName": "{{userDisplayName}}",
-          "id": "{{userId}}",
-          "mail": "{{userMail}}",
-          "preferredDataLocation": "{{userPreferredDataLocation}}",
-          "userPrincipalName": "{{userPrincipalName}}",
-          "userType": "Guest"
-        }
-        """;
-
-        // Act
-        var user = JsonSerializer.Deserialize<UserInfo>(json);
-
-        // Assert
-        using (new AssertionScope())
-        {
-            user.Should().NotBeNull();
-            user.CompanyName.Should().Be(userCompanyName);
-            user.CreatedDateTime.Should().Be(DateTime.Parse(userCreatedDateTime));
-            user.DiplayName.Should().Be(userDisplayName);
-            user.Id.Should().Be(userId);
-            user.Mail.Should().Be(userMail);
-            user.PreferredDataLocation.Should().Be(userPreferredDataLocation);
-            user.UserPrincipalName.Should().Be(userPrincipalName);
-        }
-    }
-
-    [Fact]
     public void MinimalEventRequest_DeserializesCorrectly()
     {
         // Act
-        var result = JsonSerializer.Deserialize<EntraEvent>(EventSamples.TokenIssuanceStart());
+        var result = JsonSerializer.Deserialize<EntraEvent>(EventSamples.PasswordSubmit());
 
         // Assert
         using (new AssertionScope())
         {
-            var evt = result.Should().BeOfType<TokenIssuanceStartEvent>().Which;
+            var evt = result.Should().BeOfType<PasswordSubmitEvent>().Which;
             evt.Validate();
 
             var ctx = evt.Data.AuthenticationContext;
@@ -232,10 +173,10 @@ public class TokenIssuanceStartEventDeserializationTests
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
-        var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.TokenIssuanceStart(odataType: "invalid"));
+        var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.PasswordSubmit(odataType: "invalid"));
 
         // Act
-        Action act = () => ((TokenIssuanceStartEvent)evt!).Validate();
+        Action act = () => ((PasswordSubmitEvent)evt!).Validate();
 
         // Assert
         act.Should().Throw<EntraValidationException>()
