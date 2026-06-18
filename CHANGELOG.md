@@ -7,6 +7,12 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.3.3 — 2026‑06‑18
+
+### Fixed
+
+- Added missing `PasswordSubmit` discriminator to `EntraEvent` to enable correct deserialization of `PasswordSubmitEvent`.
+
 ## v1.3.2 — 2026‑06‑10
 
 ### Updated
@@ -17,15 +23,15 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ### Updated
 
-- Updated XML documentation
-- Seal contract classes
+- Updated XML documentation.
+- Seal contract classes.
 
 ## v1.3.0 — 2026‑06‑09
 
 ### Updated
 
-- Updated NuGet metadata
-- Updated XML documentation
+- Updated NuGet metadata.
+- Updated XML documentation.
 
 ### Added
 
@@ -52,7 +58,7 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ### Modified
 
-- Improved README.md and LICENSE
+- Improved README.md and LICENSE.
 
 ## v1.1.0 — 2026‑06‑01
 
