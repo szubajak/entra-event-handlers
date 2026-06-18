@@ -20,9 +20,17 @@ public class TestAppFactory : WebApplicationFactory<Program>
             services.AddSingleton<IAttributeCollectionSubmitHandler>(sp => sp.GetRequiredService<TestAttributeCollectionSubmitHandler>());
             services.AddTransient<AttributeCollectionSubmitEndpoint>();
 
+            services.AddSingleton<TestTokenIssuanceStartHandler>();
+            services.AddSingleton<ITokenIssuanceStartHandler>(sp => sp.GetRequiredService<TestTokenIssuanceStartHandler>());
+            services.AddTransient<TokenIssuanceStartEndpoint>();
+
             services.AddSingleton<TestEmailOtpSendHandler>();
             services.AddSingleton<IEmailOtpSendHandler>(sp => sp.GetRequiredService<TestEmailOtpSendHandler>());
             services.AddTransient<EmailOtpSendEndpoint>();
+
+            services.AddSingleton<TestPasswordSubmitHandler>();
+            services.AddSingleton<IPasswordSubmitHandler>(sp => sp.GetRequiredService<TestPasswordSubmitHandler>());
+            services.AddTransient<PasswordSubmitEndpoint>();
 
             services.AddSingleton<IRequestAdapter, TestRequestAdapter>();
             services.AddSingleton<IResponseAdapter, TestResponseAdapter>();
@@ -36,7 +44,9 @@ public class TestAppFactory : WebApplicationFactory<Program>
             {
                 endpoints.ServiceProvider.GetRequiredService<AttributeCollectionStartEndpoint>().Map(endpoints);
                 endpoints.ServiceProvider.GetRequiredService<AttributeCollectionSubmitEndpoint>().Map(endpoints);
+                endpoints.ServiceProvider.GetRequiredService<TokenIssuanceStartEndpoint>().Map(endpoints);
                 endpoints.ServiceProvider.GetRequiredService<EmailOtpSendEndpoint>().Map(endpoints);
+                endpoints.ServiceProvider.GetRequiredService<PasswordSubmitEndpoint>().Map(endpoints);
             });
         });
     }
