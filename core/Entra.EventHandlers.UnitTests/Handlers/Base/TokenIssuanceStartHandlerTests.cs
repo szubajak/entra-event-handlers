@@ -42,7 +42,7 @@ public class TokenIssuanceStartHandlerTests
         response.Should().Be(expectedResponse);
 
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
-        _sut.CoreTest.PassedCancellationToken.Should().Be(cts.Token);
+        _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
         _logger.Entries.Should().Contain(e =>
             e.Level == LogLevel.Information &&

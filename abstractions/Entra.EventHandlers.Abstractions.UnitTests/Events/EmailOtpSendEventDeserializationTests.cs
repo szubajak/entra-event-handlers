@@ -3,6 +3,7 @@ using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Protocol.Authentication;
+using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using System.Text.Json;
@@ -11,27 +12,6 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Events;
 
 public class EmailOtpSendEventDeserializationTests
 {
-    private static string GetMinimalEventRequest(string odataType = "microsoft.graph.onOtpSendCalloutData") =>
-        $$"""
-        {
-          "type": "microsoft.graph.authenticationEvent.emailOtpSend",
-          "source": "/tenants/00000000-0000-0000-0000-000000000000/applications/00000000-0000-0000-0000-000000000000",
-          "data": {
-            "@odata.type": "{{odataType}}",
-            "otpContext": {
-                "identifier": "someone@example.com",
-                "oneTimeCode": "123456"
-            },
-            "tenantId": "00000000-0000-0000-0000-000000000000",
-            "authenticationEventListenerId": "00000000-0000-0000-0000-000000000000",
-            "customAuthenticationExtensionId": "00000000-0000-0000-0000-000000000000",
-            "authenticationContext": {
-              "correlationId": "00000000-0000-0000-0000-000000000000"
-            }
-          }
-        }
-        """;
-
     [Fact]
     public void FullEventRequest_DeserializesCorrectly()
     {
@@ -155,7 +135,7 @@ public class EmailOtpSendEventDeserializationTests
     public void MinimalEventRequest_DeserializesCorrectly()
     {
         // Act
-        var result = JsonSerializer.Deserialize<EntraEvent>(GetMinimalEventRequest());
+        var result = JsonSerializer.Deserialize<EntraEvent>(EventSamples.EmailOtpSend());
 
         // Assert
         using (new AssertionScope())
@@ -175,7 +155,7 @@ public class EmailOtpSendEventDeserializationTests
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
-        var evt = JsonSerializer.Deserialize<EntraEvent>(GetMinimalEventRequest(odataType: "invalid"));
+        var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.EmailOtpSend(odataType: "invalid"));
 
         // Act
         Action act = () => ((EmailOtpSendEvent)evt!).Validate();

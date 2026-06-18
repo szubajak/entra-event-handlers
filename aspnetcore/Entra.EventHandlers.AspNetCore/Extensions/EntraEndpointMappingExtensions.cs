@@ -6,43 +6,37 @@ public static class EntraEndpointMappingExtensions
 {
     public static IEndpointRouteBuilder MapEntraAttributeCollectionStart(this IEndpointRouteBuilder endpoints)
     {
-        var ep = endpoints.ServiceProvider.GetRequiredService<AttributeCollectionStartEndpoint>();
-        ep.Map(endpoints);
+        endpoints.ServiceProvider.GetRequiredService<AttributeCollectionStartEndpoint>().Map(endpoints);
         return endpoints;
     }
 
     public static IEndpointRouteBuilder MapEntraAttributeCollectionSubmit(this IEndpointRouteBuilder endpoints)
     {
-        var ep = endpoints.ServiceProvider.GetRequiredService<AttributeCollectionSubmitEndpoint>();
-        ep.Map(endpoints);
+        endpoints.ServiceProvider.GetRequiredService<AttributeCollectionSubmitEndpoint>().Map(endpoints);
         return endpoints;
     }
 
     public static IEndpointRouteBuilder MapEntraTokenIssuanceStart(this IEndpointRouteBuilder endpoints)
     {
-        var ep = endpoints.ServiceProvider.GetRequiredService<TokenIssuanceStartEndpoint>();
-        ep.Map(endpoints);
+        endpoints.ServiceProvider.GetRequiredService<TokenIssuanceStartEndpoint>().Map(endpoints);
         return endpoints;
     }
 
     public static IEndpointRouteBuilder MapEntraEmailOtpSend(this IEndpointRouteBuilder endpoints)
     {
-        var ep = endpoints.ServiceProvider.GetRequiredService<EmailOtpSendEndpoint>();
-        ep.Map(endpoints);
+        endpoints.ServiceProvider.GetRequiredService<EmailOtpSendEndpoint>().Map(endpoints);
         return endpoints;
     }
 
     public static IEndpointRouteBuilder MapPasswordSubmit(this IEndpointRouteBuilder endpoints)
     {
-        var ep = endpoints.ServiceProvider.GetRequiredService<PasswordSubmitEndpoint>();
-        ep.Map(endpoints);
+        endpoints.ServiceProvider.GetRequiredService<PasswordSubmitEndpoint>().Map(endpoints);
         return endpoints;
     }
 
     public static IEndpointRouteBuilder MapEntraRouter(this IEndpointRouteBuilder endpoints)
     {
-        var ep = endpoints.ServiceProvider.GetRequiredService<EntraEventRouterEndpoint>();
-        ep.Map(endpoints);
+        endpoints.ServiceProvider.GetRequiredService<EntraEventRouterEndpoint>().Map(endpoints);
         return endpoints;
     }
 }
