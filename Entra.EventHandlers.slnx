@@ -26,6 +26,8 @@
     <Project Path="aspnetcore/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj" />
   </Folder>
   <Folder Name="/aspnetcore/tests/">
+    <Project Path="aspnetcore/Entra.EventHandlers.AspNetCore.IntegrationTests/Entra.EventHandlers.AspNetCore.IntegrationTests.csproj" />
+    <Project Path="aspnetcore/Entra.EventHandlers.AspNetCore.TestHost/Entra.EventHandlers.AspNetCore.TestHost.csproj" />
     <Project Path="aspnetcore/Entra.EventHandlers.AspNetCore.UnitTests/Entra.EventHandlers.AspNetCore.UnitTests.csproj" />
   </Folder>
   <Folder Name="/azurefunctions/">

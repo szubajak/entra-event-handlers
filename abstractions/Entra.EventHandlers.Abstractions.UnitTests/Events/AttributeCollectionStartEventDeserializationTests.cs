@@ -4,6 +4,7 @@ using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Protocol.Authentication;
 using Entra.EventHandlers.Abstractions.Protocol.SignUp;
+using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using System.Text.Json;
@@ -12,23 +13,6 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Events;
 
 public class AttributeCollectionStartEventDeserializationTests
 {
-    private static string GetMinimalEventRequest(string odataType = "microsoft.graph.onAttributeCollectionStartCalloutData") =>
-        $$"""
-        {
-          "type": "microsoft.graph.authenticationEvent.attributeCollectionStart",
-          "source": "/tenants/00000000-0000-0000-0000-000000000000/applications/00000000-0000-0000-0000-000000000000",
-          "data": {
-            "@odata.type": "{{odataType}}",
-            "tenantId": "00000000-0000-0000-0000-000000000000",
-            "authenticationEventListenerId": "00000000-0000-0000-0000-000000000000",
-            "customAuthenticationExtensionId": "00000000-0000-0000-0000-000000000000",
-            "authenticationContext": {
-              "correlationId": "00000000-0000-0000-0000-000000000000"
-            }
-          }
-        }
-        """;
-
     [Fact]
     public void FullEventRequest_DeserializesCorrectly()
     {
@@ -231,7 +215,7 @@ public class AttributeCollectionStartEventDeserializationTests
     public void MinimalEventRequest_DeserializesCorrectly()
     {
         // Act
-        var result = JsonSerializer.Deserialize<EntraEvent>(GetMinimalEventRequest());
+        var result = JsonSerializer.Deserialize<EntraEvent>(EventSamples.AttributeCollectionStart());
 
         // Assert
         using (new AssertionScope())
@@ -254,7 +238,7 @@ public class AttributeCollectionStartEventDeserializationTests
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
-        var evt = JsonSerializer.Deserialize<EntraEvent>(GetMinimalEventRequest(odataType: "invalid"));
+        var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.AttributeCollectionStart(odataType: "invalid"));
 
         // Act
         Action act = () => ((AttributeCollectionStartEvent)evt!).Validate();
