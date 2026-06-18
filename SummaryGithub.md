@@ -3,17 +3,17 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/17/2026 - 19:56:55 |
-| Coverage date: | 06/17/2026 - 19:56:26 - 06/17/2026 - 19:56:54 |
+| Generated on: | 06/18/2026 - 07:53:40 |
+| Coverage date: | 06/18/2026 - 07:52:58 - 06/18/2026 - 07:53:37 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 84 |
 | Files: | 79 |
-| **Line coverage:** | 86.1% (674 of 782) |
+| **Line coverage:** | 86.8% (674 of 776) |
 | Covered lines: | 674 |
-| Uncovered lines: | 108 |
-| Coverable lines: | 782 |
-| Total lines: | 3464 |
+| Uncovered lines: | 102 |
+| Coverable lines: | 776 |
+| Total lines: | 3458 |
 | **Branch coverage:** | 71.8% (115 of 160) |
 | Covered branches: | 115 |
 | Total branches: | 160 |
@@ -90,11 +90,11 @@
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 60.5%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 62.5%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**60.5%**|**85%**|
+|**Entra.EventHandlers.AspNetCore**|**62.5%**|**85%**|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|100%|100%|
 |Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter|100%||
