@@ -3,17 +3,17 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/18/2026 - 12:35:13 |
-| Coverage date: | 06/18/2026 - 12:34:40 - 06/18/2026 - 12:35:11 |
+| Generated on: | 06/24/2026 - 21:46:52 |
+| Coverage date: | 06/24/2026 - 21:46:11 - 06/24/2026 - 21:46:49 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
-| Classes: | 84 |
-| Files: | 79 |
-| **Line coverage:** | 86.8% (674 of 776) |
-| Covered lines: | 674 |
-| Uncovered lines: | 102 |
-| Coverable lines: | 776 |
-| Total lines: | 3459 |
+| Classes: | 92 |
+| Files: | 86 |
+| **Line coverage:** | 85.8% (677 of 789) |
+| Covered lines: | 677 |
+| Uncovered lines: | 112 |
+| Coverable lines: | 789 |
+| Total lines: | 3698 |
 | **Branch coverage:** | 71.8% (115 of 160) |
 | Covered branches: | 115 |
 | Total branches: | 160 |
@@ -42,11 +42,11 @@
 |Entra.EventHandlers.Protocol.PasswordSubmit.DecryptedPasswordContext|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.Abstractions - 100%</summary>
+<details><summary>Entra.EventHandlers.Abstractions - 92.6%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Abstractions**|**100%**|**100%**|
+|**Entra.EventHandlers.Abstractions**|**92.6%**|**100%**|
 |Entra.EventHandlers.Abstractions.Actions.ContinueAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.ModifyAttributeValuesAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.PasswordSubmitAction|100%||
@@ -57,6 +57,8 @@
 |Entra.EventHandlers.Abstractions.Actions.Types.ContinueActionType|100%||
 |Entra.EventHandlers.Abstractions.Actions.Types.PasswordSubmitActionType|100%||
 |Entra.EventHandlers.Abstractions.Actions.Types.ShowBlockPageActionType|100%||
+|Entra.EventHandlers.Abstractions.Actions.VerifiedIdClaimValidationFailedAct<br/>ion|0%||
+|Entra.EventHandlers.Abstractions.Actions.VerifiedIdClaimValidationPassActio<br/>n|0%||
 |Entra.EventHandlers.Abstractions.Errors.EntraDeserializationException|100%||
 |Entra.EventHandlers.Abstractions.Errors.EntraErrorResponse|100%||
 |Entra.EventHandlers.Abstractions.Errors.EntraHandlerNotFoundException|100%||
@@ -73,6 +75,8 @@
 |Entra.EventHandlers.Abstractions.Events.PasswordSubmitEventPayload|100%||
 |Entra.EventHandlers.Abstractions.Events.TokenIssuanceStartEvent|100%||
 |Entra.EventHandlers.Abstractions.Events.TokenIssuanceStartEventPayload|100%||
+|Entra.EventHandlers.Abstractions.Events.VerifiedIdClaimValidationEvent|100%||
+|Entra.EventHandlers.Abstractions.Events.VerifiedIdClaimValidationEventPaylo<br/>ad|100%||
 |Entra.EventHandlers.Abstractions.Protocol.Authentication.AuthenticationCont<br/>ext|100%||
 |Entra.EventHandlers.Abstractions.Protocol.Authentication.ClientInfo|100%||
 |Entra.EventHandlers.Abstractions.Protocol.Authentication.ServicePrincipalIn<br/>fo|100%||
@@ -81,6 +85,9 @@
 |Entra.EventHandlers.Abstractions.Protocol.SignUp.DirectoryAttributeValue|100%||
 |Entra.EventHandlers.Abstractions.Protocol.SignUp.IdentityInfo|100%||
 |Entra.EventHandlers.Abstractions.Protocol.SignUp.UserSignUpInfo|100%||
+|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdAdditionalIn<br/>fo|0%||
+|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdClaims|0%||
+|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdClaimsContex<br/>t|0%||
 |Entra.EventHandlers.Abstractions.Responses.AttributeCollectionStartResponse<br/>Payload|100%||
 |Entra.EventHandlers.Abstractions.Responses.AttributeCollectionSubmitRespons<br/>ePayload|100%||
 |Entra.EventHandlers.Abstractions.Responses.EmailOtpSendResponsePayload|100%||
@@ -88,6 +95,7 @@
 |Entra.EventHandlers.Abstractions.Responses.EntraEventResponsePayload|100%||
 |Entra.EventHandlers.Abstractions.Responses.PasswordSubmitResponsePayload|100%||
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
+|Entra.EventHandlers.Abstractions.Responses.VerifiedIdClaimValidationRespons<br/>ePayload|0%||
 
 </details>
 <details><summary>Entra.EventHandlers.AspNetCore - 62.5%</summary>
