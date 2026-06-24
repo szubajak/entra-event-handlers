@@ -195,6 +195,40 @@ public static class EntraOdataTypes
     }
 
     /// <summary>
+    /// OData type identifiers for the
+    /// <see cref="VerifiedIdClaimValidationEvent"/> request and its related response
+    /// and action types.
+    /// </summary>
+    public static class VerifiedIdClaimValidation
+    {
+        /// <summary>
+        /// The OData type for the callout data payload.
+        /// </summary>
+        public const string CalloutData =
+            "microsoft.graph.onVerifiedIdClaimValidationCalloutData";
+
+        /// <summary>
+        /// The OData type for the response data payload.
+        /// </summary>
+        public const string ResponseData =
+            "microsoft.graph.onVerifiedIdClaimValidationResponseData";
+
+        /// <summary>
+        /// The action that indicates the claim validation succeeded and the
+        /// authentication flow may continue.
+        /// </summary>
+        public const string Pass =
+            "microsoft.graph.verifiedIdClaimValidation.pass";
+
+        /// <summary>
+        /// The action that indicates the claim validation failed and the
+        /// authentication flow must be stopped.
+        /// </summary>
+        public const string Failed =
+            "microsoft.graph.verifiedIdClaimValidation.failed";
+    }
+
+    /// <summary>
     /// OData type identifiers for directory attribute value types.
     /// </summary>
     public static class DirectoryAttributes

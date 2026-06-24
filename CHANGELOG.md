@@ -7,6 +7,15 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.4.0 — 2026‑06‑24
+
+### Added
+
+- Added `VerifiedIdClaimValidationEvent` request model.
+- Added `VerifiedIdClaimValidationEventPayload` including verified ID claims context support.
+- Added `VerifiedIdClaimValidationPassAction` and `VerifiedIdClaimValidationFailedAction`
+- Added `IVerifiedIdClaimValidationHandler` for handling VerifiedIdClaimValidation events.
+
 ## v1.3.3 — 2026‑06‑18
 
 ### Fixed

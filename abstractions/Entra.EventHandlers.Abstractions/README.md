@@ -48,6 +48,7 @@ interfaces for all currently supported External ID Authentication Event Handlers
 - EmailOtpSend  
 - PasswordSubmit (just‑in‑time password migration)  
 - TokenIssuanceStart  
+- VerifiedIdClaimValidation  (account recovery)
 
 Each event includes:
 

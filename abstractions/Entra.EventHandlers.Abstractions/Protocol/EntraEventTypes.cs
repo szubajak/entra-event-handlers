@@ -44,4 +44,10 @@ public static class EntraEventTypes
     /// </summary>
     public const string PasswordSubmit =
         "microsoft.graph.authenticationEvent.passwordSubmit";
+
+    /// <summary>
+    /// The OData type for a <see cref="VerifiedIdClaimValidationEvent"/> request.
+    /// </summary>
+    public const string VerifiedIdClaimValidation =
+        "microsoft.graph.authenticationEvent.verifiedIdClaimValidation";
 }

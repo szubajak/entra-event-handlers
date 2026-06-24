@@ -22,6 +22,7 @@ namespace Entra.EventHandlers.Abstractions.Events;
 [JsonDerivedType(typeof(TokenIssuanceStartEvent), EntraEventTypes.TokenIssuanceStart)]
 [JsonDerivedType(typeof(EmailOtpSendEvent), EntraEventTypes.EmailOtpSend)]
 [JsonDerivedType(typeof(PasswordSubmitEvent), EntraEventTypes.PasswordSubmit)]
+[JsonDerivedType(typeof(VerifiedIdClaimValidationEvent), EntraEventTypes.VerifiedIdClaimValidation)]
 public abstract class EntraEvent
 {
     /// <summary>

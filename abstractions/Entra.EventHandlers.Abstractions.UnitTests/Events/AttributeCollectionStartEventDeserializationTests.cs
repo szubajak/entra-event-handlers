@@ -232,6 +232,7 @@ public class AttributeCollectionStartEventDeserializationTests
             ctx.ClientServicePrincipal.Should().BeNull();
             ctx.ResourceServicePrincipal.Should().BeNull();
             ctx.Protocol.Should().BeNull();
+            ctx.User.Should().BeNull();
         }
     }
 
