@@ -15,8 +15,8 @@ public abstract class PasswordSubmitEndpointBase(
 
     protected override async Task ExecuteAsync(HttpContext httpContext)
     {
-        var evt = await RequestAdapter.ReadEvent<PasswordSubmitEvent>(httpContext);
+        var evt = await RequestAdapter.ReadEventAsync<PasswordSubmitEvent>(httpContext);
         var response = await _handler.Handle(evt, httpContext.RequestAborted);
-        await ResponseAdapter.WriteOk(httpContext, response);
+        await ResponseAdapter.WriteOkAsync(httpContext, response);
     }
 }

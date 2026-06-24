@@ -38,11 +38,11 @@ public abstract class EntraEventRouterFunctionBase(
     /// </summary>
     protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
     {
-        var evt = await RequestAdapter.ReadEvent(req);
+        var evt = await RequestAdapter.ReadEventAsync(req);
         var handler = _resolver.Resolve(evt.GetType());
 
         var response = await ((dynamic)handler).Handle((dynamic)evt, context.CancellationToken);
-        return await ResponseAdapter.From(req, response);
+        return await ResponseAdapter.FromAsync(req, response);
     }
 
     protected override Task OnExceptionAsync(Exception ex, FunctionContext context, bool isEntraException)

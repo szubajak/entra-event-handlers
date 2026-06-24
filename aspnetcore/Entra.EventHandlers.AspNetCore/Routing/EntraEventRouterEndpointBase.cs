@@ -34,11 +34,11 @@ public abstract class EntraEventRouterEndpointBase(
     /// </summary>
     protected override async Task ExecuteAsync(HttpContext httpContext)
     {
-        var evt = await RequestAdapter.ReadEvent(httpContext);
+        var evt = await RequestAdapter.ReadEventAsync(httpContext);
         var handler = _resolver.Resolve(evt.GetType());
 
         var response = await ((dynamic)handler).Handle((dynamic)evt, httpContext.RequestAborted);
-        await ResponseAdapter.WriteOk(httpContext, response);
+        await ResponseAdapter.WriteOkAsync(httpContext, response);
     }
 
     protected override Task OnExceptionAsync(Exception ex, HttpContext context, bool isEntraException)

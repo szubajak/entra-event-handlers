@@ -33,7 +33,7 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
         {
             await OnExceptionAsync(ex, context, isEntraException: true);
 
-            return await ResponseAdapter.BadRequest(
+            return await ResponseAdapter.BadRequestAsync(
                 req,
                 new EntraErrorResponse
                 {
@@ -45,7 +45,7 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
         {
             await OnExceptionAsync(ex, context, isEntraException: false);
 
-            return await ResponseAdapter.ServerError(
+            return await ResponseAdapter.ServerErrorAsync(
                 req,
                 new EntraErrorResponse
                 {

@@ -25,7 +25,7 @@ public interface IRequestAdapter
     /// <exception cref="EntraDeserializationException">
     /// Thrown when the request body cannot be deserialized into the expected event type.
     /// </exception>
-    Task<TEvent> ReadEvent<TEvent>(HttpRequestData req)
+    Task<TEvent> ReadEventAsync<TEvent>(HttpRequestData req)
         where TEvent : EntraEvent;
 
     /// <summary>
@@ -39,7 +39,7 @@ public interface IRequestAdapter
     /// <exception cref="EntraDeserializationException">
     /// Thrown when the request body cannot be deserialized into an <see cref="EntraEvent"/>.
     /// </exception>
-    Task<EntraEvent> ReadEvent(HttpRequestData req);
+    Task<EntraEvent> ReadEventAsync(HttpRequestData req);
 }
 
 /// <summary>
@@ -50,7 +50,7 @@ public interface IRequestAdapter
 public sealed class RequestAdapter : IRequestAdapter
 {
     /// <inheritdoc />
-    public async Task<TEvent> ReadEvent<TEvent>(HttpRequestData req)
+    public async Task<TEvent> ReadEventAsync<TEvent>(HttpRequestData req)
         where TEvent : EntraEvent
     {
         try
@@ -76,6 +76,6 @@ public sealed class RequestAdapter : IRequestAdapter
     }
 
     /// <inheritdoc />
-    public Task<EntraEvent> ReadEvent(HttpRequestData req) =>
-        ReadEvent<EntraEvent>(req);
+    public Task<EntraEvent> ReadEventAsync(HttpRequestData req) =>
+        ReadEventAsync<EntraEvent>(req);
 }

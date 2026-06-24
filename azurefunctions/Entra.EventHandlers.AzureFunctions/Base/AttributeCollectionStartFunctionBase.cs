@@ -18,8 +18,8 @@ public abstract class AttributeCollectionStartFunctionBase(
 
     protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
     {
-        var evt = await RequestAdapter.ReadEvent<AttributeCollectionStartEvent>(req);
+        var evt = await RequestAdapter.ReadEventAsync<AttributeCollectionStartEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);
-        return await ResponseAdapter.From(req, response);
+        return await ResponseAdapter.FromAsync(req, response);
     }
 }

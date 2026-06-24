@@ -18,8 +18,8 @@ public abstract class PasswordSubmitFunctionBase(
 
     protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
     {
-        var evt = await RequestAdapter.ReadEvent<PasswordSubmitEvent>(req);
+        var evt = await RequestAdapter.ReadEventAsync<PasswordSubmitEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);
-        return await ResponseAdapter.From(req, response);
+        return await ResponseAdapter.FromAsync(req, response);
     }
 }

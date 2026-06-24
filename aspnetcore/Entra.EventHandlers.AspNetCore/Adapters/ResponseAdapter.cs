@@ -24,7 +24,7 @@ public interface IResponseAdapter
     /// <returns>
     /// A task representing the asynchronous write operation.
     /// </returns>
-    Task WriteOk(HttpContext context, EntraEventResponse response);
+    Task WriteOkAsync(HttpContext context, EntraEventResponse response);
 
     /// <summary>
     /// Writes an HTTP 400 Bad Request response containing a serialized
@@ -40,7 +40,7 @@ public interface IResponseAdapter
     /// <returns>
     /// A task representing the asynchronous write operation.
     /// </returns>
-    Task WriteBadRequest(HttpContext context, EntraErrorResponse error);
+    Task WriteBadRequestAsync(HttpContext context, EntraErrorResponse error);
 
     /// <summary>
     /// Writes an HTTP 500 Internal Server Error response containing a serialized
@@ -56,7 +56,7 @@ public interface IResponseAdapter
     /// <returns>
     /// A task representing the asynchronous write operation.
     /// </returns>
-    Task WriteServerError(HttpContext context, EntraErrorResponse error);
+    Task WriteServerErrorAsync(HttpContext context, EntraErrorResponse error);
 }
 
 /// <summary>
@@ -66,7 +66,7 @@ public interface IResponseAdapter
 public class ResponseAdapter : IResponseAdapter
 {
     /// <inheritdoc />
-    public async Task WriteOk(HttpContext context, EntraEventResponse response)
+    public async Task WriteOkAsync(HttpContext context, EntraEventResponse response)
     {
         context.Response.StatusCode = StatusCodes.Status200OK;
         context.Response.ContentType = "application/json";
@@ -75,14 +75,14 @@ public class ResponseAdapter : IResponseAdapter
     }
 
     /// <inheritdoc />
-    public Task WriteBadRequest(HttpContext context, EntraErrorResponse error) =>
-        WriteError(context, StatusCodes.Status400BadRequest, error);
+    public Task WriteBadRequestAsync(HttpContext context, EntraErrorResponse error) =>
+        WriteErrorAsync(context, StatusCodes.Status400BadRequest, error);
 
     /// <inheritdoc />
-    public Task WriteServerError(HttpContext context, EntraErrorResponse error) =>
-        WriteError(context, StatusCodes.Status500InternalServerError, error);
+    public Task WriteServerErrorAsync(HttpContext context, EntraErrorResponse error) =>
+        WriteErrorAsync(context, StatusCodes.Status500InternalServerError, error);
 
-    private static async Task WriteError(HttpContext context, int statusCode, EntraErrorResponse error)
+    private static async Task WriteErrorAsync(HttpContext context, int statusCode, EntraErrorResponse error)
     {
         context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";

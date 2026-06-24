@@ -18,8 +18,8 @@ public abstract class TokenIssuanceStartFunctionBase(
 
     protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
     {
-        var evt = await RequestAdapter.ReadEvent<TokenIssuanceStartEvent>(req);
+        var evt = await RequestAdapter.ReadEventAsync<TokenIssuanceStartEvent>(req);
         var response = await _handler.Handle(evt, context.CancellationToken);
-        return await ResponseAdapter.From(req, response);
+        return await ResponseAdapter.FromAsync(req, response);
     }
 }

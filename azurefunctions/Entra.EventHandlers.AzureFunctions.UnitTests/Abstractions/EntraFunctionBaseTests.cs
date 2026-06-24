@@ -66,7 +66,7 @@ public class EntraFunctionBaseTests
 
         // Assert
         await _responseAdapter.Received(1)
-            .BadRequest(req, Arg.Any<EntraErrorResponse>());
+            .BadRequestAsync(req, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -90,7 +90,7 @@ public class EntraFunctionBaseTests
 
         // Assert
         await _responseAdapter.Received(1)
-            .ServerError(req, Arg.Any<EntraErrorResponse>());
+            .ServerErrorAsync(req, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&
