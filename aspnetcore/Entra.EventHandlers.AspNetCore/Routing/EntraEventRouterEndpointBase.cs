@@ -14,7 +14,7 @@ namespace Entra.EventHandlers.AspNetCore.Routing;
 /// resolves the matching <see cref="IEntraEventHandler"/> implementation based
 /// on the runtime event type, and converts known exceptions into standardized
 /// <see cref="EntraErrorResponse"/> results. Consumers should inherit from this
-/// class and map an HTTP endpoint that delegates to <see cref="Invoke"/>.
+/// class and map an HTTP endpoint that delegates to <see cref="ExecuteAsync"/>.
 /// </remarks>
 public abstract class EntraEventRouterEndpointBase(
     ILogger logger,
@@ -37,7 +37,7 @@ public abstract class EntraEventRouterEndpointBase(
         var evt = await RequestAdapter.ReadEventAsync(httpContext);
         var handler = _resolver.Resolve(evt.GetType());
 
-        var response = await ((dynamic)handler).Handle((dynamic)evt, httpContext.RequestAborted);
+        var response = await ((dynamic)handler).HandleAsync((dynamic)evt, httpContext.RequestAborted);
         await ResponseAdapter.WriteOkAsync(httpContext, response);
     }
 

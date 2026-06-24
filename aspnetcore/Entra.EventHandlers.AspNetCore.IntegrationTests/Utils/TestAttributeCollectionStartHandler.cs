@@ -8,7 +8,7 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 
 public class TestAttributeCollectionStartHandler : TestHandlerBase, IAttributeCollectionStartHandler
 {
-    public Task<AttributeCollectionStartResponse> Handle(
+    public Task<AttributeCollectionStartResponse> HandleAsync(
         AttributeCollectionStartEvent request,
         CancellationToken cancellationToken = default)
     {

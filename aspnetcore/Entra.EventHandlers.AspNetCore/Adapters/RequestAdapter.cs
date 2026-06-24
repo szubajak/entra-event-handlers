@@ -55,7 +55,7 @@ public sealed class RequestAdapter : IRequestAdapter
         try
         {
             using var reader = new StreamReader(context.Request.Body);
-            var body = await reader.ReadToEndAsync();
+            var body = await reader.ReadToEndAsync(context.RequestAborted);
 
             if (string.IsNullOrWhiteSpace(body))
                 throw new EntraDeserializationException("Request body is empty.");

@@ -51,7 +51,7 @@ public class EntraEventRouterFunctionBaseTests
             .Returns(response);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        var result = await _sut.RunAsync(request);
 
         // Assert
         result.Should().Be(response);
@@ -90,7 +90,7 @@ public class EntraEventRouterFunctionBaseTests
             .Returns(response);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        var result = await _sut.RunAsync(request);
 
         // Assert
         result.Should().Be(response);
@@ -129,14 +129,14 @@ public class EntraEventRouterFunctionBaseTests
 
         var errorMessage = fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
-        handler.Handle(entraEvent, ctx.CancellationToken).Throws(exception);
+        handler.HandleAsync(entraEvent, ctx.CancellationToken).Throws(exception);
 
         _responseAdapter
             .BadRequestAsync(request, Arg.Any<EntraErrorResponse>())
             .Returns(response);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        var result = await _sut.RunAsync(request);
 
         // Assert
         result.Should().Be(response);
@@ -171,14 +171,14 @@ public class EntraEventRouterFunctionBaseTests
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var exception = new InvalidOperationException();
-        handler.Handle(entraEvent, ctx.CancellationToken).Throws(exception);
+        handler.HandleAsync(entraEvent, ctx.CancellationToken).Throws(exception);
 
         _responseAdapter
             .ServerErrorAsync(request, Arg.Any<EntraErrorResponse>())
             .Returns(response);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        var result = await _sut.RunAsync(request);
 
         // Assert
         result.Should().Be(response);
@@ -213,15 +213,15 @@ public class EntraEventRouterFunctionBaseTests
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var entraResponse = new TestResponse();
-        handler.Handle(entraEvent, ctx.CancellationToken).Returns(entraResponse);
+        handler.HandleAsync(entraEvent, ctx.CancellationToken).Returns(entraResponse);
 
         _responseAdapter.FromAsync(request, entraResponse).Returns(response);
 
         // Act
-        var result = await _sut.RunAsync(request, ctx);
+        var result = await _sut.RunAsync(request);
 
         // Assert
         result.Should().Be(response);
-        _ = handler.Received(1).Handle(entraEvent, ctx.CancellationToken);
+        _ = handler.Received(1).HandleAsync(entraEvent, ctx.CancellationToken);
     }
 }

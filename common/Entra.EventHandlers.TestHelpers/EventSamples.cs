@@ -92,6 +92,7 @@ public static class EventSamples
           }
         }
         """;
+
     public static string VerifiedIdClaimValidation(string odataType = "microsoft.graph.onVerifiedIdClaimValidationCalloutData") =>
         $$"""
         {

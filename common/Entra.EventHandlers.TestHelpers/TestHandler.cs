@@ -8,7 +8,7 @@ public class TestHandler : IEntraEventHandler<TestEvent, TestResponse>
 
     public CancellationToken? CapturedCancellationToken { get; private set; }
 
-    public Task<TestResponse> Handle(TestEvent request, CancellationToken cancellationToken)
+    public Task<TestResponse> HandleAsync(TestEvent request, CancellationToken cancellationToken)
     {
         ReceivedEvent = request;
         CapturedCancellationToken = cancellationToken;

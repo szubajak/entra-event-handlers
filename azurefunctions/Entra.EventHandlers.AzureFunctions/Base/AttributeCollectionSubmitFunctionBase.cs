@@ -2,7 +2,6 @@
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AzureFunctions.Abstractions;
 using Entra.EventHandlers.AzureFunctions.Adapters;
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
@@ -16,10 +15,10 @@ public abstract class AttributeCollectionSubmitFunctionBase(
 {
     private readonly IAttributeCollectionSubmitHandler _handler = handler;
 
-    protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
+    protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
     {
         var evt = await RequestAdapter.ReadEventAsync<AttributeCollectionSubmitEvent>(req);
-        var response = await _handler.Handle(evt, context.CancellationToken);
+        var response = await _handler.HandleAsync(evt, req.FunctionContext.CancellationToken);
         return await ResponseAdapter.FromAsync(req, response);
     }
 }

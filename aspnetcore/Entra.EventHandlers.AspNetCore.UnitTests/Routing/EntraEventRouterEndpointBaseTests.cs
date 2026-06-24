@@ -110,7 +110,7 @@ public class EntraEventRouterEndpointBaseTests
 
         var errorMessage = fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
-        handler.Handle(entraEvent, ctx.RequestAborted).Throws(exception);
+        handler.HandleAsync(entraEvent, ctx.RequestAborted).Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -144,7 +144,7 @@ public class EntraEventRouterEndpointBaseTests
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var exception = new InvalidOperationException();
-        handler.Handle(entraEvent, ctx.RequestAborted).Throws(exception);
+        handler.HandleAsync(entraEvent, ctx.RequestAborted).Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -178,7 +178,7 @@ public class EntraEventRouterEndpointBaseTests
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var entraResponse = new TestResponse();
-        handler.Handle(entraEvent, ctx.RequestAborted).Returns(entraResponse);
+        handler.HandleAsync(entraEvent, ctx.RequestAborted).Returns(entraResponse);
 
         _responseAdapter.WriteOkAsync(ctx, entraResponse).Returns(Task.CompletedTask);
 
@@ -186,7 +186,7 @@ public class EntraEventRouterEndpointBaseTests
         await _sut.Invoke(ctx);
 
         // Assert
-        _ = handler.Received(1).Handle(entraEvent, ctx.RequestAborted);
+        _ = handler.Received(1).HandleAsync(entraEvent, ctx.RequestAborted);
         _ = _responseAdapter.Received(1).WriteOkAsync(ctx, entraResponse);
     }
 }

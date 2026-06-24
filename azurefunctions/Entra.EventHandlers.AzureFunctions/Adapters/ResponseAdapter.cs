@@ -75,7 +75,7 @@ public sealed class ResponseAdapter : IResponseAdapter
     {
         var http = req.CreateResponse(HttpStatusCode.OK);
         http.Headers.Add("Content-Type", "application/json");
-        await JsonSerializer.SerializeAsync(http.Body, response, response.GetType());
+        await JsonSerializer.SerializeAsync(http.Body, response, response.GetType(), cancellationToken: req.FunctionContext.CancellationToken);
         return http;
     }
 
@@ -91,7 +91,7 @@ public sealed class ResponseAdapter : IResponseAdapter
     {
         var http = req.CreateResponse(status);
         http.Headers.Add("Content-Type", "application/json");
-        await JsonSerializer.SerializeAsync(http.Body, error);
+        await JsonSerializer.SerializeAsync(http.Body, error, cancellationToken: req.FunctionContext.CancellationToken);
         return http;
     }
 }

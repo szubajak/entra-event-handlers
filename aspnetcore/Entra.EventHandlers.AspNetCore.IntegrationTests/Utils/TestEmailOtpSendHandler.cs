@@ -8,7 +8,7 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 
 public class TestEmailOtpSendHandler : TestHandlerBase, IEmailOtpSendHandler
 {
-    public Task<EmailOtpSendResponse> Handle(
+    public Task<EmailOtpSendResponse> HandleAsync(
         EmailOtpSendEvent request,
         CancellationToken cancellationToken = default)
     {

@@ -16,7 +16,7 @@ public abstract class EmailOtpSendEndpointBase(
     protected override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEventAsync<EmailOtpSendEvent>(httpContext);
-        var response = await _handler.Handle(evt, httpContext.RequestAborted);
+        var response = await _handler.HandleAsync(evt, httpContext.RequestAborted);
         await ResponseAdapter.WriteOkAsync(httpContext, response);
     }
 }

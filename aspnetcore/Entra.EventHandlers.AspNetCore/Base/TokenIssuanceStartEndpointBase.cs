@@ -16,7 +16,7 @@ public abstract class TokenIssuanceStartEndpointBase(
     protected override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEventAsync<TokenIssuanceStartEvent>(httpContext);
-        var response = await _handler.Handle(evt, httpContext.RequestAborted);
+        var response = await _handler.HandleAsync(evt, httpContext.RequestAborted);
         await ResponseAdapter.WriteOkAsync(httpContext, response);
     }
 }

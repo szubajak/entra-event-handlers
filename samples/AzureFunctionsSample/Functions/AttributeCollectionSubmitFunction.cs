@@ -17,7 +17,6 @@ public sealed class AttributeCollectionSubmitFunction(
     [Function("AttributeCollectionSubmit")]
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "attributecollectionsubmit")]
-        HttpRequestData req,
-        FunctionContext context) =>
-        InvokeAsync(req, context);
+        HttpRequestData req) =>
+        InvokeAsync(req);
 }

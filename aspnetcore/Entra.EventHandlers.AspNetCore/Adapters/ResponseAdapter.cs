@@ -70,7 +70,7 @@ public class ResponseAdapter : IResponseAdapter
     {
         context.Response.StatusCode = StatusCodes.Status200OK;
         context.Response.ContentType = "application/json";
-        await JsonSerializer.SerializeAsync(context.Response.Body, response, response.GetType());
+        await JsonSerializer.SerializeAsync(context.Response.Body, response, response.GetType(), cancellationToken: context.RequestAborted);
         await context.Response.Body.FlushAsync();
     }
 
@@ -86,7 +86,7 @@ public class ResponseAdapter : IResponseAdapter
     {
         context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";
-        await JsonSerializer.SerializeAsync(context.Response.Body, error);
+        await JsonSerializer.SerializeAsync(context.Response.Body, error, cancellationToken: context.RequestAborted);
         await context.Response.Body.FlushAsync();
     }
 }
