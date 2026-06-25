@@ -3,30 +3,30 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/25/2026 - 18:40:35 |
-| Coverage date: | 06/25/2026 - 18:39:49 - 06/25/2026 - 18:40:32 |
+| Generated on: | 06/25/2026 - 18:54:28 |
+| Coverage date: | 06/25/2026 - 18:53:52 - 06/25/2026 - 18:54:26 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 93 |
 | Files: | 87 |
-| **Line coverage:** | 86.4% (710 of 821) |
-| Covered lines: | 710 |
-| Uncovered lines: | 111 |
+| **Line coverage:** | 86.6% (711 of 821) |
+| Covered lines: | 711 |
+| Uncovered lines: | 110 |
 | Coverable lines: | 821 |
 | Total lines: | 3827 |
-| **Branch coverage:** | 79% (87 of 110) |
-| Covered branches: | 87 |
+| **Branch coverage:** | 80.9% (89 of 110) |
+| Covered branches: | 89 |
 | Total branches: | 110 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
 
 ## Coverage
-<details><summary>Entra.EventHandlers - 99.6%</summary>
+<details><summary>Entra.EventHandlers - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers**|**99.6%**|**63.4%**|
+|**Entra.EventHandlers**|**100%**|**67.3%**|
 |Entra.EventHandlers.Builders.ActionBuilders.PrefillValuesBuilder|100%||
 |Entra.EventHandlers.Builders.EntraEventResponses|100%||
 |Entra.EventHandlers.Builders.ResponseBuilders.AttributeCollectionStartRespo<br/>nseBuilder|100%|100%|
@@ -34,7 +34,7 @@
 |Entra.EventHandlers.Builders.ResponseBuilders.EmailOtpSendResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.PasswordSubmitResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.TokenIssuanceStartResponseBui<br/>lder|100%|100%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|97.1%|25%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|100%|75%|
 |Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|100%|50%|
 |Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|100%|50%|
 |Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|100%|66.6%|
