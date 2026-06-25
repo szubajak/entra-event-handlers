@@ -100,6 +100,7 @@ public class VerifiedIdClaimValidationEventDeserializationTests
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
+        // Arrange
         var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.VerifiedIdClaimValidation(odataType: "invalid"));
 
         // Act

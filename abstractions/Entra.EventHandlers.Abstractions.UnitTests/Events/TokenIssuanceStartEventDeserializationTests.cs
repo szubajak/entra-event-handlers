@@ -233,6 +233,7 @@ public class TokenIssuanceStartEventDeserializationTests
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
+        // Arrange
         var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.TokenIssuanceStart(odataType: "invalid"));
 
         // Act

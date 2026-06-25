@@ -156,6 +156,7 @@ public class EmailOtpSendEventDeserializationTests
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
+        // Arrange
         var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.EmailOtpSend(odataType: "invalid"));
 
         // Act

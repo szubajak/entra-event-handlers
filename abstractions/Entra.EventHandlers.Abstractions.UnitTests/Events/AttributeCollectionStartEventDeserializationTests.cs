@@ -239,6 +239,7 @@ public class AttributeCollectionStartEventDeserializationTests
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
+        // Arrange
         var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.AttributeCollectionStart(odataType: "invalid"));
 
         // Act
