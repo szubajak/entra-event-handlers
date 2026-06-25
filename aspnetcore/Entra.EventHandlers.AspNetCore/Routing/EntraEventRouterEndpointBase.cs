@@ -32,7 +32,7 @@ public abstract class EntraEventRouterEndpointBase(
     /// or handler‑resolution failures are converted into standardized
     /// <see cref="EntraErrorResponse"/> results.
     /// </summary>
-    protected override async Task ExecuteAsync(HttpContext httpContext)
+    protected sealed override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEventAsync(httpContext);
         var handler = _resolver.Resolve(evt.GetType());

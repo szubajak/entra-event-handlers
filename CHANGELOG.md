@@ -9,6 +9,9 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ## v1.4.0 — 2026‑06‑24
 
+### Changed
+- **Breaking:** changed 
+
 ### Added
 
 - Added `VerifiedIdClaimValidationEvent` request model.

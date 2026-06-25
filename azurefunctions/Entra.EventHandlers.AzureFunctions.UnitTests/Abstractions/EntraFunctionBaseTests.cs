@@ -51,7 +51,7 @@ public class EntraFunctionBaseTests
     [Fact]
     public async Task InvokeAsync_PassesCancellationTokenThroughPipeline()
     {
-        // Arrgane
+        // Arrange
         var ctx = Substitute.For<FunctionContext>();
         var cts = new CancellationTokenSource();
         ctx.CancellationToken.Returns(cts.Token);

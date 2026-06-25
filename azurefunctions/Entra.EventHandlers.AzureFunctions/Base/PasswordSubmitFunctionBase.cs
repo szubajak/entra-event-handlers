@@ -15,7 +15,7 @@ public abstract class PasswordSubmitFunctionBase(
 {
     private readonly IPasswordSubmitHandler _handler = handler;
 
-    protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
+    protected sealed override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
     {
         var evt = await RequestAdapter.ReadEventAsync<PasswordSubmitEvent>(req);
         var response = await _handler.HandleAsync(evt, req.FunctionContext.CancellationToken);
