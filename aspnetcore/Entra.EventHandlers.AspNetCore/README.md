@@ -21,8 +21,7 @@ It enables production‑ready **Microsoft Entra External ID Authentication Event
 A consistent execution model for all Entra event handlers:
 
 - Request deserialization  
-- Handler resolution  
-- Handler invocation  
+- Event orchestration (resolution → invocation)  
 - Response serialization  
 - Structured error mapping  
 - Logging for known and unknown exceptions  
@@ -95,8 +94,10 @@ These extensions:
 
 The router endpoint (EntraEventRouterEndpoint) provides:
 - Automatic event deserialization
-- Dynamic handler resolution
-- Automatic invocation
+- Automatic orchestration of the event execution pipeline  
+- Automatic handler resolution (via the orchestrator)  
+- Automatic handler invocation
+- Automatic response serialization  
 - Structured error responses
 - Logging for expected and unexpected exceptions
 
@@ -139,6 +140,7 @@ services.AddEntraEventHandlers();
 
 This automatically registers:
 - Request/response adapters
+- Event orchestrator
 - Handler resolver
 - All handlers implementing `IEntraEventHandler<,>`
 - All ASP.NET Core endpoint classes (router + single‑event endpoints)
@@ -153,12 +155,14 @@ app.MapEntraTokenIssuanceStart();
 
 ## 🧠 Handler Resolution
 
-Handlers are resolved dynamically based on the event type:
+Handlers are resolved dynamically by the event orchestrator, which uses the typed resolver:
 
 ```csharp
 public interface IEntraEventHandlerResolver
 {
-    IEntraEventHandler Resolve(Type eventType);
+    IEntraEventHandler<TEvent, TResponse> Resolve<TEvent, TResponse>()
+        where TEvent : EntraEvent
+        where TResponse : EntraEventResponse;
 }
 ```
 

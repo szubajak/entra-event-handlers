@@ -12,7 +12,8 @@ Provides minimal‑boilerplate hosting, full DI support, structured error handli
 
 - 🚀 **Single Function → Multiple Entra Event Types**  
 - 🔄 **Automatic request deserialization & response serialization**  
-- 🧩 **Dynamic handler resolution via DI**  
+- 🧠 **Centralized event orchestration (routing, resolution, invocation)**  
+- 🧩 **Dynamic handler resolution via the orchestrator**  
 - 🛡 **Structured error mapping (400/500)**  
 - 🧪 **Fully unit‑testable**  
 - 🪶 **Minimal boilerplate**
@@ -24,10 +25,10 @@ Provides minimal‑boilerplate hosting, full DI support, structured error handli
 ```csharp
 public sealed class EntraEventRouterFunction(
     ILogger<EntraEventRouterFunction> logger,
-    IEntraEventHandlerResolver resolver,
+    IEntraEventOrchestrator orchestrator,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter)
-    : EntraEventRouterFunctionBase(logger, resolver, requestAdapter, responseAdapter)
+    : EntraEventRouterFunctionBase(logger, orchestrator, requestAdapter, responseAdapter)
 {
     [Function("Router")]
     public Task<HttpResponseData> RunAsync(
@@ -49,6 +50,7 @@ services.AddEntraEventHandlers();
 
 This automatically registers:
 - Request/response adapters
+- Event orchestrator
 - Handler resolver
 - All handlers implementing `IEntraEventHandler<,>`
 

@@ -12,7 +12,8 @@ Provides minimal‑boilerplate hosting, full DI support, unified exception handl
 
 - 🚀 Single endpoint can host **multiple Entra event types**  
 - 🔄 Automatic request deserialization & response serialization  
-- 🧩 Dynamic handler resolution via DI  
+- 🧠 Centralized event orchestration (routing, resolution, invocation)  
+- 🧩 Dynamic handler resolution via the orchestrator  
 - 🛡 Structured error mapping (400/500)  
 - 🧪 Fully unit‑testable  
 - 🪶 Minimal boilerplate  
@@ -73,6 +74,7 @@ services.AddEntraEventHandlers();
 Registers:
 
 - Request/response adapters  
+- Event orchestrator
 - Handler resolver  
 - All `IEntraEventHandler<,>` implementations  
 - All ASP.NET Core endpoint classes (router + single‑event)
@@ -101,7 +103,7 @@ The sample demonstrates:
 - registering handlers with `AddEntraEventHandlers()`
 - mapping the router endpoint (`app.MapEntraRouter()`)
 - mapping individual single‑event endpoints
-- using the unified execution pipeline (deserialization → resolution → invocation → response)
+- using the unified execution pipeline (deserialization → orchestration → resolution → invocation → response)
 - structuring a clean, minimal ASP.NET Core API for Entra event handling
 
 This is the recommended starting point for building real Entra Event Handler extensions on ASP.NET Core.
