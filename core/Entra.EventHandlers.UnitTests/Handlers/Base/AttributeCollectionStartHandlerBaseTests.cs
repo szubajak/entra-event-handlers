@@ -33,7 +33,10 @@ public class AttributeCollectionStartHandlerBaseTests
 
         using var cts = new CancellationTokenSource();
 
-        var expectedResponse = new AttributeCollectionStartResponse();
+        var expectedResponse = new AttributeCollectionStartResponse
+        { 
+            Data = new AttributeCollectionStartResponsePayload()
+        };
         _sut.ResponseToReturn = expectedResponse;
 
         // Act

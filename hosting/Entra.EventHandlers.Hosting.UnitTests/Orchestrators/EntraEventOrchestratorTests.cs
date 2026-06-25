@@ -30,7 +30,10 @@ public class EntraEventOrchestratorTests
         var fixture = new Fixture();
 
         var evt = fixture.Create<AttributeCollectionStartEvent>();
-        var response = new AttributeCollectionStartResponse();
+        var response = new AttributeCollectionStartResponse
+        { 
+            Data = new AttributeCollectionStartResponsePayload()
+        };
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<AttributeCollectionStartEvent, AttributeCollectionStartResponse>>();
@@ -53,7 +56,10 @@ public class EntraEventOrchestratorTests
         var fixture = new Fixture();
 
         var evt = fixture.Create<AttributeCollectionSubmitEvent>();
-        var response = new AttributeCollectionSubmitResponse();
+        var response = new AttributeCollectionSubmitResponse
+        { 
+            Data = new AttributeCollectionSubmitResponsePayload()
+        };
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<AttributeCollectionSubmitEvent, AttributeCollectionSubmitResponse>>();
@@ -76,7 +82,10 @@ public class EntraEventOrchestratorTests
         var fixture = new Fixture();
 
         var evt = fixture.Create<TokenIssuanceStartEvent>();
-        var response = new TokenIssuanceStartResponse();
+        var response = new TokenIssuanceStartResponse
+        { 
+            Data = new TokenIssuanceStartResponsePayload()
+        };
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<TokenIssuanceStartEvent, TokenIssuanceStartResponse>>();
@@ -99,7 +108,10 @@ public class EntraEventOrchestratorTests
         var fixture = new Fixture();
 
         var evt = fixture.Create<EmailOtpSendEvent>();
-        var response = new EmailOtpSendResponse();
+        var response = new EmailOtpSendResponse
+        {
+            Data = new EmailOtpSendResponsePayload()
+        };
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<EmailOtpSendEvent, EmailOtpSendResponse>>();
@@ -122,7 +134,13 @@ public class EntraEventOrchestratorTests
         var fixture = new Fixture();
 
         var evt = fixture.Create<PasswordSubmitEvent>();
-        var response = new PasswordSubmitResponse();
+        var response = new PasswordSubmitResponse
+        { 
+            Data = new PasswordSubmitResponsePayload
+            { 
+                Nonce = "some-nonce"
+            }
+        };
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<PasswordSubmitEvent, PasswordSubmitResponse>>();

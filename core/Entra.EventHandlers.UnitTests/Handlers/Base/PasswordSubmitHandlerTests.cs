@@ -42,7 +42,13 @@ public class PasswordSubmitHandlerTests
 
         using var cts = new CancellationTokenSource();
 
-        var expectedResponse = new PasswordSubmitResponse();
+        var expectedResponse = new PasswordSubmitResponse
+        { 
+            Data = new PasswordSubmitResponsePayload
+            { 
+                Nonce = "some-nonce"
+            }
+        };
         _sut.ResponseToReturn = expectedResponse;
 
         // Act

@@ -32,7 +32,10 @@ public class TokenIssuanceStartHandlerTests
 
         using var cts = new CancellationTokenSource();
 
-        var expectedResponse = new TokenIssuanceStartResponse();
+        var expectedResponse = new TokenIssuanceStartResponse
+        { 
+            Data = new TokenIssuanceStartResponsePayload()
+        };
         _sut.ResponseToReturn = expectedResponse;
 
         // Act

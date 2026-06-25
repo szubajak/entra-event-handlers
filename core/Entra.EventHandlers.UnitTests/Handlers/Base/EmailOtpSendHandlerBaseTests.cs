@@ -33,7 +33,10 @@ public class EmailOtpSendHandlerBaseTests
 
         using var cts = new CancellationTokenSource();
 
-        var expectedResponse = new EmailOtpSendResponse();
+        var expectedResponse = new EmailOtpSendResponse
+        {
+            Data = new EmailOtpSendResponsePayload()
+        };
         _sut.ResponseToReturn = expectedResponse;
 
         // Act
