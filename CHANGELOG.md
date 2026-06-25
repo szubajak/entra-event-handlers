@@ -10,7 +10,8 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 ## v1.4.0 — 2026‑06‑24
 
 ### Changed
-- **Breaking:** changed 
+- **Breaking:** `IEntraEventHandler` method `Handle` has been renamed to `HandleAsync`. 
+  All implementations must update their method signature.
 
 ### Added
 
