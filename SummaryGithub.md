@@ -3,20 +3,20 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/25/2026 - 20:14:04 |
-| Coverage date: | 06/25/2026 - 20:13:39 - 06/25/2026 - 20:14:02 |
+| Generated on: | 06/25/2026 - 20:31:25 |
+| Coverage date: | 06/25/2026 - 20:30:47 - 06/25/2026 - 20:31:23 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 93 |
 | Files: | 87 |
-| **Line coverage:** | 86.6% (711 of 821) |
-| Covered lines: | 711 |
+| **Line coverage:** | 86.7% (723 of 833) |
+| Covered lines: | 723 |
 | Uncovered lines: | 110 |
-| Coverable lines: | 821 |
-| Total lines: | 3827 |
-| **Branch coverage:** | 81.4% (88 of 108) |
-| Covered branches: | 88 |
-| Total branches: | 108 |
+| Coverable lines: | 833 |
+| Total lines: | 3843 |
+| **Branch coverage:** | 95.2% (80 of 84) |
+| Covered branches: | 80 |
+| Total branches: | 84 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -26,7 +26,7 @@
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers**|**100%**|**68%**|
+|**Entra.EventHandlers**|**100%**|**100%**|
 |Entra.EventHandlers.Builders.ActionBuilders.PrefillValuesBuilder|100%||
 |Entra.EventHandlers.Builders.EntraEventResponses|100%||
 |Entra.EventHandlers.Builders.ResponseBuilders.AttributeCollectionStartRespo<br/>nseBuilder|100%|100%|
@@ -35,10 +35,10 @@
 |Entra.EventHandlers.Builders.ResponseBuilders.PasswordSubmitResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.TokenIssuanceStartResponseBui<br/>lder|100%|100%|
 |Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|100%|100%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|100%|50%|
-|Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|100%|50%|
-|Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|100%|66.6%|
-|Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|50%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|100%|100%|
+|Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|100%|100%|
+|Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|100%|100%|
+|Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|100%|
 |Entra.EventHandlers.Protocol.PasswordSubmit.DecryptedPasswordContext|100%||
 
 </details>
