@@ -2,6 +2,7 @@
 using Entra.EventHandlers.AspNetCore.Abstractions;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.AspNetCore.DI;
+using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
@@ -17,14 +18,14 @@ public class ServiceCollectionExtensionsTests
     {
         // Arrange
         var services = new ServiceCollection();
-
-        // Act
         services.AddEntraEventHandlers();
 
-        // Assert
+        // Act
         var provider = services.BuildServiceProvider();
         var resolver = provider.GetRequiredService<IEntraEventHandlerResolver>();
-        var handler = resolver.Resolve(typeof(TestEvent));
+
+        // Assert
+        var handler = resolver.Resolve<TestEvent, TestResponse>();
 
         handler.Should().BeOfType<TestHandler>();
     }
@@ -35,14 +36,28 @@ public class ServiceCollectionExtensionsTests
     {
         // Arrange
         var services = new ServiceCollection();
-
-        // Act
         services.AddEntraEventHandlers();
 
-        // Assert
+        // Act
         var provider = services.BuildServiceProvider();
 
+        // Assert
         provider.GetService<IEntraEventHandlerResolver>()
+            .Should().NotBeNull();
+    }
+
+    [Fact]
+    public void AddEntraEventHandlers_RegistersOrchestrator()
+    {
+        // Arrange
+        var services = new ServiceCollection();
+        services.AddEntraEventHandlers();
+
+        // Act
+        var provider = services.BuildServiceProvider();
+
+        // Assert
+        provider.GetService<IEntraEventOrchestrator>()
             .Should().NotBeNull();
     }
 
@@ -51,13 +66,12 @@ public class ServiceCollectionExtensionsTests
     {
         // Arrange
         var services = new ServiceCollection();
-
-        // Act
         services.AddEntraEventHandlers();
 
-        // Assert
+        // Act
         var provider = services.BuildServiceProvider();
 
+        // Assert
         provider.GetService<IRequestAdapter>()
             .Should().NotBeNull();
         provider.GetService<IResponseAdapter>()
@@ -74,12 +88,12 @@ public class ServiceCollectionExtensionsTests
 
         RegisterAllHandlersAsSubstitutes(services);
 
-        // Act
         services.AddEntraEventHandlers();
 
-        // Assert
+        // Act
         var provider = services.BuildServiceProvider();
 
+        // Assert
         provider.GetService(endpointType)
             .Should().NotBeNull();
     }
