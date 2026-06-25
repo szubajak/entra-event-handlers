@@ -1,8 +1,8 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
-using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.Abstractions;
 using Entra.EventHandlers.Builders;
+using Entra.EventHandlers.TestHelpers;
 
 namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 

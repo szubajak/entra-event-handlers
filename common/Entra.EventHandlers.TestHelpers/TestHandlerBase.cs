@@ -1,4 +1,4 @@
-﻿namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.Abstractions;
+﻿namespace Entra.EventHandlers.TestHelpers;
 
 public abstract class TestHandlerBase
 {
