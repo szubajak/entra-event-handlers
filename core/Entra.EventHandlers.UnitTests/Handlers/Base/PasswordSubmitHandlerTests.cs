@@ -30,7 +30,7 @@ public class PasswordSubmitHandlerTests
     }
 
     [Fact]
-    public async Task Handle_Success()
+    public async Task HandleAsync_Success()
     {
         // Arrange
         var fixture = new Fixture();
@@ -46,7 +46,7 @@ public class PasswordSubmitHandlerTests
         _sut.ResponseToReturn = expectedResponse;
 
         // Act
-        var response = await _sut.Handle(evt, cts.Token);
+        var response = await _sut.HandleAsync(evt, cts.Token);
 
         // Assert
         response.Should().Be(expectedResponse);
@@ -74,7 +74,7 @@ public class PasswordSubmitHandlerTests
     }
 
     [Fact]
-    public async Task Handle_Fail()
+    public async Task HandleAsync_Fail()
     {
         // Arrange
         var fixture = new Fixture();
@@ -87,7 +87,7 @@ public class PasswordSubmitHandlerTests
         _sut.CoreTest.ShouldThrow = true;
 
         // Act
-        var response = await _sut.Handle(evt, CancellationToken.None);
+        var response = await _sut.HandleAsync(evt, CancellationToken.None);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
@@ -110,14 +110,14 @@ public class PasswordSubmitHandlerTests
     }
 
     [Fact]
-    public async Task Handle_InvalidRequest()
+    public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
         var fixture = new Fixture();
         var evt = TestData.CreatePasswordSubmitEvent(fixture, valid: false);
 
         // Act
-        Func<Task> act = () => _sut.Handle(evt, CancellationToken.None);
+        Func<Task> act = () => _sut.HandleAsync(evt, CancellationToken.None);
 
         // Assert
         await act.Should().ThrowAsync<Exception>();

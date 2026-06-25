@@ -12,7 +12,7 @@ public class TestTokenIssuanceStartHandler(ILogger logger)
 
     public TokenIssuanceStartResponse ResponseToReturn { get; set; } = new();
 
-    protected override Task<TokenIssuanceStartResponse> HandleCore(
+    protected override Task<TokenIssuanceStartResponse> HandleCoreAsync(
         TokenIssuanceStartEvent request,
         CancellationToken cancellationToken)
     {

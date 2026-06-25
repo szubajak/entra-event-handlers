@@ -26,7 +26,7 @@ public interface IResponseAdapter
     /// A task that resolves to an <see cref="HttpResponseData"/> containing
     /// the serialized event response.
     /// </returns>
-    Task<HttpResponseData> From(HttpRequestData req, EntraEventResponse response);
+    Task<HttpResponseData> FromAsync(HttpRequestData req, EntraEventResponse response);
 
     /// <summary>
     /// Creates an HTTP 400 Bad Request response containing a serialized
@@ -43,7 +43,7 @@ public interface IResponseAdapter
     /// A task that resolves to an <see cref="HttpResponseData"/> containing
     /// the serialized error response.
     /// </returns>
-    Task<HttpResponseData> BadRequest(HttpRequestData req, EntraErrorResponse error);
+    Task<HttpResponseData> BadRequestAsync(HttpRequestData req, EntraErrorResponse error);
 
     /// <summary>
     /// Creates an HTTP 500 Internal Server Error response containing a
@@ -60,7 +60,7 @@ public interface IResponseAdapter
     /// A task that resolves to an <see cref="HttpResponseData"/> containing
     /// the serialized error response.
     /// </returns>
-    Task<HttpResponseData> ServerError(HttpRequestData req, EntraErrorResponse error);
+    Task<HttpResponseData> ServerErrorAsync(HttpRequestData req, EntraErrorResponse error);
 }
 
 /// <summary>
@@ -71,27 +71,27 @@ public interface IResponseAdapter
 public sealed class ResponseAdapter : IResponseAdapter
 {
     /// <inheritdoc />
-    public async Task<HttpResponseData> From(HttpRequestData req, EntraEventResponse response)
+    public async Task<HttpResponseData> FromAsync(HttpRequestData req, EntraEventResponse response)
     {
         var http = req.CreateResponse(HttpStatusCode.OK);
         http.Headers.Add("Content-Type", "application/json");
-        await JsonSerializer.SerializeAsync(http.Body, response, response.GetType());
+        await JsonSerializer.SerializeAsync(http.Body, response, response.GetType(), cancellationToken: req.FunctionContext.CancellationToken);
         return http;
     }
 
     /// <inheritdoc />
-    public Task<HttpResponseData> BadRequest(HttpRequestData req, EntraErrorResponse error) =>
-        WriteError(req, HttpStatusCode.BadRequest, error);
+    public Task<HttpResponseData> BadRequestAsync(HttpRequestData req, EntraErrorResponse error) =>
+        WriteErrorAsync(req, HttpStatusCode.BadRequest, error);
 
     /// <inheritdoc />
-    public Task<HttpResponseData> ServerError(HttpRequestData req, EntraErrorResponse error) =>
-        WriteError(req, HttpStatusCode.InternalServerError, error);
+    public Task<HttpResponseData> ServerErrorAsync(HttpRequestData req, EntraErrorResponse error) =>
+        WriteErrorAsync(req, HttpStatusCode.InternalServerError, error);
 
-    private static async Task<HttpResponseData> WriteError(HttpRequestData req, HttpStatusCode status, EntraErrorResponse error)
+    private static async Task<HttpResponseData> WriteErrorAsync(HttpRequestData req, HttpStatusCode status, EntraErrorResponse error)
     {
         var http = req.CreateResponse(status);
         http.Headers.Add("Content-Type", "application/json");
-        await JsonSerializer.SerializeAsync(http.Body, error);
+        await JsonSerializer.SerializeAsync(http.Body, error, cancellationToken: req.FunctionContext.CancellationToken);
         return http;
     }
 }

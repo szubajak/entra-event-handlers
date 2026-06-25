@@ -7,7 +7,7 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 
 public class TestPasswordSubmitHandlerThrows : IPasswordSubmitHandler
 {
-    public Task<PasswordSubmitResponse> Handle(
+    public Task<PasswordSubmitResponse> HandleAsync(
         PasswordSubmitEvent request,
         CancellationToken cancellationToken = default)
     {

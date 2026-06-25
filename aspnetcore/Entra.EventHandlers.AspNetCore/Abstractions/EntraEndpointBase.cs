@@ -30,7 +30,7 @@ public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestA
         {
             await OnExceptionAsync(ex, httpContext, isEntraException: true);
 
-            await ResponseAdapter.WriteBadRequest(
+            await ResponseAdapter.WriteBadRequestAsync(
                 httpContext,
                 new EntraErrorResponse
                 {
@@ -42,7 +42,7 @@ public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestA
         {
             await OnExceptionAsync(ex, httpContext, isEntraException: false);
 
-            await ResponseAdapter.WriteServerError(
+            await ResponseAdapter.WriteServerErrorAsync(
                 httpContext,
                 new EntraErrorResponse
                 {

@@ -9,7 +9,7 @@ namespace Sample.Common.Handlers;
 public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
     : AttributeCollectionStartHandlerBase(logger)
 {
-    protected override Task<AttributeCollectionStartResponse> HandleCore(
+    protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
         AttributeCollectionStartEvent request,
         CancellationToken cancellationToken)
     {

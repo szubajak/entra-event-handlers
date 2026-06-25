@@ -61,7 +61,7 @@ public class EntraEndpointBaseTests
 
         // Assert
         await _responseAdapter.Received(1)
-            .WriteBadRequest(ctx, Arg.Any<EntraErrorResponse>());
+            .WriteBadRequestAsync(ctx, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -84,7 +84,7 @@ public class EntraEndpointBaseTests
 
         // Assert
         await _responseAdapter.Received(1)
-            .WriteServerError(ctx, Arg.Any<EntraErrorResponse>());
+            .WriteServerErrorAsync(ctx, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&

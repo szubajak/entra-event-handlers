@@ -25,7 +25,7 @@ public interface IEntraEventHandler { }
 /// Implementations receive a strongly‑typed event payload and return a
 /// corresponding response that conforms to the Entra custom extension contract.
 /// </summary>
-/// <typeparam name="TEvent">
+/// <typeparam name="TRequest">
 /// The type of the incoming event model representing the request sent by
 /// Microsoft Entra.
 /// </typeparam>
@@ -46,5 +46,5 @@ public interface IEntraEventHandler<TRequest, TResponse> : IEntraEventHandler
     where TRequest : EntraEvent
     where TResponse : EntraEventResponse
 {
-    Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken = default);
+    Task<TResponse> HandleAsync(TRequest request, CancellationToken cancellationToken = default);
 }

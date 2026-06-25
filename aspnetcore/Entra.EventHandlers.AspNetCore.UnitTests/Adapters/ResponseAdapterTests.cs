@@ -17,7 +17,7 @@ public class ResponseAdapterTests
     }
 
     [Fact]
-    public async Task WriteOk_Success()
+    public async Task WriteOkAsync_Success()
     {
         // Arrange
         var fixture = new Fixture();
@@ -29,7 +29,7 @@ public class ResponseAdapterTests
         var response = new TestResponse { TestProperty = testProperty };
 
         // Act
-        await _sut.WriteOk(context, response);
+        await _sut.WriteOkAsync(context, response);
 
         // Assert
         context.Response.StatusCode.Should().Be(StatusCodes.Status200OK);
@@ -40,7 +40,7 @@ public class ResponseAdapterTests
     }
 
     [Fact]
-    public async Task WriteBadRequest_Success()
+    public async Task WriteBadRequestAsync_Success()
     {
         // Arrange
         var fixture = new Fixture();
@@ -55,7 +55,7 @@ public class ResponseAdapterTests
         };
 
         // Act
-        await _sut.WriteBadRequest(context, response);
+        await _sut.WriteBadRequestAsync(context, response);
 
         // Assert
         context.Response.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
@@ -66,7 +66,7 @@ public class ResponseAdapterTests
     }
 
     [Fact]
-    public async Task WriteServerError_Success()
+    public async Task WriteServerErrorAsync_Success()
     {
         // Arrange
         var fixture = new Fixture();
@@ -81,7 +81,7 @@ public class ResponseAdapterTests
         };
 
         // Act
-        await _sut.WriteServerError(context, response);
+        await _sut.WriteServerErrorAsync(context, response);
 
         // Assert
         context.Response.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);

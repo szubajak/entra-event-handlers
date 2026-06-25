@@ -12,7 +12,7 @@ public class TestEmailOtpSendHandler(ILogger logger)
 
     public EmailOtpSendResponse ResponseToReturn { get; set; } = new();
 
-    protected override Task<EmailOtpSendResponse> HandleCore(
+    protected override Task<EmailOtpSendResponse> HandleCoreAsync(
         EmailOtpSendEvent request,
         CancellationToken cancellationToken)
     {

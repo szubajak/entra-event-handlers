@@ -9,7 +9,7 @@ namespace Sample.Common.Handlers;
 public class AttributeCollectionSubmitHandler(ILogger<AttributeCollectionSubmitHandler> logger)
     : AttributeCollectionSubmitHandlerBase(logger)
 {
-    protected override Task<AttributeCollectionSubmitResponse> HandleCore(
+    protected override Task<AttributeCollectionSubmitResponse> HandleCoreAsync(
         AttributeCollectionSubmitEvent request,
         CancellationToken cancellationToken)
     {

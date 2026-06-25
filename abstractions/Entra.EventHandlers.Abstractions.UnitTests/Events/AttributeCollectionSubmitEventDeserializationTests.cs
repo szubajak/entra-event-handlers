@@ -236,12 +236,14 @@ public class AttributeCollectionSubmitEventDeserializationTests
             ctx.ClientServicePrincipal.Should().BeNull();
             ctx.ResourceServicePrincipal.Should().BeNull();
             ctx.Protocol.Should().BeNull();
+            ctx.User.Should().BeNull();
         }
     }
 
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
+        // Arrange
         var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.AttributeCollectionSubmit(odataType: "invalid"));
 
         // Act

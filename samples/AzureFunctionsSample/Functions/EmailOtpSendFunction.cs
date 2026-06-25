@@ -17,7 +17,6 @@ public sealed class EmailOtpSendFunction(
     [Function("EmailOtpSend")]
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "emailotpsend")]
-        HttpRequestData req,
-        FunctionContext context) =>
-        InvokeAsync(req, context);
+        HttpRequestData req) =>
+        InvokeAsync(req);
 }

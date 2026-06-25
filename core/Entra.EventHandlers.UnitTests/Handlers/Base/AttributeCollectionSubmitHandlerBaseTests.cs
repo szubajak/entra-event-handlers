@@ -25,7 +25,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
     }
 
     [Fact]
-    public async Task Handle_Success()
+    public async Task HandleAsync_Success()
     {
         // Arrange
         var fixture = new Fixture();
@@ -37,7 +37,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
         _sut.ResponseToReturn = expectedResponse;
 
         // Act
-        var response = await _sut.Handle(evt, cts.Token);
+        var response = await _sut.HandleAsync(evt, cts.Token);
 
         // Assert
         response.Should().Be(expectedResponse);
@@ -64,7 +64,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
     }
 
     [Fact]
-    public async Task Handle_Fail()
+    public async Task HandleAsync_Fail()
     {
         // Arrange
         var fixture = new Fixture();
@@ -73,7 +73,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
         _sut.CoreTest.ShouldThrow = true;
 
         // Act
-        var response = await _sut.Handle(evt, CancellationToken.None);
+        var response = await _sut.HandleAsync(evt, CancellationToken.None);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
@@ -95,14 +95,14 @@ public class AttributeCollectionSubmitHandlerBaseTests
     }
 
     [Fact]
-    public async Task Handle_InvalidRequest()
+    public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
         var fixture = new Fixture();
         var evt = TestData.CreateAttributeCollectionSubmitEvent(fixture, valid: false);
 
         // Act
-        var response = await _sut.Handle(evt, CancellationToken.None);
+        var response = await _sut.HandleAsync(evt, CancellationToken.None);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(0);

@@ -11,7 +11,7 @@ namespace Sample.Common.Handlers;
 public class PasswordSubmitHandler(ILogger<PasswordSubmitHandler> logger, IPasswordContextCryptoService cryptoService)
     : PasswordSubmitHandlerBase(logger, cryptoService)
 {
-    protected override Task<PasswordSubmitResponse> HandleCore(
+    protected override Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,
         DecryptedPasswordContext decrypted,
         CancellationToken cancellationToken)
