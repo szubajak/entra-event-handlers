@@ -48,10 +48,14 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
 
             sw.Stop();
 
+            var actionTypes = response.Data.Actions.Any()
+                ? string.Join(",", response.Data.Actions.Select(a => a.OdataType))
+                : "None";
+
             Logger.LogInformation(
-                "Successfully handled event. DurationMs={Duration}, Action={ActionType}",
+                "Successfully handled event. DurationMs={Duration}, Actions={ActionTypes}",
                 sw.ElapsedMilliseconds,
-                response?.Data?.Actions?.FirstOrDefault()?.OdataType);
+                actionTypes);
 
             return response!;
         }

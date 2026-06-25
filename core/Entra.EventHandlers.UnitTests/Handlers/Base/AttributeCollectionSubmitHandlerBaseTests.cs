@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Actions;
+using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
@@ -24,8 +25,10 @@ public class AttributeCollectionSubmitHandlerBaseTests
         _sut = new TestAttributeCollectionSubmitHandler(_logger);
     }
 
-    [Fact]
-    public async Task HandleAsync_Success()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
         var fixture = new Fixture();
@@ -35,8 +38,17 @@ public class AttributeCollectionSubmitHandlerBaseTests
 
         var expectedResponse = new AttributeCollectionSubmitResponse
         {
-            Data = new AttributeCollectionSubmitResponsePayload()
+            Data = new AttributeCollectionSubmitResponsePayload
+            {
+                Actions = withAction
+                ? new List<EntraAction>
+                {
+                    new ContinueAction(ContinueActionType.AttributeCollectionSubmitContinueWithDefaultBehavior)
+                }
+                : Array.Empty<EntraAction>()
+            }
         };
+
         _sut.ResponseToReturn = expectedResponse;
 
         // Act
@@ -52,9 +64,19 @@ public class AttributeCollectionSubmitHandlerBaseTests
             e.Level == LogLevel.Information &&
             e.Message.Contains("Handling event"));
 
-        _logger.Entries.Should().Contain(e =>
+        var success = _logger.Entries.Single(e =>
             e.Level == LogLevel.Information &&
             e.Message.Contains("Successfully handled event"));
+
+        var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
+
+        var logged = state.Single(kv => kv.Key == "ActionTypes").Value?.ToString();
+
+        var expected = withAction
+            ? EntraOdataTypes.AttributeCollectionSubmit.ContinueWithDefaultBehavior
+            : "None";
+
+        logged.Should().Be(expected);
 
         _logger.Scopes.Should().ContainSingle();
 

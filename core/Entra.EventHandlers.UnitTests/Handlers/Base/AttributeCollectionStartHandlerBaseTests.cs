@@ -73,7 +73,7 @@ public class AttributeCollectionStartHandlerBaseTests
         var logged = state.Single(kv => kv.Key == "ActionTypes").Value?.ToString();
 
         var expected = withAction
-            ? "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior"
+            ? EntraOdataTypes.AttributeCollectionStart.ContinueWithDefaultBehavior
             : "None";
 
         logged.Should().Be(expected);
