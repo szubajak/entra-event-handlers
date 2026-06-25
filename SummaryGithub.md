@@ -3,20 +3,20 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/25/2026 - 07:36:14 |
-| Coverage date: | 06/25/2026 - 07:35:46 - 06/25/2026 - 07:36:12 |
+| Generated on: | 06/25/2026 - 13:48:35 |
+| Coverage date: | 06/25/2026 - 13:48:00 - 06/25/2026 - 13:48:33 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
-| Classes: | 92 |
-| Files: | 86 |
-| **Line coverage:** | 86.3% (681 of 789) |
-| Covered lines: | 681 |
-| Uncovered lines: | 108 |
-| Coverable lines: | 789 |
-| Total lines: | 3698 |
-| **Branch coverage:** | 71.8% (115 of 160) |
-| Covered branches: | 115 |
-| Total branches: | 160 |
+| Classes: | 93 |
+| Files: | 87 |
+| **Line coverage:** | 83.7% (685 of 818) |
+| Covered lines: | 685 |
+| Uncovered lines: | 133 |
+| Coverable lines: | 818 |
+| Total lines: | 3825 |
+| **Branch coverage:** | 61.4% (70 of 114) |
+| Covered branches: | 70 |
+| Total branches: | 114 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -98,11 +98,11 @@
 |Entra.EventHandlers.Abstractions.Responses.VerifiedIdClaimValidationRespons<br/>ePayload|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 62.5%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 62.1%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**62.5%**|**85%**|
+|**Entra.EventHandlers.AspNetCore**|**62.1%**|**100%**|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|100%|100%|
 |Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter|100%||
@@ -119,14 +119,14 @@
 |Entra.EventHandlers.AspNetCore.Endpoints.PasswordSubmitEndpoint|25%||
 |Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint|25%||
 |Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions|0%||
-|Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|100%|80%|
+|Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 71.3%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 70.8%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**71.3%**|**85.7%**|
+|**Entra.EventHandlers.AzureFunctions**|**70.8%**|**100%**|
 |Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter|100%||
@@ -136,16 +136,17 @@
 |Entra.EventHandlers.AzureFunctions.Base.PasswordSubmitFunctionBase|0%||
 |Entra.EventHandlers.AzureFunctions.Base.TokenIssuanceStartFunctionBase|0%||
 |Entra.EventHandlers.AzureFunctions.DI.ServiceCollectionExtensions|100%||
-|Entra.EventHandlers.AzureFunctions.Routing.EntraEventRouterFunctionBase|100%|81.2%|
+|Entra.EventHandlers.AzureFunctions.Routing.EntraEventRouterFunctionBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Hosting - 100%</summary>
+<details><summary>Entra.EventHandlers.Hosting - 59.6%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Hosting**|**100%**|**85%**|
+|**Entra.EventHandlers.Hosting**|**59.6%**|**56.2%**|
 |Entra.EventHandlers.Hosting.DI.ServiceCollectionExtensions|100%||
 |Entra.EventHandlers.Hosting.Extensions.ExceptionExtensions|100%|100%|
-|Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver|100%|62.5%|
+|Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator|8%|0%|
+|Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver|88.2%|60%|
 
 </details>
