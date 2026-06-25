@@ -20,14 +20,14 @@ public class RequestAdapterTests
     }
 
     [Fact]
-    public async Task ReadEvent_WhenBodyIsEmpty_ThrowsDeserializationException()
+    public async Task ReadEventAsync_WhenBodyIsEmpty_ThrowsDeserializationException()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();
         var req = new TestHttpRequestData(ctx, new MemoryStream(Encoding.UTF8.GetBytes("")));
 
         // Act
-        var act = async () => await _sut.ReadEvent<TestEvent>(req);
+        var act = async () => await _sut.ReadEventAsync<TestEvent>(req);
 
         // Assert
         await act.Should()
@@ -36,14 +36,14 @@ public class RequestAdapterTests
     }
 
     [Fact]
-    public async Task ReadEvent_WhenJsonIsInvalid_ThrowsInvalidJsonException()
+    public async Task ReadEventAsync_WhenJsonIsInvalid_ThrowsInvalidJsonException()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();
         var req = new TestHttpRequestData(ctx, new MemoryStream(Encoding.UTF8.GetBytes("{ invalid json ")));
 
         // Act
-        var act = async () => await _sut.ReadEvent<TestEvent>(req);
+        var act = async () => await _sut.ReadEventAsync<TestEvent>(req);
 
         // Assert
         await act.Should()
@@ -52,14 +52,14 @@ public class RequestAdapterTests
     }
 
     [Fact]
-    public async Task ReadEvent_WhenJsonDeserializesToNull_ThrowsUnableToDeserialize()
+    public async Task ReadEventAsync_WhenJsonDeserializesToNull_ThrowsUnableToDeserialize()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();
         var req = new TestHttpRequestData(ctx, new MemoryStream(Encoding.UTF8.GetBytes("null")));
 
         // Act
-        var act = async () => await _sut.ReadEvent<TestEvent>(req);
+        var act = async () => await _sut.ReadEventAsync<TestEvent>(req);
 
         // Assert
         await act.Should()
@@ -68,14 +68,14 @@ public class RequestAdapterTests
     }
 
     [Fact]
-    public async Task ReadEvent_WhenUnexpectedExceptionOccurs_ThrowsFailedToDeserialize()
+    public async Task ReadEventAsync_WhenUnexpectedExceptionOccurs_ThrowsFailedToDeserialize()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();
         var req = new TestHttpRequestData(ctx, new ThrowingStream());
 
         // Act
-        var act = async () => await _sut.ReadEvent<TestEvent>(req);
+        var act = async () => await _sut.ReadEventAsync<TestEvent>(req);
 
         // Assert
         await act.Should()
@@ -84,7 +84,7 @@ public class RequestAdapterTests
     }
 
     [Fact]
-    public async Task ReadEvent_WhenJsonIsValid_ReturnsDeserializedEvent()
+    public async Task ReadEventAsync_WhenJsonIsValid_ReturnsDeserializedEvent()
     {
         // Arrange
         var expectedResult = new TestEvent();
@@ -95,7 +95,7 @@ public class RequestAdapterTests
         var req = new TestHttpRequestData(context, body);
 
         // Act
-        var result = await _sut.ReadEvent<TestEvent>(req);
+        var result = await _sut.ReadEventAsync<TestEvent>(req);
 
         // Assert
         result.Should().NotBeNull();
@@ -103,7 +103,7 @@ public class RequestAdapterTests
     }
 
     [Fact]
-    public async Task ReadEvent_NonGeneric_Calls_Generic_With_EntraEvent()
+    public async Task ReadEventAsync_NonGeneric_Calls_Generic_With_EntraEvent()
     {
         // Arrange
         var json =
@@ -125,7 +125,7 @@ public class RequestAdapterTests
         var req = new TestHttpRequestData(context, body);
 
         // Act
-        var result = await _sut.ReadEvent(req);
+        var result = await _sut.ReadEventAsync(req);
 
         // Assert
         result.Should().BeAssignableTo<EntraEvent>();

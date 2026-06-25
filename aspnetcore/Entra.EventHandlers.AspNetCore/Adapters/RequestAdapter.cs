@@ -24,7 +24,7 @@ public interface IRequestAdapter
     /// <exception cref="EntraDeserializationException">
     /// Thrown when the request body cannot be deserialized into the expected event type.
     /// </exception>
-    Task<TEvent> ReadEvent<TEvent>(HttpContext context)
+    Task<TEvent> ReadEventAsync<TEvent>(HttpContext context)
         where TEvent : EntraEvent;
 
     /// <summary>
@@ -38,7 +38,7 @@ public interface IRequestAdapter
     /// <exception cref="EntraDeserializationException">
     /// Thrown when the request body cannot be deserialized into an <see cref="EntraEvent"/>.
     /// </exception>
-    Task<EntraEvent> ReadEvent(HttpContext context);
+    Task<EntraEvent> ReadEventAsync(HttpContext context);
 }
 
 /// <summary>
@@ -49,13 +49,13 @@ public interface IRequestAdapter
 public sealed class RequestAdapter : IRequestAdapter
 {
     /// <inheritdoc />
-    public async Task<TEvent> ReadEvent<TEvent>(HttpContext context)
+    public async Task<TEvent> ReadEventAsync<TEvent>(HttpContext context)
         where TEvent : EntraEvent
     {
         try
         {
             using var reader = new StreamReader(context.Request.Body);
-            var body = await reader.ReadToEndAsync();
+            var body = await reader.ReadToEndAsync(context.RequestAborted);
 
             if (string.IsNullOrWhiteSpace(body))
                 throw new EntraDeserializationException("Request body is empty.");
@@ -75,6 +75,6 @@ public sealed class RequestAdapter : IRequestAdapter
     }
 
     /// <inheritdoc />
-    public Task<EntraEvent> ReadEvent(HttpContext context) =>
-        ReadEvent<EntraEvent>(context);
+    public Task<EntraEvent> ReadEventAsync(HttpContext context) =>
+        ReadEventAsync<EntraEvent>(context);
 }

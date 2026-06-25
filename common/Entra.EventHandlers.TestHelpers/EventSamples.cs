@@ -92,4 +92,19 @@ public static class EventSamples
           }
         }
         """;
+
+    public static string VerifiedIdClaimValidation(string odataType = "microsoft.graph.onVerifiedIdClaimValidationCalloutData") =>
+        $$"""
+        {
+          "type": "microsoft.graph.authenticationEvent.verifiedIdClaimValidation",
+          "source": "/tenants/00000000-0000-0000-0000-000000000000/applications/00000000-0000-0000-0000-000000000000",
+          "data": {
+            "@odata.type": "{{odataType}}",
+            "tenantId": "00000000-0000-0000-0000-000000000000",
+            "authenticationContext": {
+              "correlationId": "00000000-0000-0000-0000-000000000000"
+            }
+          }
+        }
+        """;
 }

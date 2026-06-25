@@ -7,13 +7,13 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 
 public class TestResponseAdapterThrows : IResponseAdapter
 {
-    public Task WriteOk(HttpContext context, EntraEventResponse response) =>
+    public Task WriteOkAsync(HttpContext context, EntraEventResponse response) =>
         throw new InvalidOperationException("Write failed");
 
-    public Task WriteBadRequest(HttpContext context, EntraErrorResponse error) =>
+    public Task WriteBadRequestAsync(HttpContext context, EntraErrorResponse error) =>
         Task.CompletedTask;
 
-    public async Task WriteServerError(HttpContext context, EntraErrorResponse error)
+    public async Task WriteServerErrorAsync(HttpContext context, EntraErrorResponse error)
     {
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Response.ContentType = "application/json";

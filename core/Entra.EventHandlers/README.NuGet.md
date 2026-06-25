@@ -49,7 +49,7 @@ Includes:
 public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger)
     : TokenIssuanceStartHandlerBase(logger)
 {
-    protected override Task<TokenIssuanceStartResponse> HandleCore(
+    protected override Task<TokenIssuanceStartResponse> HandleCoreAsync(
         TokenIssuanceStartEvent request,
         CancellationToken cancellationToken)
     {

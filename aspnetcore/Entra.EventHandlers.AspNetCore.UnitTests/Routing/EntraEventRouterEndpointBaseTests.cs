@@ -42,7 +42,7 @@ public class EntraEventRouterEndpointBaseTests
 
         var ctx = new DefaultHttpContext();
 
-        _requestAdapter.ReadEvent(ctx).Throws(exception);
+        _requestAdapter.ReadEventAsync(ctx).Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -50,7 +50,7 @@ public class EntraEventRouterEndpointBaseTests
         // Assert
         _ = _responseAdapter
             .Received(1)
-            .WriteBadRequest(
+            .WriteBadRequestAsync(
                 ctx,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.DeserializationError &&
@@ -70,7 +70,7 @@ public class EntraEventRouterEndpointBaseTests
         var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEvent(ctx).Returns(entraEvent);
+        _requestAdapter.ReadEventAsync(ctx).Returns(entraEvent);
 
         var exception = new EntraHandlerNotFoundException(entraEvent.GetType());
         _resolver.Resolve(entraEvent.GetType()).Throws(exception);
@@ -81,7 +81,7 @@ public class EntraEventRouterEndpointBaseTests
         // Assert
         _ = _responseAdapter
             .Received(1)
-            .WriteBadRequest(
+            .WriteBadRequestAsync(
                 ctx,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.HandlerNotFound &&
@@ -103,14 +103,14 @@ public class EntraEventRouterEndpointBaseTests
         var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEvent(ctx).Returns(entraEvent);
+        _requestAdapter.ReadEventAsync(ctx).Returns(entraEvent);
 
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var errorMessage = fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
-        handler.Handle(entraEvent, ctx.RequestAborted).Throws(exception);
+        handler.HandleAsync(entraEvent, ctx.RequestAborted).Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -118,7 +118,7 @@ public class EntraEventRouterEndpointBaseTests
         // Assert
         _ = _responseAdapter
             .Received(1)
-            .WriteBadRequest(
+            .WriteBadRequestAsync(
                 ctx,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.ValidationError &&
@@ -138,13 +138,13 @@ public class EntraEventRouterEndpointBaseTests
         var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEvent(ctx).Returns(entraEvent);
+        _requestAdapter.ReadEventAsync(ctx).Returns(entraEvent);
 
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var exception = new InvalidOperationException();
-        handler.Handle(entraEvent, ctx.RequestAborted).Throws(exception);
+        handler.HandleAsync(entraEvent, ctx.RequestAborted).Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -152,7 +152,7 @@ public class EntraEventRouterEndpointBaseTests
         // Assert
         _ = _responseAdapter
             .Received(1)
-            .WriteServerError(
+            .WriteServerErrorAsync(
                 ctx,
                 Arg.Is<EntraErrorResponse>(e =>
                     e.Error == EntraErrorCodes.UnhandledException &&
@@ -172,21 +172,21 @@ public class EntraEventRouterEndpointBaseTests
         var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEvent(ctx).Returns(entraEvent);
+        _requestAdapter.ReadEventAsync(ctx).Returns(entraEvent);
 
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
         _resolver.Resolve(entraEvent.GetType()).Returns(handler);
 
         var entraResponse = new TestResponse();
-        handler.Handle(entraEvent, ctx.RequestAborted).Returns(entraResponse);
+        handler.HandleAsync(entraEvent, ctx.RequestAborted).Returns(entraResponse);
 
-        _responseAdapter.WriteOk(ctx, entraResponse).Returns(Task.CompletedTask);
+        _responseAdapter.WriteOkAsync(ctx, entraResponse).Returns(Task.CompletedTask);
 
         // Act
         await _sut.Invoke(ctx);
 
         // Assert
-        _ = handler.Received(1).Handle(entraEvent, ctx.RequestAborted);
-        _ = _responseAdapter.Received(1).WriteOk(ctx, entraResponse);
+        _ = handler.Received(1).HandleAsync(entraEvent, ctx.RequestAborted);
+        _ = _responseAdapter.Received(1).WriteOkAsync(ctx, entraResponse);
     }
 }

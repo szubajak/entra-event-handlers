@@ -21,7 +21,7 @@ public class ResponseAdapterTests
     }
 
     [Fact]
-    public async Task From_Success()
+    public async Task FromAsync_Success()
     {
         // Arrange
         var fixture = new Fixture();
@@ -32,7 +32,7 @@ public class ResponseAdapterTests
         var response = new TestResponse { TestProperty = fixture.Create<string>() };
 
         // Act
-        var result = await _sut.From(req, response);
+        var result = await _sut.FromAsync(req, response);
 
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -45,7 +45,7 @@ public class ResponseAdapterTests
     }
 
     [Fact]
-    public async Task BadRequest_Success()
+    public async Task BadRequestAsync_Success()
     {
         // Arrange
         var fixture = new Fixture();
@@ -60,7 +60,7 @@ public class ResponseAdapterTests
         };
 
         // Act
-        var result = await _sut.BadRequest(req, response);
+        var result = await _sut.BadRequestAsync(req, response);
 
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -73,7 +73,7 @@ public class ResponseAdapterTests
     }
 
     [Fact]
-    public async Task ServerError_Success()
+    public async Task ServerErrorAsync_Success()
     {
         // Arrange
         var fixture = new Fixture();
@@ -88,7 +88,7 @@ public class ResponseAdapterTests
         };
 
         // Act
-        var result = await _sut.ServerError(req, response);
+        var result = await _sut.ServerErrorAsync(req, response);
 
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.InternalServerError);

@@ -35,17 +35,42 @@ public class EntraFunctionBaseTests
         var req = Substitute.For<HttpRequestData>(ctx);
 
         bool executed = false;
-        _sut.ExecuteDelegate = (_, _) =>
+        _sut.ExecuteDelegate = _ =>
         {
             executed = true;
             return Task.FromResult(Substitute.For<HttpResponseData>(ctx));
         };
 
         // Act
-        await _sut.Invoke(req, ctx);
+        await _sut.Invoke(req);
 
         // Assert
         executed.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task InvokeAsync_PassesCancellationTokenThroughPipeline()
+    {
+        // Arrange
+        var ctx = Substitute.For<FunctionContext>();
+        var cts = new CancellationTokenSource();
+        ctx.CancellationToken.Returns(cts.Token);
+
+        var req = Substitute.For<HttpRequestData>(ctx);
+
+        CancellationToken? captured = null;
+
+        _sut.ExecuteDelegate = r =>
+        {
+            captured = r.FunctionContext.CancellationToken;
+            return Task.FromResult(Substitute.For<HttpResponseData>(ctx));
+        };
+
+        // Act
+        await _sut.Invoke(req);
+
+        // Assert
+        captured.Should().Be(cts.Token);
     }
 
     [Fact]
@@ -59,14 +84,14 @@ public class EntraFunctionBaseTests
 
         var exception = new EntraValidationException(fixture.Create<string>());
 
-        _sut.ExecuteDelegate = (_, _) => throw exception;
+        _sut.ExecuteDelegate = _ => throw exception;
 
         // Act
-        await _sut.Invoke(req, ctx);
+        await _sut.Invoke(req);
 
         // Assert
         await _responseAdapter.Received(1)
-            .BadRequest(req, Arg.Any<EntraErrorResponse>());
+            .BadRequestAsync(req, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -83,14 +108,14 @@ public class EntraFunctionBaseTests
 
         var exception = new InvalidOperationException();
 
-        _sut.ExecuteDelegate = (_, _) => throw exception;
+        _sut.ExecuteDelegate = _ => throw exception;
 
         // Act
-        await _sut.Invoke(req, ctx);
+        await _sut.InvokeAsync(req);
 
         // Assert
         await _responseAdapter.Received(1)
-            .ServerError(req, Arg.Any<EntraErrorResponse>());
+            .ServerErrorAsync(req, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&

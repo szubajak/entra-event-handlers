@@ -11,7 +11,7 @@ namespace Entra.EventHandlers.Handlers.Base;
 /// Provides a base implementation of <see cref="IAttributeCollectionSubmitHandler"/>
 /// that applies shared processing behavior such as structured logging,
 /// correlation scoping, execution timing, and exception handling.
-/// Derived classes should override <see cref="HandleCore"/> to implement
+/// Derived classes should override <see cref="HandleCoreAsync"/> to implement
 /// event‑specific business logic.
 /// This base class also validates incoming events according to the Entra
 /// protocol contract before invoking handler logic.
@@ -25,7 +25,7 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAt
     /// verification), establishes a logging scope with correlation identifiers,
     /// measures execution duration, and applies consistent exception handling.
     /// </remarks>
-    public async Task<AttributeCollectionSubmitResponse> Handle(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken)
+    public async Task<AttributeCollectionSubmitResponse> HandleAsync(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken)
     {
         using var scope = Logger.BeginScope(new Dictionary<string, object?>
         {
@@ -42,7 +42,7 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAt
         {
             request.Validate();
 
-            var response = await HandleCore(request, cancellationToken);
+            var response = await HandleCoreAsync(request, cancellationToken);
 
             sw.Stop();
 
@@ -72,7 +72,7 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAt
     /// <summary>
     /// Contains the event‑specific business logic for handling the
     /// AttributeCollectionSubmit event. Implementations should override
-    /// this method instead of <see cref="Handle"/>.
+    /// this method instead of <see cref="HandleAsync"/>.
     /// </summary>
-    protected abstract Task<AttributeCollectionSubmitResponse> HandleCore(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken);
+    protected abstract Task<AttributeCollectionSubmitResponse> HandleCoreAsync(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken);
 }

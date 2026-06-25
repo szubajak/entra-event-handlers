@@ -1,7 +1,6 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.AzureFunctions.Adapters;
 using Entra.EventHandlers.Hosting.Extensions;
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +12,7 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
     protected IRequestAdapter RequestAdapter { get; } = requestAdapter;
     protected IResponseAdapter ResponseAdapter { get; } = responseAdapter;
 
-    protected virtual Task OnExceptionAsync(Exception ex, FunctionContext context, bool isEntraException)
+    protected virtual Task OnExceptionAsync(Exception ex, bool isEntraException)
     {
         if (isEntraException)
             Logger.LogWarning(ex, "Handled expected Entra exception.");
@@ -23,17 +22,17 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
         return Task.CompletedTask;
     }
 
-    public async Task<HttpResponseData> InvokeAsync(HttpRequestData req, FunctionContext context)
+    public async Task<HttpResponseData> InvokeAsync(HttpRequestData req)
     {
         try
         {
-            return await ExecuteAsync(req, context);
+            return await ExecuteAsync(req);
         }
         catch (Exception ex) when (ex.IsEntraException())
         {
-            await OnExceptionAsync(ex, context, isEntraException: true);
+            await OnExceptionAsync(ex, isEntraException: true);
 
-            return await ResponseAdapter.BadRequest(
+            return await ResponseAdapter.BadRequestAsync(
                 req,
                 new EntraErrorResponse
                 {
@@ -43,9 +42,9 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
         }
         catch (Exception ex)
         {
-            await OnExceptionAsync(ex, context, isEntraException: false);
+            await OnExceptionAsync(ex, isEntraException: false);
 
-            return await ResponseAdapter.ServerError(
+            return await ResponseAdapter.ServerErrorAsync(
                 req,
                 new EntraErrorResponse
                 {
@@ -55,5 +54,5 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
         }
     }
 
-    protected abstract Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context);
+    protected abstract Task<HttpResponseData> ExecuteAsync(HttpRequestData req);
 }

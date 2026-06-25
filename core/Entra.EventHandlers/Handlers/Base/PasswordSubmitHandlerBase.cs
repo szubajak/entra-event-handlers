@@ -13,7 +13,7 @@ namespace Entra.EventHandlers.Handlers.Base;
 /// Provides a base implementation of <see cref="IPasswordSubmitHandler"/>
 /// that applies shared processing behavior such as structured logging,
 /// correlation scoping, execution timing, and exception handling.
-/// Derived classes should override <see cref="HandleCore"/> to implement
+/// Derived classes should override <see cref="HandleCoreAsync"/> to implement
 /// event‑specific business logic for the PasswordSubmit flow.
 /// This base class also validates incoming events according to the Entra
 /// protocol contract before invoking handler logic.
@@ -34,7 +34,7 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
     /// correlation identifiers, measures execution duration, and ensures
     /// that unhandled exceptions result in a safe <c>Block</c> response.
     /// </remarks>
-    public async Task<PasswordSubmitResponse> Handle(PasswordSubmitEvent request, CancellationToken cancellationToken)
+    public async Task<PasswordSubmitResponse> HandleAsync(PasswordSubmitEvent request, CancellationToken cancellationToken)
     {
         using var scope = Logger.BeginScope(new Dictionary<string, object?>
         {
@@ -55,7 +55,7 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
 
             decrypted = CryptoService.Decrypt(request.Data.EncryptedPasswordContext);
 
-            var response = await HandleCore(request, decrypted, cancellationToken);
+            var response = await HandleCoreAsync(request, decrypted, cancellationToken);
 
             sw.Stop();
 
@@ -91,7 +91,7 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
     /// <summary>
     /// Contains the event‑specific business logic for handling the
     /// PasswordSubmit event. Implementations should override this method
-    /// instead of <see cref="Handle"/>.
+    /// instead of <see cref="HandleAsync"/>.
     /// </summary>
     /// <remarks>
     /// This method receives a fully validated event and a decrypted password
@@ -99,7 +99,7 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
     /// and returning the appropriate action (MigratePassword, UpdatePassword,
     /// Retry, or Block).
     /// </remarks>
-    protected abstract Task<PasswordSubmitResponse> HandleCore(
+    protected abstract Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,
         DecryptedPasswordContext decrypted,
         CancellationToken cancellationToken);

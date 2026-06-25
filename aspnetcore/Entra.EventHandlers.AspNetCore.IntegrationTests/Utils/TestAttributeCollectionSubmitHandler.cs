@@ -8,7 +8,7 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 
 public class TestAttributeCollectionSubmitHandler : TestHandlerBase, IAttributeCollectionSubmitHandler
 {
-    public Task<AttributeCollectionSubmitResponse> Handle(
+    public Task<AttributeCollectionSubmitResponse> HandleAsync(
         AttributeCollectionSubmitEvent request,
         CancellationToken cancellationToken = default)
     {

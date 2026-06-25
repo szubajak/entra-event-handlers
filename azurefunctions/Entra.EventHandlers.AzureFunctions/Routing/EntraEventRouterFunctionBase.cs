@@ -1,9 +1,9 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AzureFunctions.Abstractions;
 using Entra.EventHandlers.AzureFunctions.Adapters;
 using Entra.EventHandlers.Hosting.Resolvers;
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +18,7 @@ namespace Entra.EventHandlers.AzureFunctions.Routing;
 /// resolves the matching <see cref="IEntraEventHandler"/> implementation based
 /// on the runtime event type, and converts known exceptions into standardized
 /// <see cref="EntraErrorResponse"/> results. Consumers should inherit from this
-/// class and expose a single HTTP‑triggered function that delegates to <see cref="Run"/>.
+/// class and expose a single HTTP‑triggered function that delegates to <see cref="ExecuteAsync"/>.
 /// </remarks>
 public abstract class EntraEventRouterFunctionBase(
     ILogger logger,
@@ -36,16 +36,16 @@ public abstract class EntraEventRouterFunctionBase(
     /// or handler‑resolution failures are converted into standardized
     /// <see cref="EntraErrorResponse"/> results.
     /// </summary>
-    protected override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req, FunctionContext context)
+    protected sealed override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
     {
-        var evt = await RequestAdapter.ReadEvent(req);
+        var evt = await RequestAdapter.ReadEventAsync(req);
         var handler = _resolver.Resolve(evt.GetType());
 
-        var response = await ((dynamic)handler).Handle((dynamic)evt, context.CancellationToken);
-        return await ResponseAdapter.From(req, response);
+        var response = await ((dynamic)handler).HandleAsync((dynamic)evt, req.FunctionContext.CancellationToken);
+        return await ResponseAdapter.FromAsync(req, response);
     }
 
-    protected override Task OnExceptionAsync(Exception ex, FunctionContext context, bool isEntraException)
+    protected override Task OnExceptionAsync(Exception ex, bool isEntraException)
     {
         if (isEntraException)
             Logger.LogWarning(ex, "Router: handled expected Entra exception.");

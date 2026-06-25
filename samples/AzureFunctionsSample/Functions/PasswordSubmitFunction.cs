@@ -17,7 +17,6 @@ public sealed class PasswordSubmitFunction(
     [Function("PasswordSubmit")]
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "passwordsubmit")]
-        HttpRequestData req,
-        FunctionContext context) =>
-        InvokeAsync(req, context);
+        HttpRequestData req) =>
+        InvokeAsync(req);
 }

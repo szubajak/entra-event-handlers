@@ -12,7 +12,7 @@ public class TestAttributeCollectionStartHandler(ILogger logger)
 
     public AttributeCollectionStartResponse ResponseToReturn { get; set; } = new();
 
-    protected override Task<AttributeCollectionStartResponse> HandleCore(
+    protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
         AttributeCollectionStartEvent request,
         CancellationToken cancellationToken)
     {

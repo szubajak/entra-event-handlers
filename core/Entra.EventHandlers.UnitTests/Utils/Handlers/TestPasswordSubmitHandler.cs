@@ -16,7 +16,7 @@ public class TestPasswordSubmitHandler(ILogger logger, IPasswordContextCryptoSer
 
     public PasswordSubmitResponse ResponseToReturn { get; set; } = new();
 
-    protected override Task<PasswordSubmitResponse> HandleCore(
+    protected override Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,
         DecryptedPasswordContext decrypted,
         CancellationToken cancellationToken)

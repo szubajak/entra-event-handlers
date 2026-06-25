@@ -11,7 +11,7 @@ namespace Entra.EventHandlers.Handlers.Base;
 /// Provides a base implementation of <see cref="ITokenIssuanceStartHandler"/>
 /// that applies shared processing behavior such as structured logging,
 /// correlation scoping, execution timing, and exception handling.
-/// Derived classes should override <see cref="HandleCore"/> to implement
+/// Derived classes should override <see cref="HandleCoreAsync"/> to implement
 /// event‑specific business logic.
 /// This base class also validates incoming events according to the Entra
 /// protocol contract before invoking handler logic.
@@ -27,7 +27,7 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
     /// In case of failure, a valid response containing an empty claim set is
     /// returned to ensure token issuance continues without interruption.
     /// </remarks>
-    public async Task<TokenIssuanceStartResponse> Handle(TokenIssuanceStartEvent request, CancellationToken cancellationToken)
+    public async Task<TokenIssuanceStartResponse> HandleAsync(TokenIssuanceStartEvent request, CancellationToken cancellationToken)
     {
         using var scope = Logger.BeginScope(new Dictionary<string, object?>
         {
@@ -44,7 +44,7 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
         {
             request.Validate();
 
-            var response = await HandleCore(request, cancellationToken);
+            var response = await HandleCoreAsync(request, cancellationToken);
 
             sw.Stop();
 
@@ -74,7 +74,7 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
     /// <summary>
     /// Contains the event‑specific business logic for handling the
     /// TokenIssuanceStart event. Implementations should override
-    /// this method instead of <see cref="Handle"/>.
+    /// this method instead of <see cref="HandleAsync"/>.
     /// </summary>
-    protected abstract Task<TokenIssuanceStartResponse> HandleCore(TokenIssuanceStartEvent request, CancellationToken cancellationToken);
+    protected abstract Task<TokenIssuanceStartResponse> HandleCoreAsync(TokenIssuanceStartEvent request, CancellationToken cancellationToken);
 }

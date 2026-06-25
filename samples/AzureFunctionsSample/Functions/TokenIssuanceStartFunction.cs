@@ -17,7 +17,6 @@ public sealed class TokenIssuanceStartFunction(
     [Function("TokenIssuanceStart")]
     public Task<HttpResponseData> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")]
-        HttpRequestData req,
-        FunctionContext context) =>
-        InvokeAsync(req, context);
+        HttpRequestData req) =>
+        InvokeAsync(req);
 }

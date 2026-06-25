@@ -174,6 +174,7 @@ public class PasswordSubmitEventDeserializationTests
     [Fact]
     public void InvalidOdataType_ThrowsEntraValidationException()
     {
+        // Arrange
         var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.PasswordSubmit(odataType: "invalid"));
 
         // Act

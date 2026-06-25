@@ -9,7 +9,7 @@ namespace Sample.Common.Handlers;
 public class EmailOtpSendHandler(ILogger<EmailOtpSendHandler> logger)
     : EmailOtpSendHandlerBase(logger)
 {
-    protected override Task<EmailOtpSendResponse> HandleCore(
+    protected override Task<EmailOtpSendResponse> HandleCoreAsync(
         EmailOtpSendEvent request,
         CancellationToken cancellationToken)
     {

@@ -8,7 +8,7 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 
 public class TestTokenIssuanceStartHandler : TestHandlerBase, ITokenIssuanceStartHandler
 {
-    public Task<TokenIssuanceStartResponse> Handle(
+    public Task<TokenIssuanceStartResponse> HandleAsync(
         TokenIssuanceStartEvent request,
         CancellationToken cancellationToken = default)
     {
