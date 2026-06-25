@@ -397,7 +397,7 @@ var assemblies = [
     "classes": [
       { "name": "Entra.EventHandlers.Hosting.DI.ServiceCollectionExtensions", "rp": "Entra.EventHandlers.Hosting_ServiceCollectionExtensions.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 24, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Hosting.Extensions.ExceptionExtensions", "rp": "Entra.EventHandlers.Hosting_ExceptionExtensions.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 20, "cb": 12, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator", "rp": "Entra.EventHandlers.Hosting_EntraEventOrchestrator.html", "cl": 2, "ucl": 23, "cal": 25, "tl": 64, "cb": 0, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator", "rp": "Entra.EventHandlers.Hosting_EntraEventOrchestrator.html", "cl": 21, "ucl": 4, "cal": 25, "tl": 62, "cb": 6, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver", "rp": "Entra.EventHandlers.Hosting_EntraEventHandlerResolver.html", "cl": 15, "ucl": 2, "cal": 17, "tl": 58, "cb": 6, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
@@ -407,17 +407,9 @@ var metrics = [{ "name": "Crap Score", "abbreviation": "crp", "explanationUrl": 
 var historicCoverageExecutionTimes = [];
 
 var riskHotspotMetrics = [
-      { "name": "Crap Score", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" },
-      { "name": "Cyclomatic complexity", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" },
 ];
 
 var riskHotspots = [
-  {
-    "assembly": "Entra.EventHandlers.Hosting", "class": "Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator", "reportPath": "Entra.EventHandlers.Hosting_EntraEventOrchestrator.html", "methodName": "DispatchAsync(Entra.EventHandlers.Abstractions.Events.EntraEvent,System.Threading.CancellationToken)", "methodShortName": "DispatchAsync(...)", "fileIndex": 0, "line": 37,
-    "metrics": [
-      { "value": 110, "exceeded": true },
-      { "value": 10, "exceeded": false },
-    ]},
 ];
 
 var branchCoverageAvailable = true;
