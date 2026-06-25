@@ -3,30 +3,30 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/25/2026 - 17:30:03 |
-| Coverage date: | 06/25/2026 - 17:29:26 - 06/25/2026 - 17:30:00 |
+| Generated on: | 06/25/2026 - 18:40:35 |
+| Coverage date: | 06/25/2026 - 18:39:49 - 06/25/2026 - 18:40:32 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 93 |
 | Files: | 87 |
-| **Line coverage:** | 86.5% (708 of 818) |
-| Covered lines: | 708 |
-| Uncovered lines: | 110 |
-| Coverable lines: | 818 |
-| Total lines: | 3823 |
-| **Branch coverage:** | 70.1% (80 of 114) |
-| Covered branches: | 80 |
-| Total branches: | 114 |
+| **Line coverage:** | 86.4% (710 of 821) |
+| Covered lines: | 710 |
+| Uncovered lines: | 111 |
+| Coverable lines: | 821 |
+| Total lines: | 3827 |
+| **Branch coverage:** | 79% (87 of 110) |
+| Covered branches: | 87 |
+| Total branches: | 110 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
 
 ## Coverage
-<details><summary>Entra.EventHandlers - 100%</summary>
+<details><summary>Entra.EventHandlers - 99.6%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers**|**100%**|**46.4%**|
+|**Entra.EventHandlers**|**99.6%**|**63.4%**|
 |Entra.EventHandlers.Builders.ActionBuilders.PrefillValuesBuilder|100%||
 |Entra.EventHandlers.Builders.EntraEventResponses|100%||
 |Entra.EventHandlers.Builders.ResponseBuilders.AttributeCollectionStartRespo<br/>nseBuilder|100%|100%|
@@ -34,11 +34,11 @@
 |Entra.EventHandlers.Builders.ResponseBuilders.EmailOtpSendResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.PasswordSubmitResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.TokenIssuanceStartResponseBui<br/>lder|100%|100%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|100%|25%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|100%|25%|
-|Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|100%|25%|
-|Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|100%|50%|
-|Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|25%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|97.1%|25%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|100%|50%|
+|Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|100%|50%|
+|Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|100%|66.6%|
+|Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|50%|
 |Entra.EventHandlers.Protocol.PasswordSubmit.DecryptedPasswordContext|100%||
 
 </details>
