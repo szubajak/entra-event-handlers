@@ -46,17 +46,9 @@ public abstract class AttributeCollectionStartHandlerBase(ILogger logger) : IAtt
 
             sw.Stop();
 
-            var actions = response.Data.Actions;
-            string actionTypes;
-            if (actions.Any())
-            {
-                var joined = string.Join(",", actions.Select(a => a.OdataType ?? "null"));
-                actionTypes = joined;
-            }
-            else
-            {
-                actionTypes = "None";
-            }
+            var actionTypes = response.Data.Actions.Any()
+                ? string.Join(",", response.Data.Actions.Select(a => a.OdataType))
+                : "None";
 
             Logger.LogInformation(
                 "Successfully handled event. DurationMs={Duration}, Actions={ActionTypes}",
