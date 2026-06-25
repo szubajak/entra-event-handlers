@@ -3,20 +3,20 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/25/2026 - 19:36:26 |
-| Coverage date: | 06/25/2026 - 19:35:48 - 06/25/2026 - 19:36:24 |
+| Generated on: | 06/25/2026 - 20:14:04 |
+| Coverage date: | 06/25/2026 - 20:13:39 - 06/25/2026 - 20:14:02 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 93 |
 | Files: | 87 |
-| **Line coverage:** | 86.6% (717 of 827) |
-| Covered lines: | 717 |
+| **Line coverage:** | 86.6% (711 of 821) |
+| Covered lines: | 711 |
 | Uncovered lines: | 110 |
-| Coverable lines: | 827 |
-| Total lines: | 3835 |
-| **Branch coverage:** | 80.9% (89 of 110) |
-| Covered branches: | 89 |
-| Total branches: | 110 |
+| Coverable lines: | 821 |
+| Total lines: | 3827 |
+| **Branch coverage:** | 81.4% (88 of 108) |
+| Covered branches: | 88 |
+| Total branches: | 108 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -26,7 +26,7 @@
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers**|**100%**|**67.3%**|
+|**Entra.EventHandlers**|**100%**|**68%**|
 |Entra.EventHandlers.Builders.ActionBuilders.PrefillValuesBuilder|100%||
 |Entra.EventHandlers.Builders.EntraEventResponses|100%||
 |Entra.EventHandlers.Builders.ResponseBuilders.AttributeCollectionStartRespo<br/>nseBuilder|100%|100%|
@@ -34,7 +34,7 @@
 |Entra.EventHandlers.Builders.ResponseBuilders.EmailOtpSendResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.PasswordSubmitResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.TokenIssuanceStartResponseBui<br/>lder|100%|100%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|100%|75%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|100%|100%|
 |Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|100%|50%|
 |Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|100%|50%|
 |Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|100%|66.6%|
