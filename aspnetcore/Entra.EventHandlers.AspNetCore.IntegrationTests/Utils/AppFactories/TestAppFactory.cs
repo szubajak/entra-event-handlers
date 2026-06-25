@@ -3,6 +3,7 @@ using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.AspNetCore.Endpoints;
 using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.Resolvers;
 using Entra.EventHandlers.AspNetCore.TestHost;
+using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Microsoft.AspNetCore.Mvc.Testing;
 
@@ -36,6 +37,7 @@ public class TestAppFactory : WebApplicationFactory<Program>
 
             services.AddSingleton<EntraEventRouterEndpoint>();
 
+            services.AddSingleton<IEntraEventOrchestrator, EntraEventOrchestrator>();
             services.AddSingleton<IEntraEventHandlerResolver, TestResolver>();
 
             services.AddSingleton<IRequestAdapter, RequestAdapter>();

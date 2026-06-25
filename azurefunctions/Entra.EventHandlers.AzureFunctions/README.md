@@ -14,10 +14,11 @@ This package provides the **Azure Functions hosting adapter** for the Entra Even
 The recommended hosting model is the **router function**, powered by `EntraEventRouterFunctionBase`. It provides:
 
 - Automatic request deserialization  
-- Automatic handler resolution  
-- Automatic handler invocation  
-- Automatic response serialization  
-- Structured error mapping  
+- Centralized event orchestration  
+- Handler resolution (via the orchestrator)  
+- Handler invocation  
+- Response serialization  
+- Structured error mappi
 - Logging for expected and unexpected exceptions  
 
 This allows a **single Azure Function** to host **multiple Entra event types** cleanly.
@@ -29,10 +30,10 @@ This allows a **single Azure Function** to host **multiple Entra event types** c
 ```csharp
 public sealed class EntraEventRouterFunction(
     ILogger<EntraEventRouterFunction> logger,
-    IEntraEventHandlerResolver resolver,
+    IEntraEventOrchestrator orchestrator,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter)
-    : EntraEventRouterFunctionBase(logger, resolver, requestAdapter, responseAdapter)
+    : EntraEventRouterFunctionBase(logger, orchestrator, requestAdapter, responseAdapter)
 {
     [Function("Router")]
     public Task<HttpResponseData> RunAsync(
@@ -54,6 +55,7 @@ services.AddEntraEventHandlers();
 
 This automatically registers:
 - Request/response adapters
+- Event orchestrator
 - Handler resolver
 - All handlers implementing `IEntraEventHandler<,>`
 
@@ -61,16 +63,18 @@ This automatically registers:
 
 ## 🧠 Handler Resolution
 
-Handlers are resolved dynamically based on the event type:
+Handlers are resolved dynamically by the event orchestrator, which uses the typed resolver:
 
 ```csharp
 public interface IEntraEventHandlerResolver
 {
-    IEntraEventHandler Resolve(Type eventType);
+    IEntraEventHandler<TEvent, TResponse> Resolve<TEvent, TResponse>()
+        where TEvent : EntraEvent
+        where TResponse : EntraEventResponse;
 }
 ```
 
-This enables multi‑event hosting behind a single Azure Function.
+The orchestrator selects the correct handler based on the incoming event type and response contract, enabling multi‑event hosting behind a single Azure Function.
 
 ---
 

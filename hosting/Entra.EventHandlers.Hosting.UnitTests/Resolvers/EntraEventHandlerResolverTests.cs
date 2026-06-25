@@ -17,7 +17,7 @@ public class EntraEventHandlerResolverTests
         var resolver = new EntraEventHandlerResolver([handler]);
 
         // Act
-        var result = resolver.Resolve(typeof(TestEvent));
+        var result = resolver.Resolve<TestEvent, TestResponse>();
 
         // Assert
         result.Should().Be(handler);
@@ -30,7 +30,7 @@ public class EntraEventHandlerResolverTests
         var resolver = new EntraEventHandlerResolver([]);
 
         // Act
-        Action act = () => resolver.Resolve(typeof(TestEvent));
+        Action act = () => resolver.Resolve<TestEvent, TestResponse>();
 
         // Assert
         act.Should().Throw<EntraHandlerNotFoundException>()
@@ -49,7 +49,7 @@ public class EntraEventHandlerResolverTests
         var resolver = provider.GetRequiredService<IEntraEventHandlerResolver>();
 
         // Act
-        var handler = resolver.Resolve(typeof(TestEvent));
+        var handler = resolver.Resolve<TestEvent, TestResponse>();
 
         // Assert
         handler.Should().BeOfType<TestHandler>();

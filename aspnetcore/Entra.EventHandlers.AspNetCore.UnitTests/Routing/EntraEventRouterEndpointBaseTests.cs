@@ -1,8 +1,7 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AspNetCore.Adapters;
-using Entra.EventHandlers.Hosting.Resolvers;
+using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -17,18 +16,18 @@ public class EntraEventRouterEndpointBaseTests
     private readonly TestEntraEventRouterEndpointBase _sut;
 
     private readonly TestLogger _logger;
-    private readonly IEntraEventHandlerResolver _resolver;
+    private readonly IEntraEventOrchestrator _orchestrator;
     private readonly IRequestAdapter _requestAdapter;
     private readonly IResponseAdapter _responseAdapter;
 
     public EntraEventRouterEndpointBaseTests()
     {
         _logger = new TestLogger();
-        _resolver = Substitute.For<IEntraEventHandlerResolver>();
+        _orchestrator = Substitute.For<IEntraEventOrchestrator>();
         _requestAdapter = Substitute.For<IRequestAdapter>();
         _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEntraEventRouterEndpointBase(_logger, _resolver, _requestAdapter, _responseAdapter);
+        _sut = new TestEntraEventRouterEndpointBase(_logger, _orchestrator, _requestAdapter, _responseAdapter);
     }
 
     [Fact]
@@ -42,7 +41,9 @@ public class EntraEventRouterEndpointBaseTests
 
         var ctx = new DefaultHttpContext();
 
-        _requestAdapter.ReadEventAsync(ctx).Throws(exception);
+        _requestAdapter
+            .ReadEventAsync(ctx)
+            .Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -70,10 +71,14 @@ public class EntraEventRouterEndpointBaseTests
         var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(ctx).Returns(entraEvent);
+        _requestAdapter
+            .ReadEventAsync(ctx)
+            .Returns(entraEvent);
 
         var exception = new EntraHandlerNotFoundException(entraEvent.GetType());
-        _resolver.Resolve(entraEvent.GetType()).Throws(exception);
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.RequestAborted)
+            .Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -103,14 +108,15 @@ public class EntraEventRouterEndpointBaseTests
         var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(ctx).Returns(entraEvent);
-
-        var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
-        _resolver.Resolve(entraEvent.GetType()).Returns(handler);
+        _requestAdapter
+            .ReadEventAsync(ctx)
+            .Returns(entraEvent);
 
         var errorMessage = fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
-        handler.HandleAsync(entraEvent, ctx.RequestAborted).Throws(exception);
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.RequestAborted)
+            .Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -138,13 +144,14 @@ public class EntraEventRouterEndpointBaseTests
         var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(ctx).Returns(entraEvent);
-
-        var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
-        _resolver.Resolve(entraEvent.GetType()).Returns(handler);
+        _requestAdapter
+            .ReadEventAsync(ctx)
+            .Returns(entraEvent);
 
         var exception = new InvalidOperationException();
-        handler.HandleAsync(entraEvent, ctx.RequestAborted).Throws(exception);
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.RequestAborted)
+            .Throws(exception);
 
         // Act
         await _sut.Invoke(ctx);
@@ -172,21 +179,29 @@ public class EntraEventRouterEndpointBaseTests
         var ctx = new DefaultHttpContext();
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(ctx).Returns(entraEvent);
-
-        var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
-        _resolver.Resolve(entraEvent.GetType()).Returns(handler);
+        _requestAdapter
+            .ReadEventAsync(ctx)
+            .Returns(entraEvent);
 
         var entraResponse = new TestResponse();
-        handler.HandleAsync(entraEvent, ctx.RequestAborted).Returns(entraResponse);
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.RequestAborted)
+            .Returns(entraResponse);
 
-        _responseAdapter.WriteOkAsync(ctx, entraResponse).Returns(Task.CompletedTask);
+        _responseAdapter
+            .WriteOkAsync(ctx, entraResponse)
+            .Returns(Task.CompletedTask);
 
         // Act
         await _sut.Invoke(ctx);
 
         // Assert
-        _ = handler.Received(1).HandleAsync(entraEvent, ctx.RequestAborted);
-        _ = _responseAdapter.Received(1).WriteOkAsync(ctx, entraResponse);
+        _ = _orchestrator
+            .Received(1)
+            .DispatchAsync(entraEvent, ctx.RequestAborted);
+
+        _ = _responseAdapter
+            .Received(1)
+            .WriteOkAsync(ctx, entraResponse);
     }
 }

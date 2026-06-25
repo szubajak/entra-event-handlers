@@ -1,46 +1,60 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.AspNetCore.Abstractions;
 using Entra.EventHandlers.AspNetCore.Adapters;
-using Entra.EventHandlers.Hosting.Resolvers;
+using Entra.EventHandlers.Hosting.Orchestrators;
 
 namespace Entra.EventHandlers.AspNetCore.Routing;
 
 /// <summary>
-/// Base class for a generic ASP.NET Core endpoint that routes Microsoft Entra
-/// custom extension events to the appropriate strongly‑typed handler.
+/// Base class for an ASP.NET Core endpoint that processes Microsoft Entra External ID
+/// custom extension events by delegating execution to the shared
+/// <see cref="IEntraEventOrchestrator"/>.
 /// </summary>
 /// <remarks>
-/// This router performs polymorphic deserialization of <see cref="EntraEvent"/>,
-/// resolves the matching <see cref="IEntraEventHandler"/> implementation based
-/// on the runtime event type, and converts known exceptions into standardized
-/// <see cref="EntraErrorResponse"/> results. Consumers should inherit from this
-/// class and map an HTTP endpoint that delegates to <see cref="ExecuteAsync"/>.
+/// This endpoint base class is responsible for:
+/// <list type="bullet">
+///   <item>
+///     <description>Reading and deserializing the incoming HTTP request into an <see cref="EntraEvent"/>.</description>
+///   </item>
+///   <item>
+///     <description>Invoking the hosting‑agnostic orchestrator, which routes the event to the correct strongly typed handler.</description>
+///   </item>
+///   <item>
+///     <description>Writing the resulting <see cref="EntraEventResponse"/> to the HTTP response.</description>
+///   </item>
+/// </list>
+/// Known exceptions such as deserialization, validation, or handler‑resolution failures
+/// are converted into standardized <see cref="EntraErrorResponse"/> results by the
+/// surrounding <see cref="EntraEndpointBase"/> pipeline.
+/// Consumers should inherit from this class and map an ASP.NET Core endpoint
+/// that delegates to <see cref="ExecuteAsync"/>.
 /// </remarks>
 public abstract class EntraEventRouterEndpointBase(
     ILogger logger,
-    IEntraEventHandlerResolver resolver,
+    IEntraEventOrchestrator orchestrator,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter) : EntraEndpointBase(logger, requestAdapter, responseAdapter)
 {
-    private readonly ILogger _logger = logger;
-    private readonly IEntraEventHandlerResolver _resolver = resolver;
+    private readonly IEntraEventOrchestrator _orchestrator = orchestrator;
 
     /// <summary>
-    /// Executes the routing pipeline: deserializes the incoming event,
-    /// resolves the correct handler, invokes it, and writes a structured
-    /// HTTP response. Known exceptions such as deserialization, validation,
-    /// or handler‑resolution failures are converted into standardized
-    /// <see cref="EntraErrorResponse"/> results.
+    /// Executes the event processing pipeline for ASP.NET Core:
+    /// deserializes the incoming request, dispatches the event to the
+    /// orchestrator, and writes the resulting response to the HTTP output.
     /// </summary>
+    /// <param name="httpContext">The current ASP.NET Core HTTP context.</param>
     protected sealed override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEventAsync(httpContext);
-        var handler = _resolver.Resolve(evt.GetType());
-
-        var response = await ((dynamic)handler).HandleAsync((dynamic)evt, httpContext.RequestAborted);
+        var response = await _orchestrator.DispatchAsync(evt, httpContext.RequestAborted);
         await ResponseAdapter.WriteOkAsync(httpContext, response);
     }
 
+    /// <summary>
+    /// Logs expected and unexpected exceptions encountered during event processing.
+    /// </summary>
     protected override Task OnExceptionAsync(Exception ex, HttpContext context, bool isEntraException)
     {
         if (isEntraException)
