@@ -50,7 +50,8 @@ public abstract class AttributeCollectionStartHandlerBase(ILogger logger) : IAtt
             string actionTypes;
             if (actions.Any())
             {
-                actionTypes = string.Join(",", actions.Select(a => a.OdataType ?? "null"));
+                var joined = string.Join(",", actions.Select(a => a.OdataType ?? "null"));
+                actionTypes = joined;
             }
             else
             {
