@@ -1,8 +1,7 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AzureFunctions.Adapters;
-using Entra.EventHandlers.Hosting.Resolvers;
+using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.Azure.Functions.Worker;
@@ -18,18 +17,18 @@ public class EntraEventRouterFunctionBaseTests
     private readonly TestEntraEventRouterFunctionBase _sut;
 
     private readonly TestLogger _logger;
-    private readonly IEntraEventHandlerResolver _resolver;
+    private readonly IEntraEventOrchestrator _orchestrator;
     private readonly IRequestAdapter _requestAdapter;
     private readonly IResponseAdapter _responseAdapter;
 
     public EntraEventRouterFunctionBaseTests()
     {
         _logger = new TestLogger();
-        _resolver = Substitute.For<IEntraEventHandlerResolver>();
+        _orchestrator = Substitute.For<IEntraEventOrchestrator>();
         _requestAdapter = Substitute.For<IRequestAdapter>();
         _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEntraEventRouterFunctionBase(_logger, _resolver, _requestAdapter, _responseAdapter);
+        _sut = new TestEntraEventRouterFunctionBase(_logger, _orchestrator, _requestAdapter, _responseAdapter);
     }
 
     [Fact]
@@ -44,7 +43,9 @@ public class EntraEventRouterFunctionBaseTests
 
         var errorMessage = fixture.Create<string>();
         var exception = new EntraDeserializationException(errorMessage);
-        _requestAdapter.ReadEventAsync(request).Throws(exception);
+        _requestAdapter
+            .ReadEventAsync(request)
+            .Throws(exception);
 
         _responseAdapter
             .BadRequestAsync(request, Arg.Any<EntraErrorResponse>())
@@ -80,10 +81,15 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(request).Returns(entraEvent);
+        _requestAdapter
+            .ReadEventAsync(request)
+            .Returns(entraEvent);
 
         var exception = new EntraHandlerNotFoundException(entraEvent.GetType());
-        _resolver.Resolve(entraEvent.GetType()).Throws(exception);
+
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.CancellationToken)
+            .Throws(exception);
 
         _responseAdapter
             .BadRequestAsync(request, Arg.Any<EntraErrorResponse>())
@@ -122,14 +128,16 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(request).Returns(entraEvent);
-
-        var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
-        _resolver.Resolve(entraEvent.GetType()).Returns(handler);
+        _requestAdapter
+            .ReadEventAsync(request)
+            .Returns(entraEvent);
 
         var errorMessage = fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
-        handler.HandleAsync(entraEvent, ctx.CancellationToken).Throws(exception);
+
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.CancellationToken)
+            .Throws(exception);
 
         _responseAdapter
             .BadRequestAsync(request, Arg.Any<EntraErrorResponse>())
@@ -165,13 +173,15 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(request).Returns(entraEvent);
-
-        var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
-        _resolver.Resolve(entraEvent.GetType()).Returns(handler);
+        _requestAdapter
+            .ReadEventAsync(request)
+            .Returns(entraEvent);
 
         var exception = new InvalidOperationException();
-        handler.HandleAsync(entraEvent, ctx.CancellationToken).Throws(exception);
+
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.CancellationToken)
+            .Throws(exception);
 
         _responseAdapter
             .ServerErrorAsync(request, Arg.Any<EntraErrorResponse>())
@@ -207,21 +217,28 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(request).Returns(entraEvent);
-
-        var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
-        _resolver.Resolve(entraEvent.GetType()).Returns(handler);
+        _requestAdapter
+            .ReadEventAsync(request)
+            .Returns(entraEvent);
 
         var entraResponse = new TestResponse();
-        handler.HandleAsync(entraEvent, ctx.CancellationToken).Returns(entraResponse);
 
-        _responseAdapter.FromAsync(request, entraResponse).Returns(response);
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.CancellationToken)
+            .Returns(entraResponse);
+
+        _responseAdapter
+            .FromAsync(request, entraResponse)
+            .Returns(response);
 
         // Act
         var result = await _sut.RunAsync(request);
 
         // Assert
         result.Should().Be(response);
-        _ = handler.Received(1).HandleAsync(entraEvent, ctx.CancellationToken);
+
+        _ = _orchestrator
+            .Received(1)
+            .DispatchAsync(entraEvent, ctx.CancellationToken);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +10,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddEntraEventHandlersHosting(this IServiceCollection services)
     {
         services.AddSingleton<IEntraEventHandlerResolver, EntraEventHandlerResolver>();
+
+        services.AddSingleton<IEntraEventOrchestrator, EntraEventOrchestrator>();
 
         services.Scan(scan => scan
             .FromApplicationDependencies()

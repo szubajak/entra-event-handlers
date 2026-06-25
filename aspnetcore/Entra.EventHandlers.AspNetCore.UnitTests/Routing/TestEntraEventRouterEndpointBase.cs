@@ -1,6 +1,6 @@
 ﻿using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.AspNetCore.Routing;
-using Entra.EventHandlers.Hosting.Resolvers;
+using Entra.EventHandlers.Hosting.Orchestrators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
@@ -9,10 +9,10 @@ namespace Entra.EventHandlers.AspNetCore.UnitTests.Routing;
 
 public sealed class TestEntraEventRouterEndpointBase(
     ILogger logger,
-    IEntraEventHandlerResolver resolver,
+    IEntraEventOrchestrator orchestrator,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter)
-    : EntraEventRouterEndpointBase(logger, resolver, requestAdapter, responseAdapter)
+    : EntraEventRouterEndpointBase(logger, orchestrator, requestAdapter, responseAdapter)
 {
     public Task Invoke(HttpContext ctx) => InvokeAsync(ctx);
 
