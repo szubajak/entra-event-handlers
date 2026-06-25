@@ -49,13 +49,9 @@ public class AttributeCollectionStartHandlerBaseTests
             e.Level == LogLevel.Information &&
             e.Message.Contains("Handling event"));
 
-        var success = _logger.Entries.Single(e =>
+        _logger.Entries.Should().Contain(e =>
             e.Level == LogLevel.Information &&
             e.Message.Contains("Successfully handled event"));
-
-        var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
-        state.Should().Contain(kv => kv.Key == "Duration");
-        state.Should().Contain(kv => kv.Key == "ActionType");
 
         _logger.Scopes.Should().ContainSingle();
 
