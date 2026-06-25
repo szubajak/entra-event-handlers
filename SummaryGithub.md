@@ -3,17 +3,17 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/25/2026 - 18:54:28 |
-| Coverage date: | 06/25/2026 - 18:53:52 - 06/25/2026 - 18:54:26 |
+| Generated on: | 06/25/2026 - 19:00:12 |
+| Coverage date: | 06/25/2026 - 18:59:37 - 06/25/2026 - 19:00:10 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 93 |
 | Files: | 87 |
-| **Line coverage:** | 86.6% (711 of 821) |
-| Covered lines: | 711 |
+| **Line coverage:** | 86.6% (712 of 822) |
+| Covered lines: | 712 |
 | Uncovered lines: | 110 |
-| Coverable lines: | 821 |
-| Total lines: | 3827 |
+| Coverable lines: | 822 |
+| Total lines: | 3828 |
 | **Branch coverage:** | 80.9% (89 of 110) |
 | Covered branches: | 89 |
 | Total branches: | 110 |
