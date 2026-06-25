@@ -46,8 +46,9 @@ public abstract class AttributeCollectionStartHandlerBase(ILogger logger) : IAtt
 
             sw.Stop();
 
-            var actionTypes = response.Data.Actions.Any()
-                ? string.Join(",", response.Data.Actions.Select(a => a.OdataType ?? "null"))
+            var actions = response.Data.Actions;
+            var actionTypes = actions.Any()
+                ? string.Join(",", actions.Select(a => a.OdataType ?? "null"))
                 : "None";
 
             Logger.LogInformation(
