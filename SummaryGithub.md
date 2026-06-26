@@ -3,15 +3,15 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/26/2026 - 06:52:19 |
-| Coverage date: | 06/26/2026 - 06:51:45 - 06/26/2026 - 06:52:17 |
+| Generated on: | 06/26/2026 - 07:31:32 |
+| Coverage date: | 06/26/2026 - 07:30:57 - 06/26/2026 - 07:31:29 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 93 |
 | Files: | 87 |
-| **Line coverage:** | 86.8% (716 of 824) |
-| Covered lines: | 716 |
-| Uncovered lines: | 108 |
+| **Line coverage:** | 87.6% (722 of 824) |
+| Covered lines: | 722 |
+| Uncovered lines: | 102 |
 | Coverable lines: | 824 |
 | Total lines: | 3832 |
 | **Branch coverage:** | 100% (76 of 76) |
@@ -42,11 +42,11 @@
 |Entra.EventHandlers.Protocol.PasswordSubmit.DecryptedPasswordContext|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.Abstractions - 95.5%</summary>
+<details><summary>Entra.EventHandlers.Abstractions - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Abstractions**|**95.5%**|**100%**|
+|**Entra.EventHandlers.Abstractions**|**100%**|**100%**|
 |Entra.EventHandlers.Abstractions.Actions.ContinueAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.ModifyAttributeValuesAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.PasswordSubmitAction|100%||
@@ -85,9 +85,9 @@
 |Entra.EventHandlers.Abstractions.Protocol.SignUp.DirectoryAttributeValue|100%||
 |Entra.EventHandlers.Abstractions.Protocol.SignUp.IdentityInfo|100%||
 |Entra.EventHandlers.Abstractions.Protocol.SignUp.UserSignUpInfo|100%||
-|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdAdditionalIn<br/>fo|0%||
-|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdClaims|0%||
-|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdClaimsContex<br/>t|0%||
+|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdAdditionalIn<br/>fo|100%||
+|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdClaims|100%||
+|Entra.EventHandlers.Abstractions.Protocol.VerifiedId.VerifiedIdClaimsContex<br/>t|100%||
 |Entra.EventHandlers.Abstractions.Responses.AttributeCollectionStartResponse<br/>Payload|100%||
 |Entra.EventHandlers.Abstractions.Responses.AttributeCollectionSubmitRespons<br/>ePayload|100%||
 |Entra.EventHandlers.Abstractions.Responses.EmailOtpSendResponsePayload|100%||
