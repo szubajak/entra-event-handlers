@@ -3,20 +3,20 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/26/2026 - 07:41:30 |
-| Coverage date: | 06/26/2026 - 07:40:57 - 06/26/2026 - 07:41:27 |
-| Parser: | MultiReport (5x Cobertura) |
-| Assemblies: | 5 |
-| Classes: | 93 |
-| Files: | 87 |
-| **Line coverage:** | 87.6% (722 of 824) |
-| Covered lines: | 722 |
+| Generated on: | 06/26/2026 - 15:18:14 |
+| Coverage date: | 06/26/2026 - 15:17:31 - 06/26/2026 - 15:18:11 |
+| Parser: | MultiReport (6x Cobertura) |
+| Assemblies: | 6 |
+| Classes: | 97 |
+| Files: | 91 |
+| **Line coverage:** | 88.4% (781 of 883) |
+| Covered lines: | 781 |
 | Uncovered lines: | 102 |
-| Coverable lines: | 824 |
-| Total lines: | 3832 |
-| **Branch coverage:** | 100% (76 of 76) |
-| Covered branches: | 76 |
-| Total branches: | 76 |
+| Coverable lines: | 883 |
+| Total lines: | 4013 |
+| **Branch coverage:** | 100% (92 of 92) |
+| Covered branches: | 92 |
+| Total branches: | 92 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -148,5 +148,16 @@
 |Entra.EventHandlers.Hosting.Extensions.ExceptionExtensions|100%|100%|
 |Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator|100%|100%|
 |Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver|100%|100%|
+
+</details>
+<details><summary>Entra.EventHandlers.Workforce - 100%</summary>
+
+|**Name**|**Line**|**Branch**|
+|:---|---:|---:|
+|**Entra.EventHandlers.Workforce**|**100%**|**100%**|
+|Entra.EventHandlers.Workforce.Builders.ActionBuilders.FailedClaimsBuilder|100%||
+|Entra.EventHandlers.Workforce.Builders.EntraWorkforceEventResponses|100%||
+|Entra.EventHandlers.Workforce.Builders.ResponseBuilders.VerifiedIdClaimVali<br/>dationResponseBuilder|100%|100%|
+|Entra.EventHandlers.Workforce.Handlers.Base.VerifiedIdClaimValidationHandle<br/>rBase|100%|100%|
 
 </details>
