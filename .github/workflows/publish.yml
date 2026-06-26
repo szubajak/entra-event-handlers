@@ -7,6 +7,7 @@ on:
       - 'Entra.EventHandlers.Abstractions-v*'
       - 'Entra.EventHandlers.AzureFunctions-v*'
       - 'Entra.EventHandlers.AspNetCore-v*'
+      - 'Entra.EventHandlers.Workforce-v*'
 
 permissions:
   id-token: write
@@ -60,6 +61,9 @@ jobs:
               ;;
             Entra.EventHandlers.AspNetCore)
               PROJECT_PATH="aspnetcore/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj"
+              ;;
+            Entra.EventHandlers.Workforce)
+              PROJECT_PATH="core/Entra.EventHandlers.Workforce/Entra.EventHandlers.Workforce.csproj"
               ;;
             *)
               echo "Unknown package: $PACKAGE"

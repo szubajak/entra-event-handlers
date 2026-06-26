@@ -1,6 +1,6 @@
 # Entra.EventHandlers.AspNetCore
 
-**ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers.**  
+**ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers.**  
 Provides minimal‑boilerplate hosting, full DI support, unified exception handling, structured logging, and complete testability.
 
 **License:** Business Source License (BSL)  
@@ -30,8 +30,7 @@ builder.Services.AddEntraEventHandlers();
 
 var app = builder.Build();
 
-// Multi‑event router (recommended)
-app.MapEntraRouter();
+app.MapEntraRouter(); // Multi‑event router (recommended)
 
 // Or map individual event endpoints
 // app.MapEntraAttributeCollectionStart();
@@ -74,7 +73,7 @@ services.AddEntraEventHandlers();
 Registers:
 
 - Request/response adapters  
-- Event orchestrator
+- Event orchestrator  
 - Handler resolver  
 - All `IEntraEventHandler<,>` implementations  
 - All ASP.NET Core endpoint classes (router + single‑event)
@@ -93,34 +92,48 @@ All endpoints inherit from a unified execution pipeline with:
 
 ## 📁 Samples
 
-A complete ASP.NET Core sample project is available in the repository:
-
 👉 **ApiSample**  
 https://github.com/szubajak/entra-event-handlers/tree/main/samples/ApiSample
 
 The sample demonstrates:
 
-- registering handlers with `AddEntraEventHandlers()`
-- mapping the router endpoint (`app.MapEntraRouter()`)
-- mapping individual single‑event endpoints
-- using the unified execution pipeline (deserialization → orchestration → resolution → invocation → response)
-- structuring a clean, minimal ASP.NET Core API for Entra event handling
+- registering handlers with `AddEntraEventHandlers()`  
+- mapping the router endpoint  
+- mapping individual single‑event endpoints  
+- using the unified execution pipeline  
+- structuring a clean, minimal ASP.NET Core API for Entra event handling  
 
-This is the recommended starting point for building real Entra Event Handler extensions on ASP.NET Core.
+---
+
+## 📦 Related Packages
+
+- **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
+- **Entra.EventHandlers** — core implementation layer for External ID (BSL)  
+- **Entra.EventHandlers.Workforce** — Workforce‑specific event models and builders (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
 
 ---
 
 ## 🔒 License
 
-This package is licensed under the **Business Source License (BSL)**.  
+This package is licensed under the **Business Source License (BSL)**.
+
+See:
+
+- `LICENSE` — full BSL terms  
+- `LICENSE-COMMERCIAL.md` — commercial licensing terms  
+
 A commercial license is required for production use by organizations with more than 5 employees.
 
-### Pricing
+A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current and future BSL‑licensed packages.
+
+### Commercial License Pricing
 
 - **Developer License** — €99 / developer / year  
 - **Team License** — €399 / year  
 - **Enterprise License** — €1499 / year  
 
+For commercial licensing or support:  
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
@@ -129,8 +142,8 @@ The abstractions package is MIT‑licensed and can be used freely.
 
 ## 📘 Further Reading
 
-For a deeper look into Microsoft Entra External ID Authentication Event Handlers
-and the design of this ecosystem, see the full article:
+For a deeper look into Microsoft Entra External ID Authentication Event Handlers,
+Workforce scenarios, and the design of this ecosystem, see:
 
 ➡️ **Entra External ID — .NET Handlers Deep Dive**  
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

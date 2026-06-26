@@ -8,11 +8,22 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AzureFunctions</PackageId>
-	<Version>1.3.4</Version>
+	<Version>1.3.5</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
-	<Description>Azure Functions hosting adapter for Microsoft Entra External ID Authentication Event Handlers. Provides request/response adapters, function base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
-	<PackageTags>entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;authentication-events;event-handlers;identity;authentication;dotnet;azure-functions;serverless;csharp</PackageTags>
+
+	<Description>
+	Azure Functions hosting adapter for Microsoft Entra External ID and Workforce Authentication Event
+	Handlers. Provides minimal-boilerplate function routing, request/response adapters, unified execution
+	pipeline, DI integration, structured logging, and production-ready hosting for custom authentication
+	extensions.
+	</Description>
+
+	<PackageTags>
+	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;workforce;verified-id;ciam;
+	authentication-events;event-handlers;identity;authentication;dotnet;azure-functions;serverless;
+	minimal-apis;csharp
+	</PackageTags>
 
 	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
@@ -27,8 +38,9 @@
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
 	<PackageReleaseNotes>
-	Initial public release of the Azure Functions hosting adapter for Microsoft Entra External ID Authentication Event Handlers.
-	Includes request/response adapters, DI integration, router function, and function base classes.
+	Includes Azure Functions hosting adapter for Microsoft Entra External ID and Workforce Authentication
+	Event Handlers. Provides request/response adapters, DI integration, router function, single-event
+	function base classes, unified execution pipeline, and structured error handling.
 	</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -54,7 +66,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers" Version="1.3.3" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers" Version="1.3.4" PrivateAssets="all" />
   </ItemGroup>
 	
 </Project>

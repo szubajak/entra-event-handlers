@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<IsPackable>true</IsPackable>
+
+	<!-- NuGet metadata -->
+	<PackageId>Entra.EventHandlers.Workforce</PackageId>
+	<Version>1.0.0</Version>
+	<Authors>Jakub Szubarga</Authors>
+	<Company>Szubarga.NET Jakub Szubarga</Company>
+	  
+	<Description>
+	Workforce-specific event models for Microsoft Entra External ID Authentication Event Handlers.
+	Includes strongly-typed request/response contracts for the VerifiedIdClaimValidation event used
+	in Workforce account recovery flows. This package builds on the MIT abstractions package and is
+	consumed by the ASP.NET Core and Azure Functions hosting adapters. It is a parallel extension to
+	the core Entra.EventHandlers package.
+	</Description>
+	  
+	<PackageTags>
+	entra;entra-id;microsoft-entra;microsoft-entra-id;workforce;verified-id;verifiable-credentials;
+	account-recovery;authentication-events;event-handlers;identity;authentication;dotnet;dotnet-library;csharp
+	</PackageTags>
+
+	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
+
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<PackageReadmeFile>README.NuGet.md</PackageReadmeFile>
+	<PackageIcon>icon.png</PackageIcon>
+
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+	<PackageReleaseNotes>
+	Initial release of Workforce-specific event types for Microsoft Entra External ID Authentication Event Handlers.
+	Includes the VerifiedIdClaimValidation event model used during Workforce account recovery flows.
+	</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+	<IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<None Include="LICENSE" Pack="true" PackagePath="" />
+	<None Include="LICENSE-COMMERCIAL.md" Pack="true" PackagePath="" />
+	<None Include="README.NuGet.md" Pack="true" PackagePath="" />
+	<None Include="icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Pack'">
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" PrivateAssets="all" />
+  </ItemGroup>
+	
+</Project>

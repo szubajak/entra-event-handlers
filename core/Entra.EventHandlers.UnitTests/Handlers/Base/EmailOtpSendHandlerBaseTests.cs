@@ -41,11 +41,11 @@ public class EmailOtpSendHandlerBaseTests
             Data = new EmailOtpSendResponsePayload
             {
                 Actions = withAction
-                ? new List<EntraAction>
-                {
-                    new ContinueAction(ContinueActionType.EmailOtpSendContinueWithDefaultBehavior)
-                }
-                : Array.Empty<EntraAction>()
+                    ? new List<EntraAction>
+                    {
+                        new ContinueAction(ContinueActionType.EmailOtpSendContinueWithDefaultBehavior)
+                    }
+                    : Array.Empty<EntraAction>()
             }
         };
 
@@ -61,16 +61,15 @@ public class EmailOtpSendHandlerBaseTests
         _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
         _logger.Entries.Should().Contain(e =>
-                    e.Level == LogLevel.Information &&
-                    e.Message.Contains("Handling event"));
+            e.Level == LogLevel.Information &&
+            e.Message.Contains("Handling event"));
 
         var success = _logger.Entries.Single(e =>
             e.Level == LogLevel.Information &&
             e.Message.Contains("Successfully handled event"));
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
-
-        var logged = state.Single(kv => kv.Key == "ActionTypes").Value?.ToString();
+        var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
         var expected = withAction
             ? EntraOdataTypes.EmailOtpSend.ContinueWithDefaultBehavior
