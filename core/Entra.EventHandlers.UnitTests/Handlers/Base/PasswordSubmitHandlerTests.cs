@@ -41,7 +41,7 @@ public class PasswordSubmitHandlerTests
 
         var decrypted = fixture.Create<DecryptedPasswordContext>();
         _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
-               .Returns(decrypted);
+            .Returns(decrypted);
 
         using var cts = new CancellationTokenSource();
 
@@ -50,11 +50,11 @@ public class PasswordSubmitHandlerTests
             Data = new PasswordSubmitResponsePayload
             {
                 Actions = withAction
-                ? new List<EntraAction>
-                {
-                    new PasswordSubmitAction(PasswordSubmitActionType.MigratePassword)
-                }
-                : Array.Empty<EntraAction>(),
+                    ? new List<EntraAction>
+                    {
+                        new PasswordSubmitAction(PasswordSubmitActionType.MigratePassword)
+                    }
+                    : Array.Empty<EntraAction>(),
                 Nonce = "some-nonce"
             }
         };
@@ -72,16 +72,15 @@ public class PasswordSubmitHandlerTests
         _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
         _logger.Entries.Should().Contain(e =>
-                   e.Level == LogLevel.Information &&
-                   e.Message.Contains("Handling event"));
+            e.Level == LogLevel.Information &&
+            e.Message.Contains("Handling event"));
 
         var success = _logger.Entries.Single(e =>
             e.Level == LogLevel.Information &&
             e.Message.Contains("Successfully handled event"));
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
-
-        var logged = state.Single(kv => kv.Key == "ActionTypes").Value?.ToString();
+        var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
         var expected = withAction
             ? EntraOdataTypes.PasswordSubmit.MigratePassword

@@ -3,22 +3,26 @@
 **License:** Business Source License (BSL)  
 **Author:** Jakub Szubarga (Szubarga.NET)
 
-This package provides the **Azure Functions hosting adapter** for the Entra Event Handlers ecosystem. It enables production‑ready **Microsoft Entra External ID Authentication Event Handler** extensions to run inside Azure Functions with minimal boilerplate, full DI support, structured error handling, and complete testability.
+This package provides the **Azure Functions hosting adapter** for the Entra Event Handlers ecosystem.  
+It enables production‑ready **Microsoft Entra External ID and Workforce Authentication Event Handler**  
+extensions to run inside Azure Functions with minimal boilerplate, full DI support, structured error  
+handling, and complete testability.
 
 ---
 
 ## ✨ What This Package Provides
 
-### ✔ Full routing pipeline
+### ✔ Full routing pipeline (recommended)
 
-The recommended hosting model is the **router function**, powered by `EntraEventRouterFunctionBase`. It provides:
+The primary hosting model is the **router function**, powered by `EntraEventRouterFunctionBase`.  
+It provides:
 
 - Automatic request deserialization  
 - Centralized event orchestration  
-- Handler resolution (via the orchestrator)  
+- Dynamic handler resolution  
 - Handler invocation  
 - Response serialization  
-- Structured error mappi
+- Structured error mapping (400/500)  
 - Logging for expected and unexpected exceptions  
 
 This allows a **single Azure Function** to host **multiple Entra event types** cleanly.
@@ -54,16 +58,17 @@ services.AddEntraEventHandlers();
 ```
 
 This automatically registers:
-- Request/response adapters
-- Event orchestrator
-- Handler resolver
+
+- Request/response adapters  
+- Event orchestrator  
+- Handler resolver  
 - All handlers implementing `IEntraEventHandler<,>`
 
 ---
 
 ## 🧠 Handler Resolution
 
-Handlers are resolved dynamically by the event orchestrator, which uses the typed resolver:
+Handlers are resolved dynamically by the orchestrator using the typed resolver:
 
 ```csharp
 public interface IEntraEventHandlerResolver
@@ -80,7 +85,7 @@ The orchestrator selects the correct handler based on the incoming event type an
 
 ## 📦 Optional: Single‑Event Base Classes
 
-You can use the simple single‑event hosting model:
+If you prefer one function per event type:
 
 ```csharp
 public sealed class TokenIssuanceStartFunction(
@@ -102,36 +107,37 @@ public sealed class TokenIssuanceStartFunction(
 
 ## 🧪 Testing
 
-The router and adapters are fully testable thanks to the abstractions.  
+The router, adapters, and orchestrator are fully testable thanks to the abstractions.  
+Unit tests are available in:
+
 Unit tests are available in the  
 [Entra.EventHandlers.AzureFunctions.UnitTests](../Entra.EventHandlers.AzureFunctions.UnitTests) project.
+
+---
+
+## 📁 Samples
+
+A complete Azure Functionse sample project is available in the repository under:  
+[AzureFunctionsSample](../../samples/AzureFunctionsSample) project.
+
+The sample demonstrates:
+
+- Registering handlers with `AddEntraEventHandlers()`  
+- Using the router function (`EntraEventRouterFunctionBase`)  
+- Using single‑event function bases  
+- Exposing functions with `[Function]` and `[HttpTrigger]`  
+- Structuring a clean, production‑ready Function App  
+
+This is the recommended starting point for building real Entra Event Handler extensions on Azure Functions.
 
 ---
 
 ## 📦 Related Packages
 
 - **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
-- **Entra.EventHandlers** — core implementation layer (BSL)
-- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
-
----
-
-## 📁 Samples
-
-This package includes a full Azure Functions sample demonstrating how to host Entra Event Handlers in a real Function App:
-
-- **AzureFunctionsSample** — minimal HTTP‑trigger Function App using  
-  `EntraEventRouterFunctionBase` and single‑event function bases.
-
-The sample shows:
-
-- How to register handlers with `AddEntraEventHandlers()`
-- How to expose functions using `[Function]` and `[HttpTrigger]`
-- How to use the router function to handle multiple event types
-- How to structure a clean, production‑ready Function App
-
-You can find the sample in the repository under:
-[AzureFunctionsSample](../../samples/AzureFunctionsSample) project.
+- **Entra.EventHandlers** — core implementation layer for External ID (BSL)  
+- **Entra.EventHandlers.Workforce** — Workforce‑specific event models and builders (BSL)  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)
 
 ---
 
@@ -141,10 +147,12 @@ This package is licensed under the **Business Source License (BSL)**.
 
 See:
 
-- **LICENSE** — full BSL terms  
-- **LICENSE-COMMERCIAL.md** — commercial licensing terms  
+- [LICENSE](LICENSE) — full BSL terms  
+- [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) — commercial licensing terms  
 
 A commercial license is required for production use by organizations with more than 5 employees.
+
+A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current and future BSL‑licensed packages.
 
 ### Commercial License Pricing
 
@@ -157,3 +165,13 @@ To purchase a license or request an invoice:
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
+
+---
+
+## 📘 Further Reading
+
+For a deeper look into Microsoft Entra External ID and Workforce Authentication Event Handlers  
+and the design of this ecosystem, see:
+
+➡️ **Entra External ID — .NET Handlers Deep Dive**  
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

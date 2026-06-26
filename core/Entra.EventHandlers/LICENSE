@@ -43,6 +43,20 @@ USE OF THE LICENSED WORK.
 
 ---
 
-This package contains the full implementation, builders, and production-ready
-components for the Entra Event Handlers ecosystem. The public abstractions are
-available separately under the MIT License.
+This package contains the full implementation layer for **Microsoft Entra External ID**
+Authentication Event Handlers, including fluent response builders, validation,
+handler base classes, and the unified execution pipeline.
+
+The public protocol abstractions are available separately under the MIT License in:
+
+- **Entra.EventHandlers.Abstractions** (MIT)
+
+Additional BSL‑licensed packages extend this implementation with Workforce support
+and hosting adapters:
+
+- **Entra.EventHandlers.Workforce** — Workforce event models & builders (BSL)  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+
+These packages provide production‑ready hosting, routing, DI integration, and
+request/response adapters built on top of the abstractions.

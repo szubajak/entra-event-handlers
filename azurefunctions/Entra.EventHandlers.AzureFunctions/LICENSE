@@ -14,7 +14,7 @@ License.
 ---
 
 Licensed Work:
-Entra.EventHandlers.AzureFunctions (Azure Functions adapter for Microsoft Entra External ID Authentication Event Handlers)
+Entra.EventHandlers.AzureFunctions (Azure Functions hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers, including router and single‑event function base classes)
 
 Additional Use Grant:
 Production use is permitted for individuals and organizations with fewer than
@@ -43,7 +43,24 @@ USE OF THE LICENSED WORK.
 
 ---
 
-This package contains the full Azure Functions hosting adapter implementation,
-builders, and production-ready components for the Entra Event Handlers
-ecosystem. The public abstractions are available separately under the
-MIT License.
+This package contains the **Azure Functions hosting adapter** for the Entra Event Handlers ecosystem,
+including:
+
+- Multi‑event router function  
+- Single‑event function base classes  
+- Unified execution pipeline  
+- Request/response adapters  
+- DI integration and orchestration components  
+
+The public protocol abstractions are available separately under the MIT License in:
+
+- **Entra.EventHandlers.Abstractions** (MIT)
+
+Additional BSL‑licensed packages extend the ecosystem with implementation layers and other hosting models:
+
+- **Entra.EventHandlers** — External ID implementation layer (BSL)  
+- **Entra.EventHandlers.Workforce** — Workforce event models & builders (BSL)  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)
+
+These packages provide the full execution pipeline, fluent builders, validation, and hosting
+infrastructure built on top of the abstractions.

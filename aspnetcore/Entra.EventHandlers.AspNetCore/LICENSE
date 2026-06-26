@@ -14,7 +14,7 @@ License.
 ---
 
 Licensed Work:
-Entra.EventHandlers.AspNetCore (ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers)
+Entra.EventHandlers.AspNetCore (ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers, including router and single‑event endpoint implementations)
 
 Additional Use Grant:
 Production use is permitted for individuals and organizations with fewer than
@@ -43,7 +43,24 @@ USE OF THE LICENSED WORK.
 
 ---
 
-This package contains the full ASP.NET Core hosting adapter implementation,
-builders, and production-ready components for the Entra Event Handlers
-ecosystem. The public abstractions are available separately under the
-MIT License.
+This package contains the **ASP.NET Core hosting adapter** for the Entra Event Handlers ecosystem,
+including:
+
+- Multi‑event router endpoint  
+- Single‑event endpoint classes  
+- Unified execution pipeline  
+- Request/response adapters  
+- DI integration and endpoint mapping extensions  
+
+The public protocol abstractions are available separately under the MIT License in:
+
+- **Entra.EventHandlers.Abstractions** (MIT)
+
+Additional BSL‑licensed packages extend the ecosystem with implementation layers and other hosting models:
+
+- **Entra.EventHandlers** — External ID implementation layer (BSL)  
+- **Entra.EventHandlers.Workforce** — Workforce event models & builders (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+
+These packages provide the full execution pipeline, fluent builders, validation, and hosting
+infrastructure built on top of the abstractions.

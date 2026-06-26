@@ -1,0 +1,65 @@
+Business Source License 1.1
+
+Copyright (c) 2026 Jakub Szubarga Szubarga.NET
+
+Permission is hereby granted to use, copy, modify, and create derivative works
+of this software for non-production use, subject to the terms below.
+
+Production use of this software is not permitted, except as allowed by the
+"Additional Use Grant" section.
+
+After the Change Date, this software will be made available under the Change
+License.
+
+---
+
+Licensed Work:
+Entra.EventHandlers.Workforce (Workforce-specific implementation layer for Microsoft Entra Workforce Authentication Event Handlers, including VerifiedIdClaimValidation models, builders, and handler base classes)
+
+Additional Use Grant:
+Production use is permitted for individuals and organizations with fewer than
+5 employees.
+
+Change Date:
+2036-01-01
+
+Change License:
+MIT License
+
+---
+
+The Licensed Work may be used only in compliance with this License.
+You must retain the above notices in all copies of the Licensed Work.
+
+---
+
+THE LICENSED WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE,
+ARISING FROM, OUT OF, OR IN CONNECTION WITH THE LICENSED WORK OR THE
+USE OF THE LICENSED WORK.
+
+---
+
+This package contains the **Workforce-specific implementation layer** for the Entra Event
+Handlers ecosystem, including:
+
+- VerifiedIdClaimValidation event models  
+- Fluent Workforce response builders  
+- Workforce handler base classes  
+- Production-ready execution pipeline components  
+
+The public protocol abstractions are available separately under the MIT License in:
+
+- **Entra.EventHandlers.Abstractions** (MIT)
+
+Additional BSL-licensed packages extend the ecosystem with External ID support and hosting adapters:
+
+- **Entra.EventHandlers** — External ID implementation layer (BSL)  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+
+These packages provide routing, DI integration, request/response adapters, and unified hosting
+pipelines built on top of the abstractions.

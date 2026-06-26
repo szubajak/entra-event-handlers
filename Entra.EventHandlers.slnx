@@ -40,10 +40,12 @@
     <Project Path="common/Entra.EventHandlers.TestHelpers/Entra.EventHandlers.TestHelpers.csproj" />
   </Folder>
   <Folder Name="/core/">
+    <Project Path="core/Entra.EventHandlers.Workforce/Entra.EventHandlers.Workforce.csproj" />
     <Project Path="core/Entra.EventHandlers/Entra.EventHandlers.csproj" />
   </Folder>
   <Folder Name="/core/tests/">
     <Project Path="core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj" />
+    <Project Path="core/Entra.EventHandlers.Workforce.UnitTests/Entra.EventHandlers.Workforce.UnitTests.csproj" />
   </Folder>
   <Folder Name="/hosting/">
     <Project Path="hosting/Entra.EventHandlers.Hosting/Entra.EventHandlers.Hosting.csproj" />

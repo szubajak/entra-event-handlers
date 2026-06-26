@@ -9,13 +9,24 @@
 	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
 	<WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
 
-	  <!-- NuGet metadata -->
+	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.1.0</Version>
+	<Version>1.1.1</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
-	<Description>ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers. Provides request/response adapters, endpoint base classes, DI integration, and minimal boilerplate for building production-ready authentication extensions.</Description>
-	<PackageTags>entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;authentication-events;event-handlers;identity;authentication;dotnet;aspnetcore;middleware;csharp</PackageTags>
+
+	<Description>
+	ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event
+	Handlers. Provides minimal-boilerplate endpoint mapping, request/response adapters, unified
+	execution pipeline, DI integration, structured logging, and production-ready hosting for custom
+	authentication extensions.
+	</Description>
+
+	<PackageTags>
+	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;workforce;verified-id;ciam;
+	authentication-events;event-handlers;identity;authentication;dotnet;aspnetcore;minimal-apis;
+	middleware;csharp
+	</PackageTags>
 
 	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
@@ -30,8 +41,9 @@
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
 	<PackageReleaseNotes>
-	Initial public release of the ASP.NET Core hosting adapter for Microsoft Entra External ID Authentication Event Handlers.
-	Includes request/response adapters, endpoint base classes, DI integration, and router endpoint.
+	Includes ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication
+	Event Handlers. Provides request/response adapters, endpoint base classes, DI integration, unified
+	execution pipeline, router endpoint, and single-event endpoint mapping extensions.
 	</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -52,7 +64,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Pack'">
-	<PackageReference Include="Entra.EventHandlers" Version="1.3.3" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers" Version="1.3.4" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

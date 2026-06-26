@@ -1,4 +1,4 @@
-﻿namespace Entra.EventHandlers.UnitTests.Utils;
+﻿namespace Entra.EventHandlers.TestHelpers;
 
 public sealed class HandlerCoreTest
 {

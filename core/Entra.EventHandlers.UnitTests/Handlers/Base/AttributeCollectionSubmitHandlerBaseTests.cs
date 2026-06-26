@@ -41,11 +41,11 @@ public class AttributeCollectionSubmitHandlerBaseTests
             Data = new AttributeCollectionSubmitResponsePayload
             {
                 Actions = withAction
-                ? new List<EntraAction>
-                {
-                    new ContinueAction(ContinueActionType.AttributeCollectionSubmitContinueWithDefaultBehavior)
-                }
-                : Array.Empty<EntraAction>()
+                    ? new List<EntraAction>
+                    {
+                        new ContinueAction(ContinueActionType.AttributeCollectionSubmitContinueWithDefaultBehavior)
+                    }
+                    : Array.Empty<EntraAction>()
             }
         };
 
@@ -69,8 +69,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
             e.Message.Contains("Successfully handled event"));
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
-
-        var logged = state.Single(kv => kv.Key == "ActionTypes").Value?.ToString();
+        var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
         var expected = withAction
             ? EntraOdataTypes.AttributeCollectionSubmit.ContinueWithDefaultBehavior
