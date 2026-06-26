@@ -124,3 +124,13 @@ For commercial licensing or support:
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
+
+---
+
+## 📘 Further Reading
+
+For a deeper look into Microsoft Entra External ID Authentication Event Handlers,
+Workforce scenarios, and the design of this ecosystem, see:
+
+➡️ **Entra External ID — .NET Handlers Deep Dive**  
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

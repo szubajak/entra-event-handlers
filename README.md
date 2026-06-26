@@ -5,44 +5,59 @@
 [![Coverage](https://szubajak.github.io/entra-event-handlers/badge_shieldsio_branchcoverage_blue.svg)](https://szubajak.github.io/entra-event-handlers/)
 
 A modern, strongly‑typed, developer‑focused ecosystem for building  
-**Microsoft Entra External ID Authentication Event Handlers** in .NET.
+**Microsoft Entra External ID and Workforce Authentication Event Handlers** in .NET.
 
 This repository contains:
 
 - **MIT‑licensed abstractions** — public protocol types and contracts  
-- **BSL‑licensed implementation layer** — fluent response builders and handler base classes  
+- **BSL‑licensed implementation layers** — External ID + Workforce  
 - **BSL‑licensed hosting adapters** for Azure Functions and ASP.NET Core  
 - **Protocol‑accurate request/response models**  
 - **Production‑ready handler infrastructure** (logging, validation, timing, correlation)  
-- **Clean, extensible architecture** designed for real‑world workloads
+- **Clean, extensible architecture** designed for real‑world workloads  
 
 ---
 
-## Packages
+## 📦 Packages
 
-### **Abstractions**  
-Public protocol types and contracts (MIT).
+### **Abstractions (MIT)**  
+Public protocol types and contracts.
 
 [![NuGet Abstractions](https://img.shields.io/nuget/v/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.Abstractions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Abstractions)
 [![License: MIT (Abstractions)](https://img.shields.io/badge/License-MIT-blue.svg)](abstractions/Entra.EventHandlers.Abstractions/LICENSE)
 
-### **Core**  
-Implementation layer: builders, handler bases, validation (BSL).
+---
+
+### **Core (BSL)**  
+Implementation layer for **External ID**: builders, handler bases, validation.
 
 [![NuGet Core](https://img.shields.io/nuget/v/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.svg)](https://www.nuget.org/packages/Entra.EventHandlers)
 [![License: BSL (Core)](https://img.shields.io/badge/License-BSL-orange.svg)](core/Entra.EventHandlers/LICENSE)
 
-### **Azure Functions**  
-Azure Functions hosting adapter (BSL).
+---
+
+### **Workforce (BSL)**  
+Workforce‑specific event models, builders, and handler bases.
+
+[![NuGet Workforce](https://img.shields.io/nuget/v/Entra.EventHandlers.Workforce.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Workforce)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.Workforce.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Workforce)
+[![License: BSL (Workforce)](https://img.shields.io/badge/License-BSL-orange.svg)](workforce/Entra.EventHandlers.Workforce/LICENSE)
+
+---
+
+### **Azure Functions (BSL)**  
+Azure Functions hosting adapter.
 
 [![NuGet AzureFunctions](https://img.shields.io/nuget/v/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.AzureFunctions.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AzureFunctions)
 [![License: BSL (AzureFunctions)](https://img.shields.io/badge/License-BSL-orange.svg)](azurefunctions/Entra.EventHandlers.AzureFunctions/LICENSE)
 
-### **ASP.NET Core**  
-ASP.NET Core hosting adapter (BSL).
+---
+
+### **ASP.NET Core (BSL)**  
+ASP.NET Core hosting adapter.
 
 [![NuGet AspNetCore](https://img.shields.io/nuget/v/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.AspNetCore.svg)](https://www.nuget.org/packages/Entra.EventHandlers.AspNetCore)
@@ -60,8 +75,12 @@ ASP.NET Core hosting adapter (BSL).
                           ▲
                           │
 ┌──────────────────────────────────────────────────────────┐
-│ Entra.EventHandlers (BSL)                                │
-│ Implementation layer: builders, base handlers, validation│
+│ Implementation Layers (BSL)                              │
+│                                                          │
+│ • Entra.EventHandlers (External ID)                      │
+│ • Entra.EventHandlers.Workforce (Workforce)              │
+│                                                          │
+│ Builders, base handlers, validation, orchestration       │
 └──────────────────────────────────────────────────────────┘
                           ▲
                           │
@@ -69,10 +88,9 @@ ASP.NET Core hosting adapter (BSL).
 │ Hosting Adapters (BSL)                                   │
 │                                                          │
 │ • Entra.EventHandlers.AzureFunctions                     │
-│   Azure Functions hosting adapter                        │
-│                                                          │
 │ • Entra.EventHandlers.AspNetCore                         │
-│   ASP.NET Core hosting adapter                           │
+│                                                          │
+│ Routing, DI, request/response adapters                   │
 └──────────────────────────────────────────────────────────┘
 ```
 
@@ -80,8 +98,8 @@ This layered design provides:
 
 - **Maximum adoption** — MIT‑licensed public abstractions  
 - **Commercial protection** — BSL‑licensed implementation and hosting layers  
-- **Clean extensibility** — clear separation of concerns  
-- **Stable public API surface** — abstractions remain lightweight and dependency‑free  
+- **Clear separation of concerns**  
+- **Stable, dependency‑free public API surface**  
 
 ---
 
@@ -92,9 +110,9 @@ This layered design provides:
 Lightweight, dependency‑free abstractions defining the public contract:
 
 - Event request/response models  
-- Action types and protocol constants  
+- Action definitions and protocol constants  
 - Directory attribute primitives  
-- Interfaces for custom handlers  
+- Handler interfaces  
 
 ➡️ *See the package README for details.*
 
@@ -102,31 +120,43 @@ Lightweight, dependency‑free abstractions defining the public contract:
 
 ### **2. Entra.EventHandlers** (BSL)
 
-The implementation layer built on top of the abstractions:
+Implementation layer for **External ID**:
 
 - Fluent response builders  
-- Strongly‑typed construction of Entra responses  
-- Base handler classes with logging, validation, timing, and correlation  
+- Base handler classes  
+- Validation, logging, correlation  
 - Unified entry point (`EntraEventResponses.*`)  
 
 ➡️ *See the package README for details.*
 
 ---
 
-### **3. Entra.EventHandlers.AzureFunctions** (BSL)
+### **3. Entra.EventHandlers.Workforce** (BSL)
 
-Azure Functions hosting adapter:
+Workforce‑specific implementation layer:
 
-- Automatic request/response handling  
-- DI integration  
-- Router function (multi‑event)  
-- Single‑event function bases  
+- VerifiedIdClaimValidation models  
+- Fluent Workforce response builders  
+- Workforce handler base classes  
 
 ➡️ *See the package README for details.*
 
 ---
 
-### **4. Entra.EventHandlers.AspNetCore** (BSL)
+### **4. Entra.EventHandlers.AzureFunctions** (BSL)
+
+Azure Functions hosting adapter:
+
+- Router function (multi‑event)  
+- Single‑event function bases  
+- DI integration  
+- Structured error handling  
+
+➡️ *See the package README for details.*
+
+---
+
+### **5. Entra.EventHandlers.AspNetCore** (BSL)
 
 ASP.NET Core hosting adapter:
 
@@ -141,20 +171,16 @@ ASP.NET Core hosting adapter:
 
 ## 📁 Samples
 
-This repository includes complete, production‑ready samples for all hosting models.  
-They demonstrate real‑world usage of the ecosystem across ASP.NET Core, Azure Functions, and shared handler logic.
+This repository includes complete, production‑ready samples for all hosting models.
 
 ### **ASP.NET Core**
-- **ApiSample**  
-  Minimal API application using the router endpoint and single‑event endpoints.
+- **ApiSample** — minimal API application using router + single‑event endpoints.
 
 ### **Azure Functions**
-- **AzureFunctionsSample**  
-  Minimal Function App using the router function and single‑event function bases.
+- **AzureFunctionsSample** — minimal Function App using router + single‑event functions.
 
 ### **Shared Handler Logic**
-- **Sample.Common**  
-  Shared sample handlers used by both hosting models.
+- **Sample.Common** — shared sample handlers used by both hosting models.
 
 You can find the samples under the [samples](./samples) directory.
 
@@ -180,9 +206,7 @@ return EntraEventResponses
     .Build();
 ```
 
-For more examples, see the package READMEs (e.g.  
-[core/Entra.EventHandlers/README.md](./core/Entra.EventHandlers/README.md))  
-and the samples in the [samples](./samples) directory.
+For more examples, see the package READMEs and the samples in the [samples](./samples) directory.
 
 ---
 
@@ -213,10 +237,6 @@ The base class automatically provides:
 - Validation  
 - Exception handling  
 
-For full examples, see the package READMEs (e.g.  
-[core/Entra.EventHandlers/README.md](./core/Entra.EventHandlers/README.md))  
-and the handler samples in the [Sample.Common](./samples/Sample.Common) project.
-
 ---
 
 ## 🔒 Licensing Model
@@ -231,8 +251,6 @@ The BSL packages:
 - allow free non‑production use  
 - allow limited production use (small teams)  
 - automatically convert to MIT after the Change Date  
-
-This model keeps the public contract open while supporting sustainable development.
 
 ---
 
@@ -275,10 +293,10 @@ For now, see the package READMEs and the samples in the [samples](./samples) dir
 
 ## 📘 Further Reading
 
-For a deeper look into Microsoft Entra External ID Authentication Event Handlers  
-and the design of this ecosystem, see the full article:
+For a deeper look into Microsoft Entra External ID and Workforce Authentication Event Handlers, see:
 
-➡️ [Entra External ID — .NET Handlers Deep Dive](https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437)
+➡️ **Entra External ID — .NET Handlers Deep Dive**  
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
 
 ---
 

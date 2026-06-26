@@ -4,30 +4,55 @@
 **Author:** Jakub Szubarga (Szubarga.NET)
 
 This package contains the **core implementation layer** for the Entra Event Handlers ecosystem.  
-It builds on the MIT‑licensed **Entra.EventHandlers.Abstractions** package and provides the full developer experience for constructing responses, composing handlers, and building production‑ready **Microsoft Entra External ID Authentication Event Handler** extensions.
+It builds on the MIT‑licensed **Entra.EventHandlers.Abstractions** package and provides the full
+developer‑experience layer for constructing responses, composing handlers, and building
+production‑ready **Microsoft Entra External ID Authentication Event Handler** extensions.
+
+This package focuses exclusively on **External ID** events.  
+Workforce events are provided separately in **Entra.EventHandlers.Workforce**.
 
 ---
 
 ## ✨ What This Package Provides
 
-This package extends the MIT‑licensed **Entra.EventHandlers.Abstractions** with the full developer‑experience layer for building Microsoft Entra External ID Authentication Event Handlers.
+This package extends the MIT‑licensed **Entra.EventHandlers.Abstractions** with the full
+implementation and developer‑experience layer for External ID authentication events.
 
-It provides:
+It includes:
 
-- **Fluent, strongly‑typed response builders**  
-  For constructing valid protocol‑correct responses without manual JSON.
+### ✔ Fluent, strongly‑typed response builders  
+Eliminate manual JSON and ensure protocol‑correct payloads.
 
-- **Unified entry point**  
-  A single API surface (`EntraEventResponses.*`) for all event types.
+### ✔ Unified entry point  
+A single API surface for all External ID events:
 
-- **Production‑ready base handler classes**  
-  With structured logging, validation, correlation IDs, and exception handling.
+```csharp
+EntraEventResponses.AttributeCollectionStart();
+EntraEventResponses.AttributeCollectionSubmit();
+EntraEventResponses.TokenIssuanceStart();
+EntraEventResponses.EmailOtpSend();
+EntraEventResponses.PasswordSubmit();
+```
 
-- **Clean override model**  
-  Implement your logic in `HandleCore` while the base class manages the pipeline.
+### ✔ Production‑ready base handler classes  
+With:
 
-Hosting (routing, DI, request/response adapters) is provided by the  
-**Entra.EventHandlers.AspNetCore** and **Entra.EventHandlers.AzureFunctions** packages.
+- Structured logging  
+- Correlation ID scoping  
+- Protocol validation (`@odata.type`)  
+- Execution timing  
+- Consistent exception handling  
+
+### ✔ Clean override model  
+Implement your logic in `HandleCoreAsync` while the base class manages the pipeline.
+
+### ✔ Extensibility  
+Designed to integrate seamlessly with the ASP.NET Core and Azure Functions hosting adapters.
+
+Hosting (routing, DI, request/response adapters) is provided by:
+
+- **Entra.EventHandlers.AspNetCore**  
+- **Entra.EventHandlers.AzureFunctions**
 
 ---
 
@@ -54,21 +79,15 @@ public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger
         TokenIssuanceStartEvent request,
         CancellationToken cancellationToken)
     {
-        // Extract user ID (GUID)
         var userId = request.Data.AuthenticationContext?.User?.Id;
 
-        // Example: determine roles based on user ID
         var roles = userId switch
         {
-            // Example: special admin GUID
             var id when id == Guid.Parse("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee")
                 => ["Admin", "PowerUser"],
-
-            // Default
             _ => new[] { "User" }
         };
 
-        // Example: add custom claims
         var customClaims = new Dictionary<string, object>
         {
             { "tenantId", "contoso-eu" },
@@ -87,29 +106,31 @@ public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger
 
 The base class handles:
 
-- Logging
-- Validation
-- Correlation IDs
-- Exception handling
+- Logging  
+- Validation  
+- Correlation IDs  
+- Exception handling  
 - Execution timing  
 
 ---
 
 ## 📁 Samples
 
-This package includes a set of sample handler implementations demonstrating how to build real Entra Event Handler logic using the Core package:
+This package includes shared sample handler implementations demonstrating how to build real
+External ID handler logic using the Core package.
 
-- **Sample.Common** — shared sample handlers used by both the ASP.NET Core and Azure Functions samples.
+👉 **Sample.Common**  
+Located in the repository under:  
+`/samples/Sample.Common`
 
-The sample shows:
+The sample demonstrates:
 
-- How to implement handlers by inheriting from the base classes  
-- How to use fluent response builders (`EntraEventResponses.*`)  
-- How to construct block pages, prefill values, and custom claims  
-- How to structure clean, production‑ready handler logic  
+- Inheriting from the Core handler base classes  
+- Using fluent response builders (`EntraEventResponses.*`)  
+- Constructing block pages, prefill values, and custom claims  
+- Structuring clean, production‑ready handler logic  
 
-You can find the sample handlers in the repository under:  
-[Sample.Common](../../samples/Sample.Common) project.
+These samples are used by both the ASP.NET Core and Azure Functions sample applications.
 
 ---
 
@@ -127,12 +148,14 @@ You can find the sample handlers in the repository under:
 This package is licensed under the **Business Source License (BSL)**.
 
 See:
+
 - [LICENSE](LICENSE) — full BSL terms  
 - [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) — commercial licensing terms  
 
 A commercial license is required for production use by organizations with more than 5 employees.
 
-A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current and future BSL‑licensed packages.
+A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current
+and future BSL‑licensed packages.
 
 ### Commercial License Pricing
 
@@ -145,3 +168,13 @@ To purchase a license or request an invoice:
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
+
+---
+
+## 📘 Further Reading
+
+For a deeper look into Microsoft Entra External ID Authentication Event Handlers  
+and the design of this ecosystem, see:
+
+➡️ **Entra External ID — .NET Handlers Deep Dive**  
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

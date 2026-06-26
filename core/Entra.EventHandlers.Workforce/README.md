@@ -106,16 +106,16 @@ The samples show:
 - How to structure clean, production‑ready handler logic  
 
 You can find the sample handlers in the repository under:  
-[Sample.Common](../../samples/Sample.Common) project.
+[Sample.Common](../../samples/Sample.Common)
 
 ---
 
 ## 📦 Related Packages
 
 - **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
-- **Entra.EventHandlers** — core implementation layer (BSL)  
+- **Entra.EventHandlers** — core implementation layer for External ID (BSL)  
 - **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
-- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
 
 ---
 
@@ -143,3 +143,13 @@ To purchase a license or request an invoice:
 📧 **jakub.szubarga@gmail.com**
 
 The abstractions package is MIT‑licensed and can be used freely.
+
+---
+
+## 📘 Further Reading
+
+For a deeper look into Microsoft Entra External ID and Workforce Authentication Event Handlers  
+and the design of this ecosystem, see:
+
+➡️ **Entra External ID — .NET Handlers Deep Dive**  
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

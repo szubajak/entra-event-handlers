@@ -11,24 +11,35 @@
 	<Version>1.4.1</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
-	<Description>Public abstractions and protocol definitions for Microsoft Entra External ID Authentication Event Handlers.</Description>
-	<PackageTags>entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;authentication-events;event-handlers;identity;authentication;dotnet;dotnet-library;csharp</PackageTags>
+	  
+	<Description>
+	Lightweight, dependency-free public abstractions for Microsoft Entra External ID and Workforce
+	Authentication Event Handlers. Includes strongly-typed request/response models, action definitions,
+	protocol constants, directory attribute primitives, and handler interfaces for all supported events.
+	This package is MIT-licensed and safe to use in any project or hosting environment.
+	</Description>
+
+	<PackageTags>
+	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;workforce;verified-id;
+	authentication-events;event-handlers;identity;authentication;dotnet;dotnet-library;csharp
+	</PackageTags>
 	
 	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
 	  
 	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageReadmeFile>README.NuGet.md</PackageReadmeFile>
 	<PackageIcon>icon.png</PackageIcon>
 
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	  
+
 	<PackageReleaseNotes>
-	Initial public release of the Microsoft Entra External ID Authentication Event Handlers abstractions.
-	Includes protocol models, action types, and directory attribute primitives.
+	Includes complete request/response models, action definitions, and handler interfaces for all
+	Microsoft Entra External ID and Workforce Authentication Event Handlers, including
+	VerifiedIdClaimValidation. Fully MIT-licensed and dependency-free.
 	</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -38,7 +49,7 @@
 
   <ItemGroup>
 	<None Include="LICENSE" Pack="true" PackagePath="" />
-	<None Include="README.md" Pack="true" PackagePath="" />
+	<None Include="README.NuGet.md" Pack="true" PackagePath="" />
 	<None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>

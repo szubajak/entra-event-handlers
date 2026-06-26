@@ -22,7 +22,17 @@ IN THE SOFTWARE.
 
 ---
 
-This package contains only the public abstractions for the Entra Event Handlers
-ecosystem. Full implementations, production-ready pipelines, and hosting adapters
-for Azure Functions and ASP.NET Core are available under the Business Source
-License (BSL) in the related packages.
+This package contains only the **public abstractions** for the Entra Event Handlers ecosystem.
+It is fully MIT‑licensed, dependency‑free, and safe to use in any open‑source or commercial
+project.
+
+Full implementations, fluent response builders, validation, and handler base classes are available
+under the **Business Source License (BSL)** in the related packages:
+
+- **Entra.EventHandlers** — External ID implementation layer (BSL)  
+- **Entra.EventHandlers.Workforce** — Workforce event models & builders (BSL)  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+
+These packages extend the abstractions with production‑ready execution pipelines, hosting
+infrastructure, and advanced developer tooling.

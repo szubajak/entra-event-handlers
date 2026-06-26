@@ -14,7 +14,7 @@ License.
 ---
 
 Licensed Work:
-Entra.EventHandlers.Workforce (Workforce-specific event models for Microsoft Entra External ID Authentication Event Handlers)
+Entra.EventHandlers.Workforce (Workforce-specific implementation layer for Microsoft Entra Workforce Authentication Event Handlers, including VerifiedIdClaimValidation models, builders, and handler base classes)
 
 Additional Use Grant:
 Production use is permitted for individuals and organizations with fewer than
@@ -43,7 +43,23 @@ USE OF THE LICENSED WORK.
 
 ---
 
-This package contains the Workforce-specific event types used by the Entra
-Event Handlers ecosystem, including the VerifiedIdClaimValidation event model
-for Workforce account recovery flows. The public abstractions are available
-separately under the MIT License.
+This package contains the **Workforce-specific implementation layer** for the Entra Event
+Handlers ecosystem, including:
+
+- VerifiedIdClaimValidation event models  
+- Fluent Workforce response builders  
+- Workforce handler base classes  
+- Production-ready execution pipeline components  
+
+The public protocol abstractions are available separately under the MIT License in:
+
+- **Entra.EventHandlers.Abstractions** (MIT)
+
+Additional BSL-licensed packages extend the ecosystem with External ID support and hosting adapters:
+
+- **Entra.EventHandlers** — External ID implementation layer (BSL)  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+
+These packages provide routing, DI integration, request/response adapters, and unified hosting
+pipelines built on top of the abstractions.

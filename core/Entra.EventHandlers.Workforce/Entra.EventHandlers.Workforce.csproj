@@ -10,12 +10,14 @@
 	<Version>1.0.0</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
+	  
 	<Description>
 	Workforce-specific event models for Microsoft Entra External ID Authentication Event Handlers.
 	Includes strongly-typed request/response contracts for the VerifiedIdClaimValidation event used
 	during Workforce account recovery flows. This package extends the MIT abstractions package and
 	is consumed by the core implementation and hosting adapters.
 	</Description>
+	  
 	<PackageTags>
 	entra;entra-id;microsoft-entra;microsoft-entra-id;workforce;verified-id;verifiable-credentials;
 	account-recovery;authentication-events;event-handlers;identity;authentication;dotnet;dotnet-library;csharp
