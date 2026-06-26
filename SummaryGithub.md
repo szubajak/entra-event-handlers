@@ -3,20 +3,20 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/25/2026 - 20:31:25 |
-| Coverage date: | 06/25/2026 - 20:30:47 - 06/25/2026 - 20:31:23 |
+| Generated on: | 06/26/2026 - 06:52:19 |
+| Coverage date: | 06/26/2026 - 06:51:45 - 06/26/2026 - 06:52:17 |
 | Parser: | MultiReport (5x Cobertura) |
 | Assemblies: | 5 |
 | Classes: | 93 |
 | Files: | 87 |
-| **Line coverage:** | 86.7% (723 of 833) |
-| Covered lines: | 723 |
-| Uncovered lines: | 110 |
-| Coverable lines: | 833 |
-| Total lines: | 3843 |
-| **Branch coverage:** | 95.2% (80 of 84) |
-| Covered branches: | 80 |
-| Total branches: | 84 |
+| **Line coverage:** | 86.8% (716 of 824) |
+| Covered lines: | 716 |
+| Uncovered lines: | 108 |
+| Coverable lines: | 824 |
+| Total lines: | 3832 |
+| **Branch coverage:** | 100% (76 of 76) |
+| Covered branches: | 76 |
+| Total branches: | 76 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -139,14 +139,14 @@
 |Entra.EventHandlers.AzureFunctions.Routing.EntraEventRouterFunctionBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Hosting - 96.7%</summary>
+<details><summary>Entra.EventHandlers.Hosting - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Hosting**|**96.7%**|**87.5%**|
+|**Entra.EventHandlers.Hosting**|**100%**|**100%**|
 |Entra.EventHandlers.Hosting.DI.ServiceCollectionExtensions|100%||
 |Entra.EventHandlers.Hosting.Extensions.ExceptionExtensions|100%|100%|
 |Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator|100%|100%|
-|Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver|88.2%|60%|
+|Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver|100%|100%|
 
 </details>
