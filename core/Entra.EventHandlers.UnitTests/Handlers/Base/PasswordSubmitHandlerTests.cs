@@ -50,11 +50,11 @@ public class PasswordSubmitHandlerTests
             Data = new PasswordSubmitResponsePayload
             {
                 Actions = withAction
-                ? new List<EntraAction>
-                {
-                    new PasswordSubmitAction(PasswordSubmitActionType.MigratePassword)
-                }
-                : Array.Empty<EntraAction>(),
+                    ? new List<EntraAction>
+                    {
+                        new PasswordSubmitAction(PasswordSubmitActionType.MigratePassword)
+                    }
+                    : Array.Empty<EntraAction>(),
                 Nonce = "some-nonce"
             }
         };
@@ -80,7 +80,6 @@ public class PasswordSubmitHandlerTests
             e.Message.Contains("Successfully handled event"));
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
-
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
         var expected = withAction

@@ -40,11 +40,11 @@ public class TokenIssuanceStartHandlerTests
             Data = new TokenIssuanceStartResponsePayload
             {
                 Actions = withAction
-                ? new List<EntraAction>
-                {
-                    new ProvideClaimsForTokenAction()
-                }
-                : Array.Empty<EntraAction>()
+                    ? new List<EntraAction>
+                    {
+                        new ProvideClaimsForTokenAction()
+                    }
+                    : Array.Empty<EntraAction>()
             }
         };
 
@@ -68,7 +68,6 @@ public class TokenIssuanceStartHandlerTests
             e.Message.Contains("Successfully handled event"));
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
-
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
         var expected = withAction
@@ -113,6 +112,7 @@ public class TokenIssuanceStartHandlerTests
             .BeOfType<ProvideClaimsForTokenAction>()
             .Subject;
 
+        action.OdataType.Should().Be(EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken);
         action.Claims.Should().BeEmpty();
     }
 
@@ -138,6 +138,7 @@ public class TokenIssuanceStartHandlerTests
             .BeOfType<ProvideClaimsForTokenAction>()
             .Subject;
 
+        action.OdataType.Should().Be(EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken);
         action.Claims.Should().BeEmpty();
     }
 }

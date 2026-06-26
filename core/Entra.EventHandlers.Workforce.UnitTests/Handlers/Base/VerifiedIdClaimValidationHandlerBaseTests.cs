@@ -1,28 +1,27 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Actions;
-using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.TestHelpers;
-using Entra.EventHandlers.UnitTests.Utils;
-using Entra.EventHandlers.UnitTests.Utils.Handlers;
+using Entra.EventHandlers.Workforce.UnitTests.Utils;
+using Entra.EventHandlers.Workforce.UnitTests.Utils.Handlers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 
-namespace Entra.EventHandlers.UnitTests.Handlers.Base;
+namespace Entra.EventHandlers.Workforce.UnitTests.Handlers.Base;
 
-public class AttributeCollectionStartHandlerBaseTests
+public class VerifiedIdClaimValidationHandlerBaseTests
 {
-    private readonly TestAttributeCollectionStartHandler _sut;
+    private readonly TestVerifiedIdClaimValidationHandler _sut;
 
     private readonly TestLogger _logger;
 
-    public AttributeCollectionStartHandlerBaseTests()
+    public VerifiedIdClaimValidationHandlerBaseTests()
     {
         _logger = new TestLogger();
 
-        _sut = new TestAttributeCollectionStartHandler(_logger);
+        _sut = new TestVerifiedIdClaimValidationHandler(_logger);
     }
 
     [Theory]
@@ -32,18 +31,18 @@ public class AttributeCollectionStartHandlerBaseTests
     {
         // Arrange
         var fixture = new Fixture();
-        var evt = TestData.CreateAttributeCollectionStartEvent(fixture);
+        var evt = TestData.CreateVerifiedIdClaimValidationEvent(fixture);
 
         using var cts = new CancellationTokenSource();
 
-        var expectedResponse = new AttributeCollectionStartResponse
+        var expectedResponse = new VerifiedIdClaimValidationResponse
         {
-            Data = new AttributeCollectionStartResponsePayload
+            Data = new VerifiedIdClaimValidationResponsePayload
             {
                 Actions = withAction
                     ? new List<EntraAction>
                     {
-                        new ContinueAction(ContinueActionType.AttributeCollectionStartContinueWithDefaultBehavior)
+                        new VerifiedIdClaimValidationPassAction()
                     }
                     : Array.Empty<EntraAction>()
             }
@@ -72,7 +71,7 @@ public class AttributeCollectionStartHandlerBaseTests
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
         var expected = withAction
-            ? EntraOdataTypes.AttributeCollectionStart.ContinueWithDefaultBehavior
+            ? EntraOdataTypes.VerifiedIdClaimValidation.Pass
             : "None";
 
         logged.Should().Be(expected);
@@ -84,7 +83,7 @@ public class AttributeCollectionStartHandlerBaseTests
 
         dict.Should().ContainKey("CorrelationId").WhoseValue.Should().Be(evt.CorrelationId);
         dict.Should().ContainKey("EventType").WhoseValue.Should().Be(evt.Type);
-        dict.Should().ContainKey("EventName").WhoseValue.Should().Be(nameof(AttributeCollectionStartEvent));
+        dict.Should().ContainKey("EventName").WhoseValue.Should().Be(nameof(VerifiedIdClaimValidationEvent));
     }
 
     [Fact]
@@ -92,7 +91,7 @@ public class AttributeCollectionStartHandlerBaseTests
     {
         // Arrange
         var fixture = new Fixture();
-        var evt = TestData.CreateAttributeCollectionStartEvent(fixture);
+        var evt = TestData.CreateVerifiedIdClaimValidationEvent(fixture);
 
         _sut.CoreTest.ShouldThrow = true;
 
@@ -112,10 +111,11 @@ public class AttributeCollectionStartHandlerBaseTests
         var action = response.Data.Actions
             .Single()
             .Should()
-            .BeOfType<ShowBlockPageAction>()
+            .BeOfType<VerifiedIdClaimValidationFailedAction>()
             .Subject;
 
-        action.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionStart.ShowBlockPage);
+        action.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.Failed);
+        action.FailedClaims.Should().BeEmpty();
     }
 
     [Fact]
@@ -123,7 +123,7 @@ public class AttributeCollectionStartHandlerBaseTests
     {
         // Arrange
         var fixture = new Fixture();
-        var evt = TestData.CreateAttributeCollectionStartEvent(fixture, valid: false);
+        var evt = TestData.CreateVerifiedIdClaimValidationEvent(fixture, valid: false);
 
         // Act
         var response = await _sut.HandleAsync(evt, CancellationToken.None);
@@ -137,9 +137,10 @@ public class AttributeCollectionStartHandlerBaseTests
         var action = response.Data.Actions
             .Single()
             .Should()
-            .BeOfType<ShowBlockPageAction>()
+            .BeOfType<VerifiedIdClaimValidationFailedAction>()
             .Subject;
 
-        action.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionStart.ShowBlockPage);
+        action.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.Failed);
+        action.FailedClaims.Should().BeEmpty();
     }
 }

@@ -41,11 +41,11 @@ public class EmailOtpSendHandlerBaseTests
             Data = new EmailOtpSendResponsePayload
             {
                 Actions = withAction
-                ? new List<EntraAction>
-                {
-                    new ContinueAction(ContinueActionType.EmailOtpSendContinueWithDefaultBehavior)
-                }
-                : Array.Empty<EntraAction>()
+                    ? new List<EntraAction>
+                    {
+                        new ContinueAction(ContinueActionType.EmailOtpSendContinueWithDefaultBehavior)
+                    }
+                    : Array.Empty<EntraAction>()
             }
         };
 
@@ -69,7 +69,6 @@ public class EmailOtpSendHandlerBaseTests
             e.Message.Contains("Successfully handled event"));
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
-
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
         var expected = withAction
