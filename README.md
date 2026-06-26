@@ -2,7 +2,7 @@
 
 # Entra Event Handlers — .NET Ecosystem
 
-[![Coverage](https://szubajak.github.io/entra-event-handlers/badge_linecoverage.svg)](https://szubajak.github.io/entra-event-handlers/)
+[![Coverage](https://szubajak.github.io/entra-event-handlers/badge_shieldsio_branchcoverage_blue.svg)](https://szubajak.github.io/entra-event-handlers/)
 
 A modern, strongly‑typed, developer‑focused ecosystem for building  
 **Microsoft Entra External ID Authentication Event Handlers** in .NET.

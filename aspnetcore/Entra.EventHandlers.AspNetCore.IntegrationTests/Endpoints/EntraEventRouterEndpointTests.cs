@@ -1,5 +1,4 @@
 ﻿using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
-using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.Abstractions;
 using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.AppFactories;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;

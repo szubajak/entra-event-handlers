@@ -23,9 +23,7 @@ public interface IEntraEventOrchestrator
     /// <exception cref="NotSupportedException">
     /// Thrown when the event type is not recognized or is not supported by the orchestrator.
     /// </exception>
-    Task<EntraEventResponse> DispatchAsync(
-        EntraEvent evt,
-        CancellationToken cancellationToken);
+    Task<EntraEventResponse> DispatchAsync(EntraEvent evt, CancellationToken cancellationToken);
 }
 
 /// <inheritdoc />
@@ -54,7 +52,7 @@ public class EntraEventOrchestrator(IEntraEventHandlerResolver resolver) : IEntr
             _ => throw new NotSupportedException($"Unsupported event type: {evt.GetType().Name}")
         };
 
-private async Task<EntraEventResponse> DispatchTypedAsync<TEvent, TResponse>(TEvent evt, CancellationToken cancellationToken)
+    private async Task<EntraEventResponse> DispatchTypedAsync<TEvent, TResponse>(TEvent evt, CancellationToken cancellationToken)
         where TEvent : EntraEvent
         where TResponse : EntraEventResponse
     {

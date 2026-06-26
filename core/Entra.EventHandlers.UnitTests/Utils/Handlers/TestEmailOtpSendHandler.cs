@@ -10,7 +10,10 @@ public class TestEmailOtpSendHandler(ILogger logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();
 
-    public EmailOtpSendResponse ResponseToReturn { get; set; } = new();
+    public EmailOtpSendResponse ResponseToReturn { get; set; } = new EmailOtpSendResponse
+    { 
+        Data = new EmailOtpSendResponsePayload()
+    };
 
     protected override Task<EmailOtpSendResponse> HandleCoreAsync(
         EmailOtpSendEvent request,
