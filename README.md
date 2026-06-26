@@ -120,12 +120,13 @@ Lightweight, dependency‑free abstractions defining the public contract:
 
 ### **2. Entra.EventHandlers** (BSL)
 
-Implementation layer for **External ID**:
+Implementation layer for **External ID authentication events**:
 
+- Strongly‑typed request/response models  
 - Fluent response builders  
 - Base handler classes  
-- Validation, logging, correlation  
-- Unified entry point (`EntraEventResponses.*`)  
+- Validation, logging, correlation, execution timing  
+- Unified entry point: `EntraEventResponses.*`  
 
 ➡️ *See the package README for details.*
 
@@ -133,11 +134,13 @@ Implementation layer for **External ID**:
 
 ### **3. Entra.EventHandlers.Workforce** (BSL)
 
-Workforce‑specific implementation layer:
+Implementation layer for **Workforce authentication events**:
 
-- VerifiedIdClaimValidation models  
+- Strongly‑typed request/response models (e.g., VerifiedIdClaimValidation)  
 - Fluent Workforce response builders  
 - Workforce handler base classes  
+- Validation, logging, correlation, execution timing  
+- Unified entry point: `EntraWorkforceEventResponses.*`  
 
 ➡️ *See the package README for details.*
 
@@ -145,12 +148,13 @@ Workforce‑specific implementation layer:
 
 ### **4. Entra.EventHandlers.AzureFunctions** (BSL)
 
-Azure Functions hosting adapter:
+Azure Functions hosting adapter for Entra Event Handlers:
 
-- Router function (multi‑event)  
-- Single‑event function bases  
+- Multi‑event router function  
+- Single‑event function base classes  
 - DI integration  
 - Structured error handling  
+- Built on the shared hosting layer (orchestration, handler resolution, adapters)  
 
 ➡️ *See the package README for details.*
 
@@ -158,12 +162,13 @@ Azure Functions hosting adapter:
 
 ### **5. Entra.EventHandlers.AspNetCore** (BSL)
 
-ASP.NET Core hosting adapter:
+ASP.NET Core hosting adapter for Entra Event Handlers:
 
 - Minimal API endpoint integration  
-- Router endpoint (multi‑event)  
+- Multi‑event router endpoint  
 - Single‑event endpoint classes  
 - Clean, testable hosting model  
+- Built on the shared hosting layer (orchestration, handler resolution, adapters)  
 
 ➡️ *See the package README for details.*
 
