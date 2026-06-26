@@ -7,9 +7,16 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.4.1 — 2026‑06‑26
+
+### Changed
+
+- Made EntraEventResponse<TPayload>.Data a required property to ensure all response payloads are always populated.
+
 ## v1.4.0 — 2026‑06‑24
 
 ### Changed
+
 - **Breaking:** `IEntraEventHandler` method `Handle` has been renamed to `HandleAsync`. 
   All implementations must update their method signature.
 
