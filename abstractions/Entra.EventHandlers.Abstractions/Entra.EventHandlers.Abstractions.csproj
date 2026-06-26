@@ -4,10 +4,11 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<IsPackable>true</IsPackable>
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.Abstractions</PackageId>
-	<Version>1.4.0</Version>
+	<Version>1.4.1</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 	<Description>Public abstractions and protocol definitions for Microsoft Entra External ID Authentication Event Handlers.</Description>

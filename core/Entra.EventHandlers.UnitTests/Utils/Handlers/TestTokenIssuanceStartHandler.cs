@@ -10,7 +10,10 @@ public class TestTokenIssuanceStartHandler(ILogger logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();
 
-    public TokenIssuanceStartResponse ResponseToReturn { get; set; } = new();
+    public TokenIssuanceStartResponse ResponseToReturn { get; set; } = new TokenIssuanceStartResponse
+    { 
+        Data = new TokenIssuanceStartResponsePayload()
+    };
 
     protected override Task<TokenIssuanceStartResponse> HandleCoreAsync(
         TokenIssuanceStartEvent request,

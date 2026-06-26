@@ -10,7 +10,10 @@ public class TestAttributeCollectionStartHandler(ILogger logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();
 
-    public AttributeCollectionStartResponse ResponseToReturn { get; set; } = new();
+    public AttributeCollectionStartResponse ResponseToReturn { get; set; } = new AttributeCollectionStartResponse
+    { 
+        Data = new AttributeCollectionStartResponsePayload()
+    };
 
     protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
         AttributeCollectionStartEvent request,

@@ -14,7 +14,13 @@ public class TestPasswordSubmitHandler(ILogger logger, IPasswordContextCryptoSer
 
     public DecryptedPasswordContext? PassedDecryptedPasswordContext { get; set; }
 
-    public PasswordSubmitResponse ResponseToReturn { get; set; } = new();
+    public PasswordSubmitResponse ResponseToReturn { get; set; } = new PasswordSubmitResponse
+    { 
+        Data = new PasswordSubmitResponsePayload
+        { 
+            Nonce = "some-nonce"
+        }
+    };
 
     protected override Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,

@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.TestHelpers;
 using Entra.EventHandlers.UnitTests.Utils;
@@ -23,8 +24,10 @@ public class TokenIssuanceStartHandlerTests
         _sut = new TestTokenIssuanceStartHandler(_logger);
     }
 
-    [Fact]
-    public async Task HandleAsync_Success()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
         var fixture = new Fixture();
@@ -32,7 +35,19 @@ public class TokenIssuanceStartHandlerTests
 
         using var cts = new CancellationTokenSource();
 
-        var expectedResponse = new TokenIssuanceStartResponse();
+        var expectedResponse = new TokenIssuanceStartResponse
+        {
+            Data = new TokenIssuanceStartResponsePayload
+            {
+                Actions = withAction
+                ? new List<EntraAction>
+                {
+                    new ProvideClaimsForTokenAction()
+                }
+                : Array.Empty<EntraAction>()
+            }
+        };
+
         _sut.ResponseToReturn = expectedResponse;
 
         // Act
@@ -48,9 +63,17 @@ public class TokenIssuanceStartHandlerTests
             e.Level == LogLevel.Information &&
             e.Message.Contains("Handling event"));
 
-        _logger.Entries.Should().Contain(e =>
+        var success = _logger.Entries.Single(e =>
             e.Level == LogLevel.Information &&
             e.Message.Contains("Successfully handled event"));
+
+        var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
+
+        var logged = state.Single(kv => kv.Key == "ActionTypes").Value?.ToString();
+
+        var expected = withAction
+            ? EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken
+            : "None";
 
         _logger.Scopes.Should().ContainSingle();
 

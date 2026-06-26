@@ -36,5 +36,5 @@ public abstract class EntraEventResponse<TPayload> : EntraEventResponse
     /// actions Microsoft Entra should perform next.
     /// </summary>
     [JsonPropertyName("data")]
-    public TPayload? Data { get; set; }
+    public required TPayload Data { get; init; }
 }

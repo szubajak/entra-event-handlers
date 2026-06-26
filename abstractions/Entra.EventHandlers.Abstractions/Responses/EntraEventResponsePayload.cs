@@ -34,5 +34,5 @@ public abstract class EntraEventResponsePayload : IHaveOdataType
     /// instruction defined by the custom extension contract.
     /// </summary>
     [JsonPropertyName("actions")]
-    public IEnumerable<EntraAction> Actions { get; set; } = [];
+    public IEnumerable<EntraAction> Actions { get; init; } = [];
 }
