@@ -47,9 +47,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<None Include="LICENSE" />
-	<None Include="LICENSE-COMMERCIAL.md" />
-	<None Include="README.NuGet.md" />
+	<None Include="LICENSE" Pack="true" PackagePath="" />
+	<None Include="LICENSE-COMMERCIAL.md" Pack="true" PackagePath="" />
+	<None Include="README.NuGet.md" Pack="true" PackagePath="" />
 	<None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 

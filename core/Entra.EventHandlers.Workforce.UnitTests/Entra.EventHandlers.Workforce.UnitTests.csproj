@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\common\Entra.EventHandlers.TestHelpers\Entra.EventHandlers.TestHelpers.csproj" />
-    <ProjectReference Include="..\Entra.EventHandlers.Workforce\Entra.EventHandlers.Workforce.csproj" />
   </ItemGroup>
 
   <ItemGroup>
