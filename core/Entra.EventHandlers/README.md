@@ -117,11 +117,8 @@ The base class handles:
 ## 📁 Samples
 
 This package includes shared sample handler implementations demonstrating how to build real
-External ID handler logic using the Core package.
-
-👉 **Sample.Common**  
-Located in the repository under:  
-`/samples/Sample.Common`
+External ID handler logic using the Core package. Located in the repository under:  
+[Sample.Common](../../samples/Sample.Common) project.
 
 The sample demonstrates:
 

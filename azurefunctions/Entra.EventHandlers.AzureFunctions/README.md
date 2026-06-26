@@ -117,10 +117,8 @@ Unit tests are available in the
 
 ## 📁 Samples
 
-A complete Azure Functions sample project is available in the repository:
-
-👉 **AzureFunctionsSample**  
-`../../samples/AzureFunctionsSample`
+A complete Azure Functionse sample project is available in the repository under:  
+[AzureFunctionsSample](../../samples/AzureFunctionsSample) project.
 
 The sample demonstrates:
 

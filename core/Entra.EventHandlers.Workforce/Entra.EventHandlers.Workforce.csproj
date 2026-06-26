@@ -14,8 +14,9 @@
 	<Description>
 	Workforce-specific event models for Microsoft Entra External ID Authentication Event Handlers.
 	Includes strongly-typed request/response contracts for the VerifiedIdClaimValidation event used
-	during Workforce account recovery flows. This package extends the MIT abstractions package and
-	is consumed by the core implementation and hosting adapters.
+	in Workforce account recovery flows. This package builds on the MIT abstractions package and is
+	consumed by the ASP.NET Core and Azure Functions hosting adapters. It is a parallel extension to
+	the core Entra.EventHandlers package.
 	</Description>
 	  
 	<PackageTags>
