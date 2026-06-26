@@ -1,14 +1,14 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
-using Entra.EventHandlers.Builders;
+using Entra.EventHandlers.Workforce.Builders;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace Entra.EventHandlers.Handlers.Base;
+namespace Entra.EventHandlers.Workforce.Handlers.Base;
 
 /// <summary>
-/// Provides a base implementation of <see cref="IEmailOtpSendHandler"/>
+/// Provides a base implementation of <see cref="IVerifiedIdClaimValidationHandler"/>
 /// that applies shared processing behavior such as structured logging,
 /// correlation scoping, execution timing, and exception handling.
 /// Derived classes should override <see cref="HandleCoreAsync"/> to implement
@@ -16,16 +16,21 @@ namespace Entra.EventHandlers.Handlers.Base;
 /// This base class also validates incoming events according to the Entra
 /// protocol contract before invoking handler logic.
 /// </summary>
-public abstract class EmailOtpSendHandlerBase(ILogger logger) : IEmailOtpSendHandler
+public abstract class VerifiedIdClaimValidationHandlerBase(ILogger logger) : IVerifiedIdClaimValidationHandler
 {
     protected ILogger Logger { get; } = logger;
 
+    /// <summary>
+    /// Handles the VerifiedIdClaimValidation event by performing protocol‑level
+    /// validation, establishing a correlation logging scope, measuring execution
+    /// duration, and applying consistent exception handling.
+    /// </summary>
     /// <remarks>
-    /// This method performs protocol-level validation (including <c>@odata.type</c>
-    /// verification), establishes a logging scope with correlation identifiers,
-    /// measures execution duration, and applies consistent exception handling.
+    /// If an unhandled exception occurs, the handler returns a response
+    /// indicating failed claim validation. This ensures that account recovery
+    /// does not proceed when the validation logic cannot complete safely.
     /// </remarks>
-    public async Task<EmailOtpSendResponse> HandleAsync(EmailOtpSendEvent request, CancellationToken cancellationToken)
+    public async Task<VerifiedIdClaimValidationResponse> HandleAsync(VerifiedIdClaimValidationEvent request, CancellationToken cancellationToken = default)
     {
         using var scope = Logger.BeginScope(new Dictionary<string, object?>
         {
@@ -64,17 +69,17 @@ public abstract class EmailOtpSendHandlerBase(ILogger logger) : IEmailOtpSendHan
                 "Unhandled exception. DurationMs={Duration}",
                 sw.ElapsedMilliseconds);
 
-            return EntraEventResponses
-                .EmailOtpSend()
-                .ContinueWithDefaultBehavior()
+            return EntraWorkforceEventResponses
+                .VerifiedIdClaimValidation()
+                .Failed([])
                 .Build();
         }
     }
 
     /// <summary>
     /// Contains the event‑specific business logic for handling the
-    /// EmailOtpSend event. Implementations should override this method
-    /// instead of <see cref="HandleAsync"/>.
+    /// VerifiedIdClaimValidation event. Implementations should override
+    /// this method instead of <see cref="HandleAsync"/>.
     /// </summary>
-    protected abstract Task<EmailOtpSendResponse> HandleCoreAsync(EmailOtpSendEvent request, CancellationToken cancellationToken);
+    protected abstract Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(VerifiedIdClaimValidationEvent request, CancellationToken cancellationToken);
 }

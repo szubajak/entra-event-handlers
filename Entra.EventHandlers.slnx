@@ -40,6 +40,7 @@
     <Project Path="common/Entra.EventHandlers.TestHelpers/Entra.EventHandlers.TestHelpers.csproj" />
   </Folder>
   <Folder Name="/core/">
+    <Project Path="core/Entra.EventHandlers.Workforce/Entra.EventHandlers.Workforce.csproj" Id="6fa4f3d1-bf47-4f41-b7be-c056190d2c63" />
     <Project Path="core/Entra.EventHandlers/Entra.EventHandlers.csproj" />
   </Folder>
   <Folder Name="/core/tests/">

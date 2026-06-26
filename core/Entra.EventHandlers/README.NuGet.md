@@ -118,9 +118,10 @@ They are shared by both the ASP.NET Core and Azure Functions sample applications
 
 ## 📦 Related Packages
 
-- **Entra.EventHandlers.Abstractions** — protocol types (MIT)  
-- **Entra.EventHandlers.AzureFunctions** — Azure Functions integration (BSL)
-- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)
+- **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
+- **Entra.EventHandlers.Workforce** — Workforce‑specific event models and builders (BSL)  
+- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
 
 ---
 

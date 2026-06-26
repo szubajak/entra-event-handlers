@@ -91,6 +91,7 @@ The base class handles:
 - Validation
 - Correlation IDs
 - Exception handling
+- Execution timing  
 
 ---
 
@@ -115,8 +116,9 @@ You can find the sample handlers in the repository under:
 ## 📦 Related Packages
 
 - **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
-- **Entra.EventHandlers** — core implementation layer (BSL)
+- **Entra.EventHandlers.Workforce** — Workforce‑specific event models and builders (BSL)  
 - **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
+- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
 
 ---
 

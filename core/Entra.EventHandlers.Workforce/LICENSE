@@ -1,0 +1,49 @@
+Business Source License 1.1
+
+Copyright (c) 2026 Jakub Szubarga Szubarga.NET
+
+Permission is hereby granted to use, copy, modify, and create derivative works
+of this software for non-production use, subject to the terms below.
+
+Production use of this software is not permitted, except as allowed by the
+"Additional Use Grant" section.
+
+After the Change Date, this software will be made available under the Change
+License.
+
+---
+
+Licensed Work:
+Entra.EventHandlers.Workforce (Workforce-specific event models for Microsoft Entra External ID Authentication Event Handlers)
+
+Additional Use Grant:
+Production use is permitted for individuals and organizations with fewer than
+5 employees.
+
+Change Date:
+2036-01-01
+
+Change License:
+MIT License
+
+---
+
+The Licensed Work may be used only in compliance with this License.
+You must retain the above notices in all copies of the Licensed Work.
+
+---
+
+THE LICENSED WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE,
+ARISING FROM, OUT OF, OR IN CONNECTION WITH THE LICENSED WORK OR THE
+USE OF THE LICENSED WORK.
+
+---
+
+This package contains the Workforce-specific event types used by the Entra
+Event Handlers ecosystem, including the VerifiedIdClaimValidation event model
+for Workforce account recovery flows. The public abstractions are available
+separately under the MIT License.

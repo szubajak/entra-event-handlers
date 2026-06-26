@@ -70,7 +70,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
 
-        var logged = state.Single(kv => kv.Key == "ActionTypes").Value?.ToString();
+        var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
         var expected = withAction
             ? EntraOdataTypes.AttributeCollectionSubmit.ContinueWithDefaultBehavior
