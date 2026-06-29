@@ -75,7 +75,4 @@ jobs:
           echo "Resolved project path: $PROJECT_PATH"
 
       - name: Publish to NuGet
-        run: dotnet nuget push "$(dirname $PROJECT_PATH)/bin/Release/*.nupkg" \
-               --api-key ${{ secrets.NUGET_API_KEY }} \
-               --source https://api.nuget.org/v3/index.json \
-               --skip-duplicate
+        run: dotnet nuget push "$(dirname $PROJECT_PATH)/bin/Release/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
