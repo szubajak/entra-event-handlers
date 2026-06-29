@@ -12,6 +12,8 @@ public class TestEmailOtpSendHandler : TestHandlerBase, IEmailOtpSendHandler
         EmailOtpSendEvent request,
         CancellationToken cancellationToken = default)
     {
+        request.Validate();
+
         WasCalled = true;
         CapturedCancellationToken = cancellationToken;
 

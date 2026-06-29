@@ -12,6 +12,8 @@ public class TestTokenIssuanceStartHandler : TestHandlerBase, ITokenIssuanceStar
         TokenIssuanceStartEvent request,
         CancellationToken cancellationToken = default)
     {
+        request.Validate();
+
         WasCalled = true;
         CapturedCancellationToken = cancellationToken;
 

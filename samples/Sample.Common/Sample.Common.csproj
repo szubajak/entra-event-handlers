@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\core\Entra.EventHandlers.Workforce\Entra.EventHandlers.Workforce.csproj" />
     <ProjectReference Include="..\..\core\Entra.EventHandlers\Entra.EventHandlers.csproj" />
   </ItemGroup>
 

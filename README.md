@@ -4,17 +4,17 @@
 
 [![Coverage](https://szubajak.github.io/entra-event-handlers/badge_shieldsio_branchcoverage_blue.svg)](https://szubajak.github.io/entra-event-handlers/)
 
-A modern, strongly‑typed, developer‑focused ecosystem for building  
+A modern, strongly‑typed, developer‑focused ecosystem for building 
 **Microsoft Entra External ID and Workforce Authentication Event Handlers** in .NET.
 
 This repository contains:
 
-- **MIT‑licensed abstractions** — public protocol types and contracts  
-- **BSL‑licensed implementation layers** — External ID + Workforce  
-- **BSL‑licensed hosting adapters** for Azure Functions and ASP.NET Core  
-- **Protocol‑accurate request/response models**  
-- **Production‑ready handler infrastructure** (logging, validation, timing, correlation)  
-- **Clean, extensible architecture** designed for real‑world workloads  
+- **MIT‑licensed abstractions** — public protocol types and contracts
+- **BSL‑licensed implementation layers** — External ID + Workforce
+- **BSL‑licensed hosting adapters** for Azure Functions and ASP.NET Core
+- **Protocol‑accurate request/response models**
+- **Production‑ready handler infrastructure** (logging, validation, timing, correlation)
+- **Clean, extensible architecture** designed for real‑world workloads
 
 ---
 
@@ -95,7 +95,6 @@ ASP.NET Core hosting adapter.
                     │ • Orchestration pipeline                     │
                     │ • Handler resolution                         │
                     │ • DI helpers                                 │
-                    │ • Request/response adapters                  │
                     │ • Exception mapping                          │
                     └──────────────────────────────────────────────┘
                                             ▲
@@ -105,28 +104,20 @@ ASP.NET Core hosting adapter.
 ┌──────────────────────────────────────────┐  ┌──────────────────────────────────────────┐
 │ Entra.EventHandlers.AzureFunctions (BSL) │  │ Entra.EventHandlers.AspNetCore (BSL)     │
 │                                          │  │                                          │
-│ • Router function (multi‑event)          │  │ • Minimal API endpoints                  │
-│ • Function bases                         │  │ • Router endpoint (multi‑event)          │
-│ • DI integration                         │  │ • Endpoint base classes                  │
-│ • Built on shared hosting layer          │  │ • DI integration                         │
+│ • Router function (multi‑event)          │  │ • Router endpoint (multi‑event)          │
+│ • Function bases                         │  │ • Endpoint base classes                  │
+│ • DI integration                         │  │ • DI integration                         │
+│ • Request/response adapters              │  │ • Request/response adapters              │
 └──────────────────────────────────────────┘  └──────────────────────────────────────────┘
-                                            ▲
-                                            │
-                    ┌──────────────────────────────────────────────┐
-                    │ Samples                                      │
-                    │                                              │
-                    │ • Sample.Common → handlers (both domains)    │
-                    │ • ApiSample → Sample.Common + AspNetCore     │
-                    │ • AzureFunctionsSample → Sample.Common + AF  │
-                    └──────────────────────────────────────────────┘
+
 ```
 
 This layered design provides:
 
-- **Maximum adoption** — MIT‑licensed public abstractions  
-- **Commercial protection** — BSL‑licensed implementation and hosting layers  
-- **Clear separation of concerns**  
-- **Stable, dependency‑free public API surface**  
+- **Maximum adoption** — MIT‑licensed public abstractions
+- **Commercial protection** — BSL‑licensed implementation and hosting layers
+- **Clear separation of concerns**
+- **Stable, dependency‑free public API surface**
 
 ---
 
@@ -136,10 +127,10 @@ This layered design provides:
 
 Lightweight, dependency‑free abstractions defining the public contract:
 
-- Event request/response models  
-- Action definitions and protocol constants  
-- Directory attribute primitives  
-- Handler interfaces  
+- Event request/response models
+- Action definitions and protocol constants
+- Directory attribute primitives
+- Handler interfaces
 
 ➡️ *See the package README for details.*
 
@@ -149,11 +140,11 @@ Lightweight, dependency‑free abstractions defining the public contract:
 
 Implementation layer for **External ID authentication events**:
 
-- Strongly‑typed request/response models  
-- Fluent response builders  
-- Base handler classes  
-- Validation, logging, correlation, execution timing  
-- Unified entry point: `EntraEventResponses.*`  
+- Strongly‑typed request/response models
+- Fluent response builders
+- Base handler classes
+- Validation, logging, correlation, execution timing
+- Unified entry point: `EntraEventResponses.*`
 
 ➡️ *See the package README for details.*
 
@@ -163,11 +154,11 @@ Implementation layer for **External ID authentication events**:
 
 Implementation layer for **Workforce authentication events**:
 
-- Strongly‑typed request/response models (e.g., VerifiedIdClaimValidation)  
-- Fluent Workforce response builders  
-- Workforce handler base classes  
-- Validation, logging, correlation, execution timing  
-- Unified entry point: `EntraWorkforceEventResponses.*`  
+- Strongly‑typed request/response models (e.g., VerifiedIdClaimValidation)
+- Fluent Workforce response builders
+- Workforce handler base classes
+- Validation, logging, correlation, execution timing
+- Unified entry point: `EntraWorkforceEventResponses.*`
 
 ➡️ *See the package README for details.*
 
@@ -177,11 +168,12 @@ Implementation layer for **Workforce authentication events**:
 
 Azure Functions hosting adapter for Entra Event Handlers:
 
-- Multi‑event router function  
-- Single‑event function base classes  
-- DI integration  
-- Structured error handling  
-- Built on the shared hosting layer (orchestration, handler resolution, adapters)  
+- Multi‑event router function
+- Single‑event function base classes
+- DI integration
+- Structured error handling
+- Request/response adapters
+- Built on the shared hosting layer (orchestration, handler resolution)
 
 ➡️ *See the package README for details.*
 
@@ -191,11 +183,12 @@ Azure Functions hosting adapter for Entra Event Handlers:
 
 ASP.NET Core hosting adapter for Entra Event Handlers:
 
-- Minimal API endpoint integration  
-- Multi‑event router endpoint  
-- Single‑event endpoint classes  
-- Clean, testable hosting model  
-- Built on the shared hosting layer (orchestration, handler resolution, adapters)  
+- Minimal API endpoint integration
+- Multi‑event router endpoint
+- Single‑event endpoint classes
+- Clean, testable hosting model
+- Request/response adapters
+- Built on the shared hosting layer (orchestration, handler resolution)
 
 ➡️ *See the package README for details.*
 
@@ -263,11 +256,11 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
 
 The base class automatically provides:
 
-- CorrelationId logging  
-- EventType/EventName scoping  
-- Duration measurement  
-- Validation  
-- Exception handling  
+- CorrelationId logging
+- EventType/EventName scoping
+- Duration measurement
+- Validation
+- Exception handling
 
 ---
 
@@ -275,14 +268,14 @@ The base class automatically provides:
 
 This repository uses a hybrid licensing model:
 
-- **MIT** for the abstractions  
-- **BSL** for the implementation and hosting layers  
+- **MIT** for the abstractions
+- **BSL** for the implementation and hosting layers
 
 The BSL packages:
 
-- allow free non‑production use  
-- allow limited production use (small teams)  
-- automatically convert to MIT after the Change Date  
+- allow free non‑production use
+- allow limited production use (small teams)
+- automatically convert to MIT after the Change Date
 
 ---
 
@@ -292,9 +285,9 @@ A commercial license covers the entire **Entra Event Handlers** ecosystem, inclu
 
 ### Pricing
 
-- **Developer License** — €99 / developer / year  
-- **Team License** — €399 / year  
-- **Enterprise License** — €1499 / year  
+- **Developer License** — €99 / developer / year
+- **Team License** — €399 / year
+- **Enterprise License** — €1499 / year
 
 For commercial licensing or support:
 
@@ -308,17 +301,17 @@ For commercial licensing or support:
 
 Planned enhancements include:
 
-- Handler composition (pre/post processing)  
-- Execution pipeline components  
-- Telemetry and OpenTelemetry integration  
-- Test utilities and mocks  
-- Full documentation site  
+- Handler composition (pre/post processing)
+- Execution pipeline components
+- Telemetry and OpenTelemetry integration
+- Test utilities and mocks
+- Full documentation site
 
 ---
 
 ## 📚 Documentation
 
-Documentation and additional guides will be expanded as the ecosystem evolves.  
+Documentation and additional guides will be expanded as the ecosystem evolves. 
 For now, see the package READMEs and the samples in the [samples](./samples) directory.
 
 ---
@@ -327,14 +320,14 @@ For now, see the package READMEs and the samples in the [samples](./samples) dir
 
 For a deeper look into Microsoft Entra External ID and Workforce Authentication Event Handlers, see:
 
-➡️ **Entra External ID — .NET Handlers Deep Dive**  
+➡️ **Entra External ID — .NET Handlers Deep Dive**
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
 
 ---
 
 ## 🤝 Contributing
 
-Contributions to the MIT abstractions package are welcome.  
+Contributions to the MIT abstractions package are welcome. 
 The implementation packages follow a controlled contribution model due to BSL.
 
 ---

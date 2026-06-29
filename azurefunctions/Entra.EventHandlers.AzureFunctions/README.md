@@ -1,11 +1,11 @@
 # Entra.EventHandlers.AzureFunctions
 
-**License:** Business Source License (BSL)  
+**License:** Business Source License (BSL)
 **Author:** Jakub Szubarga (Szubarga.NET)
 
-This package provides the **Azure Functions hosting adapter** for the Entra Event Handlers ecosystem.  
-It enables production‑ready **Microsoft Entra External ID and Workforce Authentication Event Handler**  
-extensions to run inside Azure Functions with minimal boilerplate, full DI support, structured error  
+This package provides the **Azure Functions hosting adapter** for the Entra Event Handlers ecosystem. 
+It enables production‑ready **Microsoft Entra External ID and Workforce Authentication Event Handler** 
+extensions to run inside Azure Functions with minimal boilerplate, full DI support, structured error 
 handling, and complete testability.
 
 ---
@@ -14,7 +14,7 @@ handling, and complete testability.
 
 ### ✔ Full routing pipeline (recommended)
 
-The primary hosting model is the **router function**, powered by `EntraEventRouterFunctionBase`.  
+The primary hosting model is the **router function**, powered by `EntraEventRouterFunctionBase`.
 It provides:
 
 - Automatic request deserialization  
@@ -59,9 +59,9 @@ services.AddEntraEventHandlers();
 
 This automatically registers:
 
-- Request/response adapters  
-- Event orchestrator  
-- Handler resolver  
+- Request/response adapters
+- Event orchestrator
+- Handler resolver
 - All handlers implementing `IEntraEventHandler<,>`
 
 ---
@@ -107,7 +107,7 @@ public sealed class TokenIssuanceStartFunction(
 
 ## 🧪 Testing
 
-The router, adapters, and orchestrator are fully testable thanks to the abstractions.  
+The router, adapters, and orchestrator are fully testable thanks to the abstractions.
 Unit tests are available in:
 
 Unit tests are available in the  
@@ -117,16 +117,16 @@ Unit tests are available in the
 
 ## 📁 Samples
 
-A complete Azure Functionse sample project is available in the repository under:  
+A complete Azure Functionse sample project is available in the repository under:
 [AzureFunctionsSample](../../samples/AzureFunctionsSample) project.
 
 The sample demonstrates:
 
-- Registering handlers with `AddEntraEventHandlers()`  
-- Using the router function (`EntraEventRouterFunctionBase`)  
-- Using single‑event function bases  
-- Exposing functions with `[Function]` and `[HttpTrigger]`  
-- Structuring a clean, production‑ready Function App  
+- Registering handlers with `AddEntraEventHandlers()`
+- Using the router function (`EntraEventRouterFunctionBase`)
+- Using single‑event function bases
+- Exposing functions with `[Function]` and `[HttpTrigger]`
+- Structuring a clean, production‑ready Function App
 
 This is the recommended starting point for building real Entra Event Handler extensions on Azure Functions.
 
@@ -134,9 +134,9 @@ This is the recommended starting point for building real Entra Event Handler ext
 
 ## 📦 Related Packages
 
-- **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
-- **Entra.EventHandlers** — core implementation layer for External ID (BSL)  
-- **Entra.EventHandlers.Workforce** — Workforce‑specific event models and builders (BSL)  
+- **Entra.EventHandlers.Abstractions** — public protocol types (MIT)
+- **Entra.EventHandlers** — core implementation layer for External ID (BSL)
+- **Entra.EventHandlers.Workforce** — Workforce‑specific event models and builders (BSL)
 - **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)
 
 ---
@@ -147,8 +147,8 @@ This package is licensed under the **Business Source License (BSL)**.
 
 See:
 
-- [LICENSE](LICENSE) — full BSL terms  
-- [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) — commercial licensing terms  
+- [LICENSE](LICENSE) — full BSL terms
+- [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) — commercial licensing terms
 
 A commercial license is required for production use by organizations with more than 5 employees.
 
@@ -156,9 +156,9 @@ A commercial license covers the entire **Entra Event Handlers** ecosystem, inclu
 
 ### Commercial License Pricing
 
-- **Developer License** — €99 / developer / year  
-- **Team License** — €399 / year  
-- **Enterprise License** — €1499 / year  
+- **Developer License** — €99 / developer / year
+- **Team License** — €399 / year
+- **Enterprise License** — €1499 / year
 
 To purchase a license or request an invoice:
 
@@ -170,8 +170,8 @@ The abstractions package is MIT‑licensed and can be used freely.
 
 ## 📘 Further Reading
 
-For a deeper look into Microsoft Entra External ID and Workforce Authentication Event Handlers  
+For a deeper look into Microsoft Entra External ID and Workforce Authentication Event Handlers 
 and the design of this ecosystem, see:
 
-➡️ **Entra External ID — .NET Handlers Deep Dive**  
+➡️ **Entra External ID — .NET Handlers Deep Dive**
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
