@@ -8,11 +8,12 @@
 	<IsPackable>true</IsPackable>
 	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
 	<WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
+	<SuppressDependenciesWhenPacking>false</SuppressDependenciesWhenPacking>
 	<NoWarn>NU5128</NoWarn>
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.2.5</Version>
+	<Version>1.2.6</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
@@ -59,23 +60,21 @@
 	<None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" />
-    <PackageReference Include="Scrutor" Version="7.0.0" />
-  </ItemGroup>
-	
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
 	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-	  <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj">
-		  <PrivateAssets>all</PrivateAssets>
-	  </ProjectReference>	 
-	  
-	  <None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
-		  Pack="true"
-		  PackagePath="lib/net10.0/" />
+	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj">
+		<IncludeAssets>none</IncludeAssets>
+	</ProjectReference>
+
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" />
+	<PackageReference Include="Scrutor" Version="7.0.0" />
+
+	<None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
+		Pack="true"
+		PackagePath="lib/net10.0/" />
   </ItemGroup>
 
 </Project>
