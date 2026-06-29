@@ -4,7 +4,7 @@
 
 [![Coverage](https://szubajak.github.io/entra-event-handlers/badge_shieldsio_branchcoverage_blue.svg)](https://szubajak.github.io/entra-event-handlers/)
 
-A modern, strongly‑typed, developer‑focused ecosystem for building
+A modern, strongly‑typed, developer‑focused ecosystem for building 
 **Microsoft Entra External ID and Workforce Authentication Event Handlers** in .NET.
 
 This repository contains:
@@ -311,7 +311,7 @@ Planned enhancements include:
 
 ## 📚 Documentation
 
-Documentation and additional guides will be expanded as the ecosystem evolves.
+Documentation and additional guides will be expanded as the ecosystem evolves. 
 For now, see the package READMEs and the samples in the [samples](./samples) directory.
 
 ---
@@ -327,7 +327,7 @@ https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e43
 
 ## 🤝 Contributing
 
-Contributions to the MIT abstractions package are welcome.
+Contributions to the MIT abstractions package are welcome. 
 The implementation packages follow a controlled contribution model due to BSL.
 
 ---
