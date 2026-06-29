@@ -9,10 +9,11 @@
 	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
 	<WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
 	<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+	<NoWarn>NU5128</NoWarn>
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.2.3</Version>
+	<Version>1.2.4</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
@@ -61,6 +62,7 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
 	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
+	<PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
