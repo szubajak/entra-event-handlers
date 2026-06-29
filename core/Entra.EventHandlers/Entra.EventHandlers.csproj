@@ -63,7 +63,7 @@
 	<ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Pack'">
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
 	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" PrivateAssets="all" />
   </ItemGroup>
 </Project>
