@@ -58,12 +58,19 @@
 	<None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-	<None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
+	  <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" PrivateAssets="all" />
+
+	  <Reference Include="Entra.EventHandlers.Hosting">
+	    <HintPath>..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll</HintPath>
+		<Private>false</Private>
+	  </Reference>
+	  
+	  <None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
 		  Pack="true"
 		  PackagePath="lib/net10.0/" />
   </ItemGroup>
