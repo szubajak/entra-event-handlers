@@ -56,6 +56,7 @@ app.MapEntraRouter();
 // app.MapEntraTokenIssuanceStart();
 // app.MapEntraEmailOtpSend();
 // app.MapPasswordSubmit();
+// app.MapVerifiedIdClaimValidation();
 
 app.Run();
 ```
@@ -88,6 +89,7 @@ These extensions:
 | TokenIssuanceStart          | `tokenissuancestart`         |
 | EmailOtpSend                | `emailotpsend`               |
 | PasswordSubmit              | `passwordsubmit`             |
+| VerifiedIdClaimValidation   | `verifiedidclaimvalidation`  |
 
 ---
 

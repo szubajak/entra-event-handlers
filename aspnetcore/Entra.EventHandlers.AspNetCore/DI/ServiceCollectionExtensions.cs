@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<TokenIssuanceStartEndpoint>();
         services.AddTransient<EmailOtpSendEndpoint>();
         services.AddTransient<PasswordSubmitEndpoint>();
+        services.AddTransient<VerifiedIdClaimValidationEndpoint>();
         services.AddTransient<EntraEventRouterEndpoint>();
 
         return services;

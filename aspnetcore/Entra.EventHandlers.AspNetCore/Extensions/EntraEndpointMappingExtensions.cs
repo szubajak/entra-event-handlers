@@ -34,6 +34,12 @@ public static class EntraEndpointMappingExtensions
         return endpoints;
     }
 
+    public static IEndpointRouteBuilder MapVerifiedIdClaimValidation(this IEndpointRouteBuilder endpoints)
+    {
+        endpoints.ServiceProvider.GetRequiredService<VerifiedIdClaimValidationEndpoint>().Map(endpoints);
+        return endpoints;
+    }
+
     public static IEndpointRouteBuilder MapEntraRouter(this IEndpointRouteBuilder endpoints)
     {
         endpoints.ServiceProvider.GetRequiredService<EntraEventRouterEndpoint>().Map(endpoints);

@@ -59,6 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\core\Entra.EventHandlers.Workforce\Entra.EventHandlers.Workforce.csproj" />
     <ProjectReference Include="..\..\core\Entra.EventHandlers\Entra.EventHandlers.csproj" />
     <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
   </ItemGroup>
