@@ -3,7 +3,7 @@
 **License:** Business Source License (BSL)
 **Author:** Jakub Szubarga (Szubarga.NET)
 
-This package provides the **Azure Functions hosting adapter** for the Entra Event Handlers ecosystem.
+This package provides the **Azure Functions hosting adapter** for the Entra Event Handlers ecosystem. 
 It enables production‑ready **Microsoft Entra External ID and Workforce Authentication Event Handler** 
 extensions to run inside Azure Functions with minimal boilerplate, full DI support, structured error 
 handling, and complete testability.

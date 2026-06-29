@@ -1,6 +1,6 @@
 # Entra.EventHandlers.AspNetCore
 
-**ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers.**
+**ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers.** 
 Provides minimal‑boilerplate hosting, full DI support, unified exception handling, structured logging, and complete testability.
 
 **License:** Business Source License (BSL)
