@@ -11,7 +11,7 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.2.1</Version>
+	<Version>1.2.2</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
@@ -63,13 +63,12 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
+	  <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj">
+		  <IncludeAssets>none</IncludeAssets>
+	  </ProjectReference>
+	  
 	  <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" PrivateAssets="all" />
 
-	  <Reference Include="Entra.EventHandlers.Hosting">
-	    <HintPath>..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll</HintPath>
-		<Private>false</Private>
-	  </Reference>
-	  
 	  <None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
 		  Pack="true"
 		  PackagePath="lib/net10.0/" />

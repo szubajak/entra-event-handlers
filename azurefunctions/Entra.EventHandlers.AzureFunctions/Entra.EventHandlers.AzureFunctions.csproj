@@ -65,12 +65,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" PrivateAssets="all" />
+	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj">
+       <IncludeAssets>none</IncludeAssets>
+	</ProjectReference>
 
-	<Reference Include="Entra.EventHandlers.Hosting">
-	  <HintPath>..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll</HintPath>
-      <Private>false</Private>
-	</Reference>
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" PrivateAssets="all" />
 
 	<None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
 		Pack="true"
