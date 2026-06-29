@@ -8,10 +8,11 @@
 	<IsPackable>true</IsPackable>
 	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
 	<WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
+	<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.2.2</Version>
+	<Version>1.2.3</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
