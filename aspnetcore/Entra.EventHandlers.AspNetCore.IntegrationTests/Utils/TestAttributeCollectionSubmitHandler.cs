@@ -12,6 +12,8 @@ public class TestAttributeCollectionSubmitHandler : TestHandlerBase, IAttributeC
         AttributeCollectionSubmitEvent request,
         CancellationToken cancellationToken = default)
     {
+        request.Validate();
+
         WasCalled = true;
         CapturedCancellationToken = cancellationToken;
 

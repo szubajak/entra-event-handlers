@@ -35,6 +35,10 @@ public class TestAppFactory : WebApplicationFactory<Program>
             services.AddSingleton<IPasswordSubmitHandler>(sp => sp.GetRequiredService<TestPasswordSubmitHandler>());
             services.AddTransient<PasswordSubmitEndpoint>();
 
+            services.AddSingleton<TestVerifiedIdClaimValidationHandler>();
+            services.AddSingleton<IVerifiedIdClaimValidationHandler>(sp => sp.GetRequiredService<TestVerifiedIdClaimValidationHandler>());
+            services.AddTransient<VerifiedIdClaimValidationEndpoint>();
+
             services.AddSingleton<EntraEventRouterEndpoint>();
 
             services.AddSingleton<IEntraEventOrchestrator, EntraEventOrchestrator>();
@@ -55,6 +59,7 @@ public class TestAppFactory : WebApplicationFactory<Program>
                 endpoints.ServiceProvider.GetRequiredService<TokenIssuanceStartEndpoint>().Map(endpoints);
                 endpoints.ServiceProvider.GetRequiredService<EmailOtpSendEndpoint>().Map(endpoints);
                 endpoints.ServiceProvider.GetRequiredService<PasswordSubmitEndpoint>().Map(endpoints);
+                endpoints.ServiceProvider.GetRequiredService<VerifiedIdClaimValidationEndpoint>().Map(endpoints);
 
                 endpoints.ServiceProvider.GetRequiredService<EntraEventRouterEndpoint>().Map(endpoints);
             });
