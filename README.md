@@ -68,47 +68,51 @@ ASP.NET Core hosting adapter.
 ## 🧩 Architecture Overview
 
 ```
-                    ┌──────────────────────────────────────────────┐
-                    │ Entra.EventHandlers.Abstractions (MIT)       │
-                    │                                              │
-                    │ • Public contract                            │
-                    │ • Protocol types                             │
-                    │ • Interfaces                                 │
-                    │ • Error model                                │
-                    └──────────────────────────────────────────────┘
-                                            ▲
-                                            │
-        ┌────────────────────────────────────────────────────────────────────────┐
-        │                                                                        │
-┌──────────────────────────────────────────┐  ┌──────────────────────────────────────────┐
-│ Entra.EventHandlers (External ID, BSL)   │  │ Entra.EventHandlers.Workforce (BSL)      │
-│                                          │  │                                          │
-│ • Strongly‑typed models                  │  │ • Workforce models                       │
-│ • Builders, base handlers                │  │ • Builders, base handlers                │
-│ • Validation, logging, timing            │  │ • Validation, logging, timing            │
-└──────────────────────────────────────────┘  └──────────────────────────────────────────┘
-                                            ▲
-                                            │
-                    ┌──────────────────────────────────────────────┐
-                    │ Entra.EventHandlers.Hosting (internal)       │
-                    │                                              │
-                    │ • Orchestration pipeline                     │
-                    │ • Handler resolution                         │
-                    │ • DI helpers                                 │
-                    │ • Exception mapping                          │
-                    └──────────────────────────────────────────────┘
-                                            ▲
-                                            │
-        ┌────────────────────────────────────────────────────────────────────────┐
-        │                                                                        │
-┌──────────────────────────────────────────┐  ┌──────────────────────────────────────────┐
-│ Entra.EventHandlers.AzureFunctions (BSL) │  │ Entra.EventHandlers.AspNetCore (BSL)     │
-│                                          │  │                                          │
-│ • Router function (multi‑event)          │  │ • Router endpoint (multi‑event)          │
-│ • Function bases                         │  │ • Endpoint base classes                  │
-│ • DI integration                         │  │ • DI integration                         │
-│ • Request/response adapters              │  │ • Request/response adapters              │
-└──────────────────────────────────────────┘  └──────────────────────────────────────────┘
+                      ┌──────────────────────────────────────────────┐
+                      │ Entra.EventHandlers.Abstractions (MIT)       │
+                      │                                              │
+                      │ • Public contract                            │
+                      │ • Protocol types                             │
+                      │ • Interfaces                                 │
+                      │ • Error model                                │
+                      └──────────────────────────────────────────────┘
+                             ▲                ▲               ▲
+                             │                │               │
+                             │                │               │
+                             │                │               │
+┌────────────────────────────┴─────────────┐  │  ┌────────────┴─────────────────────────────┐
+│ Entra.EventHandlers (External ID, BSL)   │  │  │ Entra.EventHandlers.Workforce (BSL)      │
+│                                          │  │  │                                          │
+│ • Strongly‑typed models                  │  │  │ • Workforce models                       │
+│ • Builders, base handlers                │  │  │ • Builders, base handlers                │
+│ • Validation, logging, timing            │  │  │ • Validation, logging, timing            │
+└───────┬──────────────────────────────────┘  │  └─────────────────────────────────┬────────┘
+        ▼                                     │                                    ▼
+        │                                     │                                    │
+        │          ┌──────────────────────────┴─────────────────────────┐          │
+        │          │                                                    │          │
+        │          │  ┌──────────────────────────────────────────────┐  │          │
+        │          │  │ Entra.EventHandlers.Hosting (internal)       │  │          │
+        │          │  │                                              │  │          │
+        │          │  │ • Orchestration pipeline                     │  │          │
+        │          │  │ • Handler resolution                         │  │          │
+        │          │  │ • DI helpers                                 │  │          │
+        │          │  │ • Exception mapping                          │  │          │
+        │          │  └──────────────────────────────────────────────┘  │          │
+        │          ▲                          ▲                         ▲          │
+        │          │                          │                         │          │
+        │          │                          │                         │          │
+        └─────┬────┴──────────────────────────┴─────────────────────────┴────┬─────┘
+              ▲                                                              ▲ 
+              ▼                                                              ▼ 
+┌─────────────┴────────────────────────────┐     ┌───────────────────────────┴──────────────┐
+│ Entra.EventHandlers.AzureFunctions (BSL) │     │ Entra.EventHandlers.AspNetCore (BSL)     │
+│                                          │     │                                          │
+│ • Router function (multi‑event)          │     │ • Router endpoint (multi‑event)          │
+│ • Function bases                         │     │ • Endpoint base classes                  │
+│ • DI integration                         │     │ • DI integration                         │
+│ • Request/response adapters              │     │ • Request/response adapters              │
+└──────────────────────────────────────────┘     └──────────────────────────────────────────┘
 
 ```
 
