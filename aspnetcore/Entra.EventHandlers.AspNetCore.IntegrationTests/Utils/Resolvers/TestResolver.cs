@@ -39,6 +39,9 @@ public class TestResolver(IServiceProvider sp) : IEntraEventHandlerResolver
             Type t when t == typeof(PasswordSubmitEvent) =>
                 _sp.GetRequiredService<IPasswordSubmitHandler>(),
 
+            Type t when t == typeof(VerifiedIdClaimValidationEvent) =>
+                _sp.GetRequiredService<IVerifiedIdClaimValidationHandler>(),
+
             _ => throw new EntraHandlerNotFoundException(typeof(TEvent))
         };
 }

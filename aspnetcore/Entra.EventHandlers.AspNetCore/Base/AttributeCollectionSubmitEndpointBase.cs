@@ -1,22 +1,22 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
-using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.AspNetCore.Abstractions;
 using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.Hosting.Resolvers;
 
 namespace Entra.EventHandlers.AspNetCore.Base;
 
 public abstract class AttributeCollectionSubmitEndpointBase(
     ILogger logger,
-    IAttributeCollectionSubmitHandler handler,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EntraEndpointBase(logger, requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter,
+    IEntraEventHandlerResolver resolver) : EntraSingleEndpointBase(logger, requestAdapter, responseAdapter, resolver)
 {
-    private readonly IAttributeCollectionSubmitHandler _handler = handler;
-
     protected sealed override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEventAsync<AttributeCollectionSubmitEvent>(httpContext);
-        var response = await _handler.HandleAsync(evt, httpContext.RequestAborted);
+        var handler = Resolver.Resolve<AttributeCollectionSubmitEvent, AttributeCollectionSubmitResponse>();
+        var response = await handler.HandleAsync(evt, httpContext.RequestAborted);
         await ResponseAdapter.WriteOkAsync(httpContext, response);
     }
 }

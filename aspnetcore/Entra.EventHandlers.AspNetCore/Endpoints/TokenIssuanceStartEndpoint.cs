@@ -1,14 +1,14 @@
-﻿using Entra.EventHandlers.Abstractions.Interfaces;
-using Entra.EventHandlers.AspNetCore.Adapters;
+﻿using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.AspNetCore.Base;
+using Entra.EventHandlers.Hosting.Resolvers;
 
 namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class TokenIssuanceStartEndpoint(
     ILogger<TokenIssuanceStartEndpoint> logger,
-    ITokenIssuanceStartHandler handler,
     IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : TokenIssuanceStartEndpointBase(logger, handler, requestAdapter, responseAdapter)
+    IResponseAdapter responseAdapter,
+    IEntraEventHandlerResolver resolver) : TokenIssuanceStartEndpointBase(logger, requestAdapter, responseAdapter, resolver)
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {

@@ -13,7 +13,7 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.2.6</Version>
+	<Version>1.2.7</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
@@ -60,17 +60,16 @@
 	<None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Debug'">
-	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
+  <ItemGroup>
+	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" PrivateAssets="All" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" />
+	<PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
 	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj">
-		<IncludeAssets>none</IncludeAssets>
+      <IncludeAssets>none</IncludeAssets>
 	</ProjectReference>
-
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" />
-	<PackageReference Include="Scrutor" Version="7.0.0" />
 
 	<None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
 		Pack="true"

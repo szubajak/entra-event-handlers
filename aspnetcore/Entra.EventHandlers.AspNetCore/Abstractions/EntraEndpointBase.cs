@@ -4,7 +4,10 @@ using Entra.EventHandlers.Hosting.Extensions;
 
 namespace Entra.EventHandlers.AspNetCore.Abstractions;
 
-public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestAdapter, IResponseAdapter responseAdapter)
+public abstract class EntraEndpointBase(
+    ILogger logger,
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
 {
     protected ILogger Logger { get; } = logger;
     protected IRequestAdapter RequestAdapter { get; } = requestAdapter;
