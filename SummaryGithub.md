@@ -3,17 +3,17 @@
 
 |||
 |:---|:---|
-| Generated on: | 06/29/2026 - 18:50:31 |
-| Coverage date: | 06/29/2026 - 18:49:50 - 06/29/2026 - 18:50:29 |
+| Generated on: | 06/30/2026 - 07:15:18 |
+| Coverage date: | 06/30/2026 - 07:14:38 - 06/30/2026 - 07:15:16 |
 | Parser: | MultiReport (6x Cobertura) |
 | Assemblies: | 6 |
-| Classes: | 101 |
-| Files: | 95 |
-| **Line coverage:** | 86% (784 of 911) |
+| Classes: | 95 |
+| Files: | 89 |
+| **Line coverage:** | 88.9% (784 of 881) |
 | Covered lines: | 784 |
-| Uncovered lines: | 127 |
-| Coverable lines: | 911 |
-| Total lines: | 4100 |
+| Uncovered lines: | 97 |
+| Coverable lines: | 881 |
+| Total lines: | 4003 |
 | **Branch coverage:** | 100% (92 of 92) |
 | Covered branches: | 92 |
 | Total branches: | 92 |
@@ -98,29 +98,23 @@
 |Entra.EventHandlers.Abstractions.Responses.VerifiedIdClaimValidationRespons<br/>ePayload|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 57%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 67.2%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**57%**|**100%**|
+|**Entra.EventHandlers.AspNetCore**|**67.2%**|**100%**|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|100%|100%|
-|Entra.EventHandlers.AspNetCore.Abstractions.EntraSingleEndpointBase|100%||
+|Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase`2|25%||
 |Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter|100%||
-|Entra.EventHandlers.AspNetCore.Base.AttributeCollectionStartEndpointBase|14.2%||
-|Entra.EventHandlers.AspNetCore.Base.AttributeCollectionSubmitEndpointBase|14.2%||
-|Entra.EventHandlers.AspNetCore.Base.EmailOtpSendEndpointBase|14.2%||
-|Entra.EventHandlers.AspNetCore.Base.PasswordSubmitEndpointBase|14.2%||
-|Entra.EventHandlers.AspNetCore.Base.TokenIssuanceStartEndpointBase|14.2%||
-|Entra.EventHandlers.AspNetCore.Base.VerifiedIdClaimValidationEndpointBase|14.2%||
 |Entra.EventHandlers.AspNetCore.DI.ServiceCollectionExtensions|100%||
-|Entra.EventHandlers.AspNetCore.Endpoints.AttributeCollectionStartEndpoint|25%||
-|Entra.EventHandlers.AspNetCore.Endpoints.AttributeCollectionSubmitEndpoint|25%||
-|Entra.EventHandlers.AspNetCore.Endpoints.EmailOtpSendEndpoint|25%||
+|Entra.EventHandlers.AspNetCore.Endpoints.AttributeCollectionStartEndpoint|40%||
+|Entra.EventHandlers.AspNetCore.Endpoints.AttributeCollectionSubmitEndpoint|40%||
+|Entra.EventHandlers.AspNetCore.Endpoints.EmailOtpSendEndpoint|40%||
 |Entra.EventHandlers.AspNetCore.Endpoints.EntraEventRouterEndpoint|25%||
-|Entra.EventHandlers.AspNetCore.Endpoints.PasswordSubmitEndpoint|25%||
-|Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint|25%||
-|Entra.EventHandlers.AspNetCore.Endpoints.VerifiedIdClaimValidationEndpoint|25%||
+|Entra.EventHandlers.AspNetCore.Endpoints.PasswordSubmitEndpoint|40%||
+|Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint|40%||
+|Entra.EventHandlers.AspNetCore.Endpoints.VerifiedIdClaimValidationEndpoint|40%||
 |Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions|0%||
 |Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|100%|100%|
 
