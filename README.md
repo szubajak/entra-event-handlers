@@ -1,5 +1,3 @@
-[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak)
-
 # Entra Event Handlers — .NET Ecosystem
 
 [![Coverage](https://szubajak.github.io/entra-event-handlers/badge_shieldsio_branchcoverage_blue.svg)](https://szubajak.github.io/entra-event-handlers/)
@@ -68,51 +66,51 @@ ASP.NET Core hosting adapter.
 ## 🧩 Architecture Overview
 
 ```
-                      ┌──────────────────────────────────────────────┐
-                      │ Entra.EventHandlers.Abstractions (MIT)       │
-                      │                                              │
-                      │ • Public contract                            │
-                      │ • Protocol types                             │
-                      │ • Interfaces                                 │
-                      │ • Error model                                │
-                      └──────────────────────────────────────────────┘
-                             ▲                ▲               ▲
-                             │                │               │
-                             │                │               │
-                             │                │               │
-┌────────────────────────────┴─────────────┐  │  ┌────────────┴─────────────────────────────┐
-│ Entra.EventHandlers (External ID, BSL)   │  │  │ Entra.EventHandlers.Workforce (BSL)      │
-│                                          │  │  │                                          │
-│ • Strongly‑typed models                  │  │  │ • Workforce models                       │
-│ • Builders, base handlers                │  │  │ • Builders, base handlers                │
-│ • Validation, logging, timing            │  │  │ • Validation, logging, timing            │
-└───────┬──────────────────────────────────┘  │  └─────────────────────────────────┬────────┘
-        ▼                                     │                                    ▼
-        │                                     │                                    │
-        │          ┌──────────────────────────┴─────────────────────────┐          │
-        │          │                                                    │          │
-        │          │  ┌──────────────────────────────────────────────┐  │          │
-        │          │  │ Entra.EventHandlers.Hosting (internal)       │  │          │
-        │          │  │                                              │  │          │
-        │          │  │ • Orchestration pipeline                     │  │          │
-        │          │  │ • Handler resolution                         │  │          │
-        │          │  │ • DI helpers                                 │  │          │
-        │          │  │ • Exception mapping                          │  │          │
-        │          │  └──────────────────────────────────────────────┘  │          │
-        │          ▲                          ▲                         ▲          │
-        │          │                          │                         │          │
-        │          │                          │                         │          │
-        └─────┬────┴──────────────────────────┴─────────────────────────┴────┬─────┘
-              ▲                                                              ▲ 
-              ▼                                                              ▼ 
-┌─────────────┴────────────────────────────┐     ┌───────────────────────────┴──────────────┐
-│ Entra.EventHandlers.AzureFunctions (BSL) │     │ Entra.EventHandlers.AspNetCore (BSL)     │
-│                                          │     │                                          │
-│ • Router function (multi‑event)          │     │ • Router endpoint (multi‑event)          │
-│ • Function bases                         │     │ • Endpoint base classes                  │
-│ • DI integration                         │     │ • DI integration                         │
-│ • Request/response adapters              │     │ • Request/response adapters              │
-└──────────────────────────────────────────┘     └──────────────────────────────────────────┘
+                      ┌────────────────────────────────────────┐
+                      │ Entra.EventHandlers.Abstractions       │
+                      │                                        │
+                      │ • Public contract                      │
+                      │ • Protocol types                       │
+                      │ • Interfaces                           │
+                      │ • Error model                          │
+                      └────────────────────────────────────────┘
+                             ▲            ▲             ▲
+                             │            │             │
+                             │            │             │
+                             │            │             │
+┌────────────────────────────┴─────────┐  │  ┌──────────┴───────────────────────────┐
+│ Entra.EventHandlers (External ID)    │  │  │ Entra.EventHandlers.Workforce        │
+│                                      │  │  │                                      │
+│ • Strongly‑typed models              │  │  │ • Workforce models                   │
+│ • Builders, base handlers            │  │  │ • Builders, base handlers            │
+│ • Validation, logging, timing        │  │  │ • Validation, logging, timing        │
+└───────┬──────────────────────────────┘  │  └───────────────────────────────┬──────┘
+        ▼                                 │                                  ▼
+        │                                 │                                  │
+        │          ┌──────────────────────┴───────────────────────┐          │
+        │          │                                              │          │
+        │          │  ┌────────────────────────────────────────┐  │          │
+        │          │  │ Entra.EventHandlers.Hosting (internal) │  │          │
+        │          │  │                                        │  │          │
+        │          │  │ • Orchestration pipeline               │  │          │
+        │          │  │ • Handler resolution                   │  │          │
+        │          │  │ • DI helpers                           │  │          │
+        │          │  │ • Exception mapping                    │  │          │
+        │          │  └────────────────────────────────────────┘  │          │
+        │          ▲                      ▲                       ▲          │
+        │          │                      │                       │          │
+        │          │                      │                       │          │
+        └─────┬────┴──────────────────────┴───────────────────────┴────┬─────┘
+              ▲                                                        ▲ 
+              ▼                                                        ▼ 
+┌─────────────┴────────────────────────┐     ┌─────────────────────────┴────────────┐
+│ Entra.EventHandlers.AzureFunctions   │     │ Entra.EventHandlers.AspNetCore       │
+│                                      │     │                                      │
+│ • Router function (multi‑event)      │     │ • Router endpoint (multi‑event)      │
+│ • Function bases                     │     │ • Endpoint base classes              │
+│ • DI integration                     │     │ • DI integration                     │
+│ • Request/response adapters          │     │ • Request/response adapters          │
+└──────────────────────────────────────┘     └──────────────────────────────────────┘
 
 ```
 
@@ -339,6 +337,8 @@ The implementation packages follow a controlled contribution model due to BSL.
 ## ❤️ Support the project
 
 If you find this library useful, consider sponsoring development:
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/szubajak)
 
 👉 https://github.com/sponsors/szubajak
 
