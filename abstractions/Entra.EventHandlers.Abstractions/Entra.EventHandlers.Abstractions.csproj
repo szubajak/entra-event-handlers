@@ -8,16 +8,11 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.Abstractions</PackageId>
-	<Version>1.4.1</Version>
+	<Version>1.4.2</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 	  
-	<Description>
-	Lightweight, dependency-free public abstractions for Microsoft Entra External ID and Workforce
-	Authentication Event Handlers. Includes strongly-typed request/response models, action definitions,
-	protocol constants, directory attribute primitives, and handler interfaces for all supported events.
-	This package is MIT-licensed and safe to use in any project or hosting environment.
-	</Description>
+	<Description>Lightweight, dependency-free abstractions for Microsoft Entra External ID and Workforce Authentication Event Handlers. Provides strongly-typed request/response models, action definitions, protocol constants, directory attribute primitives, and handler interfaces for all supported events. Fully MIT-licensed and safe to use in any .NET project or hosting environment.</Description>
 
 	<PackageTags>
 	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;workforce;verified-id;

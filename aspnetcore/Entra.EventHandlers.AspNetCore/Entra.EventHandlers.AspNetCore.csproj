@@ -13,16 +13,11 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.2.7</Version>
+	<Version>1.2.8</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
-	<Description>
-	ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event
-	Handlers. Provides minimal-boilerplate endpoint mapping, request/response adapters, unified
-	execution pipeline, DI integration, structured logging, and production-ready hosting for custom
-	authentication extensions.
-	</Description>
+	<Description>ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers. Provides minimal‑boilerplate endpoint mapping, request/response adapters, a unified execution pipeline, DI integration, structured logging, and production‑ready hosting for custom authentication extensions. Extends the MIT‑licensed Entra.EventHandlers.Abstractions package and is designed to be used together with the Entra.EventHandlers and Entra.EventHandlers.Workforce implementation packages.</Description>
 
 	<PackageTags>
 	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;workforce;verified-id;ciam;
