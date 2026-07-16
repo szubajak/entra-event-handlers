@@ -3,15 +3,15 @@
 
 |||
 |:---|:---|
-| Generated on: | 07/16/2026 - 10:20:31 |
-| Coverage date: | 07/16/2026 - 10:19:52 - 07/16/2026 - 10:20:29 |
+| Generated on: | 07/16/2026 - 10:41:03 |
+| Coverage date: | 07/16/2026 - 10:40:27 - 07/16/2026 - 10:41:01 |
 | Parser: | MultiReport (6x Cobertura) |
 | Assemblies: | 6 |
 | Classes: | 95 |
 | Files: | 89 |
-| **Line coverage:** | 88.9% (784 of 881) |
-| Covered lines: | 784 |
-| Uncovered lines: | 97 |
+| **Line coverage:** | 88.6% (781 of 881) |
+| Covered lines: | 781 |
+| Uncovered lines: | 100 |
 | Coverable lines: | 881 |
 | Total lines: | 4003 |
 | **Branch coverage:** | 100% (92 of 92) |
@@ -42,11 +42,11 @@
 |Entra.EventHandlers.Protocol.PasswordSubmit.DecryptedPasswordContext|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.Abstractions - 100%</summary>
+<details><summary>Entra.EventHandlers.Abstractions - 97.7%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Abstractions**|**100%**|**100%**|
+|**Entra.EventHandlers.Abstractions**|**97.7%**|**100%**|
 |Entra.EventHandlers.Abstractions.Actions.ContinueAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.ModifyAttributeValuesAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.PasswordSubmitAction|100%||
@@ -60,8 +60,8 @@
 |Entra.EventHandlers.Abstractions.Actions.VerifiedIdClaimValidationFailedAct<br/>ion|100%||
 |Entra.EventHandlers.Abstractions.Actions.VerifiedIdClaimValidationPassActio<br/>n|100%||
 |Entra.EventHandlers.Abstractions.Errors.EntraDeserializationException|100%||
-|Entra.EventHandlers.Abstractions.Errors.EntraErrorResponse|100%||
-|Entra.EventHandlers.Abstractions.Errors.EntraHandlerNotFoundException|100%||
+|Entra.EventHandlers.Abstractions.Errors.EntraErrorResponse|0%||
+|Entra.EventHandlers.Abstractions.Errors.EntraHandlerNotFoundException|0%||
 |Entra.EventHandlers.Abstractions.Errors.EntraValidationException|100%||
 |Entra.EventHandlers.Abstractions.Events.AttributeCollectionStartEvent|100%||
 |Entra.EventHandlers.Abstractions.Events.AttributeCollectionStartEventPayloa<br/>d|100%||
