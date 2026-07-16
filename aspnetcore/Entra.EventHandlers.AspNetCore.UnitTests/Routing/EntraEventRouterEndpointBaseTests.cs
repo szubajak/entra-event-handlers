@@ -54,9 +54,10 @@ public class EntraEventRouterEndpointBaseTests
             .WriteBadRequestAsync(
                 ctx,
                 Arg.Is<EntraErrorResponse>(e =>
+                    e != null &&
                     e.Error == EntraErrorCodes.DeserializationError &&
                     e.Details == errorMessage
-                ));
+            ));
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -89,10 +90,11 @@ public class EntraEventRouterEndpointBaseTests
             .WriteBadRequestAsync(
                 ctx,
                 Arg.Is<EntraErrorResponse>(e =>
+                    e != null &&
                     e.Error == EntraErrorCodes.HandlerNotFound &&
                     !string.IsNullOrEmpty(e.Details) &&
                     e.Details.Contains(entraEvent.GetType().Name)
-          ));
+            ));
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -127,9 +129,10 @@ public class EntraEventRouterEndpointBaseTests
             .WriteBadRequestAsync(
                 ctx,
                 Arg.Is<EntraErrorResponse>(e =>
+                    e != null &&
                     e.Error == EntraErrorCodes.ValidationError &&
                     e.Details == errorMessage
-                ));
+            ));
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -162,9 +165,10 @@ public class EntraEventRouterEndpointBaseTests
             .WriteServerErrorAsync(
                 ctx,
                 Arg.Is<EntraErrorResponse>(e =>
+                    e != null &&
                     e.Error == EntraErrorCodes.UnhandledException &&
                     e.Details == "An unexpected error occurred."
-                ));
+            ));
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&
