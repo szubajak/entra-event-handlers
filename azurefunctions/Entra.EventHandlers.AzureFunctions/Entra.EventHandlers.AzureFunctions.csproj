@@ -10,16 +10,11 @@
 
 	  <!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AzureFunctions</PackageId>
-	<Version>1.4.2</Version>
+	<Version>1.4.3</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
-	<Description>
-	Azure Functions hosting adapter for Microsoft Entra External ID and Workforce Authentication Event
-	Handlers. Provides minimal-boilerplate function routing, request/response adapters, unified execution
-	pipeline, DI integration, structured logging, and production-ready hosting for custom authentication
-	extensions.
-	</Description>
+	<Description>Azure Functions hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers. Provides minimal‑boilerplate function routing, request/response adapters, a unified execution pipeline, DI integration, structured logging, and production‑ready hosting for custom authentication extensions. Extends the MIT‑licensed Entra.EventHandlers.Abstractions package and is designed to be used together with the Entra.EventHandlers and Entra.EventHandlers.Workforce implementation packages.</Description>
 
 	<PackageTags>
 	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;workforce;verified-id;ciam;
@@ -60,7 +55,7 @@
   <ItemGroup>
 	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.52.0" />
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.1" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.2" />
     <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
