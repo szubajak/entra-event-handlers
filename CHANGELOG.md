@@ -7,6 +7,12 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.4.2 – 2026‑07‑16
+
+### Updated
+
+- Updated NuGet package description for clarity and consistency. No API or behavioral changes.
+
 ## v1.4.1 — 2026‑06‑26
 
 ### Changed

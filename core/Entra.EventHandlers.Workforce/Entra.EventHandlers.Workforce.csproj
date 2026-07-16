@@ -7,17 +7,11 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.Workforce</PackageId>
-	<Version>1.0.0</Version>
+	<Version>1.0.1</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 	  
-	<Description>
-	Workforce-specific event models for Microsoft Entra External ID Authentication Event Handlers.
-	Includes strongly-typed request/response contracts for the VerifiedIdClaimValidation event used
-	in Workforce account recovery flows. This package builds on the MIT abstractions package and is
-	consumed by the ASP.NET Core and Azure Functions hosting adapters. It is a parallel extension to
-	the core Entra.EventHandlers package.
-	</Description>
+	<Description>Workforce-specific implementation library for Microsoft Entra External ID Authentication Event Handlers. Provides strongly-typed request/response contracts, fluent response builders, and production-ready handler base classes for Workforce authentication flows. Extends the MIT-licensed Entra.EventHandlers.Abstractions package and is designed to be used together with the Entra.EventHandlers.AzureFunctions and Entra.EventHandlers.AspNetCore hosting adapters. Serves as a parallel extension to the core Entra.EventHandlers package.</Description>
 	  
 	<PackageTags>
 	entra;entra-id;microsoft-entra;microsoft-entra-id;workforce;verified-id;verifiable-credentials;

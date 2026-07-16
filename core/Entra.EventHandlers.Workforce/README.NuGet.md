@@ -134,3 +134,9 @@ Workforce scenarios, and the design of this ecosystem, see:
 
 ➡️ **Entra External ID — .NET Handlers Deep Dive**  
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
+
+For a practical, step‑by‑step guide to building a CIAM‑ready Azure Functions project using this package:
+
+➡️ Building CIAM‑Ready Azure Functions with Entra.EventHandlers  
+(Part 1 of the CIAM Engineering Series)  
+https://medium.com/@jakub.szubarga/entra-eventhandlers-ciam-azure-functions-97c5e1940272
