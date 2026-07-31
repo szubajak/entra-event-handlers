@@ -3,6 +3,7 @@ using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Responses;
 using FluentAssertions;
+using JsonDiffPatchDotNet;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
 
@@ -10,6 +11,8 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Responses;
 
 public class PasswordSubmitResponseSerializationTests     
 {
+    private readonly JsonDiffPatch _jsonDiffPatch = new();
+
     private static string GetExpectedResponse(string odataType, string nonce) =>
         $$"""
         {
@@ -48,7 +51,8 @@ public class PasswordSubmitResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 
     [Fact]
@@ -74,7 +78,8 @@ public class PasswordSubmitResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 
     [Fact]
@@ -100,7 +105,8 @@ public class PasswordSubmitResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 
 
@@ -127,6 +133,7 @@ public class PasswordSubmitResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 }
