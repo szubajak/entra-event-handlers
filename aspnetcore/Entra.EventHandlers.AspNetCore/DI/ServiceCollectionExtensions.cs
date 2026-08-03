@@ -10,16 +10,15 @@ public static class ServiceCollectionExtensions
     {
         services.AddEntraEventHandlersHosting();
 
-        services.AddSingleton<IRequestAdapter, RequestAdapter>();
-        services.AddSingleton<IResponseAdapter, ResponseAdapter>();
-
-        services.AddTransient<AttributeCollectionStartEndpoint>();
-        services.AddTransient<AttributeCollectionSubmitEndpoint>();
-        services.AddTransient<TokenIssuanceStartEndpoint>();
-        services.AddTransient<EmailOtpSendEndpoint>();
-        services.AddTransient<PasswordSubmitEndpoint>();
-        services.AddTransient<VerifiedIdClaimValidationEndpoint>();
-        services.AddTransient<EntraEventRouterEndpoint>();
+        services.AddSingleton<IRequestAdapter, RequestAdapter>()
+                .AddSingleton<IResponseAdapter, ResponseAdapter>()
+                .AddTransient<AttributeCollectionStartEndpoint>()
+                .AddTransient<AttributeCollectionSubmitEndpoint>()
+                .AddTransient<TokenIssuanceStartEndpoint>()
+                .AddTransient<EmailOtpSendEndpoint>()
+                .AddTransient<PasswordSubmitEndpoint>()
+                .AddTransient<VerifiedIdClaimValidationEndpoint>()
+                .AddTransient<EntraEventRouterEndpoint>();
 
         return services;
     }

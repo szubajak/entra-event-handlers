@@ -16,15 +16,13 @@ public static class ServiceCollectionExtenstions
 {
     public static IServiceCollection AddEntraEventHandlersObservability(this IServiceCollection services)
     {
-        services.AddScoped<EventLogContext>();
-        services.AddScoped<IEventLogWriter, EventLogWriter>();
-        services.AddSingleton<IEventLogPublisher, EventLogPublisher>();
-        services.AddSingleton<IObservabilityApiClient, ObservabilityApiClient>();
-
-        services.AddSingleton<IEventLogMapperFactory, EventLogMapperFactory>();
-
-        services.AddSingleton<IEmailOtpSendEventLogMapper, EmailOtpSendEventLogMapper>();
-        services.AddSingleton<IEventLogMapper<EmailOtpSendEvent, EmailOtpSendResponse>>(sp => sp.GetRequiredService<IEmailOtpSendEventLogMapper>());
+        services.AddScoped<EventLogContext>()
+                .AddScoped<IEventLogWriter, EventLogWriter>()
+                .AddSingleton<IEventLogPublisher, EventLogPublisher>()
+                .AddSingleton<IObservabilityApiClient, ObservabilityApiClient>()
+                .AddSingleton<IEventLogMapperFactory, EventLogMapperFactory>()
+                .AddSingleton<IEmailOtpSendEventLogMapper, EmailOtpSendEventLogMapper>()
+                .AddSingleton<IEventLogMapper<EmailOtpSendEvent, EmailOtpSendResponse>>(sp => sp.GetRequiredService<IEmailOtpSendEventLogMapper>());
 
         services.Decorate(typeof(IEntraEventHandler<,>), typeof(ObservabilityHandlerDecorator<,>));
 
