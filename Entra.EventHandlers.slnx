@@ -56,6 +56,9 @@
   <Folder Name="/observability/">
     <Project Path="observability/Entra.EventHandlers.Observability/Entra.EventHandlers.Observability.csproj" />
   </Folder>
+  <Folder Name="/observability/tests/">
+    <Project Path="observability/Entra.EventHandlers.Observability.UnitTests/Entra.EventHandlers.Observability.UnitTests.csproj" />
+  </Folder>
   <Folder Name="/samples/">
     <Project Path="samples/ApiSample/ApiSample.csproj" />
     <Project Path="samples/AzureFunctionsSample/AzureFunctionsSample.csproj" />
