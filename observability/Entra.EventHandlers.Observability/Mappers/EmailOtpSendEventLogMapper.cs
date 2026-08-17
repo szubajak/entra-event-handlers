@@ -1,4 +1,4 @@
-﻿using Entra.EventHandlers.Abstractions.Events;
+﻿ using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Observability.Interfaces;
 using Entra.EventHandlers.Observability.Models;
