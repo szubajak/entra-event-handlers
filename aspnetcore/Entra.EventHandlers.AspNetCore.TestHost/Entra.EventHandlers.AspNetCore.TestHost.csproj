@@ -7,6 +7,7 @@
 	<OutputType>Exe</OutputType>
 	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
 	<IsPackable>false</IsPackable>
+	<UseMicrosoftTestingPlatform>true</UseMicrosoftTestingPlatform>
   </PropertyGroup>
 
 </Project>

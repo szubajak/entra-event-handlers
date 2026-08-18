@@ -7,6 +7,7 @@
     <IsPackable>false</IsPackable>
 	<OutputType>Library</OutputType>
 	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+	<UseMicrosoftTestingPlatform>true</UseMicrosoftTestingPlatform>
   </PropertyGroup>
 	
   <ItemGroup>
