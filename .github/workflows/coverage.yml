@@ -22,18 +22,14 @@ jobs:
         run: dotnet restore Entra.EventHandlers.slnx
 
       - name: Test with coverage
-        run: |
-          for proj in $(find . -name "*.csproj" | grep UnitTests); do
-            echo "Running tests for $proj"
-            dotnet test "$proj" --collect:"XPlat Code Coverage"
-          done
+        run: dotnet test Entra.EventHandlers.slnx --collect:"XPlat Code Coverage"
 
       - name: Install ReportGenerator
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
       - name: Generate HTML report
         run: reportgenerator \
-          -reports:**/coverage.cobertura.xml \
+          -reports:**/*coverage.xml \
           -targetdir:coverage \
           -reporttypes:"Html;Badges;MarkdownSummaryGithub"
 
