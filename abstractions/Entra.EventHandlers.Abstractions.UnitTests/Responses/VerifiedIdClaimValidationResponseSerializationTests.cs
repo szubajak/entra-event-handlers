@@ -2,6 +2,7 @@
 using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Responses;
 using FluentAssertions;
+using JsonDiffPatchDotNet;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
 
@@ -9,6 +10,8 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Responses;
 
 public class VerifiedIdClaimValidationResponseSerializationTests
 {
+    private readonly JsonDiffPatch _jsonDiffPatch = new();
+
     [Fact]
     public void PassAction_SerializesToExpectedJson()
     {
@@ -39,7 +42,8 @@ public class VerifiedIdClaimValidationResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 
     [Fact]
@@ -90,6 +94,7 @@ public class VerifiedIdClaimValidationResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 }

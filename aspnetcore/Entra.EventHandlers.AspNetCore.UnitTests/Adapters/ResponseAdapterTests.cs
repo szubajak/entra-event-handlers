@@ -11,6 +11,8 @@ public class ResponseAdapterTests
 {
     private readonly ResponseAdapter _sut;
 
+    private readonly Fixture _fixture = new();
+
     public ResponseAdapterTests()
     {
         _sut = new ResponseAdapter();
@@ -20,8 +22,7 @@ public class ResponseAdapterTests
     public async Task WriteOkAsync_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-        var testProperty = fixture.Create<string>();
+        var testProperty = _fixture.Create<string>();
 
         var context = new DefaultHttpContext();
         context.Response.Body = new MemoryStream();
@@ -43,15 +44,13 @@ public class ResponseAdapterTests
     public async Task WriteBadRequestAsync_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
         var context = new DefaultHttpContext();
         context.Response.Body = new MemoryStream();
 
         var response = new EntraErrorResponse
         {
-            Error = fixture.Create<string>(),
-            Details = fixture.Create<string>()
+            Error = _fixture.Create<string>(),
+            Details = _fixture.Create<string>()
         };
 
         // Act
@@ -69,15 +68,13 @@ public class ResponseAdapterTests
     public async Task WriteServerErrorAsync_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
         var context = new DefaultHttpContext();
         context.Response.Body = new MemoryStream();
 
         var response = new EntraErrorResponse
         {
-            Error = fixture.Create<string>(),
-            Details = fixture.Create<string>()
+            Error = _fixture.Create<string>(),
+            Details = _fixture.Create<string>()
         };
 
         // Act

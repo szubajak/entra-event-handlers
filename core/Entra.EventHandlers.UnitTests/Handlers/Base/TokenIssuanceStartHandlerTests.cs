@@ -15,6 +15,7 @@ public class TokenIssuanceStartHandlerTests
 {
     private readonly TestTokenIssuanceStartHandler _sut;
 
+    private readonly Fixture _fixture = new();
     private readonly TestLogger _logger;
 
     public TokenIssuanceStartHandlerTests()
@@ -30,8 +31,7 @@ public class TokenIssuanceStartHandlerTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateTokenIssuanceStartEvent(fixture);
+        var evt = TestData.CreateTokenIssuanceStartEvent(_fixture);
 
         using var cts = new CancellationTokenSource();
 
@@ -88,8 +88,7 @@ public class TokenIssuanceStartHandlerTests
     public async Task HandleAsync_Fail()
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateTokenIssuanceStartEvent(fixture);
+        var evt = TestData.CreateTokenIssuanceStartEvent(_fixture);
 
         _sut.CoreTest.ShouldThrow = true;
 
@@ -120,8 +119,7 @@ public class TokenIssuanceStartHandlerTests
     public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateTokenIssuanceStartEvent(fixture, valid: false);
+        var evt = TestData.CreateTokenIssuanceStartEvent(_fixture, valid: false);
 
         // Act
         var response = await _sut.HandleAsync(evt, CancellationToken.None);

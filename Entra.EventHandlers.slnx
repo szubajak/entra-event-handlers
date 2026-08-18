@@ -3,6 +3,8 @@
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
     <File Path="CHANGELOG.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
     <File Path="LICENSE" />
     <File Path="LICENSE-COMMERCIAL.md" />
     <File Path="README.md" />
@@ -52,6 +54,12 @@
   </Folder>
   <Folder Name="/hosting/tests/">
     <Project Path="hosting/Entra.EventHandlers.Hosting.UnitTests/Entra.EventHandlers.Hosting.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/observability/">
+    <Project Path="observability/Entra.EventHandlers.Observability/Entra.EventHandlers.Observability.csproj" />
+  </Folder>
+  <Folder Name="/observability/tests/">
+    <Project Path="observability/Entra.EventHandlers.Observability.UnitTests/Entra.EventHandlers.Observability.UnitTests.csproj" />
   </Folder>
   <Folder Name="/samples/">
     <Project Path="samples/ApiSample/ApiSample.csproj" />

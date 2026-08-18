@@ -12,42 +12,42 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Events;
 
 public class TokenIssuanceStartEventDeserializationTests
 {
+    private readonly Fixture _fixture = new();
+
     [Fact]
     public void FullEventRequest_DeserializesCorrectly()
     {
         // Arrange
-        var fixture = new Fixture();
+        var tenantId = _fixture.Create<Guid>();
+        var appId = _fixture.Create<Guid>();
+        var listenerId = _fixture.Create<Guid>();
+        var extensionId = _fixture.Create<Guid>();
+        var correlationId = _fixture.Create<Guid>();
 
-        var tenantId = fixture.Create<Guid>();
-        var appId = fixture.Create<Guid>();
-        var listenerId = fixture.Create<Guid>();
-        var extensionId = fixture.Create<Guid>();
-        var correlationId = fixture.Create<Guid>();
-
-        var clientIp = fixture.Create<string>();
+        var clientIp = _fixture.Create<string>();
         var clientLocale = "en-gb";
         var clientMarket = "en-us";
 
-        var cspId = fixture.Create<Guid>();
-        var cspAppDisplayName = fixture.Create<string>();
-        var cspDisplayName = fixture.Create<string>();
+        var cspId = _fixture.Create<Guid>();
+        var cspAppDisplayName = _fixture.Create<string>();
+        var cspDisplayName = _fixture.Create<string>();
 
-        var rspId = fixture.Create<Guid>();
-        var rspAppDisplayName = fixture.Create<string>();
-        var rspDisplayName = fixture.Create<string>();
+        var rspId = _fixture.Create<Guid>();
+        var rspAppDisplayName = _fixture.Create<string>();
+        var rspDisplayName = _fixture.Create<string>();
 
-        var userCompanyName = fixture.Create<string>();
-        var userCreatedDateTime = fixture.Create<DateTime>().ToString("o");
-        var userDisplayName = fixture.Create<string>();
-        var userGivenName = fixture.Create<string>();
-        var userId = fixture.Create<Guid>();
-        var userMail = $"{fixture.Create<string>()}@example.com";
-        var userPsam = fixture.Create<string>();
-        var userPsid = fixture.Create<string>();
-        var userPupn = fixture.Create<string>();
+        var userCompanyName = _fixture.Create<string>();
+        var userCreatedDateTime = _fixture.Create<DateTime>().ToString("o");
+        var userDisplayName = _fixture.Create<string>();
+        var userGivenName = _fixture.Create<string>();
+        var userId = _fixture.Create<Guid>();
+        var userMail = $"{_fixture.Create<string>()}@example.com";
+        var userPsam = _fixture.Create<string>();
+        var userPsid = _fixture.Create<string>();
+        var userPupn = _fixture.Create<string>();
         var userPreferredLanguage = "en-us";
-        var userSurname = fixture.Create<string>();
-        var userPrincipalName = $"{fixture.Create<string>()}@example.com";
+        var userSurname = _fixture.Create<string>();
+        var userPrincipalName = $"{_fixture.Create<string>()}@example.com";
 
         var json =
         $$"""
@@ -167,15 +167,13 @@ public class TokenIssuanceStartEventDeserializationTests
     public void ExternalUser_DeserializesCorrectly()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var userCompanyName = fixture.Create<string>();
-        var userCreatedDateTime = fixture.Create<DateTime>().ToString("o");
-        var userDisplayName = fixture.Create<string>();
-        var userId = fixture.Create<Guid>();
-        var userMail = $"{fixture.Create<string>()}@example.com";
-        var userPreferredDataLocation = fixture.Create<string>();
-        var userPrincipalName = $"{fixture.Create<string>()}#EXT#@example.onmicrosoft.com";
+        var userCompanyName = _fixture.Create<string>();
+        var userCreatedDateTime = _fixture.Create<DateTime>().ToString("o");
+        var userDisplayName = _fixture.Create<string>();
+        var userId = _fixture.Create<Guid>();
+        var userMail = $"{_fixture.Create<string>()}@example.com";
+        var userPreferredDataLocation = _fixture.Create<string>();
+        var userPrincipalName = $"{_fixture.Create<string>()}#EXT#@example.onmicrosoft.com";
 
         var json =
         $$"""

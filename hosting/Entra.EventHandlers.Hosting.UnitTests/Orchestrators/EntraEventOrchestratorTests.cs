@@ -14,6 +14,7 @@ public class EntraEventOrchestratorTests
 {
     private readonly EntraEventOrchestrator _sut;
 
+    private readonly Fixture _fixture = new();
     private readonly IEntraEventHandlerResolver _resolver;
 
     public EntraEventOrchestratorTests()
@@ -27,9 +28,7 @@ public class EntraEventOrchestratorTests
     public async Task DispatchAsync_AttributeCollectionStartEvent_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var evt = fixture.Create<AttributeCollectionStartEvent>();
+        var evt = _fixture.Create<AttributeCollectionStartEvent>();
         var response = new AttributeCollectionStartResponse
         { 
             Data = new AttributeCollectionStartResponsePayload()
@@ -53,9 +52,7 @@ public class EntraEventOrchestratorTests
     public async Task DispatchAsync_AttributeCollectionSubmitEvent_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var evt = fixture.Create<AttributeCollectionSubmitEvent>();
+        var evt = _fixture.Create<AttributeCollectionSubmitEvent>();
         var response = new AttributeCollectionSubmitResponse
         { 
             Data = new AttributeCollectionSubmitResponsePayload()
@@ -79,9 +76,7 @@ public class EntraEventOrchestratorTests
     public async Task DispatchAsync_TokenIssuanceStartEvent_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var evt = fixture.Create<TokenIssuanceStartEvent>();
+        var evt = _fixture.Create<TokenIssuanceStartEvent>();
         var response = new TokenIssuanceStartResponse
         { 
             Data = new TokenIssuanceStartResponsePayload()
@@ -105,9 +100,7 @@ public class EntraEventOrchestratorTests
     public async Task DispatchAsync_EmailOtpSendEvent_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var evt = fixture.Create<EmailOtpSendEvent>();
+        var evt = _fixture.Create<EmailOtpSendEvent>();
         var response = new EmailOtpSendResponse
         {
             Data = new EmailOtpSendResponsePayload()
@@ -131,9 +124,7 @@ public class EntraEventOrchestratorTests
     public async Task DispatchAsync_PasswordSubmitEvent_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var evt = fixture.Create<PasswordSubmitEvent>();
+        var evt = _fixture.Create<PasswordSubmitEvent>();
         var response = new PasswordSubmitResponse
         { 
             Data = new PasswordSubmitResponsePayload

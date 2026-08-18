@@ -10,6 +10,8 @@ public class PasswordSubmitResponseBuilderTests
 {
     private readonly PasswordSubmitResponseBuilder _sut;
 
+    private readonly Fixture _fixture = new();
+
     public PasswordSubmitResponseBuilderTests()
     {
         _sut = new PasswordSubmitResponseBuilder();
@@ -19,8 +21,7 @@ public class PasswordSubmitResponseBuilderTests
     public void Build_ReturnsResponseWith_MigratePassword()
     {
         // Act
-        var fixture = new Fixture();
-        var nonce = fixture.Create<string>();
+        var nonce = _fixture.Create<string>();
 
         var response = _sut
             .WithNonce(nonce)
@@ -44,8 +45,7 @@ public class PasswordSubmitResponseBuilderTests
     public void Build_ReturnsResponseWith_UpdatePassword()
     {
         // Act
-        var fixture = new Fixture();
-        var nonce = fixture.Create<string>();
+        var nonce = _fixture.Create<string>();
 
         var response = _sut
             .WithNonce(nonce)
@@ -69,8 +69,7 @@ public class PasswordSubmitResponseBuilderTests
     public void Build_ReturnsResponseWith_Retry()
     {
         // Act
-        var fixture = new Fixture();
-        var nonce = fixture.Create<string>();
+        var nonce = _fixture.Create<string>();
 
         var response = _sut
             .WithNonce(nonce)
@@ -94,8 +93,7 @@ public class PasswordSubmitResponseBuilderTests
     public void Build_ReturnsResponseWith_Block()
     {
         // Act
-        var fixture = new Fixture();
-        var nonce = fixture.Create<string>();
+        var nonce = _fixture.Create<string>();
 
         var response = _sut
             .WithNonce(nonce)

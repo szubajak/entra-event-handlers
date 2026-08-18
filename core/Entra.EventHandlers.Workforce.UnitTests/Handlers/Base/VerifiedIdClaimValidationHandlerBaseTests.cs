@@ -15,6 +15,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
 {
     private readonly TestVerifiedIdClaimValidationHandler _sut;
 
+    private readonly Fixture _fixture = new();
     private readonly TestLogger _logger;
 
     public VerifiedIdClaimValidationHandlerBaseTests()
@@ -30,8 +31,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateVerifiedIdClaimValidationEvent(fixture);
+        var evt = TestData.CreateVerifiedIdClaimValidationEvent(_fixture);
 
         using var cts = new CancellationTokenSource();
 
@@ -90,8 +90,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
     public async Task HandleAsync_Fail()
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateVerifiedIdClaimValidationEvent(fixture);
+        var evt = TestData.CreateVerifiedIdClaimValidationEvent(_fixture);
 
         _sut.CoreTest.ShouldThrow = true;
 
@@ -122,8 +121,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
     public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateVerifiedIdClaimValidationEvent(fixture, valid: false);
+        var evt = TestData.CreateVerifiedIdClaimValidationEvent(_fixture, valid: false);
 
         // Act
         var response = await _sut.HandleAsync(evt, CancellationToken.None);
