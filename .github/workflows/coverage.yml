@@ -21,8 +21,11 @@ jobs:
       - name: Restore solution
         run: dotnet restore Entra.EventHandlers.slnx
 
+      - name: Build solution (Release)
+        run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
+
       - name: Test with coverage
-        run: dotnet test Entra.EventHandlers.slnx --collect:"XPlat Code Coverage"
+        run: dotnet test Entra.EventHandlers.slnx -c Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
 
       - name: Install ReportGenerator
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
