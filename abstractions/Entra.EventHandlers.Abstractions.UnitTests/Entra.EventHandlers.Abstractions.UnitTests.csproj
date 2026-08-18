@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
 	<UseMicrosoftTestingPlatform>true</UseMicrosoftTestingPlatform>
+	<EnableMSTestRunner>true</EnableMSTestRunner>
+	<VSTestEnabled>false</VSTestEnabled>
   </PropertyGroup>
 
   <ItemGroup>
