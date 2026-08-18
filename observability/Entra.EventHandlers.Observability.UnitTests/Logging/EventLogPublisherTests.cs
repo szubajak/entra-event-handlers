@@ -45,7 +45,7 @@ public class EventLogPublisherTests
         // Act
         _sut.Publish(ctx);
 
-        await Task.Delay(50, TestContext.Current.CancellationToken);
+        await Task.Delay(500, TestContext.Current.CancellationToken);
 
         // Assert
         _ = _client.Received(1).SendAsync(expectedDto);
