@@ -1,5 +1,4 @@
-﻿using Entra.EventHandlers.Abstractions.Responses;
-using Entra.EventHandlers.Observability.Factories;
+﻿using Entra.EventHandlers.Observability.Factories;
 using Entra.EventHandlers.Observability.Interfaces;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
@@ -27,11 +26,23 @@ public class EventLogMapperFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        Assert.Throws<InvalidOperationException>(() => sut.Get<TestEvent, SomeOtherTestResponse>());
     }
 
-    public sealed class SomeOtherTestResponse : EntraEventResponse
+    [Fact]
+    public void Get_Should_Throw_If_Missing_Mapper()
     {
-        public string? TestProperty { get; init; }
+        // Arrange
+        var services = new ServiceCollection();
+
+        var provider = services.BuildServiceProvider();
+        var sut = new EventLogMapperFactory(provider);
+
+        // Act
+        var act = () => sut.Get<TestEvent, TestResponse>();
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>()
+            .WithMessage($"No mapper registered for {typeof(TestEvent).Name} → {typeof(TestResponse).Name}");
     }
 }

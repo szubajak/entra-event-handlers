@@ -21,10 +21,13 @@ public sealed class EventLogMapperFactory(IServiceProvider serviceProvider)
        where TRequest : EntraEvent
        where TResponse : EntraEventResponse
     {
-        var mapper = _serviceProvider.GetRequiredService<IEventLogMapper<TRequest, TResponse>>();
-
-        return mapper is null
-            ? throw new InvalidOperationException($"No mapper registered for {typeof(TRequest).Name} → {typeof(TResponse).Name}")
-            : mapper;
+        try
+        {
+            return _serviceProvider.GetRequiredService<IEventLogMapper<TRequest, TResponse>>();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new InvalidOperationException($"No mapper registered for {typeof(TRequest).Name} → {typeof(TResponse).Name}");
+        }
     }
 }
