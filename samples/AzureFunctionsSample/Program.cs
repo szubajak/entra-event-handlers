@@ -15,4 +15,4 @@ builder.Services.AddTransient<IPasswordContextCryptoService, PasswordContextCryp
 // Add Entra Event Handlers
 builder.Services.AddEntraEventHandlers();
 
-builder.Build().Run();
+await builder.Build().RunAsync();

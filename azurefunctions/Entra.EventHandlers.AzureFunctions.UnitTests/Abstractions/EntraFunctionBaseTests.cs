@@ -90,7 +90,7 @@ public class EntraFunctionBaseTests
         await _sut.Invoke(req);
 
         // Assert
-        await _responseAdapter.Received(1)
+        _ = _responseAdapter.Received(1)
             .BadRequestAsync(req, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
@@ -114,7 +114,7 @@ public class EntraFunctionBaseTests
         await _sut.InvokeAsync(req);
 
         // Assert
-        await _responseAdapter.Received(1)
+        _ = _responseAdapter.Received(1)
             .ServerErrorAsync(req, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>

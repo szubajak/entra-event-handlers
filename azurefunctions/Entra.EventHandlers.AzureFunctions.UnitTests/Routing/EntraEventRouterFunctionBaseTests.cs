@@ -16,6 +16,7 @@ public class EntraEventRouterFunctionBaseTests
 {
     private readonly TestEntraEventRouterFunctionBase _sut;
 
+    private readonly Fixture _fixture = new();
     private readonly TestLogger _logger;
     private readonly IEntraEventOrchestrator _orchestrator;
     private readonly IRequestAdapter _requestAdapter;
@@ -35,13 +36,11 @@ public class EntraEventRouterFunctionBaseTests
     public async Task RunAsync_WhenDeserializationFails_ReturnsBadRequestWithDeserializationError()
     {
         // Arrange
-        var fixture = new Fixture();
-
         var ctx = Substitute.For<FunctionContext>();
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
-        var errorMessage = fixture.Create<string>();
+        var errorMessage = _fixture.Create<string>();
         var exception = new EntraDeserializationException(errorMessage);
         _requestAdapter
             .ReadEventAsync(request)
@@ -123,8 +122,6 @@ public class EntraEventRouterFunctionBaseTests
     public async Task RunAsync_ValidationFails_ReturnsBadRequestWithValidationError()
     {
         // Arrange
-        var fixture = new Fixture();
-
         var ctx = Substitute.For<FunctionContext>();
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
@@ -134,7 +131,7 @@ public class EntraEventRouterFunctionBaseTests
             .ReadEventAsync(request)
             .Returns(entraEvent);
 
-        var errorMessage = fixture.Create<string>();
+        var errorMessage = _fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
 
         _orchestrator

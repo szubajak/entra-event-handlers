@@ -19,6 +19,7 @@ public class PasswordSubmitHandlerTests
 {
     private readonly TestPasswordSubmitHandler _sut;
 
+    private readonly Fixture _fixture = new();
     private readonly TestLogger _logger;
     private readonly IPasswordContextCryptoService _cryptoService;
 
@@ -36,10 +37,9 @@ public class PasswordSubmitHandlerTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreatePasswordSubmitEvent(fixture);
+        var evt = TestData.CreatePasswordSubmitEvent(_fixture);
 
-        var decrypted = fixture.Create<DecryptedPasswordContext>();
+        var decrypted = _fixture.Create<DecryptedPasswordContext>();
         _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
             .Returns(decrypted);
 
@@ -102,10 +102,9 @@ public class PasswordSubmitHandlerTests
     public async Task HandleAsync_Fail()
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreatePasswordSubmitEvent(fixture);
+        var evt = TestData.CreatePasswordSubmitEvent(_fixture);
 
-        var decrypted = fixture.Create<DecryptedPasswordContext>();
+        var decrypted = _fixture.Create<DecryptedPasswordContext>();
         _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
                .Returns(decrypted);
 
@@ -138,8 +137,7 @@ public class PasswordSubmitHandlerTests
     public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreatePasswordSubmitEvent(fixture, valid: false);
+        var evt = TestData.CreatePasswordSubmitEvent(_fixture, valid: false);
 
         // Act
         Func<Task> act = () => _sut.HandleAsync(evt, CancellationToken.None);

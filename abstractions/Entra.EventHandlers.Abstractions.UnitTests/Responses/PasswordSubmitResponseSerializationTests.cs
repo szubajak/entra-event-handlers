@@ -3,6 +3,7 @@ using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Responses;
 using FluentAssertions;
+using JsonDiffPatchDotNet;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
 
@@ -10,6 +11,9 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Responses;
 
 public class PasswordSubmitResponseSerializationTests     
 {
+    private readonly Fixture _fixture = new();
+    private readonly JsonDiffPatch _jsonDiffPatch = new();
+
     private static string GetExpectedResponse(string odataType, string nonce) =>
         $$"""
         {
@@ -29,9 +33,7 @@ public class PasswordSubmitResponseSerializationTests
     public void PasswordSubmitAction_MigratePassword_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var nonce = fixture.Create<string>();
+        var nonce = _fixture.Create<string>();
 
         var expectedJson = GetExpectedResponse("microsoft.graph.passwordSubmit.MigratePassword", nonce);
 
@@ -48,16 +50,15 @@ public class PasswordSubmitResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 
     [Fact]
     public void PasswordSubmitAction_UpdatePassword_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var nonce = fixture.Create<string>();
+        var nonce = _fixture.Create<string>();
 
         var expectedJson = GetExpectedResponse("microsoft.graph.passwordSubmit.UpdatePassword", nonce);
 
@@ -74,16 +75,15 @@ public class PasswordSubmitResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 
     [Fact]
     public void PasswordSubmitAction_Retry_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var nonce = fixture.Create<string>();
+        var nonce = _fixture.Create<string>();
 
         var expectedJson = GetExpectedResponse("microsoft.graph.passwordSubmit.Retry", nonce);
 
@@ -100,17 +100,15 @@ public class PasswordSubmitResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
-
 
     [Fact]
     public void PasswordSubmitAction_Block_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var nonce = fixture.Create<string>();
+        var nonce = _fixture.Create<string>();
 
         var expectedJson = GetExpectedResponse("microsoft.graph.passwordSubmit.Block", nonce);
 
@@ -127,6 +125,7 @@ public class PasswordSubmitResponseSerializationTests
         var json = JsonSerializer.Serialize(response);
 
         // Assert
-        JToken.Parse(json).Should().BeEquivalentTo(JToken.Parse(expectedJson));
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
     }
 }

@@ -9,9 +9,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntraEventHandlersHosting(this IServiceCollection services)
     {
-        services.AddSingleton<IEntraEventHandlerResolver, EntraEventHandlerResolver>();
-
-        services.AddSingleton<IEntraEventOrchestrator, EntraEventOrchestrator>();
+        services.AddSingleton<IEntraEventHandlerResolver, EntraEventHandlerResolver>()
+                .AddSingleton<IEntraEventOrchestrator, EntraEventOrchestrator>();
 
         services.Scan(scan => scan
             .FromApplicationDependencies()

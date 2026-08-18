@@ -10,8 +10,8 @@ public static class ServiceCollectionExtensions
     {
         services.AddEntraEventHandlersHosting();
 
-        services.AddSingleton<IRequestAdapter, RequestAdapter>();
-        services.AddSingleton<IResponseAdapter, ResponseAdapter>();
+        services.AddSingleton<IRequestAdapter, RequestAdapter>()
+                .AddSingleton<IResponseAdapter, ResponseAdapter>();
 
         return services;
     }

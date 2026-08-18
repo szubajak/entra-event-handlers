@@ -6,12 +6,13 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Errors;
 
 public class EntraDeserializationExceptionTests
 {
+    private readonly Fixture _fixture = new();
+
     [Fact]
     public void Ctor_SetsMessage()
     {
         // Arrange
-        var fixture = new Fixture();
-        var message = fixture.Create<string>();
+        var message = _fixture.Create<string>();
 
         // Act
         var ex = new EntraDeserializationException(message);
@@ -25,9 +26,8 @@ public class EntraDeserializationExceptionTests
     public void Ctor_SetsMessageAndInnerException()
     {
         // Arrange
-        var fixture = new Fixture();
-        var message = fixture.Create<string>();
-        var inner = new InvalidOperationException(fixture.Create<string>());
+        var message = _fixture.Create<string>();
+        var inner = new InvalidOperationException(_fixture.Create<string>());
 
         // Act
         var ex = new EntraDeserializationException(message, inner);

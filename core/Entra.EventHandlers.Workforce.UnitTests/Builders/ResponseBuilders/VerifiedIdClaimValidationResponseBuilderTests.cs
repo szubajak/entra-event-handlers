@@ -10,6 +10,8 @@ public class VerifiedIdClaimValidationResponseBuilderTests
 {
     private readonly VerifiedIdClaimValidationResponseBuilder _sut;
 
+    private readonly Fixture _fixture = new();
+
     public VerifiedIdClaimValidationResponseBuilderTests()
     {
         _sut = new VerifiedIdClaimValidationResponseBuilder();
@@ -37,8 +39,7 @@ public class VerifiedIdClaimValidationResponseBuilderTests
     public void Build_ReturnsResponseWith_FailedAction()
     {
         // Arrange
-        var fixture = new Fixture();
-        var failedClaims = fixture.CreateMany<string>(3).ToList();
+        var failedClaims = _fixture.CreateMany<string>(3).ToList();
 
         // Act
         var response = _sut
@@ -64,9 +65,8 @@ public class VerifiedIdClaimValidationResponseBuilderTests
     public void Build_ReturnsResponseWith_FailedAction_UsingFluentBuilder()
     {
         // Arrange
-        var fixture = new Fixture();
-        var claim1 = fixture.Create<string>();
-        var claim2 = fixture.Create<string>();
+        var claim1 = _fixture.Create<string>();
+        var claim2 = _fixture.Create<string>();
 
         // Act
         var response = _sut

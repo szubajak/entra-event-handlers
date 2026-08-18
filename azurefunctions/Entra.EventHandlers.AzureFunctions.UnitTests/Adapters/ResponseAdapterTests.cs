@@ -15,6 +15,8 @@ public class ResponseAdapterTests
 {
     private readonly ResponseAdapter _sut;
 
+    private readonly Fixture _fixture = new();
+
     public ResponseAdapterTests()
     {
         _sut = new ResponseAdapter();
@@ -24,12 +26,10 @@ public class ResponseAdapterTests
     public async Task FromAsync_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
         var context = Substitute.For<FunctionContext>();
         var req = new TestHttpRequestData(context, new MemoryStream());
 
-        var response = new TestResponse { TestProperty = fixture.Create<string>() };
+        var response = new TestResponse { TestProperty = _fixture.Create<string>() };
 
         // Act
         var result = await _sut.FromAsync(req, response);
@@ -48,15 +48,13 @@ public class ResponseAdapterTests
     public async Task BadRequestAsync_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
         var context = Substitute.For<FunctionContext>();
         var req = new TestHttpRequestData(context, new MemoryStream());
 
         var response = new EntraErrorResponse
         { 
-            Error = fixture.Create<string>(),
-            Details = fixture.Create<string>()
+            Error = _fixture.Create<string>(),
+            Details = _fixture.Create<string>()
         };
 
         // Act
@@ -76,15 +74,13 @@ public class ResponseAdapterTests
     public async Task ServerErrorAsync_Success()
     {
         // Arrange
-        var fixture = new Fixture();
-
         var context = Substitute.For<FunctionContext>();
         var req = new TestHttpRequestData(context, new MemoryStream());
 
         var response = new EntraErrorResponse
         {
-            Error = fixture.Create<string>(),
-            Details = fixture.Create<string>()
+            Error = _fixture.Create<string>(),
+            Details = _fixture.Create<string>()
         };
 
         // Act
