@@ -4,8 +4,9 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<UseMicrosoftTestingPlatform>true</UseMicrosoftTestingPlatform>
     <IsPackable>false</IsPackable>
+	<UseMicrosoftTestingPlatform>true</UseMicrosoftTestingPlatform>
+	<VSTestEnabled>false</VSTestEnabled>
   </PropertyGroup>
 
   <ItemGroup>
