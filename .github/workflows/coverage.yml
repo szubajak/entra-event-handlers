@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate HTML report
         run: reportgenerator \
-          -reports:**/*coverage.xml \
+          -reports:**/coverage.cobertura.xml \
           -targetdir:coverage \
           -reporttypes:"Html;Badges;MarkdownSummaryGithub"
 
