@@ -21,7 +21,6 @@ public class EventLogPublisherTests
 
     public EventLogPublisherTests()
     {
-        // Arrange
         _client = Substitute.For<IObservabilityApiClient>();
         _mapper = Substitute.For<IEventLogContextMapper>();
 
