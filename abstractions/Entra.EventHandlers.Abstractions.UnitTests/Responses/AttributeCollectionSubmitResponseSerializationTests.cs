@@ -11,6 +11,7 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Responses;
 
 public class AttributeCollectionSubmitResponseSerializationTests
 {
+    private readonly Fixture _fixture = new();
     private readonly JsonDiffPatch _jsonDiffPatch = new();
 
     [Fact]
@@ -51,10 +52,8 @@ public class AttributeCollectionSubmitResponseSerializationTests
     public void ModifyAttributeValuesAction_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var (attr1, val1) = (fixture.Create<string>(), fixture.Create<string>());
-        var (attr2, val2) = (fixture.Create<string>(), fixture.Create<bool>());
+        var (attr1, val1) = (_fixture.Create<string>(), _fixture.Create<string>());
+        var (attr2, val2) = (_fixture.Create<string>(), _fixture.Create<bool>());
 
         var expectedJson =
         $$"""
@@ -104,10 +103,8 @@ public class AttributeCollectionSubmitResponseSerializationTests
     public void ShowBlockPageAction_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var title = fixture.Create<string>();
-        var message = fixture.Create<string>();
+        var title = _fixture.Create<string>();
+        var message = _fixture.Create<string>();
 
         var expectedJson =
         $$"""
@@ -152,11 +149,9 @@ public class AttributeCollectionSubmitResponseSerializationTests
     public void ShowValidationErrorAction_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var message = fixture.Create<string>();
-        var (attr1, msg1) = (fixture.Create<string>(), fixture.Create<string>());
-        var (attr2, msg2) = (fixture.Create<string>(), fixture.Create<string>());
+        var message = _fixture.Create<string>();
+        var (attr1, msg1) = (_fixture.Create<string>(), _fixture.Create<string>());
+        var (attr2, msg2) = (_fixture.Create<string>(), _fixture.Create<string>());
 
         var expectedJson =
         $$"""

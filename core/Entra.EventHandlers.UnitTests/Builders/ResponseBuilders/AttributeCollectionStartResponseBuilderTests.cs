@@ -10,6 +10,8 @@ public class AttributeCollectionStartResponseBuilderTests
 {
     private readonly AttributeCollectionStartResponseBuilder _sut;
 
+    private readonly Fixture _fixture = new();
+
     public AttributeCollectionStartResponseBuilderTests()
     {
         _sut = new AttributeCollectionStartResponseBuilder();
@@ -37,10 +39,8 @@ public class AttributeCollectionStartResponseBuilderTests
     public void Build_ReturnsResponseWith_PrefillValuesAction()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var (input1, val1) = (fixture.Create<string>(), fixture.Create<string>());
-        var (input2, val2) = (fixture.Create<string>(), fixture.Create<bool>());
+        var (input1, val1) = (_fixture.Create<string>(), _fixture.Create<string>());
+        var (input2, val2) = (_fixture.Create<string>(), _fixture.Create<bool>());
 
         var inputs = new Dictionary<string, object>
         {
@@ -73,10 +73,8 @@ public class AttributeCollectionStartResponseBuilderTests
     public void Build_ReturnsResponseWith_PrefillValuesAction_UsingFluentBuilder()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var (input1, val1) = (fixture.Create<string>(), fixture.Create<string>());
-        var (input2, val2) = (fixture.Create<string>(), fixture.Create<bool>());
+        var (input1, val1) = (_fixture.Create<string>(), _fixture.Create<string>());
+        var (input2, val2) = (_fixture.Create<string>(), _fixture.Create<bool>());
 
         // Act
         var response = _sut
@@ -111,10 +109,8 @@ public class AttributeCollectionStartResponseBuilderTests
     public void Build_ReturnsResponseWith_ShowBlockPageAction()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var title = fixture.Create<string>();
-        var message = fixture.Create<string>();
+        var title = _fixture.Create<string>();
+        var message = _fixture.Create<string>();
 
         // Act
         var response = _sut

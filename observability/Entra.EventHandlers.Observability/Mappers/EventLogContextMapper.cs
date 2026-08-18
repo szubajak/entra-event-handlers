@@ -10,22 +10,18 @@ public interface IEventLogContextMapper
 }
 public sealed class EventLogContextMapper : IEventLogContextMapper
 {
-    public EventLogDto Map(EventLogContext ctx)
-    {
-        return new EventLogDto
+    public EventLogDto Map(EventLogContext ctx) =>
+        new()
         {
             DefaultLog = MapDefaultLog(ctx.DefaultLog),
             CustomLogs = MapCustomLogs(ctx.CustomLogEntries)
         };
-    }
 
-    private static EventLogEntryDto MapDefaultLog(EventLogEntry entry)
-    {
-        return new EventLogEntryDto
+    private static EventLogEntryDto MapDefaultLog(EventLogEntry entry) =>
+        new()
         {
             TenantId = entry.TenantId
         };
-    }
 
     private static List<CustomLogEntryDto> MapCustomLogs(List<CustomLogEntry> entries)
     {

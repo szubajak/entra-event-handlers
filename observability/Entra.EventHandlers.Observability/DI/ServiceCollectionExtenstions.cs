@@ -21,10 +21,19 @@ public static class ServiceCollectionExtenstions
                 .AddSingleton<IEventLogPublisher, EventLogPublisher>()
                 .AddSingleton<IObservabilityApiClient, ObservabilityApiClient>()
                 .AddSingleton<IEventLogMapperFactory, EventLogMapperFactory>()
+                .AddSingleton<IEventLogContextMapper, EventLogContextMapper>()
                 .AddSingleton<IEmailOtpSendEventLogMapper, EmailOtpSendEventLogMapper>()
                 .AddSingleton<IEventLogMapper<EmailOtpSendEvent, EmailOtpSendResponse>>(sp => sp.GetRequiredService<IEmailOtpSendEventLogMapper>());
 
-        services.Decorate(typeof(IEntraEventHandler<,>), typeof(ObservabilityHandlerDecorator<,>));
+        var hasHandlers = services.Any(sd =>
+            sd.ServiceType.IsGenericType &&
+            sd.ServiceType.GetGenericTypeDefinition() == typeof(IEntraEventHandler<,>)
+        );
+
+        if (hasHandlers)
+        {
+            services.Decorate(typeof(IEntraEventHandler<,>), typeof(ObservabilityHandlerDecorator<,>));
+        }
 
         return services;
     }

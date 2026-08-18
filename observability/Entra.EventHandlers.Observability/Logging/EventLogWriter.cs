@@ -6,6 +6,7 @@ namespace Entra.EventHandlers.Observability.Logging;
 public interface IEventLogWriter
 {
     void Write(string message);
+
     void Write(object entry);
 }
 

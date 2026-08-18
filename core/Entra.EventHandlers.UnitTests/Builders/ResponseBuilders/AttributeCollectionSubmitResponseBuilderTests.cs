@@ -10,6 +10,8 @@ public class AttributeCollectionSubmitResponseBuilderTests
 {
     private readonly AttributeCollectionSubmitResponseBuilder _sut;
 
+    private readonly Fixture _fixture = new();
+
     public AttributeCollectionSubmitResponseBuilderTests()
     {
         _sut = new AttributeCollectionSubmitResponseBuilder();
@@ -37,10 +39,8 @@ public class AttributeCollectionSubmitResponseBuilderTests
     public void Build_ReturnsResponseWith_ModifyAttributeValuesAction()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var (attr1, val1) = (fixture.Create<string>(), fixture.Create<string>());
-        var (attr2, val2) = (fixture.Create<string>(), fixture.Create<bool>());
+        var (attr1, val1) = (_fixture.Create<string>(), _fixture.Create<string>());
+        var (attr2, val2) = (_fixture.Create<string>(), _fixture.Create<bool>());
 
         var attributes = new Dictionary<string, object>
         {
@@ -73,10 +73,8 @@ public class AttributeCollectionSubmitResponseBuilderTests
     public void Build_ReturnsResponseWith_ShowBlockPageAction()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var title = fixture.Create<string>();
-        var message = fixture.Create<string>();
+        var title = _fixture.Create<string>();
+        var message = _fixture.Create<string>();
 
         // Act
         var response = _sut
@@ -104,11 +102,10 @@ public class AttributeCollectionSubmitResponseBuilderTests
     public void Build_ReturnsResponseWith_ShowValidationErrorAction()
     {
         // Arrange
-        var fixture = new Fixture();
-        var message = fixture.Create<string>();
+        var message = _fixture.Create<string>();
 
-        var (attr1, msg1) = (fixture.Create<string>(), fixture.Create<string>());
-        var (attr2, msg2) = (fixture.Create<string>(), fixture.Create<string>());
+        var (attr1, msg1) = (_fixture.Create<string>(), _fixture.Create<string>());
+        var (attr2, msg2) = (_fixture.Create<string>(), _fixture.Create<string>());
 
         var attributeErrors = new Dictionary<string, string>
         {

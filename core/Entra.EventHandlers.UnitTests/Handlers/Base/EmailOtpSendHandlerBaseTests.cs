@@ -16,6 +16,7 @@ public class EmailOtpSendHandlerBaseTests
 {
     private readonly TestEmailOtpSendHandler _sut;
 
+    private readonly Fixture _fixture = new();
     private readonly TestLogger _logger;
 
     public EmailOtpSendHandlerBaseTests()
@@ -31,8 +32,7 @@ public class EmailOtpSendHandlerBaseTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateEmailOtpSendEvent(fixture);
+        var evt = TestData.CreateEmailOtpSendEvent(_fixture);
 
         using var cts = new CancellationTokenSource();
 
@@ -91,8 +91,7 @@ public class EmailOtpSendHandlerBaseTests
     public async Task HandleAsync_Fail()
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateEmailOtpSendEvent(fixture);
+        var evt = TestData.CreateEmailOtpSendEvent(_fixture);
 
         _sut.CoreTest.ShouldThrow = true;
 
@@ -122,8 +121,7 @@ public class EmailOtpSendHandlerBaseTests
     public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
-        var fixture = new Fixture();
-        var evt = TestData.CreateEmailOtpSendEvent(fixture, valid: false);
+        var evt = TestData.CreateEmailOtpSendEvent(_fixture, valid: false);
 
         // Act
         var response = await _sut.HandleAsync(evt, CancellationToken.None);

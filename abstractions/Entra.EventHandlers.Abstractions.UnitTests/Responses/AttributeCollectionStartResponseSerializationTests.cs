@@ -11,6 +11,7 @@ namespace Entra.EventHandlers.Abstractions.UnitTests.Responses;
 
 public class AttributeCollectionStartResponseSerializationTests
 {
+    private readonly Fixture _fixture = new();
     private readonly JsonDiffPatch _jsonDiffPatch = new();
 
     [Fact]
@@ -51,10 +52,8 @@ public class AttributeCollectionStartResponseSerializationTests
     public void SetPrefillValuesAction_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var (input1, val1) = (fixture.Create<string>(), fixture.Create<string>());
-        var (input2, val2) = (fixture.Create<string>(), fixture.Create<bool>());
+        var (input1, val1) = (_fixture.Create<string>(), _fixture.Create<string>());
+        var (input2, val2) = (_fixture.Create<string>(), _fixture.Create<bool>());
 
         var expectedJson =
         $$"""
@@ -104,10 +103,8 @@ public class AttributeCollectionStartResponseSerializationTests
     public void ShowBlockPageAction_SerializesToExpectedJson()
     {
         // Arrange
-        var fixture = new Fixture();
-
-        var title = fixture.Create<string>();
-        var message = fixture.Create<string>();
+        var title = _fixture.Create<string>();
+        var message = _fixture.Create<string>();
 
         var expectedJson =
         $$"""
