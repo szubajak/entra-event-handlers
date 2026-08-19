@@ -48,13 +48,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.11" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)'=='Release'">
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.2" PrivateAssets="all" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.2" />
   </ItemGroup>
 </Project>

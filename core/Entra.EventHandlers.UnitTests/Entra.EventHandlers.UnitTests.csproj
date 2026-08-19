@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Entra.EventHandlers\Entra.EventHandlers.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
 </Project>
