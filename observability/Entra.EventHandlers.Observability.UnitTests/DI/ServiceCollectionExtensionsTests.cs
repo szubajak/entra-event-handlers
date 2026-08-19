@@ -21,50 +21,9 @@ namespace Entra.EventHandlers.Observability.UnitTests.DI;
 
 public class ServiceCollectionExtensionsTests
 {
-    [Fact]
-    public void AddEntraEventHandlersObservability_Registers_EventLogContext_AsScoped()
-    {
-        // Arrange
-        var services = new ServiceCollection();
-
-        // Act
-        services.AddEntraEventHandlersObservability();
-        var provider = services.BuildServiceProvider();
-
-        // Assert
-        var scope1 = provider.CreateScope();
-        var scope2 = provider.CreateScope();
-
-        var ctx1 = scope1.ServiceProvider.GetRequiredService<EventLogContext>();
-        var ctx2 = scope2.ServiceProvider.GetRequiredService<EventLogContext>();
-
-        ctx1.Should().NotBeSameAs(ctx2);
-    }
-
-    [Fact]
-    public void AddEntraEventHandlersObservability_Registers_EventLogWriter_AsScoped()
-    {
-        // Arrange
-        var services = new ServiceCollection();
-
-        // Act
-        services.AddEntraEventHandlersObservability();
-        var provider = services.BuildServiceProvider();
-
-        // Assert
-        var scope1 = provider.CreateScope();
-        var scope2 = provider.CreateScope();
-
-        var w1 = scope1.ServiceProvider.GetRequiredService<IEventLogWriter>();
-        var w2 = scope2.ServiceProvider.GetRequiredService<IEventLogWriter>();
-
-        w1.Should().NotBeSameAs(w2);
-        w1.Should().BeOfType<EventLogWriter>();
-    }
-
     [Theory]
     [MemberData(nameof(ServicesRegistrations))]
-    public void AddEntraEventHandlersObservability_Registers_Services(Type serviceType)
+    public void AddEntraEventHandlersObservability_Registers_Services(Type serviceType, ServiceLifetime serviceLifetime)
     {
         // Arrange
         var services = new ServiceCollection();
@@ -73,10 +32,11 @@ public class ServiceCollectionExtensionsTests
 
         // Act
         services.AddEntraEventHandlersObservability();
-        var provider = services.BuildServiceProvider();
 
         // Assert
-        provider.GetRequiredService(serviceType).Should().NotBeNull();
+        var descriptor = services.SingleOrDefault(x => x.ServiceType == serviceType);
+        descriptor.Should().NotBeNull();
+        descriptor.Lifetime.Should().Be(serviceLifetime);
     }
 
     [Theory]
@@ -177,13 +137,15 @@ public class ServiceCollectionExtensionsTests
         publisher.Received(1).Publish(Arg.Is<EventLogContext>(c => c.DefaultLog == logEntry));
     }
 
-    public static TheoryData<Type> ServicesRegistrations() =>
+    public static TheoryData<Type, ServiceLifetime> ServicesRegistrations() =>
         new()
         {
-            { typeof(IEventLogPublisher) },
-            { typeof(IObservabilityApiClient) },
-            { typeof(IEventLogMapperFactory) },
-            { typeof(IEventLogContextMapper) }
+            { typeof(EventLogContext), ServiceLifetime.Scoped },
+            { typeof(IEventLogWriter), ServiceLifetime.Scoped },
+            { typeof(IEventLogPublisher), ServiceLifetime.Singleton },
+            { typeof(IObservabilityApiClient), ServiceLifetime.Singleton },
+            { typeof(IEventLogMapperFactory), ServiceLifetime.Singleton },
+            { typeof(IEventLogContextMapper), ServiceLifetime.Singleton }
         };
 
     public static TheoryData<Type, Type> MapperRegistrations() =>
