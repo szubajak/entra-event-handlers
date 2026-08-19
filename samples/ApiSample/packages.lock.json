@@ -44,14 +44,6 @@
         "type": "Project",
         "dependencies": {
           "Entra.EventHandlers.Abstractions": "[1.4.2, )",
-          "Entra.EventHandlers.Hosting": "[1.0.0, )",
-          "Scrutor": "[7.0.0, )"
-        }
-      },
-      "entra.eventhandlers.hosting": {
-        "type": "Project",
-        "dependencies": {
-          "Entra.EventHandlers.Abstractions": "[1.4.2, )",
           "Scrutor": "[7.0.0, )"
         }
       },

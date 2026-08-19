@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\common\Entra.EventHandlers.TestHelpers\Entra.EventHandlers.TestHelpers.csproj" />
-    <ProjectReference Include="..\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.2" />
   </ItemGroup>
 	
 </Project>
