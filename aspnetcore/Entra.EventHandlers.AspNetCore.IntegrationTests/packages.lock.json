@@ -96,6 +96,11 @@
         "resolved": "5.1.1",
         "contentHash": "rpYtIczkzGpf+EkZgDr9CClTdemhsrwA/W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g=="
       },
+      "Entra.EventHandlers.Abstractions": {
+        "type": "Transitive",
+        "resolved": "1.4.2",
+        "contentHash": "0rEPZP5fpVhUEMkgqwasCatkXbF/Uyv2ltoVLOnLPl7/ZXKLzUuT1S/6juP5hq+ifWm9J03QB0SieUR0GMVzHA=="
+      },
       "Fare": {
         "type": "Transitive",
         "resolved": "2.1.1",
@@ -324,9 +329,6 @@
         "dependencies": {
           "Entra.EventHandlers.Abstractions": "[1.4.2, )"
         }
-      },
-      "entra.eventhandlers.abstractions": {
-        "type": "Project"
       },
       "entra.eventhandlers.aspnetcore": {
         "type": "Project",
