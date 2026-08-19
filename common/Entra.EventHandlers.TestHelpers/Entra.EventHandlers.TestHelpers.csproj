@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.4.2" />
+    <ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>
