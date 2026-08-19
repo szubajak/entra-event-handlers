@@ -44,6 +44,11 @@
           "System.Memory.Data": "6.0.0"
         }
       },
+      "Entra.EventHandlers.Abstractions": {
+        "type": "Transitive",
+        "resolved": "1.4.2",
+        "contentHash": "0rEPZP5fpVhUEMkgqwasCatkXbF/Uyv2ltoVLOnLPl7/ZXKLzUuT1S/6juP5hq+ifWm9J03QB0SieUR0GMVzHA=="
+      },
       "Google.Protobuf": {
         "type": "Transitive",
         "resolved": "3.28.0",
@@ -163,13 +168,11 @@
           "Entra.EventHandlers.Abstractions": "[1.4.2, )"
         }
       },
-      "entra.eventhandlers.abstractions": {
-        "type": "Project"
-      },
       "entra.eventhandlers.azurefunctions": {
         "type": "Project",
         "dependencies": {
           "Entra.EventHandlers.Abstractions": "[1.4.2, )",
+          "Entra.EventHandlers.Hosting": "[1.0.0, )",
           "Microsoft.Azure.Functions.Worker": "[2.52.0, )",
           "Scrutor": "[7.0.0, )"
         }

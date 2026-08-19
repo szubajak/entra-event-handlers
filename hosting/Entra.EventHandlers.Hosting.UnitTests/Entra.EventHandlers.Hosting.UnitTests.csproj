@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
 </Project>

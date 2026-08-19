@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Entra.EventHandlers.Observability\Entra.EventHandlers.Observability.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
 </Project>

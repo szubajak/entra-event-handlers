@@ -89,6 +89,11 @@
           "System.Diagnostics.EventLog": "6.0.0"
         }
       },
+      "Entra.EventHandlers.Abstractions": {
+        "type": "Transitive",
+        "resolved": "1.4.2",
+        "contentHash": "0rEPZP5fpVhUEMkgqwasCatkXbF/Uyv2ltoVLOnLPl7/ZXKLzUuT1S/6juP5hq+ifWm9J03QB0SieUR0GMVzHA=="
+      },
       "Fare": {
         "type": "Transitive",
         "resolved": "2.1.1",
@@ -316,9 +321,6 @@
           "xunit.v3.extensibility.core": "[4.0.0]",
           "xunit.v3.runner.common": "[4.0.0]"
         }
-      },
-      "entra.eventhandlers.abstractions": {
-        "type": "Project"
       },
       "entra.eventhandlers.testhelpers": {
         "type": "Project",

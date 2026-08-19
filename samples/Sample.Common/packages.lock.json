@@ -2,6 +2,11 @@
   "version": 1,
   "dependencies": {
     "net10.0": {
+      "Entra.EventHandlers.Abstractions": {
+        "type": "Transitive",
+        "resolved": "1.4.2",
+        "contentHash": "0rEPZP5fpVhUEMkgqwasCatkXbF/Uyv2ltoVLOnLPl7/ZXKLzUuT1S/6juP5hq+ifWm9J03QB0SieUR0GMVzHA=="
+      },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {
         "type": "Transitive",
         "resolved": "10.0.11",
@@ -21,9 +26,6 @@
           "Entra.EventHandlers.Abstractions": "[1.4.2, )",
           "Microsoft.Extensions.Logging.Abstractions": "[10.0.11, )"
         }
-      },
-      "entra.eventhandlers.abstractions": {
-        "type": "Project"
       },
       "entra.eventhandlers.workforce": {
         "type": "Project",

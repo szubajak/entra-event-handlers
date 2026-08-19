@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Entra.EventHandlers.AspNetCore\Entra.EventHandlers.AspNetCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
 </Project>
