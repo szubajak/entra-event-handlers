@@ -148,6 +148,30 @@ public class EntraEventOrchestratorTests
     }
 
     [Fact]
+    public async Task DispatchAsync_VerifiedIdClaimValidationEvent_Success()
+    {
+        // Arrange
+        var evt = _fixture.Create<VerifiedIdClaimValidationEvent>();
+        var response = new VerifiedIdClaimValidationResponse
+        {
+            Data = new VerifiedIdClaimValidationResponsePayload()
+        };
+        var cts = new CancellationTokenSource();
+
+        var handler = Substitute.For<IEntraEventHandler<VerifiedIdClaimValidationEvent, VerifiedIdClaimValidationResponse>>();
+        handler.HandleAsync(evt, cts.Token).Returns(response);
+
+        _resolver.Resolve<VerifiedIdClaimValidationEvent, VerifiedIdClaimValidationResponse>()
+            .Returns(handler);
+
+        // Act
+        var result = await _sut.DispatchAsync(evt, cts.Token);
+
+        // Assert
+        result.Should().Be(response);
+    }
+
+    [Fact]
     public async Task DispatchAsync_UnknownEvent_ThrowsNotSupportedException()
     {
         // Arrange

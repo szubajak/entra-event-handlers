@@ -49,6 +49,9 @@ public class EntraEventOrchestrator(IEntraEventHandlerResolver resolver) : IEntr
             PasswordSubmitEvent e =>
                 DispatchTypedAsync<PasswordSubmitEvent, PasswordSubmitResponse>(e, cancellationToken),
 
+            VerifiedIdClaimValidationEvent e =>
+                DispatchTypedAsync<VerifiedIdClaimValidationEvent, VerifiedIdClaimValidationResponse>(e, cancellationToken),
+
             _ => throw new NotSupportedException($"Unsupported event type: {evt.GetType().Name}")
         };
 

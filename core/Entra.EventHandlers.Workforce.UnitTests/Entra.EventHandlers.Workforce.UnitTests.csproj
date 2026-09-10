@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Entra.EventHandlers.Workforce\Entra.EventHandlers.Workforce.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
 </Project>
