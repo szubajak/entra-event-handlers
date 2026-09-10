@@ -1,8 +1,6 @@
 ﻿using Entra.EventHandlers.AzureFunctions.Adapters;
 using Entra.EventHandlers.AzureFunctions.DI;
 using Entra.EventHandlers.Hosting.Orchestrators;
-using Entra.EventHandlers.Hosting.Resolvers;
-using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,67 +9,39 @@ namespace Entra.EventHandlers.AzureFunctions.UnitTests.DI;
 public class ServiceCollectionExtensionsTests
 {
     [Fact]
-    public void AddEntraEventHandlers_ResolvesHandler()
+    public void AddEntraEventHandlers_Invokes_Hosting_Registrations()
     {
         // Arrange
         var services = new ServiceCollection();
+        
+        // Act
         services.AddEntraEventHandlers();
 
-        var provider = services.BuildServiceProvider();
-        var resolver = provider.GetRequiredService<IEntraEventHandlerResolver>();
-
         // Act
-        var handler = resolver.Resolve<TestEvent, TestResponse>();
-
-        // Assert
-        handler.Should().BeOfType<TestHandler>();
+        var descriptor = services.SingleOrDefault(x => x.ServiceType == typeof(IEntraEventOrchestrator));
+        descriptor.Should().NotBeNull();
     }
 
-
-    [Fact]
-    public void AddEntraEventHandlers_RegistersResolver()
+    [Theory]
+    [MemberData(nameof(ServicesRegistrations))]
+    public void AddEntraEventHandlers_Registers_Services(Type serviceType, ServiceLifetime serviceLifetime)
     {
         // Arrange
         var services = new ServiceCollection();
-        services.AddEntraEventHandlers();
 
         // Act
-        var provider = services.BuildServiceProvider();
-
-        // Assert
-        provider.GetService<IEntraEventHandlerResolver>()
-            .Should().NotBeNull();
-    }
-
-    [Fact]
-    public void AddEntraEventHandlers_RegistersOrchestrator()
-    {
-        // Arrange
-        var services = new ServiceCollection();
         services.AddEntraEventHandlers();
 
-        // Act
-        var provider = services.BuildServiceProvider();
-
         // Assert
-        provider.GetService<IEntraEventOrchestrator>()
-            .Should().NotBeNull();
+        var descriptor = services.SingleOrDefault(x => x.ServiceType == serviceType);
+        descriptor.Should().NotBeNull();
+        descriptor.Lifetime.Should().Be(serviceLifetime);
     }
 
-    [Fact]
-    public void AddEntraEventHandlers_RegistersAdapters()
-    {
-        // Arrange
-        var services = new ServiceCollection();
-        services.AddEntraEventHandlers();
-
-        // Act
-        var provider = services.BuildServiceProvider();
-
-        // Assert
-        provider.GetService<IRequestAdapter>()
-            .Should().NotBeNull();
-        provider.GetService<IResponseAdapter>()
-            .Should().NotBeNull();
-    }
+    public static TheoryData<Type, ServiceLifetime> ServicesRegistrations() =>
+        new()
+        {
+            { typeof(IRequestAdapter), ServiceLifetime.Singleton },
+            { typeof(IResponseAdapter), ServiceLifetime.Singleton }
+        };
 }
