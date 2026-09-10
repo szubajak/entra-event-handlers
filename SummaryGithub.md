@@ -3,18 +3,18 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/10/2026 - 09:47:12 |
+| Generated on: | 09/10/2026 - 09:51:45 |
 | Parser: | MultiReport (7x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 104 |
 | Files: | 93 |
-| **Line coverage:** | 88.5% (999 of 1128) |
-| Covered lines: | 999 |
-| Uncovered lines: | 129 |
+| **Line coverage:** | 88.7% (1001 of 1128) |
+| Covered lines: | 1001 |
+| Uncovered lines: | 127 |
 | Coverable lines: | 1128 |
 | Total lines: | 3942 |
-| **Branch coverage:** | 98.5% (138 of 140) |
-| Covered branches: | 138 |
+| **Branch coverage:** | 100% (140 of 140) |
+| Covered branches: | 140 |
 | Total branches: | 140 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -125,15 +125,15 @@
 |Entra.EventHandlers.AzureFunctions.Routing.EntraEventRouterFunctionBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Hosting - 97.6%</summary>
+<details><summary>Entra.EventHandlers.Hosting - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Hosting**|**97.6%**|**95%**|
+|**Entra.EventHandlers.Hosting**|**100%**|**100%**|
 |Entra.EventHandlers.Hosting.DI.ServiceCollectionExtensions|100%|100%|
 |Entra.EventHandlers.Hosting.Extensions.ExceptionExtensions|100%|100%|
-|Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator|96.4%|91.6%|
-|Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator<TEvent, TR<br/>esponse>|96.4%|91.6%|
+|Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator|100%|100%|
+|Entra.EventHandlers.Hosting.Orchestrators.EntraEventOrchestrator<TEvent, TR<br/>esponse>|100%|100%|
 |Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver|100%|100%|
 
 </details>
