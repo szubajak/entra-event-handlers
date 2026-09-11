@@ -4,6 +4,7 @@ using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
@@ -54,7 +55,13 @@ public class EntraEndpointBaseTests
 
         _sut.ExecuteDelegate = _ => throw exception;
 
-        var ctx = new DefaultHttpContext();
+        var services = new ServiceCollection();
+        var provider = services.BuildServiceProvider();
+
+        var ctx = new DefaultHttpContext
+        {
+            RequestServices = provider
+        };
 
         // Act
         await _sut.Invoke(ctx);
@@ -77,7 +84,13 @@ public class EntraEndpointBaseTests
 
         _sut.ExecuteDelegate = _ => throw exception;
 
-        var ctx = new DefaultHttpContext();
+        var services = new ServiceCollection();
+        var provider = services.BuildServiceProvider();
+
+        var ctx = new DefaultHttpContext
+        {
+            RequestServices = provider
+        };
 
         // Act
         await _sut.Invoke(ctx);
