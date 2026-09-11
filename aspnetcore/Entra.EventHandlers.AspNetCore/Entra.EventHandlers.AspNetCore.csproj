@@ -63,9 +63,7 @@
       <IncludeAssets>none</IncludeAssets>
 	</ProjectReference>
 
-	<None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
-		Pack="true"
-		PackagePath="lib/net10.0/" />
+	<None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll" Pack="true" PackagePath="lib/net10.0/" />
   </ItemGroup>
 
 </Project>
