@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.AspNetCore.Interfaces;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -103,5 +104,33 @@ public class EntraEndpointBaseTests
             e.Level == LogLevel.Error &&
             e.Exception == exception &&
             e.Message.Contains("Unhandled exception while processing Entra event."));
+    }
+
+    [Fact]
+    public async Task InvokeAsync_CustomExceptionHandler_InvokesIt()
+    {
+        // Arrange
+        var fixture = new Fixture();
+
+        var exception = new EntraValidationException(fixture.Create<string>());
+
+        var handler = new TestEntraExceptionHandler();
+
+        var services = new ServiceCollection();
+        services.AddSingleton<IEntraExceptionHandler>(handler);
+        var provider = services.BuildServiceProvider();
+
+        var ctx = new DefaultHttpContext
+        {
+            RequestServices = provider
+        };
+
+        _sut.ExecuteDelegate = _ => throw exception;
+
+        // Act
+        await _sut.Invoke(ctx);
+
+        // Assert
+        handler.WasCalled.Should().BeTrue();
     }
 }
