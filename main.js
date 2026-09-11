@@ -346,7 +346,7 @@ var assemblies = [
   {
     "name": "Entra.EventHandlers.AspNetCore",
     "classes": [
-      { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointBase.html", "cl": 42, "ucl": 1, "cal": 43, "tl": 66, "cb": 3, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointBase.html", "cl": 43, "ucl": 0, "cal": 43, "tl": 66, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase\u003CTEvent, TResponse\u003E", "rp": "Entra.EventHandlers.AspNetCore_EntraTypedEndpointBase_TEvent__TResponse_.html", "cl": 0, "ucl": 6, "cal": 6, "tl": 25, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase\u003CTEvent, TResponse\u003E", "rp": "Entra.EventHandlers.AspNetCore_EntraTypedEndpointBase_TEvent__TResponse_.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 25, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter", "rp": "Entra.EventHandlers.AspNetCore_RequestAdapter.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 80, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
