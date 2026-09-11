@@ -1,5 +1,6 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.AspNetCore.Interfaces;
 using Entra.EventHandlers.Hosting.Extensions;
 
 namespace Entra.EventHandlers.AspNetCore.Abstractions;
@@ -15,6 +16,10 @@ public abstract class EntraEndpointBase(
 
     protected virtual Task OnExceptionAsync(Exception ex, HttpContext context, bool isEntraException)
     {
+        var exceptionHandler = context.RequestServices.GetService<IEntraExceptionHandler>();
+        if (exceptionHandler is not null)
+            return exceptionHandler.HandleAsync(ex, context, isEntraException);
+
         if (isEntraException)
             Logger.LogWarning(ex, "Handled expected Entra exception.");
         else
