@@ -25,8 +25,7 @@ public interface IEntraEventHandler { }
 /// Defines the contract for handling Microsoft Entra custom extension events.
 /// Implementations receive a strongly‑typed event payload and return a
 /// <see cref="EntraHandlerResult{TResponse}"/> containing both the protocol
-/// response and any handler‑level diagnostics (such as execution duration
-/// or captured exceptions).
+/// response or captured exceptions.
 /// </summary>
 /// <typeparam name="TRequest">
 /// The type of the incoming event model representing the request sent by
