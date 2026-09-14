@@ -2,6 +2,7 @@
 using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.AspNetCore.Interfaces;
+using Entra.EventHandlers.Hosting.Errors;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -74,7 +75,7 @@ public class EntraEndpointBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
             e.Exception == exception &&
-            e.Message.Contains("Handled expected Entra exception."));
+            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
     }
 
     [Fact]
@@ -103,7 +104,7 @@ public class EntraEndpointBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&
             e.Exception == exception &&
-            e.Message.Contains("Unhandled exception while processing Entra event."));
+            e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling."));
     }
 
     [Fact]

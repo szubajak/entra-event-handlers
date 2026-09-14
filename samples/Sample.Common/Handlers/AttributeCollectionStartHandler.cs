@@ -11,7 +11,7 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
 {
     protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
         AttributeCollectionStartEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         return Task.FromResult(
             EntraEventResponses

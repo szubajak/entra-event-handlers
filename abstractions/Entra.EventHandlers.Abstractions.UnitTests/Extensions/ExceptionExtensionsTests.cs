@@ -1,8 +1,8 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.Hosting.Extensions;
+using Entra.EventHandlers.Abstractions.Extensions;
 using FluentAssertions;
 
-namespace Entra.EventHandlers.Hosting.UnitTests.Extensions;
+namespace Entra.EventHandlers.Abstractions.UnitTests.Extensions;
 
 public class ExceptionExtensionsTests
 {

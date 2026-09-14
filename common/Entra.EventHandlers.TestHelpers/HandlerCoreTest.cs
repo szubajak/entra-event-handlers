@@ -8,7 +8,7 @@ public sealed class HandlerCoreTest
 
     public bool ShouldThrow { get; set; } = false;
 
-    public void Record(CancellationToken cancellationToken)
+    public void Record(CancellationToken cancellationToken = default)
     {
         HandleCoreCallCount++;
         CapturedCancellationToken = cancellationToken;

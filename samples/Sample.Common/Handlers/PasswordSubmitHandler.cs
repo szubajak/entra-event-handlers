@@ -14,7 +14,7 @@ public class PasswordSubmitHandler(ILogger<PasswordSubmitHandler> logger, IPassw
     protected override Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,
         DecryptedPasswordContext decrypted,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         return Task.FromResult(
             EntraEventResponses

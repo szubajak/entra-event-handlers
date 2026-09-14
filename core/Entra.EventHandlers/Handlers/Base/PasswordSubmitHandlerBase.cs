@@ -1,6 +1,8 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Builders;
 using Entra.EventHandlers.Interfaces;
 using Entra.EventHandlers.Protocol.PasswordSubmit;
@@ -34,7 +36,7 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
     /// correlation identifiers, measures execution duration, and ensures
     /// that unhandled exceptions result in a safe <c>Block</c> response.
     /// </remarks>
-    public async Task<PasswordSubmitResponse> HandleAsync(PasswordSubmitEvent request, CancellationToken cancellationToken)
+    public async Task<EntraHandlerResult<PasswordSubmitResponse>> HandleAsync(PasswordSubmitEvent request, CancellationToken cancellationToken = default)
     {
         using var scope = Logger.BeginScope(new Dictionary<string, object?>
         {
@@ -45,7 +47,7 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
 
         var sw = Stopwatch.StartNew();
 
-        Logger.LogInformation("Handling event");
+        Logger.LogInformation("Starting Entra event handling.");
 
         DecryptedPasswordContext? decrypted = null;
 
@@ -62,28 +64,39 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
             var actionType = response.Data.Actions.FirstOrDefault()?.OdataType ?? "None";
 
             Logger.LogInformation(
-                "Successfully handled event. DurationMs={Duration}, Action={ActionType}",
+                "Entra event handled successfully. DurationMs={DurationMs}, Action={ActionType}.",
                 sw.ElapsedMilliseconds,
                 actionType);
 
-            return response!;
+            return new EntraHandlerResult<PasswordSubmitResponse>(response);
         }
         catch (Exception ex)
         {
             sw.Stop();
 
-            Logger.LogError(
-                ex,
-                "Unhandled exception. DurationMs={Duration}",
-                sw.ElapsedMilliseconds);
+            if (ex.IsEntraException())
+            {
+                Logger.LogWarning(
+                    ex,
+                    "Entra domain exception occurred during Entra event handling. DurationMs={DurationMs}.",
+                    sw.ElapsedMilliseconds);
+            }
+            else
+            {
+                Logger.LogError(
+                    ex,
+                    "Unexpected failure occurred during Entra event handling. DurationMs={DurationMs}.",
+                    sw.ElapsedMilliseconds);
+            }
 
             if (decrypted?.Nonce is string nonce)
             {
-                return EntraEventResponses
-                    .PasswordSubmit()
+                var defaultResponse = EntraEventResponses.PasswordSubmit()
                     .WithNonce(nonce)
                     .Block()
                     .Build();
+
+                return new EntraHandlerResult<PasswordSubmitResponse>(defaultResponse, ex);
             }
 
             throw;
@@ -104,5 +117,5 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
     protected abstract Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,
         DecryptedPasswordContext decrypted,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 }

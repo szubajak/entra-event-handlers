@@ -1,6 +1,8 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Workforce.Builders;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -30,7 +32,7 @@ public abstract class VerifiedIdClaimValidationHandlerBase(ILogger logger) : IVe
     /// indicating failed claim validation. This ensures that account recovery
     /// does not proceed when the validation logic cannot complete safely.
     /// </remarks>
-    public async Task<VerifiedIdClaimValidationResponse> HandleAsync(VerifiedIdClaimValidationEvent request, CancellationToken cancellationToken = default)
+    public async Task<EntraHandlerResult<VerifiedIdClaimValidationResponse>> HandleAsync(VerifiedIdClaimValidationEvent request, CancellationToken cancellationToken = default)
     {
         using var scope = Logger.BeginScope(new Dictionary<string, object?>
         {
@@ -41,7 +43,7 @@ public abstract class VerifiedIdClaimValidationHandlerBase(ILogger logger) : IVe
 
         var sw = Stopwatch.StartNew();
 
-        Logger.LogInformation("Handling event");
+        Logger.LogInformation("Starting Entra event handling.");
 
         try
         {
@@ -54,25 +56,37 @@ public abstract class VerifiedIdClaimValidationHandlerBase(ILogger logger) : IVe
             var actionType = response.Data.Actions.FirstOrDefault()?.OdataType ?? "None";
 
             Logger.LogInformation(
-                "Successfully handled event. DurationMs={Duration}, Action={ActionType}",
+                "Entra event handled successfully. DurationMs={DurationMs}, Action={ActionType}.",
                 sw.ElapsedMilliseconds,
                 actionType);
 
-            return response!;
+            return new EntraHandlerResult<VerifiedIdClaimValidationResponse>(response);
         }
         catch (Exception ex)
         {
             sw.Stop();
 
-            Logger.LogError(
-                ex,
-                "Unhandled exception. DurationMs={Duration}",
-                sw.ElapsedMilliseconds);
+            if (ex.IsEntraException())
+            {
+                Logger.LogWarning(
+                    ex,
+                    "Entra domain exception occurred during Entra event handling. DurationMs={DurationMs}.",
+                    sw.ElapsedMilliseconds);
+            }
+            else
+            {
+                Logger.LogError(
+                    ex,
+                    "Unexpected failure occurred during Entra event handling. DurationMs={DurationMs}.",
+                    sw.ElapsedMilliseconds);
+            }
 
-            return EntraWorkforceEventResponses
+            var defaultResponse = EntraWorkforceEventResponses
                 .VerifiedIdClaimValidation()
                 .Failed([])
                 .Build();
+
+            return new EntraHandlerResult<VerifiedIdClaimValidationResponse>(defaultResponse, ex);
         }
     }
 
@@ -81,5 +95,5 @@ public abstract class VerifiedIdClaimValidationHandlerBase(ILogger logger) : IVe
     /// VerifiedIdClaimValidation event. Implementations should override
     /// this method instead of <see cref="HandleAsync"/>.
     /// </summary>
-    protected abstract Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(VerifiedIdClaimValidationEvent request, CancellationToken cancellationToken);
+    protected abstract Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(VerifiedIdClaimValidationEvent request, CancellationToken cancellationToken = default);
 }

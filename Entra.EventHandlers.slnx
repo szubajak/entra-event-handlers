@@ -39,6 +39,7 @@
     <Project Path="azurefunctions/Entra.EventHandlers.AzureFunctions.UnitTests/Entra.EventHandlers.AzureFunctions.UnitTests.csproj" />
   </Folder>
   <Folder Name="/common/">
+    <Project Path="common/Entra.EventHandlers.TestData/Entra.EventHandlers.TestData.csproj" />
     <Project Path="common/Entra.EventHandlers.TestHelpers/Entra.EventHandlers.TestHelpers.csproj" />
   </Folder>
   <Folder Name="/core/">

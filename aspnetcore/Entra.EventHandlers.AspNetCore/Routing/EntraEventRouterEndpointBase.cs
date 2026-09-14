@@ -1,8 +1,8 @@
-﻿using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.Abstractions.Events;
+﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.AspNetCore.Abstractions;
 using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.Hosting.Errors;
 using Entra.EventHandlers.Hosting.Orchestrators;
 
 namespace Entra.EventHandlers.AspNetCore.Routing;
@@ -48,20 +48,13 @@ public abstract class EntraEventRouterEndpointBase(
     protected sealed override async Task ExecuteAsync(HttpContext httpContext)
     {
         var evt = await RequestAdapter.ReadEventAsync(httpContext);
-        var response = await _orchestrator.DispatchAsync(evt, httpContext.RequestAborted);
-        await ResponseAdapter.WriteOkAsync(httpContext, response);
-    }
+        var result = await _orchestrator.DispatchAsync(evt, httpContext.RequestAborted);
 
-    /// <summary>
-    /// Logs expected and unexpected exceptions encountered during event processing.
-    /// </summary>
-    protected override Task OnExceptionAsync(Exception ex, HttpContext context, bool isEntraException)
-    {
-        if (isEntraException)
-            Logger.LogWarning(ex, "Router: handled expected Entra exception.");
-        else
-            Logger.LogError(ex, "Router: unhandled exception while processing Entra event.");
+        if (result.HasException)
+        {
+            await OnExceptionAsync(result.Exception!, httpContext);
+        }
 
-        return Task.CompletedTask;
+        await ResponseAdapter.WriteOkAsync(httpContext, result.Response);
     }
 }

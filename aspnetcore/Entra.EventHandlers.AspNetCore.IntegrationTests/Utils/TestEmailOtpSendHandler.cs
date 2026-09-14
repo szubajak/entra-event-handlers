@@ -1,6 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Builders;
 using Entra.EventHandlers.TestHelpers;
 
@@ -8,7 +9,7 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 
 public class TestEmailOtpSendHandler : TestHandlerBase, IEmailOtpSendHandler
 {
-    public Task<EmailOtpSendResponse> HandleAsync(
+    public Task<EntraHandlerResult<EmailOtpSendResponse>> HandleAsync(
         EmailOtpSendEvent request,
         CancellationToken cancellationToken = default)
     {
@@ -17,10 +18,10 @@ public class TestEmailOtpSendHandler : TestHandlerBase, IEmailOtpSendHandler
         WasCalled = true;
         CapturedCancellationToken = cancellationToken;
 
-        return Task.FromResult(
-            EntraEventResponses
-                .EmailOtpSend()
-                .ContinueWithDefaultBehavior()
-                .Build());
+        var response = EntraEventResponses.EmailOtpSend()
+           .ContinueWithDefaultBehavior()
+           .Build();
+
+        return Task.FromResult(new EntraHandlerResult<EmailOtpSendResponse>(response));
     }
 }

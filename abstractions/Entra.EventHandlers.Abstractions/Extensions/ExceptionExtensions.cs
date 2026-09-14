@@ -1,6 +1,6 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 
-namespace Entra.EventHandlers.Hosting.Extensions;
+namespace Entra.EventHandlers.Abstractions.Extensions;
 
 public static class ExceptionExtensions
 {
