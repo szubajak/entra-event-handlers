@@ -1,6 +1,8 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Builders;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -25,7 +27,7 @@ public abstract class EmailOtpSendHandlerBase(ILogger logger) : IEmailOtpSendHan
     /// verification), establishes a logging scope with correlation identifiers,
     /// measures execution duration, and applies consistent exception handling.
     /// </remarks>
-    public async Task<EmailOtpSendResponse> HandleAsync(EmailOtpSendEvent request, CancellationToken cancellationToken)
+    public async Task<EntraHandlerResult<EmailOtpSendResponse>> HandleAsync(EmailOtpSendEvent request, CancellationToken cancellationToken = default)
     {
         using var scope = Logger.BeginScope(new Dictionary<string, object?>
         {
@@ -36,7 +38,7 @@ public abstract class EmailOtpSendHandlerBase(ILogger logger) : IEmailOtpSendHan
 
         var sw = Stopwatch.StartNew();
 
-        Logger.LogInformation("Handling event");
+        Logger.LogInformation("Starting Entra event handling.");
 
         try
         {
@@ -49,25 +51,36 @@ public abstract class EmailOtpSendHandlerBase(ILogger logger) : IEmailOtpSendHan
             var actionType = response.Data.Actions.FirstOrDefault()?.OdataType ?? "None";
 
             Logger.LogInformation(
-                "Successfully handled event. DurationMs={Duration}, Action={ActionType}",
+                "Entra event handled successfully. DurationMs={DurationMs}, Action={ActionType}.",
                 sw.ElapsedMilliseconds,
                 actionType);
 
-            return response!;
+            return new EntraHandlerResult<EmailOtpSendResponse>(response);
         }
         catch (Exception ex)
         {
             sw.Stop();
 
-            Logger.LogError(
-                ex,
-                "Unhandled exception. DurationMs={Duration}",
-                sw.ElapsedMilliseconds);
+            if (ex.IsEntraException())
+            {
+                Logger.LogWarning(
+                    ex,
+                    "Entra domain exception occurred during Entra event handling. DurationMs={DurationMs}.",
+                    sw.ElapsedMilliseconds);
+            }
+            else
+            {
+                Logger.LogError(
+                    ex,
+                    "Unexpected failure occurred during Entra event handling. DurationMs={DurationMs}.",
+                    sw.ElapsedMilliseconds);
+            }
 
-            return EntraEventResponses
-                .EmailOtpSend()
+            var defaultResponse = EntraEventResponses.EmailOtpSend()
                 .ContinueWithDefaultBehavior()
                 .Build();
+
+            return new EntraHandlerResult<EmailOtpSendResponse>(defaultResponse, ex);
         }
     }
 
@@ -76,5 +89,5 @@ public abstract class EmailOtpSendHandlerBase(ILogger logger) : IEmailOtpSendHan
     /// EmailOtpSend event. Implementations should override this method
     /// instead of <see cref="HandleAsync"/>.
     /// </summary>
-    protected abstract Task<EmailOtpSendResponse> HandleCoreAsync(EmailOtpSendEvent request, CancellationToken cancellationToken);
+    protected abstract Task<EmailOtpSendResponse> HandleCoreAsync(EmailOtpSendEvent request, CancellationToken cancellationToken = default);
 }

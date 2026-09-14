@@ -18,7 +18,13 @@ public abstract class AttributeCollectionSubmitFunctionBase(
     protected sealed override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
     {
         var evt = await RequestAdapter.ReadEventAsync<AttributeCollectionSubmitEvent>(req);
-        var response = await _handler.HandleAsync(evt, req.FunctionContext.CancellationToken);
-        return await ResponseAdapter.FromAsync(req, response);
+        var result = await _handler.HandleAsync(evt, req.FunctionContext.CancellationToken);
+
+        if (result.HasException)
+        {
+            await OnExceptionAsync(result.Exception!);
+        }
+
+        return await ResponseAdapter.FromAsync(req, result.Response);
     }
 }

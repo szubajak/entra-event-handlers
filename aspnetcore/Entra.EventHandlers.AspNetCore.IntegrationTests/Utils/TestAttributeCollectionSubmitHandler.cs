@@ -1,6 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Builders;
 using Entra.EventHandlers.TestHelpers;
 
@@ -8,7 +9,7 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 
 public class TestAttributeCollectionSubmitHandler : TestHandlerBase, IAttributeCollectionSubmitHandler
 {
-    public Task<AttributeCollectionSubmitResponse> HandleAsync(
+    public Task<EntraHandlerResult<AttributeCollectionSubmitResponse>> HandleAsync(
         AttributeCollectionSubmitEvent request,
         CancellationToken cancellationToken = default)
     {
@@ -17,10 +18,10 @@ public class TestAttributeCollectionSubmitHandler : TestHandlerBase, IAttributeC
         WasCalled = true;
         CapturedCancellationToken = cancellationToken;
 
-        return Task.FromResult(
-            EntraEventResponses
-                .AttributeCollectionSubmit()
-                .ContinueWithDefaultBehavior()
-                .Build());
+        var response = EntraEventResponses.AttributeCollectionSubmit()
+            .ContinueWithDefaultBehavior()
+            .Build();
+
+        return Task.FromResult(new EntraHandlerResult<AttributeCollectionSubmitResponse>(response));
     }
 }

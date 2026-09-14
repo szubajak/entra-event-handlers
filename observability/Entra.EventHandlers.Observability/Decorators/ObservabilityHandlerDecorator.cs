@@ -1,6 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Observability.Context;
 using Entra.EventHandlers.Observability.Factories;
 using Entra.EventHandlers.Observability.Logging;
@@ -21,16 +22,19 @@ public sealed class ObservabilityHandlerDecorator<TRequest, TResponse>(
     private readonly IEventLogMapperFactory _mapperFactory = mapperFactory;
     private readonly EventLogContext _ctx = ctx;
 
-    public async Task<TResponse> HandleAsync(TRequest request, CancellationToken cancellationToken = default)
+    public async Task<EntraHandlerResult<TResponse>> HandleAsync(TRequest request, CancellationToken cancellationToken = default)
     {
-        var response = await _inner.HandleAsync(request, cancellationToken);
+        var result = await _inner.HandleAsync(request, cancellationToken);
+
+        if (result.HasException)
+            return result;
 
         var mapper = _mapperFactory.Get<TRequest, TResponse>();
 
-        _ctx.DefaultLog = mapper.Map(request, response);
+        _ctx.DefaultLog = mapper.Map(request, result.Response);
 
         _publisher.Publish(_ctx);
 
-        return response;
+        return result;
     }
 }

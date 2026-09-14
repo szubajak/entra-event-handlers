@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Observability.Context;
 using Entra.EventHandlers.Observability.Decorators;
 using Entra.EventHandlers.Observability.Factories;
@@ -24,8 +25,10 @@ public class ObservabilityHandlerDecoratorTests
         var request = new TestEvent();
         var response = new TestResponse();
 
+        var expectedResult = new EntraHandlerResult<TestResponse>(response);
+
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
-        handler.HandleAsync(request, ct).Returns(response);
+        handler.HandleAsync(request, ct).Returns(expectedResult);
 
         var logEntry = fixture.Create<EventLogEntry>();
         var mapper = Substitute.For<IEventLogMapper<TestEvent, TestResponse>>();
@@ -45,7 +48,9 @@ public class ObservabilityHandlerDecoratorTests
         var result = await sut.HandleAsync(request, ct);
 
         // Assert
-        result.Should().Be(response);
+        result.Should().BeEquivalentTo(expectedResult);
+        result.Response.Should().Be(response);
+
 
         publisher.Received(1).Publish(ctx);
         capturedEventLogContext.DefaultLog.Should().Be(logEntry);

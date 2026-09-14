@@ -78,7 +78,7 @@ public class VerifiedIdHandler(ILogger<VerifiedIdHandler> logger)
 {
     protected override Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(
         VerifiedIdClaimValidationEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         // Custom validation logic here
         return Task.FromResult(

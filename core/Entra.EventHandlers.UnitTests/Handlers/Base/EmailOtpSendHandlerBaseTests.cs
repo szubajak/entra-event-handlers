@@ -52,21 +52,24 @@ public class EmailOtpSendHandlerBaseTests
         _sut.ResponseToReturn = expectedResponse;
 
         // Act
-        var response = await _sut.HandleAsync(evt, cts.Token);
+        var result = await _sut.HandleAsync(evt, cts.Token);
 
         // Assert
-        response.Should().Be(expectedResponse);
+        result.Should().NotBeNull();
+
+        var response = result.Response;
+        response.Should().BeEquivalentTo(expectedResponse);
 
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
         _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
         _logger.Entries.Should().Contain(e =>
             e.Level == LogLevel.Information &&
-            e.Message.Contains("Handling event"));
+            e.Message.Contains("Starting Entra event handling."));
 
         var success = _logger.Entries.Single(e =>
             e.Level == LogLevel.Information &&
-            e.Message.Contains("Successfully handled event"));
+            e.Message.Contains("Entra event handled successfully."));
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
@@ -96,15 +99,18 @@ public class EmailOtpSendHandlerBaseTests
         _sut.CoreTest.ShouldThrow = true;
 
         // Act
-        var response = await _sut.HandleAsync(evt, CancellationToken.None);
+        var result = await _sut.HandleAsync(evt, CancellationToken.None);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
 
         _logger.Entries.Should().Contain(e =>
             e.Level == LogLevel.Error &&
-            e.Message.Contains("Unhandled exception"));
+            e.Message.Contains("Unexpected failure occurred during Entra event handling."));
 
+        result.Should().NotBeNull();
+
+        var response = result.Response;
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
@@ -124,11 +130,14 @@ public class EmailOtpSendHandlerBaseTests
         var evt = TestData.CreateEmailOtpSendEvent(_fixture, valid: false);
 
         // Act
-        var response = await _sut.HandleAsync(evt, CancellationToken.None);
+        var result = await _sut.HandleAsync(evt, CancellationToken.None);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(0);
 
+        result.Should().NotBeNull();
+
+        var response = result.Response;
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 

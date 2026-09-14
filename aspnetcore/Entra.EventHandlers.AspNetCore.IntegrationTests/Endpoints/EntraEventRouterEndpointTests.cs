@@ -1,5 +1,6 @@
 ﻿using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.AppFactories;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using System.Net;
@@ -101,6 +102,7 @@ public class EntraEventRouterEndpointTests(TestAppFactory factory) : IClassFixtu
             { typeof(TestAttributeCollectionSubmitHandler), EventSamples.AttributeCollectionSubmit() },
             { typeof(TestTokenIssuanceStartHandler), EventSamples.TokenIssuanceStart() },
             { typeof(TestEmailOtpSendHandler), EventSamples.EmailOtpSend() },
-            { typeof(TestPasswordSubmitHandler), EventSamples.PasswordSubmit() }
+            { typeof(TestPasswordSubmitHandler), EventSamples.PasswordSubmit() },
+            { typeof(TestVerifiedIdClaimValidationHandler), EventSamples.VerifiedIdClaimValidation() }
         };
 }

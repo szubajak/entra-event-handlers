@@ -245,7 +245,7 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
 {
     protected override Task<AttributeCollectionStartResponse> HandleCore(
         AttributeCollectionStartEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         return Task.FromResult(
             EntraEventResponses

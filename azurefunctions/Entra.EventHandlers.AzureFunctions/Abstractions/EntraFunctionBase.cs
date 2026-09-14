@@ -1,6 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.AzureFunctions.Adapters;
-using Entra.EventHandlers.Hosting.Extensions;
+using Entra.EventHandlers.Hosting.Errors;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
@@ -12,15 +13,7 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
     protected IRequestAdapter RequestAdapter { get; } = requestAdapter;
     protected IResponseAdapter ResponseAdapter { get; } = responseAdapter;
 
-    protected virtual Task OnExceptionAsync(Exception ex, bool isEntraException)
-    {
-        if (isEntraException)
-            Logger.LogWarning(ex, "Handled expected Entra exception.");
-        else
-            Logger.LogError(ex, "Unhandled exception while processing Entra event.");
-
-        return Task.CompletedTask;
-    }
+    protected virtual Task OnExceptionAsync(Exception ex) => Task.CompletedTask;
 
     public async Task<HttpResponseData> InvokeAsync(HttpRequestData req)
     {
@@ -30,7 +23,9 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
         }
         catch (Exception ex) when (ex.IsEntraException())
         {
-            await OnExceptionAsync(ex, isEntraException: true);
+            Logger.LogWarning(ex, "Entra domain exception occurred in hosting layer during Entra event handling.");
+
+            await OnExceptionAsync(ex);
 
             return await ResponseAdapter.BadRequestAsync(
                 req,
@@ -42,14 +37,16 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
         }
         catch (Exception ex)
         {
-            await OnExceptionAsync(ex, isEntraException: false);
+            Logger.LogError(ex, "Unexpected failure occurred in hosting layer during Entra event handling.");
+
+            await OnExceptionAsync(ex);
 
             return await ResponseAdapter.ServerErrorAsync(
                 req,
                 new EntraErrorResponse
                 {
                     Error = EntraErrorCodes.UnhandledException,
-                    Details = "An unexpected error occurred."
+                    Details = "Unexpected failure occurred."
                 });
         }
     }

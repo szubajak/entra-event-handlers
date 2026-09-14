@@ -19,4 +19,9 @@ public sealed class EmailOtpSendFunction(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "emailotpsend")]
         HttpRequestData req) =>
         InvokeAsync(req);
+
+    protected override Task OnExceptionAsync(Exception ex)
+    {
+        return base.OnExceptionAsync(ex);
+    }
 }

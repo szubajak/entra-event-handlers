@@ -1,5 +1,5 @@
 ﻿using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.AppFactories;
-using Entra.EventHandlers.TestHelpers;
+using Entra.EventHandlers.TestData;
 using FluentAssertions;
 using System.Net;
 using System.Text;
@@ -27,6 +27,6 @@ public class EntraEventRouterEndpointResponseAdapterThrowsTests(TestAppFactoryRe
 
         var body = await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
         body.Should().Contain("UnhandledException");
-        body.Should().Contain("An unexpected error occurred.");
+        body.Should().Contain("Unexpected failure occurred.");
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
-using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.Hosting.Errors;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;

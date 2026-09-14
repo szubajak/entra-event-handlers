@@ -1,6 +1,9 @@
 ﻿using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.AzureFunctions.Adapters;
+using Entra.EventHandlers.Hosting.Errors;
 using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
@@ -69,7 +72,7 @@ public class EntraEventRouterFunctionBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
             e.Exception == exception &&
-            e.Message.Contains("Router: handled expected Entra exception."));
+            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
     }
 
     [Fact]
@@ -115,7 +118,7 @@ public class EntraEventRouterFunctionBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
             e.Exception == exception &&
-            e.Message.Contains("Router: handled expected Entra exception."));
+            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
     }
 
     [Fact]
@@ -161,7 +164,7 @@ public class EntraEventRouterFunctionBaseTests
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
             e.Exception == exception &&
-            e.Message.Contains("Router: handled expected Entra exception."));
+            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
     }
 
     [Fact]
@@ -200,13 +203,13 @@ public class EntraEventRouterFunctionBaseTests
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.UnhandledException &&
-                    e.Details == "An unexpected error occurred."
+                    e.Details == "Unexpected failure occurred."
             ));
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&
             e.Exception == exception &&
-            e.Message.Contains("Router: unhandled exception while processing Entra event."));
+            e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling."));
     }
 
     [Fact]
@@ -224,9 +227,11 @@ public class EntraEventRouterFunctionBaseTests
 
         var entraResponse = new TestResponse();
 
+        var expectedResult = new EntraHandlerResult<EntraEventResponse>(entraResponse);
+
         _orchestrator
             .DispatchAsync(entraEvent, ctx.CancellationToken)
-            .Returns(entraResponse);
+            .Returns(expectedResult);
 
         _responseAdapter
             .FromAsync(request, entraResponse)

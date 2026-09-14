@@ -11,7 +11,7 @@ public class AttributeCollectionSubmitHandler(ILogger<AttributeCollectionSubmitH
 {
     protected override Task<AttributeCollectionSubmitResponse> HandleCoreAsync(
         AttributeCollectionSubmitEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         return Task.FromResult(
             EntraEventResponses

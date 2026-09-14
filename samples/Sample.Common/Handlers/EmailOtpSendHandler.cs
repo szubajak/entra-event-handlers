@@ -11,7 +11,7 @@ public class EmailOtpSendHandler(ILogger<EmailOtpSendHandler> logger)
 {
     protected override Task<EmailOtpSendResponse> HandleCoreAsync(
         EmailOtpSendEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         return Task.FromResult(
             EntraEventResponses

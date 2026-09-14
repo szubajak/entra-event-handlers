@@ -1,5 +1,6 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Hosting.Resolvers;
 
 namespace Entra.EventHandlers.Hosting.Orchestrators;
@@ -23,7 +24,7 @@ public interface IEntraEventOrchestrator
     /// <exception cref="NotSupportedException">
     /// Thrown when the event type is not recognized or is not supported by the orchestrator.
     /// </exception>
-    Task<EntraEventResponse> DispatchAsync(EntraEvent evt, CancellationToken cancellationToken);
+    Task<EntraHandlerResult<EntraEventResponse>> DispatchAsync(EntraEvent evt, CancellationToken cancellationToken = default);
 }
 
 /// <inheritdoc />
@@ -31,7 +32,7 @@ public class EntraEventOrchestrator(IEntraEventHandlerResolver resolver) : IEntr
 {
     private readonly IEntraEventHandlerResolver _resolver = resolver;
 
-    public Task<EntraEventResponse> DispatchAsync(EntraEvent evt, CancellationToken cancellationToken) =>
+    public Task<EntraHandlerResult<EntraEventResponse>> DispatchAsync(EntraEvent evt, CancellationToken cancellationToken = default) =>
         evt switch
         {
             AttributeCollectionStartEvent e =>
@@ -55,11 +56,14 @@ public class EntraEventOrchestrator(IEntraEventHandlerResolver resolver) : IEntr
             _ => throw new NotSupportedException($"Unsupported event type: {evt.GetType().Name}")
         };
 
-    private async Task<EntraEventResponse> DispatchTypedAsync<TEvent, TResponse>(TEvent evt, CancellationToken cancellationToken)
+    private async Task<EntraHandlerResult<EntraEventResponse>> DispatchTypedAsync<TEvent, TResponse>(TEvent evt, CancellationToken cancellationToken = default)
         where TEvent : EntraEvent
         where TResponse : EntraEventResponse
     {
         var handler = _resolver.Resolve<TEvent, TResponse>();
-        return await handler.HandleAsync(evt, cancellationToken);
+
+        var result = await handler.HandleAsync(evt, cancellationToken);
+
+        return new EntraHandlerResult<EntraEventResponse>(result.Response, result.Exception);
     }
 }

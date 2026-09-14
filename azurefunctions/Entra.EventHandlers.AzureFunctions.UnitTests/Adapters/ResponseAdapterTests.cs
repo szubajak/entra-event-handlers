@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
-using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.AzureFunctions.Adapters;
 using Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
+using Entra.EventHandlers.Hosting.Errors;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.Azure.Functions.Worker;

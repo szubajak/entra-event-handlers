@@ -65,7 +65,7 @@ public class VerifiedIdHandler(ILogger<VerifiedIdHandler> logger)
 {
     protected override Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(
         VerifiedIdClaimValidationEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         // Example: validate claims against authoritative HR data
         var failedClaims = new List<string>();

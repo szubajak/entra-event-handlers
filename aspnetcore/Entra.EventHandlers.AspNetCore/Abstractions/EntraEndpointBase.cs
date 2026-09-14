@@ -1,29 +1,22 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
+using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.AspNetCore.Interfaces;
-using Entra.EventHandlers.Hosting.Extensions;
+using Entra.EventHandlers.Hosting.Errors;
 
 namespace Entra.EventHandlers.AspNetCore.Abstractions;
 
-public abstract class EntraEndpointBase(
-    ILogger logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
+public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestAdapter, IResponseAdapter responseAdapter)
 {
     protected ILogger Logger { get; } = logger;
     protected IRequestAdapter RequestAdapter { get; } = requestAdapter;
     protected IResponseAdapter ResponseAdapter { get; } = responseAdapter;
 
-    protected virtual Task OnExceptionAsync(Exception ex, HttpContext context, bool isEntraException)
+    protected Task OnExceptionAsync(Exception ex, HttpContext context)
     {
         var exceptionHandler = context.RequestServices.GetService<IEntraExceptionHandler>();
         if (exceptionHandler is not null)
-            return exceptionHandler.HandleAsync(ex, context, isEntraException);
-
-        if (isEntraException)
-            Logger.LogWarning(ex, "Handled expected Entra exception.");
-        else
-            Logger.LogError(ex, "Unhandled exception while processing Entra event.");
+            return exceptionHandler.HandleAsync(ex);
 
         return Task.CompletedTask;
     }
@@ -36,7 +29,9 @@ public abstract class EntraEndpointBase(
         }
         catch (Exception ex) when (ex.IsEntraException())
         {
-            await OnExceptionAsync(ex, httpContext, isEntraException: true);
+            Logger.LogWarning(ex, "Entra domain exception occurred in hosting layer during Entra event handling.");
+
+            await OnExceptionAsync(ex, httpContext);
 
             await ResponseAdapter.WriteBadRequestAsync(
                 httpContext,
@@ -48,14 +43,16 @@ public abstract class EntraEndpointBase(
         }
         catch (Exception ex)
         {
-            await OnExceptionAsync(ex, httpContext, isEntraException: false);
+            Logger.LogError(ex, "Unexpected failure occurred in hosting layer during Entra event handling.");
+
+            await OnExceptionAsync(ex, httpContext);
 
             await ResponseAdapter.WriteServerErrorAsync(
                 httpContext,
                 new EntraErrorResponse
                 {
                     Error = EntraErrorCodes.UnhandledException,
-                    Details = "An unexpected error occurred."
+                    Details = "Unexpected failure occurred."
                 });
         }
     }

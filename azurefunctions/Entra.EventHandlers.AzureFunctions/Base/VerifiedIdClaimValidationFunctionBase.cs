@@ -19,6 +19,12 @@ public abstract class VerifiedIdClaimValidationFunctionBase(
     {
         var evt = await RequestAdapter.ReadEventAsync<VerifiedIdClaimValidationEvent>(req);
         var response = await _handler.HandleAsync(evt, req.FunctionContext.CancellationToken);
-        return await ResponseAdapter.FromAsync(req, response);
+
+        if (response.HasException)
+        {
+            await OnExceptionAsync(response.Exception!);
+        }
+
+        return await ResponseAdapter.FromAsync(req, response.Response);
     }
 }
