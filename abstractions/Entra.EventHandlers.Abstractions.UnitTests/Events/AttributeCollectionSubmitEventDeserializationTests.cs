@@ -4,7 +4,7 @@ using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Protocol.Authentication;
 using Entra.EventHandlers.Abstractions.Protocol.SignUp;
-using Entra.EventHandlers.TestHelpers;
+using Entra.EventHandlers.TestData;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using System.Text.Json;

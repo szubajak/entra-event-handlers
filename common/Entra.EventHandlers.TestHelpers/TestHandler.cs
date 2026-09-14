@@ -1,13 +1,15 @@
 ﻿using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.Abstractions.Results;
 
 namespace Entra.EventHandlers.TestHelpers;
 
 public class TestHandler : TestHandlerBase, IEntraEventHandler<TestEvent, TestResponse>
 {
-    public Task<TestResponse> HandleAsync(TestEvent evt, CancellationToken cancellationToken)
+    public Task<EntraHandlerResult<TestResponse>> HandleAsync(TestEvent evt, CancellationToken cancellationToken = default)
     {
         WasCalled = true;
         CapturedCancellationToken = cancellationToken;
-        return Task.FromResult(new TestResponse());
+
+        return Task.FromResult(new EntraHandlerResult<TestResponse>(new TestResponse()));
     }
 }
