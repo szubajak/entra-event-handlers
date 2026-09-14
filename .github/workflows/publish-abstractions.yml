@@ -1,0 +1,46 @@
+name: Publish Abstractions NuGet
+
+on:
+  push:
+    tags:
+      - 'Entra.EventHandlers.Abstractions-v*'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish-abstractions:
+    runs-on: ubuntu-latest
+
+    env:
+      TAG: ${{ github.ref_name }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Extract version
+        id: extract
+        run: |
+          VERSION=$(echo "$TAG" | sed -E 's/.*-v([0-9]+\.[0-9]+\.[0-9]+)/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Publishing Abstractions v$VERSION"
+
+      - name: Restore Abstractions
+        run: dotnet restore abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj
+
+      - name: Build Abstractions
+        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+
+      - name: Run Abstractions Unit Tests
+        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --no-build --verbosity normal
+
+      - name: Pack Abstractions
+        run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build -p:PackageVersion=$VERSION
+
+      - name: Publish Abstractions to NuGet
+        run: dotnet nuget push "abstractions/Entra.EventHandlers.Abstractions/bin/Release/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
