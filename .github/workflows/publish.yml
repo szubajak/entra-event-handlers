@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'Entra.EventHandlers-v*'
+      - 'Entra.EventHandlers.Abstractions-v*'
       - 'Entra.EventHandlers.AzureFunctions-v*'
       - 'Entra.EventHandlers.AspNetCore-v*'
       - 'Entra.EventHandlers.Workforce-v*'

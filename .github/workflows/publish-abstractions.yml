@@ -3,7 +3,7 @@ name: Publish Abstractions NuGet
 on:
   push:
     tags:
-      - 'Entra.EventHandlers.Abstractions-v*'
+      - 'Special'
 
 permissions:
   id-token: write
@@ -35,6 +35,9 @@ jobs:
 
       - name: Build Abstractions
         run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+
+      - name: Run Abstractions Unit Tests
+        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --no-build --verbosity normal
 
       - name: Pack Abstractions
         run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build -p:PackageVersion=$VERSION
