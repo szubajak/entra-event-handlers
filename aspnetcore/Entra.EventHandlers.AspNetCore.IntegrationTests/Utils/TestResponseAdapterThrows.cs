@@ -1,6 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.Hosting.Errors;
 using System.Text.Json;
 
 namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;

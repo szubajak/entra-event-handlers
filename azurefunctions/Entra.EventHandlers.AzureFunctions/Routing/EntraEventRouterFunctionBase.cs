@@ -1,8 +1,8 @@
-﻿using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.Abstractions.Events;
+﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.AzureFunctions.Abstractions;
 using Entra.EventHandlers.AzureFunctions.Adapters;
+using Entra.EventHandlers.Hosting.Errors;
 using Entra.EventHandlers.Hosting.Orchestrators;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -55,20 +55,13 @@ public abstract class EntraEventRouterFunctionBase(
     protected sealed override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
     {
         var evt = await RequestAdapter.ReadEventAsync(req);
-        var response = await _orchestrator.DispatchAsync(evt, req.FunctionContext.CancellationToken);
-        return await ResponseAdapter.FromAsync(req, response);
-    }
+        var result = await _orchestrator.DispatchAsync(evt, req.FunctionContext.CancellationToken);
 
-    /// <summary>
-    /// Logs expected and unexpected exceptions encountered during event processing.
-    /// </summary>
-    protected override Task OnExceptionAsync(Exception ex, bool isEntraException)
-    {
-        if (isEntraException)
-            Logger.LogWarning(ex, "Router: handled expected Entra exception.");
-        else
-            Logger.LogError(ex, "Router: unhandled exception while processing Entra event.");
+        if (result.HasException)
+        {
+            await OnExceptionAsync(result.Exception!);
+        }
 
-        return Task.CompletedTask;
+        return await ResponseAdapter.FromAsync(req, result.Response);
     }
 }

@@ -127,7 +127,10 @@ public class ServiceCollectionExtensionsTests
         var handler = provider.GetRequiredService<IEntraEventHandler<TestEvent, TestResponse>>();
         handler.Should().BeOfType<ObservabilityHandlerDecorator<TestEvent, TestResponse>>();
 
-        var response = await handler.HandleAsync(request, ct);
+        var result = await handler.HandleAsync(request, ct);
+        result.Should().NotBeNull();
+
+        var response = result.Response;
         capturedResponse.Should().Be(response);
 
         testHandler.WasCalled.Should().BeTrue();

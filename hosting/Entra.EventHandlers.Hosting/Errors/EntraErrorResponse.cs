@@ -1,4 +1,4 @@
-﻿namespace Entra.EventHandlers.Abstractions.Errors;
+﻿namespace Entra.EventHandlers.Hosting.Errors;
 
 public sealed class EntraErrorResponse
 {

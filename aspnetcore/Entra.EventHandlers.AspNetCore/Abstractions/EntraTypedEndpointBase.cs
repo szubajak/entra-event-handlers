@@ -19,7 +19,13 @@ public abstract class EntraTypedEndpointBase<TEvent, TResponse>(
     {
         var evt = await RequestAdapter.ReadEventAsync<TEvent>(httpContext);
         var handler = Resolver.Resolve<TEvent, TResponse>();
-        var response = await handler.HandleAsync(evt, httpContext.RequestAborted);
-        await ResponseAdapter.WriteOkAsync(httpContext, response);
+        var result = await handler.HandleAsync(evt, httpContext.RequestAborted);
+
+        if (result.HasException)
+        {
+            await OnExceptionAsync(result.Exception!, httpContext);
+        }
+
+        await ResponseAdapter.WriteOkAsync(httpContext, result.Response);
     }
 }

@@ -11,7 +11,7 @@ public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger
 {
     protected override Task<TokenIssuanceStartResponse> HandleCoreAsync(
         TokenIssuanceStartEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         // Extract user ID (GUID)
         var userId = request.Data.AuthenticationContext?.User?.Id;

@@ -11,7 +11,7 @@ public class VerifiedIdClaimValidationHandler(ILogger<VerifiedIdClaimValidationH
 {
     protected override Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(
         VerifiedIdClaimValidationEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         return Task.FromResult(
             EntraWorkforceEventResponses

@@ -1,5 +1,5 @@
-﻿using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.Abstractions.Responses;
+﻿using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Hosting.Errors;
 using Microsoft.Azure.Functions.Worker.Http;
 using System.Net;
 using System.Text.Json;

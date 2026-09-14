@@ -2,6 +2,7 @@
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Entra.EventHandlers.TestHelpers;
@@ -33,10 +34,14 @@ public class EntraEventOrchestratorTests
         { 
             Data = new AttributeCollectionStartResponsePayload()
         };
+        var exception = new Exception();
+
+        var expectedResult = new EntraHandlerResult<AttributeCollectionStartResponse>(response, exception);
+
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<AttributeCollectionStartEvent, AttributeCollectionStartResponse>>();
-        handler.HandleAsync(evt, cts.Token).Returns(response);
+        handler.HandleAsync(evt, cts.Token).Returns(expectedResult);
 
         _resolver.Resolve<AttributeCollectionStartEvent, AttributeCollectionStartResponse>()
             .Returns(handler);
@@ -45,7 +50,9 @@ public class EntraEventOrchestratorTests
         var result = await _sut.DispatchAsync(evt, cts.Token);
 
         // Assert
-        result.Should().Be(response);
+        result.Should().BeEquivalentTo(expectedResult);
+        result.Response.Should().Be(response);
+        result.Exception.Should().Be(exception);
     }
 
     [Fact]
@@ -54,13 +61,17 @@ public class EntraEventOrchestratorTests
         // Arrange
         var evt = _fixture.Create<AttributeCollectionSubmitEvent>();
         var response = new AttributeCollectionSubmitResponse
-        { 
+        {
             Data = new AttributeCollectionSubmitResponsePayload()
         };
+        var exception = new Exception();
+
+        var expectedResult = new EntraHandlerResult<AttributeCollectionSubmitResponse>(response, exception);
+
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<AttributeCollectionSubmitEvent, AttributeCollectionSubmitResponse>>();
-        handler.HandleAsync(evt, cts.Token).Returns(response);
+        handler.HandleAsync(evt, cts.Token).Returns(expectedResult);
 
         _resolver.Resolve<AttributeCollectionSubmitEvent, AttributeCollectionSubmitResponse>()
             .Returns(handler);
@@ -69,7 +80,9 @@ public class EntraEventOrchestratorTests
         var result = await _sut.DispatchAsync(evt, cts.Token);
 
         // Assert
-        result.Should().Be(response);
+        result.Should().BeEquivalentTo(expectedResult);
+        result.Response.Should().Be(response);
+        result.Exception.Should().Be(exception);
     }
 
     [Fact]
@@ -78,13 +91,17 @@ public class EntraEventOrchestratorTests
         // Arrange
         var evt = _fixture.Create<TokenIssuanceStartEvent>();
         var response = new TokenIssuanceStartResponse
-        { 
+        {
             Data = new TokenIssuanceStartResponsePayload()
         };
+        var exception = new Exception();
+
+        var expectedResult = new EntraHandlerResult<TokenIssuanceStartResponse>(response, exception);
+
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<TokenIssuanceStartEvent, TokenIssuanceStartResponse>>();
-        handler.HandleAsync(evt, cts.Token).Returns(response);
+        handler.HandleAsync(evt, cts.Token).Returns(expectedResult);
 
         _resolver.Resolve<TokenIssuanceStartEvent, TokenIssuanceStartResponse>()
             .Returns(handler);
@@ -93,7 +110,9 @@ public class EntraEventOrchestratorTests
         var result = await _sut.DispatchAsync(evt, cts.Token);
 
         // Assert
-        result.Should().Be(response);
+        result.Should().BeEquivalentTo(expectedResult);
+        result.Response.Should().Be(response);
+        result.Exception.Should().Be(exception);
     }
 
     [Fact]
@@ -105,10 +124,14 @@ public class EntraEventOrchestratorTests
         {
             Data = new EmailOtpSendResponsePayload()
         };
+        var exception = new Exception();
+
+        var expectedResult = new EntraHandlerResult<EmailOtpSendResponse>(response, exception);
+
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<EmailOtpSendEvent, EmailOtpSendResponse>>();
-        handler.HandleAsync(evt, cts.Token).Returns(response);
+        handler.HandleAsync(evt, cts.Token).Returns(expectedResult);
 
         _resolver.Resolve<EmailOtpSendEvent, EmailOtpSendResponse>()
             .Returns(handler);
@@ -117,7 +140,9 @@ public class EntraEventOrchestratorTests
         var result = await _sut.DispatchAsync(evt, cts.Token);
 
         // Assert
-        result.Should().Be(response);
+        result.Should().BeEquivalentTo(expectedResult);
+        result.Response.Should().Be(response);
+        result.Exception.Should().Be(exception);
     }
 
     [Fact]
@@ -126,16 +151,20 @@ public class EntraEventOrchestratorTests
         // Arrange
         var evt = _fixture.Create<PasswordSubmitEvent>();
         var response = new PasswordSubmitResponse
-        { 
+        {
             Data = new PasswordSubmitResponsePayload
-            { 
+            {
                 Nonce = "some-nonce"
             }
         };
+        var exception = new Exception();
+
+        var expectedResult = new EntraHandlerResult<PasswordSubmitResponse>(response, exception);
+
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<PasswordSubmitEvent, PasswordSubmitResponse>>();
-        handler.HandleAsync(evt, cts.Token).Returns(response);
+        handler.HandleAsync(evt, cts.Token).Returns(expectedResult);
 
         _resolver.Resolve<PasswordSubmitEvent, PasswordSubmitResponse>()
             .Returns(handler);
@@ -144,7 +173,9 @@ public class EntraEventOrchestratorTests
         var result = await _sut.DispatchAsync(evt, cts.Token);
 
         // Assert
-        result.Should().Be(response);
+        result.Should().BeEquivalentTo(expectedResult);
+        result.Response.Should().Be(response);
+        result.Exception.Should().Be(exception);
     }
 
     [Fact]
@@ -156,10 +187,14 @@ public class EntraEventOrchestratorTests
         {
             Data = new VerifiedIdClaimValidationResponsePayload()
         };
+        var exception = new Exception();
+
+        var expectedResult = new EntraHandlerResult<VerifiedIdClaimValidationResponse>(response, exception);
+
         var cts = new CancellationTokenSource();
 
         var handler = Substitute.For<IEntraEventHandler<VerifiedIdClaimValidationEvent, VerifiedIdClaimValidationResponse>>();
-        handler.HandleAsync(evt, cts.Token).Returns(response);
+        handler.HandleAsync(evt, cts.Token).Returns(expectedResult);
 
         _resolver.Resolve<VerifiedIdClaimValidationEvent, VerifiedIdClaimValidationResponse>()
             .Returns(handler);
@@ -168,7 +203,9 @@ public class EntraEventOrchestratorTests
         var result = await _sut.DispatchAsync(evt, cts.Token);
 
         // Assert
-        result.Should().Be(response);
+        result.Should().BeEquivalentTo(expectedResult);
+        result.Response.Should().Be(response);
+        result.Exception.Should().Be(exception);
     }
 
     [Fact]

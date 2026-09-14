@@ -7,6 +7,23 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.5.0 — 2026‑09‑15
+
+### Changed
+
+- **Breaking:** `IEntraEventHandler` method `HandleAsync` now return `EntraHandlerResult<TResponse>` instead of raw `TResponse`. 
+  Existing implementations require minimal updates (typically wrapping the response).
+
+### Added
+
+- Added `EntraHandlerResult<TResponse>` as the unified result wrapper for all handler executions.
+- Added `ExceptionExtensions` with exception classification and error‑code mapping.
+
+### Removed
+
+- Removed `EntraErrorResponse` from the abstractions package.
+  Error response shaping is now handled exclusively by hosting‑specific packages
+
 ## v1.4.2 – 2026‑07‑16
 
 ### Updated

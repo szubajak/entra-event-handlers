@@ -1,4 +1,4 @@
-﻿namespace Entra.EventHandlers.TestHelpers;
+﻿namespace Entra.EventHandlers.TestData;
 
 public static class EventSamples
 {
