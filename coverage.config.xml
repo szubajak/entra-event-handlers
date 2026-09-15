@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+	<CodeCoverage>
+		<ModulePaths>
+			<Exclude>
+				<ModulePath>.*TestData.*</ModulePath>
+				<ModulePath>.*TestHelpers.*</ModulePath>
+			</Exclude>
+		</ModulePaths>
+	</CodeCoverage>
+</Configuration>
+
