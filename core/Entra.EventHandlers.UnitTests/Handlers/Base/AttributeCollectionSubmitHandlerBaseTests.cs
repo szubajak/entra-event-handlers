@@ -4,8 +4,8 @@ using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
-using Entra.EventHandlers.UnitTests.Utils;
 using Entra.EventHandlers.UnitTests.Utils.Handlers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
@@ -32,7 +32,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
-        var evt = TestData.CreateAttributeCollectionSubmitEvent(_fixture);
+        var evt = TestEvents.CreateAttributeCollectionSubmitEvent(_fixture);
 
         using var cts = new CancellationTokenSource();
 
@@ -94,7 +94,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
     public async Task HandleAsync_Fail()
     {
         // Arrange
-        var evt = TestData.CreateAttributeCollectionSubmitEvent(_fixture);
+        var evt = TestEvents.CreateAttributeCollectionSubmitEvent(_fixture);
 
         _sut.CoreTest.ShouldThrow = true;
 
@@ -127,7 +127,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
     public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
-        var evt = TestData.CreateAttributeCollectionSubmitEvent(_fixture, valid: false);
+        var evt = TestEvents.CreateAttributeCollectionSubmitEvent(_fixture, valid: false);
 
         // Act
         var result = await _sut.HandleAsync(evt, CancellationToken.None);

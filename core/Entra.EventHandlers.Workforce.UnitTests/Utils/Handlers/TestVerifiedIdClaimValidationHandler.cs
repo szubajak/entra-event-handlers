@@ -1,5 +1,6 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
 using Entra.EventHandlers.Workforce.Handlers.Base;
 using Microsoft.Extensions.Logging;
@@ -11,10 +12,7 @@ public class TestVerifiedIdClaimValidationHandler(ILogger logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();
 
-    public VerifiedIdClaimValidationResponse ResponseToReturn { get; set; } = new VerifiedIdClaimValidationResponse
-    { 
-        Data = new VerifiedIdClaimValidationResponsePayload()
-    };
+    public VerifiedIdClaimValidationResponse ResponseToReturn { get; set; } = TestResponses.CreateVerifiedIdClaimValidationResponse();
 
     protected override Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(
         VerifiedIdClaimValidationEvent request,

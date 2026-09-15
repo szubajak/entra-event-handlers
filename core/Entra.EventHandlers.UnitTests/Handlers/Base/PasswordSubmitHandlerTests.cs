@@ -6,8 +6,8 @@ using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Interfaces;
 using Entra.EventHandlers.Protocol.PasswordSubmit;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
-using Entra.EventHandlers.UnitTests.Utils;
 using Entra.EventHandlers.UnitTests.Utils.Handlers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
@@ -37,7 +37,7 @@ public class PasswordSubmitHandlerTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
-        var evt = TestData.CreatePasswordSubmitEvent(_fixture);
+        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         var decrypted = _fixture.Create<DecryptedPasswordContext>();
         _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
@@ -106,7 +106,7 @@ public class PasswordSubmitHandlerTests
     public async Task HandleAsync_Fail()
     {
         // Arrange
-        var evt = TestData.CreatePasswordSubmitEvent(_fixture);
+        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         var decrypted = _fixture.Create<DecryptedPasswordContext>();
         _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
@@ -144,7 +144,7 @@ public class PasswordSubmitHandlerTests
     public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
-        var evt = TestData.CreatePasswordSubmitEvent(_fixture, valid: false);
+        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture, valid: false);
 
         // Act
         Func<Task> act = () => _sut.HandleAsync(evt, CancellationToken.None);

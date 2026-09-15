@@ -5,6 +5,7 @@ using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.Hosting.Resolvers;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using NSubstitute;
@@ -30,10 +31,7 @@ public class EntraEventOrchestratorTests
     {
         // Arrange
         var evt = _fixture.Create<AttributeCollectionStartEvent>();
-        var response = new AttributeCollectionStartResponse
-        { 
-            Data = new AttributeCollectionStartResponsePayload()
-        };
+        var response = TestResponses.CreateAttributeCollectionStartResponse();
         var exception = new Exception();
 
         var expectedResult = new EntraHandlerResult<AttributeCollectionStartResponse>(response, exception);

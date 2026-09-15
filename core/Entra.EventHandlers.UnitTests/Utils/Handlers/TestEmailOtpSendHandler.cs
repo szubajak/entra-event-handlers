@@ -1,6 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Handlers.Base;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
 using Microsoft.Extensions.Logging;
 
@@ -11,10 +12,7 @@ public class TestEmailOtpSendHandler(ILogger logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();
 
-    public EmailOtpSendResponse ResponseToReturn { get; set; } = new EmailOtpSendResponse
-    { 
-        Data = new EmailOtpSendResponsePayload()
-    };
+    public EmailOtpSendResponse ResponseToReturn { get; set; } = TestResponses.CreateEmailOtpSendResponse();
 
     protected override Task<EmailOtpSendResponse> HandleCoreAsync(
         EmailOtpSendEvent request,

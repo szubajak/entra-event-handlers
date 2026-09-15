@@ -3,6 +3,7 @@
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
     <File Path="CHANGELOG.md" />
+    <File Path="coverage.config.xml" />
     <File Path="Directory.Build.props" />
     <File Path="global.json" />
     <File Path="LICENSE" />
@@ -14,6 +15,7 @@
   </Folder>
   <Folder Name="/.github/workflows/">
     <File Path=".github/workflows/coverage.yml" />
+    <File Path=".github/workflows/pr-validate-abstractions-develop.yml" />
     <File Path=".github/workflows/pr-validate-develop.yml" />
     <File Path=".github/workflows/pr-validate-main.yml" />
     <File Path=".github/workflows/publish-abstractions.yml" />

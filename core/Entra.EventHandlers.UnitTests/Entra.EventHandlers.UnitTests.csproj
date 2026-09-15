@@ -3,9 +3,12 @@
   <PropertyGroup>
 	<IsTestProject>true</IsTestProject>
     <IsPackable>false</IsPackable>
+	<OutputType>Exe</OutputType>
+	<IsTestingPlatformApplication>true</IsTestingPlatformApplication>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\common\Entra.EventHandlers.TestData\Entra.EventHandlers.TestData.csproj" />
     <ProjectReference Include="..\..\common\Entra.EventHandlers.TestHelpers\Entra.EventHandlers.TestHelpers.csproj" />
     <ProjectReference Include="..\Entra.EventHandlers\Entra.EventHandlers.csproj" />
   </ItemGroup>
