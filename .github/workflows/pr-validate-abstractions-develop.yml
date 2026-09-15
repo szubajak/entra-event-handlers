@@ -25,4 +25,4 @@ jobs:
         run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
 
       - name: Run Abstractions unit tests
-        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --verbosity normal
+        run: dotnet test Entra.EventHandlers.slnx --filter "FullyQualifiedName~Entra.EventHandlers.Abstractions.UnitTests" -c Release --no-build --verbosity normal
