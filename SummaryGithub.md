@@ -3,19 +3,19 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/15/2026 - 09:05:56 |
+| Generated on: | 09/15/2026 - 09:21:11 |
 | Parser: | MultiReport (7x Cobertura) |
-| Assemblies: | 10 |
-| Classes: | 122 |
-| Files: | 111 |
-| **Line coverage:** | 54.4% (1114 of 2047) |
+| Assemblies: | 9 |
+| Classes: | 107 |
+| Files: | 96 |
+| **Line coverage:** | 87.9% (1114 of 1266) |
 | Covered lines: | 1114 |
-| Uncovered lines: | 933 |
-| Coverable lines: | 2047 |
-| Total lines: | 5628 |
-| **Branch coverage:** | 68.4% (163 of 238) |
+| Uncovered lines: | 152 |
+| Coverable lines: | 1266 |
+| Total lines: | 4156 |
+| **Branch coverage:** | 91.5% (163 of 178) |
 | Covered branches: | 163 |
-| Total branches: | 238 |
+| Total branches: | 178 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -145,8 +145,8 @@
 |**Entra.EventHandlers.Observability**|**94.3%**|**93.7%**|
 |Entra.EventHandlers.Observability.Clients.ObservabilityApiClient|28.5%||
 |Entra.EventHandlers.Observability.Context.EventLogContext|100%||
-|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|88.8%|50%|
 |Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
+|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|88.8%|50%|
 |Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions|100%|100%|
 |Entra.EventHandlers.Observability.Factories.EventLogMapperFactory|100%||
 |Entra.EventHandlers.Observability.Logging.EventLogPublisher|100%||
@@ -178,28 +178,6 @@
 |Entra.EventHandlers.TestHelpers.TestScope|100%||
 |Entra.EventHandlers.TestHelpers.TestUtils<T>|100%||
 |Entra.EventHandlers.TestHelpers.ThrowingStream|20%||
-
-</details>
-<details><summary>Entra.EventHandlers.UnitTests - 0%</summary>
-
-|**Name**|**Line**|**Branch**|
-|:---|---:|---:|
-|**Entra.EventHandlers.UnitTests**|**0%**|**0%**|
-|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.AttributeCollection<br/>StartResponseBuilderTests|0%||
-|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.AttributeCollection<br/>SubmitResponseBuilderTests|0%||
-|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.EmailOtpSendRespons<br/>eBuilderTests|0%||
-|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.PasswordSubmitRespo<br/>nseBuilderTests|0%||
-|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.TokenIssuanceStartR<br/>esponseBuilderTests|0%||
-|Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionStartHandler<br/>BaseTests|0%|0%|
-|Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionSubmitHandle<br/>rBaseTests|0%|0%|
-|Entra.EventHandlers.UnitTests.Handlers.Base.EmailOtpSendHandlerBaseTests|0%|0%|
-|Entra.EventHandlers.UnitTests.Handlers.Base.PasswordSubmitHandlerTests|0%|0%|
-|Entra.EventHandlers.UnitTests.Handlers.Base.TokenIssuanceStartHandlerTests|0%|0%|
-|Entra.EventHandlers.UnitTests.Utils.Handlers.TestAttributeCollectionStartHa<br/>ndler|0%||
-|Entra.EventHandlers.UnitTests.Utils.Handlers.TestAttributeCollectionSubmitH<br/>andler|0%||
-|Entra.EventHandlers.UnitTests.Utils.Handlers.TestEmailOtpSendHandler|0%||
-|Entra.EventHandlers.UnitTests.Utils.Handlers.TestPasswordSubmitHandler|0%||
-|Entra.EventHandlers.UnitTests.Utils.Handlers.TestTokenIssuanceStartHandler|0%||
 
 </details>
 <details><summary>Entra.EventHandlers.Workforce - 100%</summary>

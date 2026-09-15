@@ -394,8 +394,8 @@ var assemblies = [
     "classes": [
       { "name": "Entra.EventHandlers.Observability.Clients.ObservabilityApiClient", "rp": "Entra.EventHandlers.Observability_ObservabilityApiClient.html", "cl": 2, "ucl": 5, "cal": 7, "tl": 23, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Context.EventLogContext", "rp": "Entra.EventHandlers.Observability_EventLogContext.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 10, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator\u003CTRequest, TResponse\u003E", "rp": "Entra.EventHandlers.Observability_ObservabilityHandlerDecorator_TRequest__TResponse_.html", "cl": 8, "ucl": 1, "cal": 9, "tl": 40, "cb": 1, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator\u003CTRequest, TResponse\u003E", "rp": "Entra.EventHandlers.Observability_ObservabilityHandlerDecorator_TRequest__TResponse_.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 40, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator\u003CTRequest, TResponse\u003E", "rp": "Entra.EventHandlers.Observability_ObservabilityHandlerDecorator_TRequest__TResponse_.html", "cl": 8, "ucl": 1, "cal": 9, "tl": 40, "cb": 1, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions", "rp": "Entra.EventHandlers.Observability_ServiceCollectionExtenstions.html", "cl": 19, "ucl": 0, "cal": 19, "tl": 40, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Factories.EventLogMapperFactory", "rp": "Entra.EventHandlers.Observability_EventLogMapperFactory.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 33, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Logging.EventLogPublisher", "rp": "Entra.EventHandlers.Observability_EventLogPublisher.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 28, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -423,25 +423,6 @@ var assemblies = [
       { "name": "Entra.EventHandlers.TestHelpers.ThrowingStream", "rp": "Entra.EventHandlers.TestHelpers_ThrowingStream.html", "cl": 2, "ucl": 8, "cal": 10, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
-    "name": "Entra.EventHandlers.UnitTests",
-    "classes": [
-      { "name": "Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.AttributeCollectionStartResponseBuilderTests", "rp": "Entra.EventHandlers.UnitTests_AttributeCollectionStartResponseBuilderTests.html", "cl": 0, "ucl": 89, "cal": 89, "tl": 148, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.AttributeCollectionSubmitResponseBuilderTests", "rp": "Entra.EventHandlers.UnitTests_AttributeCollectionSubmitResponseBuilderTests.html", "cl": 0, "ucl": 89, "cal": 89, "tl": 150, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.EmailOtpSendResponseBuilderTests", "rp": "Entra.EventHandlers.UnitTests_EmailOtpSendResponseBuilderTests.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 46, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.PasswordSubmitResponseBuilderTests", "rp": "Entra.EventHandlers.UnitTests_PasswordSubmitResponseBuilderTests.html", "cl": 0, "ucl": 78, "cal": 78, "tl": 142, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.TokenIssuanceStartResponseBuilderTests", "rp": "Entra.EventHandlers.UnitTests_TokenIssuanceStartResponseBuilderTests.html", "cl": 0, "ucl": 48, "cal": 48, "tl": 89, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionStartHandlerBaseTests", "rp": "Entra.EventHandlers.UnitTests_AttributeCollectionStartHandlerBaseTests.html", "cl": 0, "ucl": 80, "cal": 80, "tl": 150, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionSubmitHandlerBaseTests", "rp": "Entra.EventHandlers.UnitTests_AttributeCollectionSubmitHandlerBaseTests.html", "cl": 0, "ucl": 81, "cal": 81, "tl": 152, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Handlers.Base.EmailOtpSendHandlerBaseTests", "rp": "Entra.EventHandlers.UnitTests_EmailOtpSendHandlerBaseTests.html", "cl": 0, "ucl": 81, "cal": 81, "tl": 152, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Handlers.Base.PasswordSubmitHandlerTests", "rp": "Entra.EventHandlers.UnitTests_PasswordSubmitHandlerTests.html", "cl": 0, "ucl": 81, "cal": 81, "tl": 155, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Handlers.Base.TokenIssuanceStartHandlerTests", "rp": "Entra.EventHandlers.UnitTests_TokenIssuanceStartHandlerTests.html", "cl": 0, "ucl": 82, "cal": 82, "tl": 151, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Utils.Handlers.TestAttributeCollectionStartHandler", "rp": "Entra.EventHandlers.UnitTests_TestAttributeCollectionStartHandler.html", "cl": 0, "ucl": 7, "cal": 7, "tl": 24, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Utils.Handlers.TestAttributeCollectionSubmitHandler", "rp": "Entra.EventHandlers.UnitTests_TestAttributeCollectionSubmitHandler.html", "cl": 0, "ucl": 10, "cal": 10, "tl": 26, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Utils.Handlers.TestEmailOtpSendHandler", "rp": "Entra.EventHandlers.UnitTests_TestEmailOtpSendHandler.html", "cl": 0, "ucl": 10, "cal": 10, "tl": 26, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Utils.Handlers.TestPasswordSubmitHandler", "rp": "Entra.EventHandlers.UnitTests_TestPasswordSubmitHandler.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 35, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.UnitTests.Utils.Handlers.TestTokenIssuanceStartHandler", "rp": "Entra.EventHandlers.UnitTests_TestTokenIssuanceStartHandler.html", "cl": 0, "ucl": 10, "cal": 10, "tl": 26, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-    ]},
-  {
     "name": "Entra.EventHandlers.Workforce",
     "classes": [
       { "name": "Entra.EventHandlers.Workforce.Builders.ActionBuilders.FailedClaimsBuilder", "rp": "Entra.EventHandlers.Workforce_FailedClaimsBuilder.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -456,41 +437,9 @@ var metrics = [{ "name": "Crap Score", "abbreviation": "crp", "explanationUrl": 
 var historicCoverageExecutionTimes = [];
 
 var riskHotspotMetrics = [
-      { "name": "Crap Score", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" },
-      { "name": "Cyclomatic complexity", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" },
 ];
 
 var riskHotspots = [
-  {
-    "assembly": "Entra.EventHandlers.UnitTests", "class": "Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionStartHandlerBaseTests", "reportPath": "Entra.EventHandlers.UnitTests_AttributeCollectionStartHandlerBaseTests.html", "methodName": "HandleAsync_Success()", "methodShortName": "HandleAsync_Success()", "fileIndex": 0, "line": 33,
-    "metrics": [
-      { "value": 110, "exceeded": true },
-      { "value": 10, "exceeded": false },
-    ]},
-  {
-    "assembly": "Entra.EventHandlers.UnitTests", "class": "Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionSubmitHandlerBaseTests", "reportPath": "Entra.EventHandlers.UnitTests_AttributeCollectionSubmitHandlerBaseTests.html", "methodName": "HandleAsync_Success()", "methodShortName": "HandleAsync_Success()", "fileIndex": 0, "line": 33,
-    "metrics": [
-      { "value": 110, "exceeded": true },
-      { "value": 10, "exceeded": false },
-    ]},
-  {
-    "assembly": "Entra.EventHandlers.UnitTests", "class": "Entra.EventHandlers.UnitTests.Handlers.Base.EmailOtpSendHandlerBaseTests", "reportPath": "Entra.EventHandlers.UnitTests_EmailOtpSendHandlerBaseTests.html", "methodName": "HandleAsync_Success()", "methodShortName": "HandleAsync_Success()", "fileIndex": 0, "line": 33,
-    "metrics": [
-      { "value": 110, "exceeded": true },
-      { "value": 10, "exceeded": false },
-    ]},
-  {
-    "assembly": "Entra.EventHandlers.UnitTests", "class": "Entra.EventHandlers.UnitTests.Handlers.Base.PasswordSubmitHandlerTests", "reportPath": "Entra.EventHandlers.UnitTests_PasswordSubmitHandlerTests.html", "methodName": "HandleAsync_Success()", "methodShortName": "HandleAsync_Success()", "fileIndex": 0, "line": 38,
-    "metrics": [
-      { "value": 110, "exceeded": true },
-      { "value": 10, "exceeded": false },
-    ]},
-  {
-    "assembly": "Entra.EventHandlers.UnitTests", "class": "Entra.EventHandlers.UnitTests.Handlers.Base.TokenIssuanceStartHandlerTests", "reportPath": "Entra.EventHandlers.UnitTests_TokenIssuanceStartHandlerTests.html", "methodName": "HandleAsync_Success()", "methodShortName": "HandleAsync_Success()", "fileIndex": 0, "line": 32,
-    "metrics": [
-      { "value": 110, "exceeded": true },
-      { "value": 10, "exceeded": false },
-    ]},
 ];
 
 var branchCoverageAvailable = true;
