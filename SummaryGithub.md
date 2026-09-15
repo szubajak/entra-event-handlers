@@ -3,18 +3,18 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/15/2026 - 14:05:19 |
+| Generated on: | 09/15/2026 - 14:16:07 |
 | Parser: | MultiReport (7x Cobertura) |
 | Assemblies: | 7 |
 | Classes: | 97 |
 | Files: | 86 |
-| **Line coverage:** | 93.4% (1003 of 1073) |
-| Covered lines: | 1003 |
-| Uncovered lines: | 70 |
+| **Line coverage:** | 93.5% (1004 of 1073) |
+| Covered lines: | 1004 |
+| Uncovered lines: | 69 |
 | Coverable lines: | 1073 |
 | Total lines: | 3839 |
-| **Branch coverage:** | 99.3% (165 of 166) |
-| Covered branches: | 165 |
+| **Branch coverage:** | 100% (166 of 166) |
+| Covered branches: | 166 |
 | Total branches: | 166 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -138,14 +138,14 @@
 |Entra.EventHandlers.Hosting.Resolvers.EntraEventHandlerResolver|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Observability - 94.3%</summary>
+<details><summary>Entra.EventHandlers.Observability - 95.2%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Observability**|**94.3%**|**93.7%**|
+|**Entra.EventHandlers.Observability**|**95.2%**|**100%**|
 |Entra.EventHandlers.Observability.Clients.ObservabilityApiClient|28.5%||
 |Entra.EventHandlers.Observability.Context.EventLogContext|100%||
-|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|88.8%|50%|
+|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%|100%|
 |Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions|100%|100%|
 |Entra.EventHandlers.Observability.Factories.EventLogMapperFactory|100%||
