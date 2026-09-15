@@ -3,7 +3,7 @@
   <PropertyGroup>
 	<IsTestProject>true</IsTestProject>
     <IsPackable>false</IsPackable>
-	<OutputType>Library</OutputType>
+	<OutputType>Exe</OutputType>
 	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
 	
