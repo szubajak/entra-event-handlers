@@ -3,18 +3,18 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/15/2026 - 10:04:58 |
+| Generated on: | 09/15/2026 - 11:53:15 |
 | Parser: | MultiReport (7x Cobertura) |
 | Assemblies: | 7 |
 | Classes: | 97 |
 | Files: | 86 |
-| **Line coverage:** | 87.6% (941 of 1073) |
-| Covered lines: | 941 |
-| Uncovered lines: | 132 |
+| **Line coverage:** | 91.7% (985 of 1073) |
+| Covered lines: | 985 |
+| Uncovered lines: | 88 |
 | Coverable lines: | 1073 |
 | Total lines: | 3839 |
-| **Branch coverage:** | 92.1% (153 of 166) |
-| Covered branches: | 153 |
+| **Branch coverage:** | 96.9% (161 of 166) |
+| Covered branches: | 161 |
 | Total branches: | 166 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -108,21 +108,21 @@
 |Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|72.7%|50%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 71.3%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 98.1%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**71.3%**|**70%**|
+|**Entra.EventHandlers.AzureFunctions**|**98.1%**|**96.6%**|
 |Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|100%||
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter<TEvent>|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter|100%||
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBas<br/>e|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionSubmitFunctionBa<br/>se|100%|100%|
-|Entra.EventHandlers.AzureFunctions.Base.EmailOtpSendFunctionBase|0%|0%|
-|Entra.EventHandlers.AzureFunctions.Base.PasswordSubmitFunctionBase|0%|0%|
-|Entra.EventHandlers.AzureFunctions.Base.TokenIssuanceStartFunctionBase|0%|0%|
-|Entra.EventHandlers.AzureFunctions.Base.VerifiedIdClaimValidationFunctionBa<br/>se|0%|0%|
+|Entra.EventHandlers.AzureFunctions.Base.EmailOtpSendFunctionBase|100%|100%|
+|Entra.EventHandlers.AzureFunctions.Base.PasswordSubmitFunctionBase|100%|100%|
+|Entra.EventHandlers.AzureFunctions.Base.TokenIssuanceStartFunctionBase|100%|100%|
+|Entra.EventHandlers.AzureFunctions.Base.VerifiedIdClaimValidationFunctionBa<br/>se|100%|100%|
 |Entra.EventHandlers.AzureFunctions.DI.ServiceCollectionExtensions|100%||
 |Entra.EventHandlers.AzureFunctions.Routing.EntraEventRouterFunctionBase|72.7%|50%|
 
