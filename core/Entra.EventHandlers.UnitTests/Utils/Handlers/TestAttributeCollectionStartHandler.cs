@@ -1,6 +1,7 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Handlers.Base;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
 using Microsoft.Extensions.Logging;
 
@@ -11,10 +12,7 @@ public class TestAttributeCollectionStartHandler(ILogger logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();
 
-    public AttributeCollectionStartResponse ResponseToReturn { get; set; } = new AttributeCollectionStartResponse
-    { 
-        Data = new AttributeCollectionStartResponsePayload()
-    };
+    public AttributeCollectionStartResponse ResponseToReturn { get; set; } = TestResponses.CreateAttributeCollectionStartResponse();
 
     protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
         AttributeCollectionStartEvent request,

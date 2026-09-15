@@ -13,6 +13,14 @@ public sealed class TestEntraEventRouterFunctionBase(
     IResponseAdapter responseAdapter)
     : EntraEventRouterFunctionBase(logger, orchestrator, requestAdapter, responseAdapter)
 {
+    public bool ExceptionCalled { get; private set; }
+
+    protected override Task OnExceptionAsync(Exception ex)
+    {
+        ExceptionCalled = true;
+        return Task.CompletedTask;
+    }
+
     public Task<HttpResponseData> RunAsync(HttpRequestData req) =>
         InvokeAsync(req);
 }

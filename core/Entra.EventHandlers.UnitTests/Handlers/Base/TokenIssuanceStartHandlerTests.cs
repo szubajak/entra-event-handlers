@@ -3,8 +3,8 @@ using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
-using Entra.EventHandlers.UnitTests.Utils;
 using Entra.EventHandlers.UnitTests.Utils.Handlers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
@@ -31,7 +31,7 @@ public class TokenIssuanceStartHandlerTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
-        var evt = TestData.CreateTokenIssuanceStartEvent(_fixture);
+        var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture);
 
         using var cts = new CancellationTokenSource();
 
@@ -91,7 +91,7 @@ public class TokenIssuanceStartHandlerTests
     public async Task HandleAsync_Fail()
     {
         // Arrange
-        var evt = TestData.CreateTokenIssuanceStartEvent(_fixture);
+        var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture);
 
         _sut.CoreTest.ShouldThrow = true;
 
@@ -125,7 +125,7 @@ public class TokenIssuanceStartHandlerTests
     public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
-        var evt = TestData.CreateTokenIssuanceStartEvent(_fixture, valid: false);
+        var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture, valid: false);
 
         // Act
         var result = await _sut.HandleAsync(evt, CancellationToken.None);

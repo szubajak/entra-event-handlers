@@ -3,6 +3,7 @@ using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Handlers.Base;
 using Entra.EventHandlers.Interfaces;
 using Entra.EventHandlers.Protocol.PasswordSubmit;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
 using Microsoft.Extensions.Logging;
 
@@ -15,13 +16,7 @@ public class TestPasswordSubmitHandler(ILogger logger, IPasswordContextCryptoSer
 
     public DecryptedPasswordContext? PassedDecryptedPasswordContext { get; set; }
 
-    public PasswordSubmitResponse ResponseToReturn { get; set; } = new PasswordSubmitResponse
-    { 
-        Data = new PasswordSubmitResponsePayload
-        { 
-            Nonce = "some-nonce"
-        }
-    };
+    public PasswordSubmitResponse ResponseToReturn { get; set; } = TestResponses.CreatePasswordSubmitResponse();
 
     protected override Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,

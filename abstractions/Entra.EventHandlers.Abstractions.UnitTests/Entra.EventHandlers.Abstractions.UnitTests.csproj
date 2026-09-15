@@ -3,6 +3,8 @@
   <PropertyGroup>
 	<IsTestProject>true</IsTestProject>
     <IsPackable>false</IsPackable>
+	<OutputType>Exe</OutputType>
+	<IsTestingPlatformApplication>true</IsTestingPlatformApplication>
   </PropertyGroup>
 
   <ItemGroup>
