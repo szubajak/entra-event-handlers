@@ -11,6 +11,7 @@
 	<UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
 	<EnableMSTestRunner>true</EnableMSTestRunner>
 	<VSTestEnabled>false</VSTestEnabled>
+	<OutputType>Exe</OutputType>
   </PropertyGroup>
 	
   <ItemGroup Condition="'$(IsTestProject)' == 'true'">
