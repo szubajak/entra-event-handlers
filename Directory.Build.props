@@ -8,6 +8,7 @@
 
   <PropertyGroup Condition="'$(IsTestProject)' == 'true'">
 	<UseMicrosoftTestingPlatform>true</UseMicrosoftTestingPlatform>
+	<UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
 	<EnableMSTestRunner>true</EnableMSTestRunner>
 	<VSTestEnabled>false</VSTestEnabled>
   </PropertyGroup>
