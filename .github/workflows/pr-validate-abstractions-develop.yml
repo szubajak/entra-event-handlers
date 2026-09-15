@@ -1,0 +1,28 @@
+name: PR Validation (abstractions)
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  validate-abstractions:
+    name: Validate PR Validation to develop
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore Abstractions
+        run: dotnet restore abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj
+
+      - name: Build Abstractions (Release)
+        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+
+      - name: Run Abstractions unit tests
+        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --no-build --verbosity normal

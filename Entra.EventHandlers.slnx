@@ -14,6 +14,7 @@
   </Folder>
   <Folder Name="/.github/workflows/">
     <File Path=".github/workflows/coverage.yml" />
+    <File Path=".github/workflows/pr-validate-abstractions-develop.yml" />
     <File Path=".github/workflows/pr-validate-develop.yml" />
     <File Path=".github/workflows/pr-validate-main.yml" />
     <File Path=".github/workflows/publish-abstractions.yml" />
