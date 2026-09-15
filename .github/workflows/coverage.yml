@@ -31,8 +31,8 @@ jobs:
           --coverage \
           --coverage-output coverage.xml \
           --coverage-output-format cobertura \
-          --coverage-exclude-project Entra.EventHandlers.TestData \
-          --coverage-exclude-project Entra.EventHandlers.TestHelpers
+          --coverage-exclude-file "**/Entra.EventHandlers.TestData/*" \
+          --coverage-exclude-file "**/Entra.EventHandlers.TestHelpers/*"
 
       - name: Install ReportGenerator
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
