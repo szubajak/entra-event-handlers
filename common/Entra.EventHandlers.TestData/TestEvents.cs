@@ -5,9 +5,9 @@ using Entra.EventHandlers.Abstractions.Protocol.Authentication;
 using Entra.EventHandlers.Abstractions.Protocol.Otp;
 using Entra.EventHandlers.Abstractions.Protocol.SignUp;
 
-namespace Entra.EventHandlers.UnitTests.Utils;
+namespace Entra.EventHandlers.TestData;
 
-public static class TestData
+public static class TestEvents
 {
     public static AttributeCollectionStartEvent CreateAttributeCollectionStartEvent(IFixture fixture, bool valid = true) =>
         new()

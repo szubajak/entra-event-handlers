@@ -226,7 +226,6 @@ public class EntraEventRouterFunctionBaseTests
             .Returns(entraEvent);
 
         var entraResponse = new TestResponse();
-
         var expectedResult = new EntraHandlerResult<EntraEventResponse>(entraResponse);
 
         _orchestrator
