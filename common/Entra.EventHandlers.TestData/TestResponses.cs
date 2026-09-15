@@ -9,4 +9,10 @@ public static class TestResponses
         {
             Data = new AttributeCollectionStartResponsePayload()
         };
+
+    public static AttributeCollectionSubmitResponse CreateAttributeCollectionSubmitResponse() =>
+    new()
+    {
+        Data = new AttributeCollectionSubmitResponsePayload()
+    };
 }
