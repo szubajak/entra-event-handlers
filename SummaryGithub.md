@@ -3,18 +3,18 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/15/2026 - 12:45:22 |
+| Generated on: | 09/15/2026 - 14:05:19 |
 | Parser: | MultiReport (7x Cobertura) |
 | Assemblies: | 7 |
 | Classes: | 97 |
 | Files: | 86 |
-| **Line coverage:** | 93.1% (1000 of 1073) |
-| Covered lines: | 1000 |
-| Uncovered lines: | 73 |
+| **Line coverage:** | 93.4% (1003 of 1073) |
+| Covered lines: | 1003 |
+| Uncovered lines: | 70 |
 | Coverable lines: | 1073 |
 | Total lines: | 3839 |
-| **Branch coverage:** | 98.7% (164 of 166) |
-| Covered branches: | 164 |
+| **Branch coverage:** | 99.3% (165 of 166) |
+| Covered branches: | 165 |
 | Total branches: | 166 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -108,11 +108,11 @@
 |Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 98.1%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**98.1%**|**96.6%**|
+|**Entra.EventHandlers.AzureFunctions**|**100%**|**100%**|
 |Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|100%||
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter<TEvent>|100%|100%|
@@ -124,7 +124,7 @@
 |Entra.EventHandlers.AzureFunctions.Base.TokenIssuanceStartFunctionBase|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Base.VerifiedIdClaimValidationFunctionBa<br/>se|100%|100%|
 |Entra.EventHandlers.AzureFunctions.DI.ServiceCollectionExtensions|100%||
-|Entra.EventHandlers.AzureFunctions.Routing.EntraEventRouterFunctionBase|72.7%|50%|
+|Entra.EventHandlers.AzureFunctions.Routing.EntraEventRouterFunctionBase|100%|100%|
 
 </details>
 <details><summary>Entra.EventHandlers.Hosting - 100%</summary>
@@ -145,8 +145,8 @@
 |**Entra.EventHandlers.Observability**|**94.3%**|**93.7%**|
 |Entra.EventHandlers.Observability.Clients.ObservabilityApiClient|28.5%||
 |Entra.EventHandlers.Observability.Context.EventLogContext|100%||
-|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|88.8%|50%|
+|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions|100%|100%|
 |Entra.EventHandlers.Observability.Factories.EventLogMapperFactory|100%||
 |Entra.EventHandlers.Observability.Logging.EventLogPublisher|100%||
