@@ -394,8 +394,8 @@ var assemblies = [
     "classes": [
       { "name": "Entra.EventHandlers.Observability.Clients.ObservabilityApiClient", "rp": "Entra.EventHandlers.Observability_ObservabilityApiClient.html", "cl": 2, "ucl": 5, "cal": 7, "tl": 23, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Context.EventLogContext", "rp": "Entra.EventHandlers.Observability_EventLogContext.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 10, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator\u003CTRequest, TResponse\u003E", "rp": "Entra.EventHandlers.Observability_ObservabilityHandlerDecorator_TRequest__TResponse_.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 40, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator\u003CTRequest, TResponse\u003E", "rp": "Entra.EventHandlers.Observability_ObservabilityHandlerDecorator_TRequest__TResponse_.html", "cl": 8, "ucl": 1, "cal": 9, "tl": 40, "cb": 1, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator\u003CTRequest, TResponse\u003E", "rp": "Entra.EventHandlers.Observability_ObservabilityHandlerDecorator_TRequest__TResponse_.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 40, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions", "rp": "Entra.EventHandlers.Observability_ServiceCollectionExtenstions.html", "cl": 19, "ucl": 0, "cal": 19, "tl": 40, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Factories.EventLogMapperFactory", "rp": "Entra.EventHandlers.Observability_EventLogMapperFactory.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 33, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Logging.EventLogPublisher", "rp": "Entra.EventHandlers.Observability_EventLogPublisher.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 28, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -403,24 +403,6 @@ var assemblies = [
       { "name": "Entra.EventHandlers.Observability.Mappers.EmailOtpSendEventLogMapper", "rp": "Entra.EventHandlers.Observability_EmailOtpSendEventLogMapper.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Mappers.EventLogContextMapper", "rp": "Entra.EventHandlers.Observability_EventLogContextMapper.html", "cl": 23, "ucl": 0, "cal": 23, "tl": 44, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Observability.Models.CustomLogEntry", "rp": "Entra.EventHandlers.Observability_CustomLogEntry.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 8, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-    ]},
-  {
-    "name": "Entra.EventHandlers.TestData",
-    "classes": [
-      { "name": "Entra.EventHandlers.TestData.EventSamples", "rp": "Entra.EventHandlers.TestData_EventSamples.html", "cl": 94, "ucl": 0, "cal": 94, "tl": 110, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestData.TestEvents", "rp": "Entra.EventHandlers.TestData_TestEvents.html", "cl": 48, "ucl": 0, "cal": 48, "tl": 69, "cb": 10, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestData.TestResponses", "rp": "Entra.EventHandlers.TestData_TestResponses.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-    ]},
-  {
-    "name": "Entra.EventHandlers.TestHelpers",
-    "classes": [
-      { "name": "Entra.EventHandlers.TestHelpers.HandlerCoreTest", "rp": "Entra.EventHandlers.TestHelpers_HandlerCoreTest.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 18, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestEvent", "rp": "Entra.EventHandlers.TestHelpers_TestEvent.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 10, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestHandler", "rp": "Entra.EventHandlers.TestHelpers_TestHandler.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 15, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestLoggerBase", "rp": "Entra.EventHandlers.TestHelpers_TestLoggerBase.html", "cl": 16, "ucl": 1, "cal": 17, "tl": 47, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestScope", "rp": "Entra.EventHandlers.TestHelpers_TestScope.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 7, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.TestUtils\u003CT\u003E", "rp": "Entra.EventHandlers.TestHelpers_TestUtils_T_.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.TestHelpers.ThrowingStream", "rp": "Entra.EventHandlers.TestHelpers_ThrowingStream.html", "cl": 2, "ucl": 8, "cal": 10, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Entra.EventHandlers.Workforce",

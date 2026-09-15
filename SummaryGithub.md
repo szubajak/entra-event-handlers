@@ -3,19 +3,19 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/15/2026 - 09:21:11 |
+| Generated on: | 09/15/2026 - 09:47:50 |
 | Parser: | MultiReport (7x Cobertura) |
-| Assemblies: | 9 |
-| Classes: | 107 |
-| Files: | 96 |
-| **Line coverage:** | 87.9% (1114 of 1266) |
-| Covered lines: | 1114 |
-| Uncovered lines: | 152 |
-| Coverable lines: | 1266 |
-| Total lines: | 4156 |
-| **Branch coverage:** | 91.5% (163 of 178) |
-| Covered branches: | 163 |
-| Total branches: | 178 |
+| Assemblies: | 7 |
+| Classes: | 97 |
+| Files: | 86 |
+| **Line coverage:** | 86.6% (930 of 1073) |
+| Covered lines: | 930 |
+| Uncovered lines: | 143 |
+| Coverable lines: | 1073 |
+| Total lines: | 3839 |
+| **Branch coverage:** | 90.9% (151 of 166) |
+| Covered branches: | 151 |
+| Total branches: | 166 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -145,8 +145,8 @@
 |**Entra.EventHandlers.Observability**|**94.3%**|**93.7%**|
 |Entra.EventHandlers.Observability.Clients.ObservabilityApiClient|28.5%||
 |Entra.EventHandlers.Observability.Context.EventLogContext|100%||
-|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|88.8%|50%|
+|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions|100%|100%|
 |Entra.EventHandlers.Observability.Factories.EventLogMapperFactory|100%||
 |Entra.EventHandlers.Observability.Logging.EventLogPublisher|100%||
@@ -154,30 +154,6 @@
 |Entra.EventHandlers.Observability.Mappers.EmailOtpSendEventLogMapper|100%||
 |Entra.EventHandlers.Observability.Mappers.EventLogContextMapper|100%|100%|
 |Entra.EventHandlers.Observability.Models.CustomLogEntry|100%||
-
-</details>
-<details><summary>Entra.EventHandlers.TestData - 100%</summary>
-
-|**Name**|**Line**|**Branch**|
-|:---|---:|---:|
-|**Entra.EventHandlers.TestData**|**100%**|**100%**|
-|Entra.EventHandlers.TestData.EventSamples|100%||
-|Entra.EventHandlers.TestData.TestEvents|100%|100%|
-|Entra.EventHandlers.TestData.TestResponses|100%||
-
-</details>
-<details><summary>Entra.EventHandlers.TestHelpers - 80.8%</summary>
-
-|**Name**|**Line**|**Branch**|
-|:---|---:|---:|
-|**Entra.EventHandlers.TestHelpers**|**80.8%**|**100%**|
-|Entra.EventHandlers.TestHelpers.HandlerCoreTest|100%|100%|
-|Entra.EventHandlers.TestHelpers.TestEvent|100%||
-|Entra.EventHandlers.TestHelpers.TestHandler|100%||
-|Entra.EventHandlers.TestHelpers.TestLoggerBase|94.1%||
-|Entra.EventHandlers.TestHelpers.TestScope|100%||
-|Entra.EventHandlers.TestHelpers.TestUtils<T>|100%||
-|Entra.EventHandlers.TestHelpers.ThrowingStream|20%||
 
 </details>
 <details><summary>Entra.EventHandlers.Workforce - 100%</summary>
