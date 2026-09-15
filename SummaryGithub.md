@@ -3,18 +3,18 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/15/2026 - 09:47:50 |
+| Generated on: | 09/15/2026 - 10:04:58 |
 | Parser: | MultiReport (7x Cobertura) |
 | Assemblies: | 7 |
 | Classes: | 97 |
 | Files: | 86 |
-| **Line coverage:** | 86.6% (930 of 1073) |
-| Covered lines: | 930 |
-| Uncovered lines: | 143 |
+| **Line coverage:** | 87.6% (941 of 1073) |
+| Covered lines: | 941 |
+| Uncovered lines: | 132 |
 | Coverable lines: | 1073 |
 | Total lines: | 3839 |
-| **Branch coverage:** | 90.9% (151 of 166) |
-| Covered branches: | 151 |
+| **Branch coverage:** | 92.1% (153 of 166) |
+| Covered branches: | 153 |
 | Total branches: | 166 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -108,17 +108,17 @@
 |Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|72.7%|50%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 64.6%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 71.3%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**64.6%**|**63.3%**|
+|**Entra.EventHandlers.AzureFunctions**|**71.3%**|**70%**|
 |Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|100%||
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter<TEvent>|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter|100%||
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBas<br/>e|100%|100%|
-|Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionSubmitFunctionBa<br/>se|0%|0%|
+|Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionSubmitFunctionBa<br/>se|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Base.EmailOtpSendFunctionBase|0%|0%|
 |Entra.EventHandlers.AzureFunctions.Base.PasswordSubmitFunctionBase|0%|0%|
 |Entra.EventHandlers.AzureFunctions.Base.TokenIssuanceStartFunctionBase|0%|0%|
