@@ -14,25 +14,25 @@ using NSubstitute;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Base;
 
-public class EmailOtpSendFunctionBaseTests
+public class PasswordSubmitFunctionBaseTests
 {
-    private readonly TestEmailOtpSendFunctionBase _sut;
+    private readonly TestPasswordSubmitFunctionBase _sut;
 
     private readonly Fixture _fixture = new();
 
     private readonly ILogger _logger;
-    private readonly IEmailOtpSendHandler _handler;
+    private readonly IPasswordSubmitHandler _handler;
     private readonly IRequestAdapter _requestAdapter;
     private readonly IResponseAdapter _responseAdapter;
 
-    public EmailOtpSendFunctionBaseTests()
+    public PasswordSubmitFunctionBaseTests()
     {
         _logger = Substitute.For<ILogger>();
-        _handler = Substitute.For<IEmailOtpSendHandler>();
+        _handler = Substitute.For<IPasswordSubmitHandler>();
         _requestAdapter = Substitute.For<IRequestAdapter>();
         _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEmailOtpSendFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
+        _sut = new TestPasswordSubmitFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
     }
 
     [Fact]
@@ -43,14 +43,14 @@ public class EmailOtpSendFunctionBaseTests
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
-        var evt = TestEvents.CreateEmailOtpSendEvent(_fixture);
+        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         _requestAdapter
-            .ReadEventAsync<EmailOtpSendEvent>(request)
+            .ReadEventAsync<PasswordSubmitEvent>(request)
             .Returns(evt);
 
-        var entraResponse = TestResponses.CreateEmailOtpSendResponse();
-        var handlerResult = new EntraHandlerResult<EmailOtpSendResponse>(entraResponse);
+        var entraResponse = TestResponses.CreatePasswordSubmitResponse(_fixture.Create<string>());
+        var handlerResult = new EntraHandlerResult<PasswordSubmitResponse>(entraResponse);
 
         _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
             .Returns(handlerResult);
@@ -74,16 +74,16 @@ public class EmailOtpSendFunctionBaseTests
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
-        var evt = TestEvents.CreateEmailOtpSendEvent(_fixture);
+        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         var exception = new InvalidOperationException("Invalid!");
 
         _requestAdapter
-            .ReadEventAsync<EmailOtpSendEvent>(request)
+            .ReadEventAsync<PasswordSubmitEvent>(request)
             .Returns(evt);
 
-        var entraResponse = TestResponses.CreateEmailOtpSendResponse();
-        var handlerResult = new EntraHandlerResult<EmailOtpSendResponse>(entraResponse, exception);
+        var entraResponse = TestResponses.CreatePasswordSubmitResponse(_fixture.Create<string>());
+        var handlerResult = new EntraHandlerResult<PasswordSubmitResponse>(entraResponse, exception);
 
         _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
             .Returns(handlerResult);

@@ -3,8 +3,8 @@ using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
 using Entra.EventHandlers.Abstractions.Responses;
+using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
-using Entra.EventHandlers.Workforce.UnitTests.Utils;
 using Entra.EventHandlers.Workforce.UnitTests.Utils.Handlers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
@@ -31,7 +31,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
-        var evt = TestData.CreateVerifiedIdClaimValidationEvent(_fixture);
+        var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture);
 
         using var cts = new CancellationTokenSource();
 
@@ -93,7 +93,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
     public async Task HandleAsync_Fail()
     {
         // Arrange
-        var evt = TestData.CreateVerifiedIdClaimValidationEvent(_fixture);
+        var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture);
 
         _sut.CoreTest.ShouldThrow = true;
 
@@ -127,7 +127,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
     public async Task HandleAsync_InvalidRequest()
     {
         // Arrange
-        var evt = TestData.CreateVerifiedIdClaimValidationEvent(_fixture, valid: false);
+        var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture, valid: false);
 
         // Act
         var result = await _sut.HandleAsync(evt, CancellationToken.None);

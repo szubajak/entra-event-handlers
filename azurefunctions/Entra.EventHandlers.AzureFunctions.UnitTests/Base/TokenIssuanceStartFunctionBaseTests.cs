@@ -14,25 +14,25 @@ using NSubstitute;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Base;
 
-public class EmailOtpSendFunctionBaseTests
+public class TokenIssuanceStartFunctionBaseTests
 {
-    private readonly TestEmailOtpSendFunctionBase _sut;
+    private readonly TestTokenIssuanceStartFunctionBase _sut;
 
     private readonly Fixture _fixture = new();
 
     private readonly ILogger _logger;
-    private readonly IEmailOtpSendHandler _handler;
+    private readonly ITokenIssuanceStartHandler _handler;
     private readonly IRequestAdapter _requestAdapter;
     private readonly IResponseAdapter _responseAdapter;
 
-    public EmailOtpSendFunctionBaseTests()
+    public TokenIssuanceStartFunctionBaseTests()
     {
         _logger = Substitute.For<ILogger>();
-        _handler = Substitute.For<IEmailOtpSendHandler>();
+        _handler = Substitute.For<ITokenIssuanceStartHandler>();
         _requestAdapter = Substitute.For<IRequestAdapter>();
         _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEmailOtpSendFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
+        _sut = new TestTokenIssuanceStartFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
     }
 
     [Fact]
@@ -43,14 +43,14 @@ public class EmailOtpSendFunctionBaseTests
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
-        var evt = TestEvents.CreateEmailOtpSendEvent(_fixture);
+        var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture);
 
         _requestAdapter
-            .ReadEventAsync<EmailOtpSendEvent>(request)
+            .ReadEventAsync<TokenIssuanceStartEvent>(request)
             .Returns(evt);
 
-        var entraResponse = TestResponses.CreateEmailOtpSendResponse();
-        var handlerResult = new EntraHandlerResult<EmailOtpSendResponse>(entraResponse);
+        var entraResponse = TestResponses.CreateTokenIssuanceStartResponse();
+        var handlerResult = new EntraHandlerResult<TokenIssuanceStartResponse>(entraResponse);
 
         _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
             .Returns(handlerResult);
@@ -74,16 +74,16 @@ public class EmailOtpSendFunctionBaseTests
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
-        var evt = TestEvents.CreateEmailOtpSendEvent(_fixture);
+        var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture);
 
         var exception = new InvalidOperationException("Invalid!");
 
         _requestAdapter
-            .ReadEventAsync<EmailOtpSendEvent>(request)
+            .ReadEventAsync<TokenIssuanceStartEvent>(request)
             .Returns(evt);
 
-        var entraResponse = TestResponses.CreateEmailOtpSendResponse();
-        var handlerResult = new EntraHandlerResult<EmailOtpSendResponse>(entraResponse, exception);
+        var entraResponse = TestResponses.CreateTokenIssuanceStartResponse();
+        var handlerResult = new EntraHandlerResult<TokenIssuanceStartResponse>(entraResponse, exception);
 
         _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
             .Returns(handlerResult);

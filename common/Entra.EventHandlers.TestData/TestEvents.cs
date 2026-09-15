@@ -66,4 +66,15 @@ public static class TestEvents
                 EncryptedPasswordContext = fixture.Create<string>()
             }
         };
+
+    public static VerifiedIdClaimValidationEvent CreateVerifiedIdClaimValidationEvent(IFixture fixture, bool valid = true) =>
+        new()
+        {
+            Source = fixture.Create<string>(),
+            Data = new VerifiedIdClaimValidationEventPayload
+            {
+                RawOdataType = valid ? EntraOdataTypes.VerifiedIdClaimValidation.CalloutData : "invalid",
+                AuthenticationContext = fixture.Create<AuthenticationContext>()
+            }
+        };
 }

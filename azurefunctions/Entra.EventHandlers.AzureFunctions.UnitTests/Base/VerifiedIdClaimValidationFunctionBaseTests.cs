@@ -14,25 +14,25 @@ using NSubstitute;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Base;
 
-public class EmailOtpSendFunctionBaseTests
+public class VerifiedIdClaimValidationFunctionBaseTests
 {
-    private readonly TestEmailOtpSendFunctionBase _sut;
+    private readonly TestVerifiedIdClaimValidationFunctionBase _sut;
 
     private readonly Fixture _fixture = new();
 
     private readonly ILogger _logger;
-    private readonly IEmailOtpSendHandler _handler;
+    private readonly IVerifiedIdClaimValidationHandler _handler;
     private readonly IRequestAdapter _requestAdapter;
     private readonly IResponseAdapter _responseAdapter;
 
-    public EmailOtpSendFunctionBaseTests()
+    public VerifiedIdClaimValidationFunctionBaseTests()
     {
         _logger = Substitute.For<ILogger>();
-        _handler = Substitute.For<IEmailOtpSendHandler>();
+        _handler = Substitute.For<IVerifiedIdClaimValidationHandler>();
         _requestAdapter = Substitute.For<IRequestAdapter>();
         _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEmailOtpSendFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
+        _sut = new TestVerifiedIdClaimValidationFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
     }
 
     [Fact]
@@ -43,14 +43,14 @@ public class EmailOtpSendFunctionBaseTests
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
-        var evt = TestEvents.CreateEmailOtpSendEvent(_fixture);
+        var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture);
 
         _requestAdapter
-            .ReadEventAsync<EmailOtpSendEvent>(request)
+            .ReadEventAsync<VerifiedIdClaimValidationEvent>(request)
             .Returns(evt);
 
-        var entraResponse = TestResponses.CreateEmailOtpSendResponse();
-        var handlerResult = new EntraHandlerResult<EmailOtpSendResponse>(entraResponse);
+        var entraResponse = TestResponses.CreateVerifiedIdClaimValidationResponse();
+        var handlerResult = new EntraHandlerResult<VerifiedIdClaimValidationResponse>(entraResponse);
 
         _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
             .Returns(handlerResult);
@@ -74,16 +74,16 @@ public class EmailOtpSendFunctionBaseTests
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
-        var evt = TestEvents.CreateEmailOtpSendEvent(_fixture);
+        var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture);
 
         var exception = new InvalidOperationException("Invalid!");
 
         _requestAdapter
-            .ReadEventAsync<EmailOtpSendEvent>(request)
+            .ReadEventAsync<VerifiedIdClaimValidationEvent>(request)
             .Returns(evt);
 
-        var entraResponse = TestResponses.CreateEmailOtpSendResponse();
-        var handlerResult = new EntraHandlerResult<EmailOtpSendResponse>(entraResponse, exception);
+        var entraResponse = TestResponses.CreateVerifiedIdClaimValidationResponse();
+        var handlerResult = new EntraHandlerResult<VerifiedIdClaimValidationResponse>(entraResponse, exception);
 
         _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
             .Returns(handlerResult);
