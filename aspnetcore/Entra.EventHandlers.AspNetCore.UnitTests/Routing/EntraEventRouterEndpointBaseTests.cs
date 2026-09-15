@@ -3,6 +3,7 @@ using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.AspNetCore.Adapters;
+using Entra.EventHandlers.AspNetCore.Interfaces;
 using Entra.EventHandlers.Hosting.Errors;
 using Entra.EventHandlers.Hosting.Orchestrators;
 using Entra.EventHandlers.TestHelpers;
@@ -200,6 +201,51 @@ public class EntraEventRouterEndpointBaseTests
             e.Level == LogLevel.Error &&
             e.Exception == exception &&
             e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling."));
+    }
+
+    [Fact]
+    public async Task InvokeAsync_WhenResultHasException_CallsExceptionHandler()
+    {
+        // Arrange
+        var services = new ServiceCollection();
+        var exceptionHandler = Substitute.For<IEntraExceptionHandler>();
+        services.AddSingleton(exceptionHandler);
+        var provider = services.BuildServiceProvider();
+
+        var ctx = new DefaultHttpContext
+        {
+            RequestServices = provider
+        };
+
+        var entraEvent = new TestEvent();
+        _requestAdapter
+            .ReadEventAsync(ctx)
+            .Returns(entraEvent);
+
+        var entraResponse = new TestResponse();
+        var exception = new InvalidOperationException("Invalid!");
+
+        var handlerResult = new EntraHandlerResult<EntraEventResponse>(entraResponse, exception);
+
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.RequestAborted)
+            .Returns(handlerResult);
+
+        _responseAdapter
+            .WriteOkAsync(ctx, entraResponse)
+            .Returns(Task.CompletedTask);
+
+        // Act
+        await _sut.Invoke(ctx);
+
+        // Assert
+        _ = exceptionHandler
+            .Received(1)
+            .HandleAsync(exception);
+
+        _ =_responseAdapter
+            .Received(1)
+            .WriteOkAsync(ctx, entraResponse);
     }
 
     [Fact]
