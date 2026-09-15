@@ -3,18 +3,18 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/15/2026 - 12:06:19 |
+| Generated on: | 09/15/2026 - 12:26:22 |
 | Parser: | MultiReport (7x Cobertura) |
 | Assemblies: | 7 |
 | Classes: | 97 |
 | Files: | 86 |
-| **Line coverage:** | 92% (988 of 1073) |
-| Covered lines: | 988 |
-| Uncovered lines: | 85 |
+| **Line coverage:** | 92.9% (997 of 1073) |
+| Covered lines: | 997 |
+| Uncovered lines: | 76 |
 | Coverable lines: | 1073 |
 | Total lines: | 3839 |
-| **Branch coverage:** | 97.5% (162 of 166) |
-| Covered branches: | 162 |
+| **Branch coverage:** | 98.1% (163 of 166) |
+| Covered branches: | 163 |
 | Total branches: | 166 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -85,14 +85,14 @@
 |Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|0%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 61.4%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 66.1%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**61.4%**|**91.6%**|
+|**Entra.EventHandlers.AspNetCore**|**66.1%**|**95.8%**|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|100%|100%|
-|Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase<TEvent, <br/>TResponse>|0%|0%|
-|Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase<TEvent, <br/>TResponse>|0%||
+|Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase<TEvent, <br/>TResponse>|70%|50%|
+|Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase<TEvent, <br/>TResponse>|100%||
 |Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter<TEvent>|100%|100%|
 |Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter|100%||
