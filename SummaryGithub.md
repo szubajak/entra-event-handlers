@@ -3,19 +3,19 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/15/2026 - 08:09:03 |
+| Generated on: | 09/15/2026 - 09:05:56 |
 | Parser: | MultiReport (7x Cobertura) |
-| Assemblies: | 9 |
-| Classes: | 105 |
-| Files: | 94 |
-| **Line coverage:** | 86.5% (1051 of 1214) |
-| Covered lines: | 1051 |
-| Uncovered lines: | 163 |
-| Coverable lines: | 1214 |
-| Total lines: | 4075 |
-| **Branch coverage:** | 89.8% (151 of 168) |
-| Covered branches: | 151 |
-| Total branches: | 168 |
+| Assemblies: | 10 |
+| Classes: | 122 |
+| Files: | 111 |
+| **Line coverage:** | 54.4% (1114 of 2047) |
+| Covered lines: | 1114 |
+| Uncovered lines: | 933 |
+| Coverable lines: | 2047 |
+| Total lines: | 5628 |
+| **Branch coverage:** | 68.4% (163 of 238) |
+| Covered branches: | 163 |
+| Total branches: | 238 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -108,16 +108,16 @@
 |Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|72.7%|50%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 57.9%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 64.6%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**57.9%**|**56.6%**|
+|**Entra.EventHandlers.AzureFunctions**|**64.6%**|**63.3%**|
 |Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|100%||
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter<TEvent>|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter|100%||
-|Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBas<br/>e|0%|0%|
+|Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBas<br/>e|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionSubmitFunctionBa<br/>se|0%|0%|
 |Entra.EventHandlers.AzureFunctions.Base.EmailOtpSendFunctionBase|0%|0%|
 |Entra.EventHandlers.AzureFunctions.Base.PasswordSubmitFunctionBase|0%|0%|
@@ -160,8 +160,10 @@
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.TestData**|**100%**|****|
+|**Entra.EventHandlers.TestData**|**100%**|**100%**|
 |Entra.EventHandlers.TestData.EventSamples|100%||
+|Entra.EventHandlers.TestData.TestEvents|100%|100%|
+|Entra.EventHandlers.TestData.TestResponses|100%||
 
 </details>
 <details><summary>Entra.EventHandlers.TestHelpers - 80.8%</summary>
@@ -176,6 +178,28 @@
 |Entra.EventHandlers.TestHelpers.TestScope|100%||
 |Entra.EventHandlers.TestHelpers.TestUtils<T>|100%||
 |Entra.EventHandlers.TestHelpers.ThrowingStream|20%||
+
+</details>
+<details><summary>Entra.EventHandlers.UnitTests - 0%</summary>
+
+|**Name**|**Line**|**Branch**|
+|:---|---:|---:|
+|**Entra.EventHandlers.UnitTests**|**0%**|**0%**|
+|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.AttributeCollection<br/>StartResponseBuilderTests|0%||
+|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.AttributeCollection<br/>SubmitResponseBuilderTests|0%||
+|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.EmailOtpSendRespons<br/>eBuilderTests|0%||
+|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.PasswordSubmitRespo<br/>nseBuilderTests|0%||
+|Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.TokenIssuanceStartR<br/>esponseBuilderTests|0%||
+|Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionStartHandler<br/>BaseTests|0%|0%|
+|Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionSubmitHandle<br/>rBaseTests|0%|0%|
+|Entra.EventHandlers.UnitTests.Handlers.Base.EmailOtpSendHandlerBaseTests|0%|0%|
+|Entra.EventHandlers.UnitTests.Handlers.Base.PasswordSubmitHandlerTests|0%|0%|
+|Entra.EventHandlers.UnitTests.Handlers.Base.TokenIssuanceStartHandlerTests|0%|0%|
+|Entra.EventHandlers.UnitTests.Utils.Handlers.TestAttributeCollectionStartHa<br/>ndler|0%||
+|Entra.EventHandlers.UnitTests.Utils.Handlers.TestAttributeCollectionSubmitH<br/>andler|0%||
+|Entra.EventHandlers.UnitTests.Utils.Handlers.TestEmailOtpSendHandler|0%||
+|Entra.EventHandlers.UnitTests.Utils.Handlers.TestPasswordSubmitHandler|0%||
+|Entra.EventHandlers.UnitTests.Utils.Handlers.TestTokenIssuanceStartHandler|0%||
 
 </details>
 <details><summary>Entra.EventHandlers.Workforce - 100%</summary>

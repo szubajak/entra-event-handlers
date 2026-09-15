@@ -21,15 +21,15 @@
 </tr>
 <tr>
 <th>Assemblies:</th>
-<td class="limit-width right" title="9">9</td>
+<td class="limit-width right" title="10">10</td>
 </tr>
 <tr>
 <th>Classes:</th>
-<td class="limit-width right" title="105">105</td>
+<td class="limit-width right" title="122">122</td>
 </tr>
 <tr>
 <th>Files:</th>
-<td class="limit-width right" title="94">94</td>
+<td class="limit-width right" title="111">111</td>
 </tr>
 </table>
 </div>
@@ -38,28 +38,28 @@
 <div class="card">
 <div class="card-header">Line coverage</div>
 <div class="card-body">
-<div class="large cardpercentagebar cardpercentagebar14">86%</div>
+<div class="large cardpercentagebar cardpercentagebar46">54%</div>
 <div class="table">
 <table>
 <tr>
 <th>Covered lines:</th>
-<td class="limit-width right" title="1051">1051</td>
+<td class="limit-width right" title="1114">1114</td>
 </tr>
 <tr>
 <th>Uncovered lines:</th>
-<td class="limit-width right" title="163">163</td>
+<td class="limit-width right" title="933">933</td>
 </tr>
 <tr>
 <th>Coverable lines:</th>
-<td class="limit-width right" title="1214">1214</td>
+<td class="limit-width right" title="2047">2047</td>
 </tr>
 <tr>
 <th>Total lines:</th>
-<td class="limit-width right" title="4075">4075</td>
+<td class="limit-width right" title="5628">5628</td>
 </tr>
 <tr>
 <th>Line coverage:</th>
-<td class="limit-width right" title="1051 of 1214">86.5%</td>
+<td class="limit-width right" title="1114 of 2047">54.4%</td>
 </tr>
 </table>
 </div>
@@ -68,20 +68,20 @@
 <div class="card">
 <div class="card-header">Branch coverage</div>
 <div class="card-body">
-<div class="large cardpercentagebar cardpercentagebar10">89%</div>
+<div class="large cardpercentagebar cardpercentagebar32">68%</div>
 <div class="table">
 <table>
 <tr>
 <th>Covered branches:</th>
-<td class="limit-width right" title="151">151</td>
+<td class="limit-width right" title="163">163</td>
 </tr>
 <tr>
 <th>Total branches:</th>
-<td class="limit-width right" title="168">168</td>
+<td class="limit-width right" title="238">238</td>
 </tr>
 <tr>
 <th>Branch coverage:</th>
-<td class="limit-width right" title="151 of 168">89.8%</td>
+<td class="limit-width right" title="163 of 238">68.4%</td>
 </tr>
 </table>
 </div>
@@ -99,8 +99,56 @@
 </div>
 <h1>Risk Hotspots</h1>
 <risk-hotspots>
+<div class="table-responsive">
+<table class="overview table-fixed stripped">
+<colgroup>
+<col class="column-min-200" />
+<col class="column-min-200" />
+<col class="column-min-200" />
+<col class="column105" />
+<col class="column105" />
+</colgroup>
+<thead><tr><th>Assembly</th>
+<th>Class</th>
+<th>Method</th>
+<th>Crap Score <a href="https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" target="_blank"><i class="icon-info-circled"></i></a></th>
+<th>Cyclomatic complexity <a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank"><i class="icon-info-circled"></i></a></th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Entra.EventHandlers.UnitTests</td>
+<td><a href="Entra.EventHandlers.UnitTests_AttributeCollectionStartHandlerBaseTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionStartHandlerBaseTests</a></td>
+<td title="HandleAsync_Success()"><a href="Entra.EventHandlers.UnitTests_AttributeCollectionStartHandlerBaseTests.html#file0_line33">HandleAsync_Success()</a></td><td class="lightred right">110</td>
+<td class="lightgreen right">10</td>
+</tr>
+<tr>
+<td>Entra.EventHandlers.UnitTests</td>
+<td><a href="Entra.EventHandlers.UnitTests_AttributeCollectionSubmitHandlerBaseTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionSubmitHandlerBaseTests</a></td>
+<td title="HandleAsync_Success()"><a href="Entra.EventHandlers.UnitTests_AttributeCollectionSubmitHandlerBaseTests.html#file0_line33">HandleAsync_Success()</a></td><td class="lightred right">110</td>
+<td class="lightgreen right">10</td>
+</tr>
+<tr>
+<td>Entra.EventHandlers.UnitTests</td>
+<td><a href="Entra.EventHandlers.UnitTests_EmailOtpSendHandlerBaseTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.EmailOtpSendHandlerBaseTests</a></td>
+<td title="HandleAsync_Success()"><a href="Entra.EventHandlers.UnitTests_EmailOtpSendHandlerBaseTests.html#file0_line33">HandleAsync_Success()</a></td><td class="lightred right">110</td>
+<td class="lightgreen right">10</td>
+</tr>
+<tr>
+<td>Entra.EventHandlers.UnitTests</td>
+<td><a href="Entra.EventHandlers.UnitTests_PasswordSubmitHandlerTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.PasswordSubmitHandlerTests</a></td>
+<td title="HandleAsync_Success()"><a href="Entra.EventHandlers.UnitTests_PasswordSubmitHandlerTests.html#file0_line38">HandleAsync_Success()</a></td><td class="lightred right">110</td>
+<td class="lightgreen right">10</td>
+</tr>
+<tr>
+<td>Entra.EventHandlers.UnitTests</td>
+<td><a href="Entra.EventHandlers.UnitTests_TokenIssuanceStartHandlerTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.TokenIssuanceStartHandlerTests</a></td>
+<td title="HandleAsync_Success()"><a href="Entra.EventHandlers.UnitTests_TokenIssuanceStartHandlerTests.html#file0_line32">HandleAsync_Success()</a></td><td class="lightred right">110</td>
+<td class="lightgreen right">10</td>
+</tr>
+</tbody>
+</table>
+</div>
 </risk-hotspots>
-<p>No risk hotspots found.</p>
 <h1>Coverage</h1>
 <coverage-info>
 <div class="table-responsive">
@@ -191,12 +239,12 @@
 <tr><td><a href="Entra.EventHandlers.AspNetCore_VerifiedIdClaimValidationEndpoint.html">Entra.EventHandlers.AspNetCore.Endpoints.VerifiedIdClaimValidationEndpoint</a></td><td class="right">0</td><td class="right">5</td><td class="right">5</td><td class="right">21</td><td title="0/5" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.AspNetCore_EntraEndpointMappingExtensions.html">Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions</a></td><td class="right">0</td><td class="right">28</td><td class="right">28</td><td class="right">48</td><td title="0/28" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html">Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase</a></td><td class="right">8</td><td class="right">3</td><td class="right">11</td><td class="right">60</td><td title="8/11" class="right">72.7%</td><td><table class="coverage"><tr><td class="green covered73">&nbsp;</td><td class="red covered27">&nbsp;</td></tr></table></td><td class="right">1</td><td class="right">2</td><td class="right" title="1/2">50%</td><td><table class="coverage"><tr><td class="green covered50">&nbsp;</td><td class="red covered50">&nbsp;</td></tr></table></td></tr>
-<tr><th>Entra.EventHandlers.AzureFunctions</th><th class="right">95</th><th class="right">69</th><th class="right">164</th><th class="right">579</th><th title="95/164" class="right">57.9%</th><th><table class="coverage"><tr><td class="green covered58">&nbsp;</td><td class="red covered42">&nbsp;</td></tr></table></th><th class="right">17</th><th class="right">30</th><th class="right" title="17/30">56.6%</th><th><table class="coverage"><tr><td class="green covered57">&nbsp;</td><td class="red covered43">&nbsp;</td></tr></table></th></tr>
+<tr><th>Entra.EventHandlers.AzureFunctions</th><th class="right">106</th><th class="right">58</th><th class="right">164</th><th class="right">579</th><th title="106/164" class="right">64.6%</th><th><table class="coverage"><tr><td class="green covered65">&nbsp;</td><td class="red covered35">&nbsp;</td></tr></table></th><th class="right">19</th><th class="right">30</th><th class="right" title="19/30">63.3%</th><th><table class="coverage"><tr><td class="green covered63">&nbsp;</td><td class="red covered37">&nbsp;</td></tr></table></th></tr>
 <tr><td><a href="Entra.EventHandlers.AzureFunctions_EntraFunctionBase.html">Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase</a></td><td class="right">31</td><td class="right">0</td><td class="right">31</td><td class="right">55</td><td title="31/31" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.AzureFunctions_RequestAdapter.html">Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter</a></td><td class="right">18</td><td class="right">0</td><td class="right">18</td><td class="right">81</td><td title="18/18" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">8</td><td class="right">8</td><td class="right" title="8/8">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.AzureFunctions_RequestAdapter_TEvent_.html">Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter&lt;TEvent&gt;</a></td><td class="right">18</td><td class="right">0</td><td class="right">18</td><td class="right">81</td><td title="18/18" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">8</td><td class="right">8</td><td class="right" title="8/8">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.AzureFunctions_ResponseAdapter.html">Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter</a></td><td class="right">14</td><td class="right">0</td><td class="right">14</td><td class="right">97</td><td title="14/14" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
-<tr><td><a href="Entra.EventHandlers.AzureFunctions_AttributeCollectionStartFunctionBase.html">Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBase</a></td><td class="right">0</td><td class="right">11</td><td class="right">11</td><td class="right">30</td><td title="0/11" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">2</td><td class="right" title="0/2">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.AzureFunctions_AttributeCollectionStartFunctionBase.html">Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBase</a></td><td class="right">11</td><td class="right">0</td><td class="right">11</td><td class="right">30</td><td title="11/11" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">2</td><td class="right">2</td><td class="right" title="2/2">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.AzureFunctions_AttributeCollectionSubmitFunctionBase.html">Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionSubmitFunctionBase</a></td><td class="right">0</td><td class="right">11</td><td class="right">11</td><td class="right">30</td><td title="0/11" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">2</td><td class="right" title="0/2">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.AzureFunctions_EmailOtpSendFunctionBase.html">Entra.EventHandlers.AzureFunctions.Base.EmailOtpSendFunctionBase</a></td><td class="right">0</td><td class="right">11</td><td class="right">11</td><td class="right">30</td><td title="0/11" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">2</td><td class="right" title="0/2">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.AzureFunctions_PasswordSubmitFunctionBase.html">Entra.EventHandlers.AzureFunctions.Base.PasswordSubmitFunctionBase</a></td><td class="right">0</td><td class="right">11</td><td class="right">11</td><td class="right">30</td><td title="0/11" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">2</td><td class="right" title="0/2">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
@@ -221,8 +269,10 @@
 <tr><td><a href="Entra.EventHandlers.Observability_EmailOtpSendEventLogMapper.html">Entra.EventHandlers.Observability.Mappers.EmailOtpSendEventLogMapper</a></td><td class="right">4</td><td class="right">0</td><td class="right">4</td><td class="right">17</td><td title="4/4" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.Observability_EventLogContextMapper.html">Entra.EventHandlers.Observability.Mappers.EventLogContextMapper</a></td><td class="right">23</td><td class="right">0</td><td class="right">23</td><td class="right">44</td><td title="23/23" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">6</td><td class="right">6</td><td class="right" title="6/6">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.Observability_CustomLogEntry.html">Entra.EventHandlers.Observability.Models.CustomLogEntry</a></td><td class="right">1</td><td class="right">0</td><td class="right">1</td><td class="right">8</td><td title="1/1" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
-<tr><th>Entra.EventHandlers.TestData</th><th class="right">94</th><th class="right">0</th><th class="right">94</th><th class="right">110</th><th title="94/94" class="right">100%</th><th><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></th><th class="right">0</th><th class="right">0</th><th class="right" title="-"></th><th><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></th></tr>
+<tr><th>Entra.EventHandlers.TestData</th><th class="right">146</th><th class="right">0</th><th class="right">146</th><th class="right">191</th><th title="146/146" class="right">100%</th><th><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></th><th class="right">10</th><th class="right">10</th><th class="right" title="10/10">100%</th><th><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></th></tr>
 <tr><td><a href="Entra.EventHandlers.TestData_EventSamples.html">Entra.EventHandlers.TestData.EventSamples</a></td><td class="right">94</td><td class="right">0</td><td class="right">94</td><td class="right">110</td><td title="94/94" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.TestData_TestEvents.html">Entra.EventHandlers.TestData.TestEvents</a></td><td class="right">48</td><td class="right">0</td><td class="right">48</td><td class="right">69</td><td title="48/48" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">10</td><td class="right">10</td><td class="right" title="10/10">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.TestData_TestResponses.html">Entra.EventHandlers.TestData.TestResponses</a></td><td class="right">4</td><td class="right">0</td><td class="right">4</td><td class="right">12</td><td title="4/4" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><th>Entra.EventHandlers.TestHelpers</th><th class="right">38</th><th class="right">9</th><th class="right">47</th><th class="right">126</th><th title="38/47" class="right">80.8%</th><th><table class="coverage"><tr><td class="green covered81">&nbsp;</td><td class="red covered19">&nbsp;</td></tr></table></th><th class="right">2</th><th class="right">2</th><th class="right" title="2/2">100%</th><th><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></th></tr>
 <tr><td><a href="Entra.EventHandlers.TestHelpers_HandlerCoreTest.html">Entra.EventHandlers.TestHelpers.HandlerCoreTest</a></td><td class="right">6</td><td class="right">0</td><td class="right">6</td><td class="right">18</td><td title="6/6" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">2</td><td class="right">2</td><td class="right" title="2/2">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.TestHelpers_TestEvent.html">Entra.EventHandlers.TestHelpers.TestEvent</a></td><td class="right">2</td><td class="right">0</td><td class="right">2</td><td class="right">10</td><td title="2/2" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
@@ -231,6 +281,22 @@
 <tr><td><a href="Entra.EventHandlers.TestHelpers_TestScope.html">Entra.EventHandlers.TestHelpers.TestScope</a></td><td class="right">3</td><td class="right">0</td><td class="right">3</td><td class="right">7</td><td title="3/3" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.TestHelpers_TestUtils_T_.html">Entra.EventHandlers.TestHelpers.TestUtils&lt;T&gt;</a></td><td class="right">4</td><td class="right">0</td><td class="right">4</td><td class="right">12</td><td title="4/4" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.TestHelpers_ThrowingStream.html">Entra.EventHandlers.TestHelpers.ThrowingStream</a></td><td class="right">2</td><td class="right">8</td><td class="right">10</td><td class="right">17</td><td title="2/10" class="right">20%</td><td><table class="coverage"><tr><td class="green covered20">&nbsp;</td><td class="red covered80">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><th>Entra.EventHandlers.UnitTests</th><th class="right">0</th><th class="right">781</th><th class="right">781</th><th class="right">1472</th><th title="0/781" class="right">0%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th><th class="right">0</th><th class="right">60</th><th class="right" title="0/60">0%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_AttributeCollectionStartResponseBuilderTests.html">Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.AttributeCollectionStartResponseBuilderTests</a></td><td class="right">0</td><td class="right">89</td><td class="right">89</td><td class="right">148</td><td title="0/89" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_AttributeCollectionSubmitResponseBuilderTests.html">Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.AttributeCollectionSubmitResponseBuilderTests</a></td><td class="right">0</td><td class="right">89</td><td class="right">89</td><td class="right">150</td><td title="0/89" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_EmailOtpSendResponseBuilderTests.html">Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.EmailOtpSendResponseBuilderTests</a></td><td class="right">0</td><td class="right">21</td><td class="right">21</td><td class="right">46</td><td title="0/21" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_PasswordSubmitResponseBuilderTests.html">Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.PasswordSubmitResponseBuilderTests</a></td><td class="right">0</td><td class="right">78</td><td class="right">78</td><td class="right">142</td><td title="0/78" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_TokenIssuanceStartResponseBuilderTests.html">Entra.EventHandlers.UnitTests.Builders.ResponseBuilders.TokenIssuanceStartResponseBuilderTests</a></td><td class="right">0</td><td class="right">48</td><td class="right">48</td><td class="right">89</td><td title="0/48" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_AttributeCollectionStartHandlerBaseTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionStartHandlerBaseTests</a></td><td class="right">0</td><td class="right">80</td><td class="right">80</td><td class="right">150</td><td title="0/80" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">12</td><td class="right" title="0/12">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_AttributeCollectionSubmitHandlerBaseTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.AttributeCollectionSubmitHandlerBaseTests</a></td><td class="right">0</td><td class="right">81</td><td class="right">81</td><td class="right">152</td><td title="0/81" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">12</td><td class="right" title="0/12">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_EmailOtpSendHandlerBaseTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.EmailOtpSendHandlerBaseTests</a></td><td class="right">0</td><td class="right">81</td><td class="right">81</td><td class="right">152</td><td title="0/81" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">12</td><td class="right" title="0/12">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_PasswordSubmitHandlerTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.PasswordSubmitHandlerTests</a></td><td class="right">0</td><td class="right">81</td><td class="right">81</td><td class="right">155</td><td title="0/81" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">12</td><td class="right" title="0/12">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_TokenIssuanceStartHandlerTests.html">Entra.EventHandlers.UnitTests.Handlers.Base.TokenIssuanceStartHandlerTests</a></td><td class="right">0</td><td class="right">82</td><td class="right">82</td><td class="right">151</td><td title="0/82" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">12</td><td class="right" title="0/12">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_TestAttributeCollectionStartHandler.html">Entra.EventHandlers.UnitTests.Utils.Handlers.TestAttributeCollectionStartHandler</a></td><td class="right">0</td><td class="right">7</td><td class="right">7</td><td class="right">24</td><td title="0/7" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_TestAttributeCollectionSubmitHandler.html">Entra.EventHandlers.UnitTests.Utils.Handlers.TestAttributeCollectionSubmitHandler</a></td><td class="right">0</td><td class="right">10</td><td class="right">10</td><td class="right">26</td><td title="0/10" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_TestEmailOtpSendHandler.html">Entra.EventHandlers.UnitTests.Utils.Handlers.TestEmailOtpSendHandler</a></td><td class="right">0</td><td class="right">10</td><td class="right">10</td><td class="right">26</td><td title="0/10" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_TestPasswordSubmitHandler.html">Entra.EventHandlers.UnitTests.Utils.Handlers.TestPasswordSubmitHandler</a></td><td class="right">0</td><td class="right">14</td><td class="right">14</td><td class="right">35</td><td title="0/14" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Entra.EventHandlers.UnitTests_TestTokenIssuanceStartHandler.html">Entra.EventHandlers.UnitTests.Utils.Handlers.TestTokenIssuanceStartHandler</a></td><td class="right">0</td><td class="right">10</td><td class="right">10</td><td class="right">26</td><td title="0/10" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><th>Entra.EventHandlers.Workforce</th><th class="right">79</th><th class="right">0</th><th class="right">79</th><th class="right">205</th><th title="79/79" class="right">100%</th><th><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></th><th class="right">8</th><th class="right">8</th><th class="right" title="8/8">100%</th><th><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></th></tr>
 <tr><td><a href="Entra.EventHandlers.Workforce_FailedClaimsBuilder.html">Entra.EventHandlers.Workforce.Builders.ActionBuilders.FailedClaimsBuilder</a></td><td class="right">10</td><td class="right">0</td><td class="right">10</td><td class="right">21</td><td title="10/10" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Entra.EventHandlers.Workforce_EntraWorkforceEventResponses.html">Entra.EventHandlers.Workforce.Builders.EntraWorkforceEventResponses</a></td><td class="right">1</td><td class="right">0</td><td class="right">1</td><td class="right">23</td><td title="1/1" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
@@ -240,6 +306,6 @@
 </table>
 </div>
 </coverage-info>
-<div class="footer">Generated by: ReportGenerator 5.5.11.0<br />09/15/2026 - 08:09:03<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div></div>
+<div class="footer">Generated by: ReportGenerator 5.5.11.0<br />09/15/2026 - 09:05:56<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div></div>
 <script type="text/javascript" src="main.js"></script>
 </body></html>
