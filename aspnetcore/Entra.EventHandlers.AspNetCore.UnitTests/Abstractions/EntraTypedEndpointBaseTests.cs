@@ -1,5 +1,4 @@
 ﻿using Entra.EventHandlers.Abstractions.Interfaces;
-using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.AspNetCore.Interfaces;

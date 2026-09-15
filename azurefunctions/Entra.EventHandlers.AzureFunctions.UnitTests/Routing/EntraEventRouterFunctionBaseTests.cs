@@ -213,6 +213,43 @@ public class EntraEventRouterFunctionBaseTests
     }
 
     [Fact]
+    public async Task RunAsync_WhenResultHasException_CallsOnExceptionAsync()
+    {
+        // Arrange
+        var ctx = Substitute.For<FunctionContext>();
+        var request = Substitute.For<HttpRequestData>(ctx);
+        var response = Substitute.For<HttpResponseData>(ctx);
+
+        var entraEvent = new TestEvent();
+        _requestAdapter.ReadEventAsync(request).Returns(entraEvent);
+
+        var entraResponse = new TestResponse();
+        var exception = new InvalidOperationException("boom");
+
+        var handlerResult = new EntraHandlerResult<EntraEventResponse>(
+            entraResponse,
+            exception
+        );
+
+        _orchestrator
+            .DispatchAsync(entraEvent, ctx.CancellationToken)
+            .Returns(handlerResult);
+
+        _responseAdapter
+            .FromAsync(request, entraResponse)
+            .Returns(response);
+
+        // Act
+        var result = await _sut.RunAsync(request);
+
+        // Assert
+        result.Should().Be(response);
+        _sut.ExceptionCalled.Should().BeTrue();
+
+        _ = _responseAdapter.Received(1).FromAsync(request, entraResponse);
+    }
+
+    [Fact]
     public async Task RunAsync_Success()
     {
         // Arrange
