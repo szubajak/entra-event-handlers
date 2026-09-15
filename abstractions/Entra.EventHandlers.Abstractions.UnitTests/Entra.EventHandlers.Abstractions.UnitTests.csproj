@@ -4,11 +4,7 @@
 	<IsTestProject>true</IsTestProject>
     <IsPackable>false</IsPackable>
 	<OutputType>Exe</OutputType>
-
-	  <UseMicrosoftTestingPlatform>true</UseMicrosoftTestingPlatform>
-	  <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
-	  <EnableMSTestRunner>true</EnableMSTestRunner>
-	  <VSTestEnabled>false</VSTestEnabled>
+	<UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
   </PropertyGroup>
 
   <ItemGroup>
