@@ -25,4 +25,6 @@ jobs:
         run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
 
       - name: Run Abstractions unit tests
+        env:
+            DOTNET_TEST_RUNNER: Microsoft.Testing.Platform
         run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --no-build --verbosity normal
