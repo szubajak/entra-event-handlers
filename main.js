@@ -363,7 +363,7 @@ var assemblies = [
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.TokenIssuanceStartEndpoint", "rp": "Entra.EventHandlers.AspNetCore_TokenIssuanceStartEndpoint.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.VerifiedIdClaimValidationEndpoint", "rp": "Entra.EventHandlers.AspNetCore_VerifiedIdClaimValidationEndpoint.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Extensions.EntraEndpointMappingExtensions", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointMappingExtensions.html", "cl": 0, "ucl": 28, "cal": 28, "tl": 48, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "cl": 8, "ucl": 3, "cal": 11, "tl": 60, "cb": 1, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEventRouterEndpointBase.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 60, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Entra.EventHandlers.AzureFunctions",
