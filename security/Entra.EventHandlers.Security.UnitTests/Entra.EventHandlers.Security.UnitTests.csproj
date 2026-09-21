@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<IsTestProject>true</IsTestProject>
+	<IsPackable>false</IsPackable>
+	<OutputType>Exe</OutputType>
+	<IsTestingPlatformApplication>true</IsTestingPlatformApplication>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entra.EventHandlers.Security\Entra.EventHandlers.Security.csproj" />
+  </ItemGroup>
+
+</Project> 
