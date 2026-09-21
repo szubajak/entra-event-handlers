@@ -5,7 +5,6 @@ using Entra.EventHandlers.Hosting.Errors;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
 using NSubstitute;
 using System.Net;
 
@@ -94,14 +93,5 @@ public class ResponseAdapterTests
 
         var deserialized = await TestUtils.ReadJson<EntraErrorResponse>(result.Body);
         deserialized.Should().BeEquivalentTo(response);
-    }
-}
-
-public static class HttpHeadersCollectionExtensions
-{
-    public static IEnumerable<string> GetValues(this HttpHeadersCollection headers, string name)
-    {
-        headers.TryGetValues(name, out var values);
-        return values ?? [];
     }
 }
