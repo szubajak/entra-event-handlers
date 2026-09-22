@@ -1,4 +1,5 @@
-﻿using Entra.EventHandlers.Abstractions.Protocol.PasswordSubmit;
+﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Protocol.PasswordSubmit;
 
 namespace Entra.EventHandlers.Abstractions.Interfaces;
 
