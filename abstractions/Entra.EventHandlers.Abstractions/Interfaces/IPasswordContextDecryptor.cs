@@ -23,5 +23,5 @@ public interface IPasswordContextDecryptor
     /// A <see cref="DecryptedPasswordContext"/> containing the decrypted
     /// password, nonce, and optional username.
     /// </returns>
-    Task<DecryptedPasswordContext> DecryptAsync(string encryptedPasswordContext);
+    Task<DecryptedPasswordContext> DecryptAsync(string encryptedPasswordContext, CancellationToken cancellationToken = default);
 }
