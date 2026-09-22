@@ -1,4 +1,6 @@
-﻿namespace Entra.EventHandlers.Abstractions.Protocol.PasswordSubmit;
+﻿using Entra.EventHandlers.Abstractions.Events;
+
+namespace Entra.EventHandlers.Abstractions.Protocol.PasswordSubmit;
 
 /// <summary>
 /// Represents the decrypted contents of the <c>encryptedPasswordContext</c>
