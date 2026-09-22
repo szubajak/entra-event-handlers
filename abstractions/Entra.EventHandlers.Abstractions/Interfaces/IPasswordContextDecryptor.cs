@@ -12,15 +12,16 @@ namespace Entra.EventHandlers.Abstractions.Interfaces;
 public interface IPasswordContextDecryptor
 {
     /// <summary>
-    /// Decrypts the encrypted password context provided by Microsoft Entra
-    /// and returns the plaintext password, nonce, and optional username.
+    /// Asynchronously decrypts the <c>encryptedPasswordContext</c> value
+    /// provided by Microsoft Entra and returns the plaintext password,
+    /// nonce, and optional username extracted from the decrypted payload.
     /// </summary>
     /// <param name="encryptedPasswordContext">
-    /// The encrypted value from the event payload.
+    /// The <c>encryptedPasswordContext</c> field from the event payload.
     /// </param>
     /// <returns>
     /// A <see cref="DecryptedPasswordContext"/> containing the decrypted
-    /// password, nonce, and username.
+    /// password, nonce, and optional username.
     /// </returns>
-    DecryptedPasswordContext Decrypt(string encryptedPasswordContext);
+    Task<DecryptedPasswordContext> DecryptAsync(string encryptedPasswordContext);
 }
