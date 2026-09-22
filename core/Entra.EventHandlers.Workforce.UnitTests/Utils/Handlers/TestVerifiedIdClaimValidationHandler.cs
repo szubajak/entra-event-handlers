@@ -16,7 +16,7 @@ public class TestVerifiedIdClaimValidationHandler(ILogger logger)
 
     protected override Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(
         VerifiedIdClaimValidationEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         CoreTest.Record(cancellationToken);
         return Task.FromResult(ResponseToReturn);
