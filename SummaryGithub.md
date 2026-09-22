@@ -3,19 +3,19 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/21/2026 - 08:26:21 |
-| Parser: | MultiReport (7x Cobertura) |
-| Assemblies: | 7 |
-| Classes: | 97 |
-| Files: | 86 |
-| **Line coverage:** | 93.5% (1004 of 1073) |
-| Covered lines: | 1004 |
-| Uncovered lines: | 69 |
-| Coverable lines: | 1073 |
-| Total lines: | 3839 |
-| **Branch coverage:** | 100% (166 of 166) |
-| Covered branches: | 166 |
-| Total branches: | 166 |
+| Generated on: | 09/22/2026 - 09:58:50 |
+| Parser: | MultiReport (10x Cobertura) |
+| Assemblies: | 8 |
+| Classes: | 100 |
+| Files: | 89 |
+| **Line coverage:** | 91.6% (1050 of 1146) |
+| Covered lines: | 1050 |
+| Uncovered lines: | 96 |
+| Coverable lines: | 1146 |
+| Total lines: | 3977 |
+| **Branch coverage:** | 97.7% (174 of 178) |
+| Covered branches: | 174 |
+| Total branches: | 178 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -40,11 +40,11 @@
 |Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Abstractions - 97.6%</summary>
+<details><summary>Entra.EventHandlers.Abstractions - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Abstractions**|**97.6%**|**100%**|
+|**Entra.EventHandlers.Abstractions**|**100%**|**100%**|
 |Entra.EventHandlers.Abstractions.Actions.ContinueAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.ModifyAttributeValuesAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.PasswordSubmitAction|100%||
@@ -82,7 +82,7 @@
 |Entra.EventHandlers.Abstractions.Responses.PasswordSubmitResponsePayload|100%||
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
 |Entra.EventHandlers.Abstractions.Responses.VerifiedIdClaimValidationRespons<br/>ePayload|100%||
-|Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|0%||
+|Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|100%||
 
 </details>
 <details><summary>Entra.EventHandlers.AspNetCore - 67.7%</summary>
@@ -154,6 +154,16 @@
 |Entra.EventHandlers.Observability.Mappers.EmailOtpSendEventLogMapper|100%||
 |Entra.EventHandlers.Observability.Mappers.EventLogContextMapper|100%|100%|
 |Entra.EventHandlers.Observability.Models.CustomLogEntry|100%||
+
+</details>
+<details><summary>Entra.EventHandlers.Security - 60.2%</summary>
+
+|**Name**|**Line**|**Branch**|
+|:---|---:|---:|
+|**Entra.EventHandlers.Security**|**60.2%**|**66.6%**|
+|Entra.EventHandlers.Security.Adapters.SecretClientAdapter|0%||
+|Entra.EventHandlers.Security.DI.ServiceCollectionExtensions|0%|0%|
+|Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider|83%|80%|
 
 </details>
 <details><summary>Entra.EventHandlers.Workforce - 100%</summary>
