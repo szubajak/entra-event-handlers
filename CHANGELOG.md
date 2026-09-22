@@ -7,6 +7,12 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.5.3 — 2026‑09‑22
+
+### Changed
+
+- Changed `DecryptAsync` to support a `CancellationToken` parameter.
+
 ## v1.5.2 — 2026‑09‑22
 
 ### Changed
