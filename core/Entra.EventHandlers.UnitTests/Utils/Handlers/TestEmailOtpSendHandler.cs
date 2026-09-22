@@ -16,7 +16,7 @@ public class TestEmailOtpSendHandler(ILogger logger)
 
     protected override Task<EmailOtpSendResponse> HandleCoreAsync(
         EmailOtpSendEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         CoreTest.Record(cancellationToken);
         return Task.FromResult(ResponseToReturn);

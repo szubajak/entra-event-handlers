@@ -16,7 +16,7 @@ public class TestTokenIssuanceStartHandler(ILogger logger)
 
     protected override Task<TokenIssuanceStartResponse> HandleCoreAsync(
         TokenIssuanceStartEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         CoreTest.Record(cancellationToken);
         return Task.FromResult(ResponseToReturn);

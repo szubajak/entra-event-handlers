@@ -11,6 +11,7 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/.github/">
+    <File Path=".github/social_preview.png" />
     <File Path="FUNDING.yml" />
   </Folder>
   <Folder Name="/.github/workflows/">
@@ -69,5 +70,15 @@
     <Project Path="samples/ApiSample/ApiSample.csproj" />
     <Project Path="samples/AzureFunctionsSample/AzureFunctionsSample.csproj" />
     <Project Path="samples/Sample.Common/Sample.Common.csproj" />
+  </Folder>
+  <Folder Name="/security/">
+    <Project Path="security/Entra.EventHandlers.Security.AspNetCore/Entra.EventHandlers.Security.AspNetCore.csproj" />
+    <Project Path="security/Entra.EventHandlers.Security.AzureFunctions/Entra.EventHandlers.Security.AzureFunctions.csproj" />
+    <Project Path="security/Entra.EventHandlers.Security/Entra.EventHandlers.Security.csproj" />
+  </Folder>
+  <Folder Name="/security/tests/">
+    <Project Path="security/Entra.EventHandlers.Security.AspNetCore.UnitTests/Entra.EventHandlers.Security.AspNetCore.UnitTests.csproj" />
+    <Project Path="security/Entra.EventHandlers.Security.AzureFunctions.UnitTests/Entra.EventHandlers.Security.AzureFunctions.UnitTests.csproj" />
+    <Project Path="security/Entra.EventHandlers.Security.UnitTests/Entra.EventHandlers.Security.UnitTests.csproj" />
   </Folder>
 </Solution>

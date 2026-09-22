@@ -21,7 +21,7 @@ public class TestPasswordSubmitHandler(ILogger logger, IPasswordContextCryptoSer
     protected override Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,
         DecryptedPasswordContext decrypted,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         CoreTest.Record(cancellationToken);
         PassedDecryptedPasswordContext = decrypted;

@@ -18,17 +18,13 @@ public sealed class TestHttpRequestData(FunctionContext context, Stream body)
 
     public override IEnumerable<ClaimsIdentity> Identities { get; } = [];
 
-    public override string Method { get; } = "POST";
+    public override string Method { get; } = $"{HttpMethod.Post}";
 
-    public HttpResponseData CreateResponse(HttpStatusCode statusCode)
-    {
-        var res = new TestHttpResponseData(FunctionContext)
+    public HttpResponseData CreateResponse(HttpStatusCode statusCode) =>
+        new TestHttpResponseData(FunctionContext)
         {
             StatusCode = statusCode
         };
-
-        return res;
-    }
 
     public override HttpResponseData CreateResponse() =>
         CreateResponse(HttpStatusCode.OK);

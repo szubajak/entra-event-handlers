@@ -16,7 +16,7 @@ public class TestAttributeCollectionSubmitHandler(ILogger logger)
 
     protected override Task<AttributeCollectionSubmitResponse> HandleCoreAsync(
         AttributeCollectionSubmitEvent request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         CoreTest.Record(cancellationToken);
         return Task.FromResult(ResponseToReturn);
