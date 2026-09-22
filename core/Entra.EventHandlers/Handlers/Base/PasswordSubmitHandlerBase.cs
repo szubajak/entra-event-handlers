@@ -1,11 +1,10 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.Abstractions.Protocol.PasswordSubmit;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Builders;
-using Entra.EventHandlers.Interfaces;
-using Entra.EventHandlers.Protocol.PasswordSubmit;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
@@ -20,10 +19,10 @@ namespace Entra.EventHandlers.Handlers.Base;
 /// This base class also validates incoming events according to the Entra
 /// protocol contract before invoking handler logic.
 /// </summary>
-public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContextCryptoService cryptoService) : IPasswordSubmitHandler
+public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContextDecryptor decryptor) : IPasswordSubmitHandler
 {
     protected ILogger Logger { get; } = logger;
-    protected IPasswordContextCryptoService CryptoService { get; } = cryptoService;
+    protected IPasswordContextDecryptor Decryptor { get; } = decryptor;
 
     /// <summary>
     /// Handles the PasswordSubmit event using a standardized processing
@@ -55,7 +54,7 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
         {
             request.Validate();
 
-            decrypted = CryptoService.Decrypt(request.Data.EncryptedPasswordContext);
+            decrypted = Decryptor.Decrypt(request.Data.EncryptedPasswordContext);
 
             var response = await HandleCoreAsync(request, decrypted, cancellationToken);
 

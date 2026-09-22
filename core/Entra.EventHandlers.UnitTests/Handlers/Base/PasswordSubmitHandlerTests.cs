@@ -2,10 +2,10 @@
 using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Protocol;
+using Entra.EventHandlers.Abstractions.Protocol.PasswordSubmit;
 using Entra.EventHandlers.Abstractions.Responses;
-using Entra.EventHandlers.Interfaces;
-using Entra.EventHandlers.Protocol.PasswordSubmit;
 using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
 using Entra.EventHandlers.UnitTests.Utils.Handlers;
@@ -21,14 +21,14 @@ public class PasswordSubmitHandlerTests
 
     private readonly Fixture _fixture = new();
     private readonly TestLogger _logger;
-    private readonly IPasswordContextCryptoService _cryptoService;
+    private readonly IPasswordContextDecryptor _decryptor;
 
     public PasswordSubmitHandlerTests()
     {
         _logger = new TestLogger();
-        _cryptoService = Substitute.For<IPasswordContextCryptoService>();
+        _decryptor = Substitute.For<IPasswordContextDecryptor>();
 
-        _sut = new TestPasswordSubmitHandler(_logger, _cryptoService);
+        _sut = new TestPasswordSubmitHandler(_logger, _decryptor);
     }
 
     [Theory]
@@ -40,7 +40,7 @@ public class PasswordSubmitHandlerTests
         var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         var decrypted = _fixture.Create<DecryptedPasswordContext>();
-        _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
+        _decryptor.Decrypt(evt.Data.EncryptedPasswordContext)
             .Returns(decrypted);
 
         using var cts = new CancellationTokenSource();
@@ -109,7 +109,7 @@ public class PasswordSubmitHandlerTests
         var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         var decrypted = _fixture.Create<DecryptedPasswordContext>();
-        _cryptoService.Decrypt(evt.Data.EncryptedPasswordContext)
+        _decryptor.Decrypt(evt.Data.EncryptedPasswordContext)
                .Returns(decrypted);
 
         _sut.CoreTest.ShouldThrow = true;

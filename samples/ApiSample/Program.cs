@@ -1,6 +1,6 @@
+using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AspNetCore.DI;
 using Entra.EventHandlers.AspNetCore.Extensions;
-using Entra.EventHandlers.Interfaces;
 using Sample.Common.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 // PasswordSubmitHandler require service to decrypt encrypted password context
-builder.Services.AddTransient<IPasswordContextCryptoService, PasswordContextCryptoService>();
+builder.Services.AddTransient<IPasswordContextDecryptor, PasswordContextDecryptor>();
 
 // Add Entra Event Handlers
 builder.Services.AddEntraEventHandlers();

@@ -9,11 +9,13 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Entra.EventHandlers.Security.Providers;
 
+public interface IKeyVaultCertificateProvider : ICertificateProvider { }
+
 public class KeyVaultCertificateProvider(
     ILogger<KeyVaultCertificateProvider> logger,
     IOptions<KeyVaultCertificateOptions> options,
     ISecretClient secretClient)
-    : ICertificateProvider
+    : IKeyVaultCertificateProvider
 {
     private readonly ILogger<KeyVaultCertificateProvider> _logger = logger;
     private readonly KeyVaultCertificateOptions _options = options.Value;
