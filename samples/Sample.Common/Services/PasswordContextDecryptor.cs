@@ -1,9 +1,9 @@
-﻿using Entra.EventHandlers.Interfaces;
-using Entra.EventHandlers.Protocol.PasswordSubmit;
+﻿using Entra.EventHandlers.Abstractions.Interfaces;
+using Entra.EventHandlers.Abstractions.Protocol.PasswordSubmit;
 
 namespace Sample.Common.Services;
 
-public class PasswordContextCryptoService : IPasswordContextCryptoService
+public class PasswordContextDecryptor : IPasswordContextDecryptor
 {
     public DecryptedPasswordContext Decrypt(string encryptedPasswordContext) =>
         new()

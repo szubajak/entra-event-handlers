@@ -1,5 +1,5 @@
+using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.AzureFunctions.DI;
-using Entra.EventHandlers.Interfaces;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,7 +10,7 @@ var builder = FunctionsApplication.CreateBuilder(args);
 builder.ConfigureFunctionsWebApplication();
 
 // PasswordSubmitHandler require service to decrypt encrypted password context
-builder.Services.AddTransient<IPasswordContextCryptoService, PasswordContextCryptoService>();
+builder.Services.AddTransient<IPasswordContextDecryptor, PasswordContextDecryptor>();
 
 // Add Entra Event Handlers
 builder.Services.AddEntraEventHandlers();

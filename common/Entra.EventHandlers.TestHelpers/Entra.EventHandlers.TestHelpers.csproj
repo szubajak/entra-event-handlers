@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.5.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\abstractions\Entra.EventHandlers.Abstractions\Entra.EventHandlers.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,12 +7,19 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.5.2 — 2026‑09‑22
+
+### Changed
+
+- Changed `IPasswordContextDecryptor` to use an asynchronous `DecryptAsync` method.
+  This enables non‑blocking retrieval of private keys from external providers such as Azure Key Vault.
+
 ## v1.5.1 — 2026‑09‑22
 
 ### Added
 
-- Added `IPasswordContextDecryptor` as the new extension point for decrypting the encryptedPasswordContext field in PasswordSubmitEvent.
-- Added `DecryptedPasswordContext` model representing the decrypted password, nonce, and optional username.
+- Added `IPasswordContextDecryptor` as the new extension point for decrypting the encryptedPasswordContext field in `PasswordSubmitEvent`.
+- Added `DecryptedPasswordContext` model, representing the decrypted password, nonce, and optional username.
 
 ## v1.5.0 — 2026‑09‑15
 
