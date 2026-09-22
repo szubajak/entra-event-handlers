@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Entra.EventHandlers.Security\Entra.EventHandlers.Security.csproj" />
   </ItemGroup>
 
