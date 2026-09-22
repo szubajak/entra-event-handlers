@@ -3,16 +3,16 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/22/2026 - 09:58:50 |
+| Generated on: | 09/22/2026 - 11:08:39 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
-| Classes: | 100 |
-| Files: | 89 |
-| **Line coverage:** | 91.6% (1050 of 1146) |
-| Covered lines: | 1050 |
-| Uncovered lines: | 96 |
-| Coverable lines: | 1146 |
-| Total lines: | 3977 |
+| Classes: | 101 |
+| Files: | 90 |
+| **Line coverage:** | 91.1% (1048 of 1150) |
+| Covered lines: | 1048 |
+| Uncovered lines: | 102 |
+| Coverable lines: | 1150 |
+| Total lines: | 3994 |
 | **Branch coverage:** | 97.7% (174 of 178) |
 | Covered branches: | 174 |
 | Total branches: | 178 |
@@ -40,11 +40,11 @@
 |Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Abstractions - 100%</summary>
+<details><summary>Entra.EventHandlers.Abstractions - 97.6%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Abstractions**|**100%**|**100%**|
+|**Entra.EventHandlers.Abstractions**|**97.6%**|**100%**|
 |Entra.EventHandlers.Abstractions.Actions.ContinueAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.ModifyAttributeValuesAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.PasswordSubmitAction|100%||
@@ -82,7 +82,7 @@
 |Entra.EventHandlers.Abstractions.Responses.PasswordSubmitResponsePayload|100%||
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
 |Entra.EventHandlers.Abstractions.Responses.VerifiedIdClaimValidationRespons<br/>ePayload|100%||
-|Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|100%||
+|Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|0%||
 
 </details>
 <details><summary>Entra.EventHandlers.AspNetCore - 67.7%</summary>
@@ -156,12 +156,13 @@
 |Entra.EventHandlers.Observability.Models.CustomLogEntry|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.Security - 60.2%</summary>
+<details><summary>Entra.EventHandlers.Security - 57.1%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Security**|**60.2%**|**66.6%**|
+|**Entra.EventHandlers.Security**|**57.1%**|**66.6%**|
 |Entra.EventHandlers.Security.Adapters.SecretClientAdapter|0%||
+|Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor|0%||
 |Entra.EventHandlers.Security.DI.ServiceCollectionExtensions|0%|0%|
 |Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider|83%|80%|
 
