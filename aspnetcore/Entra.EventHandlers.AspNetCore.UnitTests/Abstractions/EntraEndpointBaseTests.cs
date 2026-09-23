@@ -70,7 +70,7 @@ public class EntraEndpointBaseTests
 
         // Assert
         _ = _responseAdapter.Received(1)
-            .WriteBadRequestAsync(ctx, Arg.Any<EntraErrorResponse>());
+            .WriteErrorAsync(ctx, StatusCodes.Status400BadRequest, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -99,7 +99,7 @@ public class EntraEndpointBaseTests
 
         // Assert
         _ = _responseAdapter.Received(1)
-            .WriteServerErrorAsync(ctx, Arg.Any<EntraErrorResponse>());
+            .WriteErrorAsync(ctx, StatusCodes.Status500InternalServerError, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&

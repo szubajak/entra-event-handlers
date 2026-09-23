@@ -1,4 +1,5 @@
 ﻿using Entra.EventHandlers.Abstractions.Events;
+using Entra.EventHandlers.Abstractions.Responses;
 
 namespace Entra.EventHandlers.Abstractions.Protocol.PasswordSubmit;
 

@@ -54,7 +54,7 @@
 
   <ItemGroup>
 	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" PrivateAssets="All" />
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.5.1" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.5.4" />
 	<PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 

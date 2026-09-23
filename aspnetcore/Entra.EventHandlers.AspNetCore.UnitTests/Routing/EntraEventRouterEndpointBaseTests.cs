@@ -61,8 +61,9 @@ public class EntraEventRouterEndpointBaseTests
         // Assert
         _ = _responseAdapter
             .Received(1)
-            .WriteBadRequestAsync(
+            .WriteErrorAsync(
                 ctx,
+                StatusCodes.Status400BadRequest,
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.DeserializationError &&
@@ -103,8 +104,9 @@ public class EntraEventRouterEndpointBaseTests
         // Assert
         _ = _responseAdapter
             .Received(1)
-            .WriteBadRequestAsync(
+            .WriteErrorAsync(
                 ctx,
+                StatusCodes.Status400BadRequest,
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.HandlerNotFound &&
@@ -147,8 +149,9 @@ public class EntraEventRouterEndpointBaseTests
         // Assert
         _ = _responseAdapter
             .Received(1)
-            .WriteBadRequestAsync(
+            .WriteErrorAsync(
                 ctx,
+                StatusCodes.Status400BadRequest,
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.ValidationError &&
@@ -189,8 +192,9 @@ public class EntraEventRouterEndpointBaseTests
         // Assert
         _ = _responseAdapter
             .Received(1)
-            .WriteServerErrorAsync(
+            .WriteErrorAsync(
                 ctx,
+                StatusCodes.Status500InternalServerError,
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.UnhandledException &&

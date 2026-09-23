@@ -1,5 +1,4 @@
-﻿using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.Abstractions.Responses;
+﻿using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Hosting.Errors;
 using System.Text.Json;
 
@@ -28,12 +27,15 @@ public interface IResponseAdapter
     Task WriteOkAsync(HttpContext context, EntraEventResponse response);
 
     /// <summary>
-    /// Writes an HTTP 400 Bad Request response containing a serialized
+    /// Writes an HTTP Error response containing a serialized
     /// <see cref="EntraErrorResponse"/> payload. Used when deserialization,
     /// validation, or handler‑resolution failures occur.
     /// </summary>
     /// <param name="context">
     /// The HTTP context whose response stream will receive the serialized payload.
+    /// </param>
+    /// <param name="statusCode">
+    /// The HTTP status code.
     /// </param>
     /// <param name="error">
     /// The structured error describing the failure.
@@ -41,23 +43,7 @@ public interface IResponseAdapter
     /// <returns>
     /// A task representing the asynchronous write operation.
     /// </returns>
-    Task WriteBadRequestAsync(HttpContext context, EntraErrorResponse error);
-
-    /// <summary>
-    /// Writes an HTTP 500 Internal Server Error response containing a serialized
-    /// <see cref="EntraErrorResponse"/> payload. Used when an unexpected exception
-    /// occurs during event processing.
-    /// </summary>
-    /// <param name="context">
-    /// The HTTP context whose response stream will receive the serialized payload.
-    /// </param>
-    /// <param name="error">
-    /// The structured error describing the unexpected failure.
-    /// </param>
-    /// <returns>
-    /// A task representing the asynchronous write operation.
-    /// </returns>
-    Task WriteServerErrorAsync(HttpContext context, EntraErrorResponse error);
+    Task WriteErrorAsync(HttpContext context, int statusCode, EntraErrorResponse error);
 }
 
 /// <summary>
@@ -76,14 +62,7 @@ public class ResponseAdapter : IResponseAdapter
     }
 
     /// <inheritdoc />
-    public Task WriteBadRequestAsync(HttpContext context, EntraErrorResponse error) =>
-        WriteErrorAsync(context, StatusCodes.Status400BadRequest, error);
-
-    /// <inheritdoc />
-    public Task WriteServerErrorAsync(HttpContext context, EntraErrorResponse error) =>
-        WriteErrorAsync(context, StatusCodes.Status500InternalServerError, error);
-
-    private static async Task WriteErrorAsync(HttpContext context, int statusCode, EntraErrorResponse error)
+    public async Task WriteErrorAsync(HttpContext context, int statusCode, EntraErrorResponse error)
     {
         context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";

@@ -41,9 +41,11 @@ public class ResponseAdapterTests
     }
 
     [Fact]
-    public async Task WriteBadRequestAsync_Success()
+    public async Task WriteErrorAsync_Success()
     {
         // Arrange
+        var statusCode = StatusCodes.Status400BadRequest;
+
         var context = new DefaultHttpContext();
         context.Response.Body = new MemoryStream();
 
@@ -54,34 +56,10 @@ public class ResponseAdapterTests
         };
 
         // Act
-        await _sut.WriteBadRequestAsync(context, response);
+        await _sut.WriteErrorAsync(context, statusCode, response);
 
         // Assert
-        context.Response.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
-        context.Response.ContentType.Should().Be("application/json");
-
-        var deserialized = await TestUtils.ReadJson<EntraErrorResponse>(context.Response.Body);
-        deserialized.Should().BeEquivalentTo(response);
-    }
-
-    [Fact]
-    public async Task WriteServerErrorAsync_Success()
-    {
-        // Arrange
-        var context = new DefaultHttpContext();
-        context.Response.Body = new MemoryStream();
-
-        var response = new EntraErrorResponse
-        {
-            Error = _fixture.Create<string>(),
-            Details = _fixture.Create<string>()
-        };
-
-        // Act
-        await _sut.WriteServerErrorAsync(context, response);
-
-        // Assert
-        context.Response.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
+        context.Response.StatusCode.Should().Be(statusCode);
         context.Response.ContentType.Should().Be("application/json");
 
         var deserialized = await TestUtils.ReadJson<EntraErrorResponse>(context.Response.Body);
