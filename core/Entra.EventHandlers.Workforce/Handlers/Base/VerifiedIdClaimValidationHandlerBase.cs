@@ -62,6 +62,17 @@ public abstract class VerifiedIdClaimValidationHandlerBase(ILogger logger) : IVe
 
             return new EntraHandlerResult<VerifiedIdClaimValidationResponse>(response);
         }
+        catch (OperationCanceledException ex)
+        {
+            sw.Stop();
+
+            Logger.LogInformation(
+                ex,
+                "Entra event handling was canceled. DurationMs={DurationMs}.",
+                sw.ElapsedMilliseconds);
+
+            throw;
+        }
         catch (Exception ex)
         {
             sw.Stop();

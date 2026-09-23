@@ -1,5 +1,4 @@
-﻿using Entra.EventHandlers.Abstractions.Errors;
-using Entra.EventHandlers.Abstractions.Responses;
+﻿using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.Hosting.Errors;
 using System.Text.Json;
@@ -11,12 +10,9 @@ public class TestResponseAdapterThrows : IResponseAdapter
     public Task WriteOkAsync(HttpContext context, EntraEventResponse response) =>
         throw new InvalidOperationException("Write failed");
 
-    public Task WriteBadRequestAsync(HttpContext context, EntraErrorResponse error) =>
-        Task.CompletedTask;
-
-    public async Task WriteServerErrorAsync(HttpContext context, EntraErrorResponse error)
+    public async Task WriteErrorAsync(HttpContext context, int statusCode, EntraErrorResponse error)
     {
-        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";
 
         await JsonSerializer.SerializeAsync(context.Response.Body, error);

@@ -4,6 +4,7 @@ using Entra.EventHandlers.AzureFunctions.Adapters;
 using Entra.EventHandlers.Hosting.Errors;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace Entra.EventHandlers.AzureFunctions.Abstractions;
 
@@ -21,14 +22,30 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
         {
             return await ExecuteAsync(req);
         }
+        catch (OperationCanceledException ex)
+        {
+            Logger.LogInformation(ex, "Entra event handling was canceled in hosting layer.");
+
+            await OnExceptionAsync(ex);
+
+            return await ResponseAdapter.FromErrorAsync(
+                req,
+                HttpStatusCode.RequestTimeout,
+                new EntraErrorResponse
+                {
+                    Error = EntraErrorCodes.RequestCanceled,
+                    Details = "The request was canceled."
+                });
+        }
         catch (Exception ex) when (ex.IsEntraException())
         {
             Logger.LogWarning(ex, "Entra domain exception occurred in hosting layer during Entra event handling.");
 
             await OnExceptionAsync(ex);
 
-            return await ResponseAdapter.BadRequestAsync(
+            return await ResponseAdapter.FromErrorAsync(
                 req,
+                HttpStatusCode.BadRequest,
                 new EntraErrorResponse
                 {
                     Error = ex.ToEntraErrorCode(),
@@ -41,8 +58,9 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
 
             await OnExceptionAsync(ex);
 
-            return await ResponseAdapter.ServerErrorAsync(
+            return await ResponseAdapter.FromErrorAsync(
                 req,
+                HttpStatusCode.InternalServerError,
                 new EntraErrorResponse
                 {
                     Error = EntraErrorCodes.UnhandledException,

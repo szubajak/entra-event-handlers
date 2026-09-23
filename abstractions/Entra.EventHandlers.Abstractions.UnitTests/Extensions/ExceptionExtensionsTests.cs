@@ -40,6 +40,7 @@ public class ExceptionExtensionsTests
             { typeof(EntraDeserializationException), true },
             { typeof(EntraValidationException), true },
             { typeof(EntraHandlerNotFoundException), true },
+            { typeof(EntraSecurityException), true },
             { typeof(InvalidOperationException), false }
         };
 
@@ -49,6 +50,7 @@ public class ExceptionExtensionsTests
             { typeof(EntraDeserializationException), EntraErrorCodes.DeserializationError },
             { typeof(EntraValidationException), EntraErrorCodes.ValidationError },
             { typeof(EntraHandlerNotFoundException), EntraErrorCodes.HandlerNotFound },
+            { typeof(EntraSecurityException), EntraErrorCodes.SecurityError },
             { typeof(InvalidOperationException), EntraErrorCodes.UnhandledException }
     };
 

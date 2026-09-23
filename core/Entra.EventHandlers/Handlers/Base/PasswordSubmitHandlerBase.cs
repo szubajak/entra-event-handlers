@@ -54,7 +54,7 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
         {
             request.Validate();
 
-            decrypted = Decryptor.Decrypt(request.Data.EncryptedPasswordContext);
+            decrypted = await Decryptor.DecryptAsync(request.Data.EncryptedPasswordContext, cancellationToken);
 
             var response = await HandleCoreAsync(request, decrypted, cancellationToken);
 
@@ -68,6 +68,17 @@ public abstract class PasswordSubmitHandlerBase(ILogger logger, IPasswordContext
                 actionType);
 
             return new EntraHandlerResult<PasswordSubmitResponse>(response);
+        }
+        catch (OperationCanceledException ex)
+        {
+            sw.Stop();
+
+            Logger.LogInformation(
+                ex,
+                "Entra event handling was canceled. DurationMs={DurationMs}.",
+                sw.ElapsedMilliseconds);
+
+            throw;
         }
         catch (Exception ex)
         {

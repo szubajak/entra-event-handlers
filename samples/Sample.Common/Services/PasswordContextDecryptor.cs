@@ -5,11 +5,12 @@ namespace Sample.Common.Services;
 
 public class PasswordContextDecryptor : IPasswordContextDecryptor
 {
-    public DecryptedPasswordContext Decrypt(string encryptedPasswordContext) =>
-        new()
-        {
-            Username = "jaub.szubarga@gmail.com",
-            Password = "0000",
-            Nonce = "some-nonce"
-        };
+    public Task<DecryptedPasswordContext> DecryptAsync(string encryptedPasswordContext, CancellationToken cancellationToken = default) =>
+        Task.FromResult(
+            new DecryptedPasswordContext
+            {
+                Username = "jaub.szubarga@gmail.com",
+                Password = "0000",
+                Nonce = "some-nonce"
+            });
 }

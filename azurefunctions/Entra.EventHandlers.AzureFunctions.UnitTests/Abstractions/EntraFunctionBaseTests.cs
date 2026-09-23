@@ -8,6 +8,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
+using System.Net;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Abstractions;
 
@@ -92,7 +93,7 @@ public class EntraFunctionBaseTests
 
         // Assert
         _ = _responseAdapter.Received(1)
-            .BadRequestAsync(req, Arg.Any<EntraErrorResponse>());
+            .FromErrorAsync(req, HttpStatusCode.BadRequest, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Warning &&
@@ -116,7 +117,7 @@ public class EntraFunctionBaseTests
 
         // Assert
         _ = _responseAdapter.Received(1)
-            .ServerErrorAsync(req, Arg.Any<EntraErrorResponse>());
+            .FromErrorAsync(req, HttpStatusCode.InternalServerError, Arg.Any<EntraErrorResponse>());
 
         _logger.Entries.Should().ContainSingle(e =>
             e.Level == LogLevel.Error &&

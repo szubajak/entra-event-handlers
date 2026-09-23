@@ -37,13 +37,13 @@ public class PasswordSubmitHandlerTests
     public async Task HandleAsync_Success(bool withAction)
     {
         // Arrange
+        var ct = new CancellationTokenSource().Token;
+
         var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         var decrypted = _fixture.Create<DecryptedPasswordContext>();
-        _decryptor.Decrypt(evt.Data.EncryptedPasswordContext)
+        _decryptor.DecryptAsync(evt.Data.EncryptedPasswordContext, ct)
             .Returns(decrypted);
-
-        using var cts = new CancellationTokenSource();
 
         var expectedResponse = new PasswordSubmitResponse
         {
@@ -62,7 +62,7 @@ public class PasswordSubmitHandlerTests
         _sut.ResponseToReturn = expectedResponse;
 
         // Act
-        var result = await _sut.HandleAsync(evt, cts.Token);
+        var result = await _sut.HandleAsync(evt, ct);
 
         // Assert
         result.Should().NotBeNull();
@@ -73,7 +73,7 @@ public class PasswordSubmitHandlerTests
         _sut.PassedDecryptedPasswordContext.Should().Be(decrypted);
 
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
-        _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
+        _sut.CoreTest.CapturedCancellationToken.Should().Be(ct);
 
         _logger.Entries.Should().Contain(e =>
             e.Level == LogLevel.Information &&
@@ -109,7 +109,7 @@ public class PasswordSubmitHandlerTests
         var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         var decrypted = _fixture.Create<DecryptedPasswordContext>();
-        _decryptor.Decrypt(evt.Data.EncryptedPasswordContext)
+        _decryptor.DecryptAsync(evt.Data.EncryptedPasswordContext, Arg.Any<CancellationToken>())
                .Returns(decrypted);
 
         _sut.CoreTest.ShouldThrow = true;

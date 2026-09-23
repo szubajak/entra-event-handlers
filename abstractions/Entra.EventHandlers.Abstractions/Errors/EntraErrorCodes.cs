@@ -8,5 +8,9 @@ public static class EntraErrorCodes
 
     public const string HandlerNotFound = "HandlerNotFound";
 
+    public const string SecurityError = "SecurityError";
+
+    public const string RequestCanceled = "RequestCanceled";
+
     public const string UnhandledException = "UnhandledException";
 }
