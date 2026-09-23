@@ -1,6 +1,5 @@
 name: Publish Abstractions NuGet
 
-
 on:
   push:
     tags:
@@ -38,10 +37,10 @@ jobs:
         run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
 
       - name: Run Abstractions Unit Tests
-        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --no-build --verbosity normal
+        run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --verbosity normal
 
       - name: Pack Abstractions
-        run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-build -p:PackageVersion=$VERSION
+        run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release -p:PackageVersion=$VERSION
 
       - name: Publish Abstractions to NuGet
         run: dotnet nuget push "abstractions/Entra.EventHandlers.Abstractions/bin/Release/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
