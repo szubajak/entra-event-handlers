@@ -3,29 +3,29 @@
 
 |||
 |:---|:---|
-| Generated on: | 09/22/2026 - 16:04:54 |
+| Generated on: | 09/23/2026 - 12:49:32 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
-| Classes: | 101 |
-| Files: | 90 |
-| **Line coverage:** | 91.1% (1048 of 1150) |
-| Covered lines: | 1048 |
-| Uncovered lines: | 102 |
-| Coverable lines: | 1150 |
-| Total lines: | 3994 |
-| **Branch coverage:** | 97.7% (174 of 178) |
-| Covered branches: | 174 |
-| Total branches: | 178 |
+| Classes: | 104 |
+| Files: | 93 |
+| **Line coverage:** | 83.4% (1047 of 1254) |
+| Covered lines: | 1047 |
+| Uncovered lines: | 207 |
+| Coverable lines: | 1254 |
+| Total lines: | 4122 |
+| **Branch coverage:** | 92.3% (170 of 184) |
+| Covered branches: | 170 |
+| Total branches: | 184 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
 
 ## Coverage
-<details><summary>Entra.EventHandlers - 100%</summary>
+<details><summary>Entra.EventHandlers - 90.2%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers**|**100%**|**100%**|
+|**Entra.EventHandlers**|**90.2%**|**100%**|
 |Entra.EventHandlers.Builders.ActionBuilders.PrefillValuesBuilder|100%||
 |Entra.EventHandlers.Builders.EntraEventResponses|100%||
 |Entra.EventHandlers.Builders.ResponseBuilders.AttributeCollectionStartRespo<br/>nseBuilder|100%|100%|
@@ -33,18 +33,18 @@
 |Entra.EventHandlers.Builders.ResponseBuilders.EmailOtpSendResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.PasswordSubmitResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.TokenIssuanceStartResponseBui<br/>lder|100%|100%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|100%|100%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|100%|100%|
-|Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|100%|100%|
-|Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|100%|100%|
-|Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|100%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|84%|100%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|84%|100%|
+|Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|84%|100%|
+|Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|85.9%|100%|
+|Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|84%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Abstractions - 97.6%</summary>
+<details><summary>Entra.EventHandlers.Abstractions - 96.5%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Abstractions**|**97.6%**|**100%**|
+|**Entra.EventHandlers.Abstractions**|**96.5%**|**100%**|
 |Entra.EventHandlers.Abstractions.Actions.ContinueAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.ModifyAttributeValuesAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.PasswordSubmitAction|100%||
@@ -58,7 +58,9 @@
 |Entra.EventHandlers.Abstractions.Actions.VerifiedIdClaimValidationFailedAct<br/>ion|100%||
 |Entra.EventHandlers.Abstractions.Actions.VerifiedIdClaimValidationPassActio<br/>n|100%||
 |Entra.EventHandlers.Abstractions.Errors.EntraDeserializationException|100%||
+|Entra.EventHandlers.Abstractions.Errors.EntraException|100%||
 |Entra.EventHandlers.Abstractions.Errors.EntraHandlerNotFoundException|100%||
+|Entra.EventHandlers.Abstractions.Errors.EntraSecurityException|50%||
 |Entra.EventHandlers.Abstractions.Errors.EntraValidationException|100%||
 |Entra.EventHandlers.Abstractions.Events.AttributeCollectionStartEvent|100%||
 |Entra.EventHandlers.Abstractions.Events.AttributeCollectionStartEventPayloa<br/>d|100%||
@@ -85,12 +87,12 @@
 |Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|0%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 67.7%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 63.4%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**67.7%**|**100%**|
-|Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|100%|100%|
+|**Entra.EventHandlers.AspNetCore**|**63.4%**|**100%**|
+|Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|75.9%|100%|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase<TEvent, <br/>TResponse>|100%|100%|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase<TEvent, <br/>TResponse>|100%||
 |Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|100%|100%|
@@ -108,12 +110,12 @@
 |Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 100%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 93.1%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**100%**|**100%**|
-|Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|100%||
+|**Entra.EventHandlers.AzureFunctions**|**93.1%**|**100%**|
+|Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|73.3%||
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter<TEvent>|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter|100%||
@@ -156,25 +158,26 @@
 |Entra.EventHandlers.Observability.Models.CustomLogEntry|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.Security - 57.1%</summary>
+<details><summary>Entra.EventHandlers.Security - 40.7%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Security**|**57.1%**|**66.6%**|
+|**Entra.EventHandlers.Security**|**40.7%**|**36.3%**|
 |Entra.EventHandlers.Security.Adapters.SecretClientAdapter|0%||
-|Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor|0%||
+|Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor|0%|0%|
+|Entra.EventHandlers.Security.Decryptors.PasswordContextPayload|0%|0%|
 |Entra.EventHandlers.Security.DI.ServiceCollectionExtensions|0%|0%|
 |Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider|83%|80%|
 
 </details>
-<details><summary>Entra.EventHandlers.Workforce - 100%</summary>
+<details><summary>Entra.EventHandlers.Workforce - 90.8%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Workforce**|**100%**|**100%**|
+|**Entra.EventHandlers.Workforce**|**90.8%**|**100%**|
 |Entra.EventHandlers.Workforce.Builders.ActionBuilders.FailedClaimsBuilder|100%||
 |Entra.EventHandlers.Workforce.Builders.EntraWorkforceEventResponses|100%||
 |Entra.EventHandlers.Workforce.Builders.ResponseBuilders.VerifiedIdClaimVali<br/>dationResponseBuilder|100%|100%|
-|Entra.EventHandlers.Workforce.Handlers.Base.VerifiedIdClaimValidationHandle<br/>rBase|100%|100%|
+|Entra.EventHandlers.Workforce.Handlers.Base.VerifiedIdClaimValidationHandle<br/>rBase|84.3%|100%|
 
 </details>
