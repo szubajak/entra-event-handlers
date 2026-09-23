@@ -7,6 +7,12 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.5.4 — 2026‑09‑23
+
+### Added
+
+- Added `EntraException` as the base exception type for all custom exceptions.
+
 ## v1.5.3 — 2026‑09‑22
 
 ### Changed
