@@ -29,12 +29,15 @@ public interface IResponseAdapter
     Task<HttpResponseData> FromAsync(HttpRequestData req, EntraEventResponse response);
 
     /// <summary>
-    /// Creates an HTTP 400 Bad Request response containing a serialized
+    /// Creates an HTTP Error response containing a serialized
     /// <see cref="EntraErrorResponse"/> payload. Used when deserialization,
     /// validation, or handler‑resolution failures occur.
     /// </summary>
     /// <param name="req">
     /// The incoming HTTP request used to create the response instance.
+    /// </param>
+    /// <param name="statusCode">
+    /// The HTTP status code.
     /// </param>
     /// <param name="error">
     /// The structured error describing the failure.
@@ -43,24 +46,7 @@ public interface IResponseAdapter
     /// A task that resolves to an <see cref="HttpResponseData"/> containing
     /// the serialized error response.
     /// </returns>
-    Task<HttpResponseData> BadRequestAsync(HttpRequestData req, EntraErrorResponse error);
-
-    /// <summary>
-    /// Creates an HTTP 500 Internal Server Error response containing a
-    /// serialized <see cref="EntraErrorResponse"/> payload. Used when an
-    /// unexpected exception occurs during event processing.
-    /// </summary>
-    /// <param name="req">
-    /// The incoming HTTP request used to create the response instance.
-    /// </param>
-    /// <param name="error">
-    /// The structured error describing the unexpected failure.
-    /// </param>
-    /// <returns>
-    /// A task that resolves to an <see cref="HttpResponseData"/> containing
-    /// the serialized error response.
-    /// </returns>
-    Task<HttpResponseData> ServerErrorAsync(HttpRequestData req, EntraErrorResponse error);
+    Task<HttpResponseData> FromErrorAsync(HttpRequestData req, HttpStatusCode statusCode, EntraErrorResponse error);
 }
 
 /// <summary>
@@ -80,14 +66,7 @@ public sealed class ResponseAdapter : IResponseAdapter
     }
 
     /// <inheritdoc />
-    public Task<HttpResponseData> BadRequestAsync(HttpRequestData req, EntraErrorResponse error) =>
-        WriteErrorAsync(req, HttpStatusCode.BadRequest, error);
-
-    /// <inheritdoc />
-    public Task<HttpResponseData> ServerErrorAsync(HttpRequestData req, EntraErrorResponse error) =>
-        WriteErrorAsync(req, HttpStatusCode.InternalServerError, error);
-
-    private static async Task<HttpResponseData> WriteErrorAsync(HttpRequestData req, HttpStatusCode status, EntraErrorResponse error)
+    public async Task<HttpResponseData> FromErrorAsync(HttpRequestData req, HttpStatusCode status, EntraErrorResponse error)
     {
         var http = req.CreateResponse(status);
         http.Headers.Add("Content-Type", "application/json");

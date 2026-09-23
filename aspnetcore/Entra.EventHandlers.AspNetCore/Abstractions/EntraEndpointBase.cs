@@ -27,14 +27,30 @@ public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestA
         {
             await ExecuteAsync(httpContext);
         }
+        catch (OperationCanceledException ex)
+        {
+            Logger.LogInformation(ex, "Entra event handling was canceled in hosting layer.");
+
+            await OnExceptionAsync(ex, httpContext);
+
+            await ResponseAdapter.WriteErrorAsync(
+                httpContext,
+                StatusCodes.Status408RequestTimeout,
+                new EntraErrorResponse
+                {
+                    Error = EntraErrorCodes.RequestCanceled,
+                    Details = "The request was canceled."
+                });
+        }
         catch (Exception ex) when (ex.IsEntraException())
         {
             Logger.LogWarning(ex, "Entra domain exception occurred in hosting layer during Entra event handling.");
 
             await OnExceptionAsync(ex, httpContext);
 
-            await ResponseAdapter.WriteBadRequestAsync(
+            await ResponseAdapter.WriteErrorAsync(
                 httpContext,
+                StatusCodes.Status400BadRequest,
                 new EntraErrorResponse
                 {
                     Error = ex.ToEntraErrorCode(),
@@ -47,8 +63,9 @@ public abstract class EntraEndpointBase(ILogger logger, IRequestAdapter requestA
 
             await OnExceptionAsync(ex, httpContext);
 
-            await ResponseAdapter.WriteServerErrorAsync(
+            await ResponseAdapter.WriteErrorAsync(
                 httpContext,
+                StatusCodes.Status500InternalServerError,
                 new EntraErrorResponse
                 {
                     Error = EntraErrorCodes.UnhandledException,

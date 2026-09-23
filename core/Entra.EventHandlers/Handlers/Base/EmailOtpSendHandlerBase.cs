@@ -57,6 +57,17 @@ public abstract class EmailOtpSendHandlerBase(ILogger logger) : IEmailOtpSendHan
 
             return new EntraHandlerResult<EmailOtpSendResponse>(response);
         }
+        catch (OperationCanceledException ex)
+        {
+            sw.Stop();
+
+            Logger.LogInformation(
+                ex,
+                "Entra event handling was canceled. DurationMs={DurationMs}.",
+                sw.ElapsedMilliseconds);
+
+            throw;
+        }
         catch (Exception ex)
         {
             sw.Stop();

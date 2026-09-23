@@ -1,6 +1,3 @@
 ﻿namespace Entra.EventHandlers.Abstractions.Errors;
 
-public sealed class EntraValidationException(string message)
-    : Exception(message)
-{
-}
+public sealed class EntraValidationException(string message) : EntraException(message) { }

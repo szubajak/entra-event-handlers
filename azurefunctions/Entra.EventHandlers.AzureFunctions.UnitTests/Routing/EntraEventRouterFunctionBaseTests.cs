@@ -12,6 +12,7 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
+using System.Net;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
 
@@ -43,6 +44,7 @@ public class EntraEventRouterFunctionBaseTests
         var request = Substitute.For<HttpRequestData>(ctx);
         var response = Substitute.For<HttpResponseData>(ctx);
 
+        var statusCode = HttpStatusCode.BadRequest;
         var errorMessage = _fixture.Create<string>();
         var exception = new EntraDeserializationException(errorMessage);
         _requestAdapter
@@ -50,7 +52,7 @@ public class EntraEventRouterFunctionBaseTests
             .Throws(exception);
 
         _responseAdapter
-            .BadRequestAsync(request, Arg.Any<EntraErrorResponse>())
+            .FromErrorAsync(request, statusCode, Arg.Any<EntraErrorResponse>())
             .Returns(response);
 
         // Act
@@ -61,8 +63,9 @@ public class EntraEventRouterFunctionBaseTests
 
         _ = _responseAdapter
             .Received(1)
-            .BadRequestAsync(
+            .FromErrorAsync(
                 request,
+                statusCode,
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.DeserializationError &&
@@ -88,6 +91,7 @@ public class EntraEventRouterFunctionBaseTests
             .ReadEventAsync(request)
             .Returns(entraEvent);
 
+        var statusCode = HttpStatusCode.BadRequest;
         var exception = new EntraHandlerNotFoundException(entraEvent.GetType());
 
         _orchestrator
@@ -95,7 +99,7 @@ public class EntraEventRouterFunctionBaseTests
             .Throws(exception);
 
         _responseAdapter
-            .BadRequestAsync(request, Arg.Any<EntraErrorResponse>())
+            .FromErrorAsync(request, statusCode, Arg.Any<EntraErrorResponse>())
             .Returns(response);
 
         // Act
@@ -106,8 +110,9 @@ public class EntraEventRouterFunctionBaseTests
 
         _ = _responseAdapter
             .Received(1)
-            .BadRequestAsync(
+            .FromErrorAsync(
                 request,
+                statusCode,
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.HandlerNotFound &&
@@ -134,6 +139,7 @@ public class EntraEventRouterFunctionBaseTests
             .ReadEventAsync(request)
             .Returns(entraEvent);
 
+        var statusCode = HttpStatusCode.BadRequest;
         var errorMessage = _fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
 
@@ -142,7 +148,7 @@ public class EntraEventRouterFunctionBaseTests
             .Throws(exception);
 
         _responseAdapter
-            .BadRequestAsync(request, Arg.Any<EntraErrorResponse>())
+            .FromErrorAsync(request, statusCode, Arg.Any<EntraErrorResponse>())
             .Returns(response);
 
         // Act
@@ -153,8 +159,9 @@ public class EntraEventRouterFunctionBaseTests
 
         _ = _responseAdapter
             .Received(1)
-            .BadRequestAsync(
+            .FromErrorAsync(
                 request,
+                statusCode,
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.ValidationError &&
@@ -180,6 +187,7 @@ public class EntraEventRouterFunctionBaseTests
             .ReadEventAsync(request)
             .Returns(entraEvent);
 
+        var statusCode = HttpStatusCode.InternalServerError;
         var exception = new InvalidOperationException();
 
         _orchestrator
@@ -187,7 +195,7 @@ public class EntraEventRouterFunctionBaseTests
             .Throws(exception);
 
         _responseAdapter
-            .ServerErrorAsync(request, Arg.Any<EntraErrorResponse>())
+            .FromErrorAsync(request, statusCode, Arg.Any<EntraErrorResponse>())
             .Returns(response);
 
         // Act
@@ -198,8 +206,9 @@ public class EntraEventRouterFunctionBaseTests
 
         _ = _responseAdapter
             .Received(1)
-            .ServerErrorAsync(
+            .FromErrorAsync(
                 request,
+                statusCode,
                 Arg.Is<EntraErrorResponse>(e =>
                     e != null &&
                     e.Error == EntraErrorCodes.UnhandledException &&

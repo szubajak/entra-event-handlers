@@ -44,11 +44,13 @@ public class ResponseAdapterTests
     }
 
     [Fact]
-    public async Task BadRequestAsync_Success()
+    public async Task FromErrorAsync_Success()
     {
         // Arrange
         var context = Substitute.For<FunctionContext>();
         var req = new TestHttpRequestData(context, new MemoryStream());
+
+        var statusCode = HttpStatusCode.RequestTimeout;
 
         var response = new EntraErrorResponse
         { 
@@ -57,36 +59,10 @@ public class ResponseAdapterTests
         };
 
         // Act
-        var result = await _sut.BadRequestAsync(req, response);
+        var result = await _sut.FromErrorAsync(req, statusCode, response);
 
         // Assert
-        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        result.Headers.GetValues("Content-Type")
-          .Should()
-          .Contain("application/json");
-
-        var deserialized = await TestUtils.ReadJson<EntraErrorResponse>(result.Body);
-        deserialized.Should().BeEquivalentTo(response);
-    }
-
-    [Fact]
-    public async Task ServerErrorAsync_Success()
-    {
-        // Arrange
-        var context = Substitute.For<FunctionContext>();
-        var req = new TestHttpRequestData(context, new MemoryStream());
-
-        var response = new EntraErrorResponse
-        {
-            Error = _fixture.Create<string>(),
-            Details = _fixture.Create<string>()
-        };
-
-        // Act
-        var result = await _sut.ServerErrorAsync(req, response);
-
-        // Assert
-        result.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        result.StatusCode.Should().Be(statusCode);
         result.Headers.GetValues("Content-Type")
           .Should()
           .Contain("application/json");
