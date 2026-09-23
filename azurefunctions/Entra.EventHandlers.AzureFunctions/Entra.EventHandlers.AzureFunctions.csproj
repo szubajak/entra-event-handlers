@@ -7,7 +7,7 @@
 
 	  <!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.AzureFunctions</PackageId>
-	<Version>1.5.0</Version>
+	<Version>1.5.1</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
