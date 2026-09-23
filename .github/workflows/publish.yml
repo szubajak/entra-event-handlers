@@ -7,6 +7,7 @@ on:
       - 'Entra.EventHandlers.AzureFunctions-v*'
       - 'Entra.EventHandlers.AspNetCore-v*'
       - 'Entra.EventHandlers.Workforce-v*'
+      - 'Entra.EventHandlers.Security-v*'
 
 permissions:
   id-token: write
