@@ -1,12 +1,15 @@
-﻿using Azure.Security.KeyVault.Secrets;
+﻿using AutoFixture;
+using Azure.Security.KeyVault.Secrets;
 using Entra.EventHandlers.Security.Clients;
 using Entra.EventHandlers.Security.Options;
 using Entra.EventHandlers.Security.Providers;
 using Entra.EventHandlers.Security.UnitTests.Utils;
+using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using System.Security.Cryptography;
 
 namespace Entra.EventHandlers.Security.UnitTests.Providers;
@@ -17,6 +20,8 @@ public class KeyVaultCertificateProviderTests
 
     private const string CertificateName = "MyCert";
 
+    private readonly Fixture _fixture = new();
+
     private readonly IOptions<KeyVaultCertificateOptions> _options = new OptionsWrapper<KeyVaultCertificateOptions>(
         new KeyVaultCertificateOptions
         {
@@ -24,12 +29,12 @@ public class KeyVaultCertificateProviderTests
             CertificateName = CertificateName
         });
 
-    private readonly ILogger<KeyVaultCertificateProvider> _logger;
+    private readonly TestLogger<KeyVaultCertificateProvider> _logger;
     private readonly ISecretClient _secretClient;
 
     public KeyVaultCertificateProviderTests()
     {
-        _logger = Substitute.For<ILogger<KeyVaultCertificateProvider>>();
+        _logger = new TestLogger<KeyVaultCertificateProvider>();
         _secretClient = Substitute.For<ISecretClient>();
 
         _sut = new KeyVaultCertificateProvider(_logger, _options, _secretClient);
@@ -80,6 +85,30 @@ public class KeyVaultCertificateProviderTests
         // Assert
         first.Should().Be(second);
         _ = _secretClient.Received(1).GetSecretAsync(CertificateName, ct);
+    }
+
+    [Fact]
+    public async Task GetRsaAsync_SecretClientThrows_LogsError()
+    {
+        // Arrange
+        var message = _fixture.Create<string>();
+        var exception = new InvalidOperationException(message);
+
+        _secretClient
+            .GetSecretAsync(CertificateName, Arg.Any<CancellationToken>())
+            .Throws(exception);
+
+        // Act
+        Func<Task> act = () => _sut.GetRsaAsync(TestContext.Current.CancellationToken);
+
+        // Assert
+        await act.Should().ThrowAsync<InvalidOperationException>()
+           .WithMessage(message);
+
+        _logger.Entries.Should().ContainSingle(e =>
+            e.Level == LogLevel.Error &&
+            e.Exception == exception &&
+            e.Message.Contains($"Failed to retrieve certificate secret '{CertificateName}' from Key Vault."));
     }
 
     [Fact]

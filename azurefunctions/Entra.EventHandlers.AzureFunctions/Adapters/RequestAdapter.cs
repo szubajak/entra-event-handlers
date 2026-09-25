@@ -64,14 +64,21 @@ public sealed class RequestAdapter : IRequestAdapter
             return JsonSerializer.Deserialize<TEvent>(body)
                 ?? throw new EntraDeserializationException("Unable to deserialize event.");
         }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (EntraException)
+        {
+            throw;
+        }
+        catch (JsonException ex)
+        {
+            throw new EntraDeserializationException("Invalid JSON payload.", ex);
+        }
         catch (Exception ex)
         {
-            throw ex switch
-            {
-                JsonException jex => new EntraDeserializationException("Invalid JSON payload.", jex),
-                EntraDeserializationException => ex,
-                _ => new EntraDeserializationException("Failed to deserialize event.", ex)
-            };
+            throw new EntraDeserializationException("Failed to deserialize event.", ex);
         }
     }
 

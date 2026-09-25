@@ -213,7 +213,7 @@ public class EntraEventOrchestratorTests
         var evt = new TestEvent();
 
         // Act
-        var act = () => _sut.DispatchAsync(evt, CancellationToken.None);
+        var act = () => _sut.DispatchAsync(evt, TestContext.Current.CancellationToken);
 
         // Assert
         await act.Should().ThrowAsync<NotSupportedException>()

@@ -96,7 +96,7 @@ public class TokenIssuanceStartHandlerTests
         _sut.CoreTest.ShouldThrow = true;
 
         // Act
-        var result = await _sut.HandleAsync(evt, CancellationToken.None);
+        var result = await _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
@@ -128,7 +128,7 @@ public class TokenIssuanceStartHandlerTests
         var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture, valid: false);
 
         // Act
-        var result = await _sut.HandleAsync(evt, CancellationToken.None);
+        var result = await _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(0);
