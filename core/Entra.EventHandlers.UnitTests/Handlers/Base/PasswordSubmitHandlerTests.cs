@@ -115,7 +115,7 @@ public class PasswordSubmitHandlerTests
         _sut.CoreTest.ShouldThrow = true;
 
         // Act
-        var result = await _sut.HandleAsync(evt, CancellationToken.None);
+        var result = await _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
@@ -147,7 +147,7 @@ public class PasswordSubmitHandlerTests
         var evt = TestEvents.CreatePasswordSubmitEvent(_fixture, valid: false);
 
         // Act
-        Func<Task> act = () => _sut.HandleAsync(evt, CancellationToken.None);
+        Func<Task> act = () => _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
 
         // Assert
         await act.Should().ThrowAsync<Exception>();

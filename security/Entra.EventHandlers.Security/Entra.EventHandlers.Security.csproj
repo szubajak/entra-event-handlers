@@ -7,4 +7,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.12" />
   </ItemGroup>
+
+  <ItemGroup>
+	<InternalsVisibleTo Include="Entra.EventHandlers.Security.UnitTests" />
+  </ItemGroup>
 </Project>

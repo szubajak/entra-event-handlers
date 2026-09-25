@@ -98,7 +98,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
         _sut.CoreTest.ShouldThrow = true;
 
         // Act
-        var result = await _sut.HandleAsync(evt, CancellationToken.None);
+        var result = await _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
@@ -130,7 +130,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
         var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture, valid: false);
 
         // Act
-        var result = await _sut.HandleAsync(evt, CancellationToken.None);
+        var result = await _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(0);
