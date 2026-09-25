@@ -353,8 +353,8 @@ var assemblies = [
       { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase", "rp": "Entra.EventHandlers.AspNetCore_EntraEndpointBase.html", "cl": 41, "ucl": 13, "cal": 54, "tl": 80, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase\u003CTEvent, TResponse\u003E", "rp": "Entra.EventHandlers.AspNetCore_EntraTypedEndpointBase_TEvent__TResponse_.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 31, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase\u003CTEvent, TResponse\u003E", "rp": "Entra.EventHandlers.AspNetCore_EntraTypedEndpointBase_TEvent__TResponse_.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 31, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter", "rp": "Entra.EventHandlers.AspNetCore_RequestAdapter.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 80, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter\u003CTEvent\u003E", "rp": "Entra.EventHandlers.AspNetCore_RequestAdapter_TEvent_.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 80, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter", "rp": "Entra.EventHandlers.AspNetCore_RequestAdapter.html", "cl": 19, "ucl": 3, "cal": 22, "tl": 87, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter\u003CTEvent\u003E", "rp": "Entra.EventHandlers.AspNetCore_RequestAdapter_TEvent_.html", "cl": 19, "ucl": 3, "cal": 22, "tl": 87, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter", "rp": "Entra.EventHandlers.AspNetCore_ResponseAdapter.html", "cl": 12, "ucl": 0, "cal": 12, "tl": 72, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.DI.ServiceCollectionExtensions", "rp": "Entra.EventHandlers.AspNetCore_ServiceCollectionExtensions.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 32, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AspNetCore.Endpoints.AttributeCollectionStartEndpoint", "rp": "Entra.EventHandlers.AspNetCore_AttributeCollectionStartEndpoint.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -371,8 +371,8 @@ var assemblies = [
     "name": "Entra.EventHandlers.AzureFunctions",
     "classes": [
       { "name": "Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase", "rp": "Entra.EventHandlers.AzureFunctions_EntraFunctionBase.html", "cl": 33, "ucl": 12, "cal": 45, "tl": 73, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter", "rp": "Entra.EventHandlers.AzureFunctions_RequestAdapter.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 81, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter\u003CTEvent\u003E", "rp": "Entra.EventHandlers.AzureFunctions_RequestAdapter_TEvent_.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 81, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter", "rp": "Entra.EventHandlers.AzureFunctions_RequestAdapter.html", "cl": 19, "ucl": 3, "cal": 22, "tl": 88, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter\u003CTEvent\u003E", "rp": "Entra.EventHandlers.AzureFunctions_RequestAdapter_TEvent_.html", "cl": 19, "ucl": 3, "cal": 22, "tl": 88, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter", "rp": "Entra.EventHandlers.AzureFunctions_ResponseAdapter.html", "cl": 12, "ucl": 0, "cal": 12, "tl": 76, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBase", "rp": "Entra.EventHandlers.AzureFunctions_AttributeCollectionStartFunctionBase.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 30, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionSubmitFunctionBase", "rp": "Entra.EventHandlers.AzureFunctions_AttributeCollectionSubmitFunctionBase.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 30, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -410,10 +410,10 @@ var assemblies = [
     "name": "Entra.EventHandlers.Security",
     "classes": [
       { "name": "Entra.EventHandlers.Security.Adapters.SecretClientAdapter", "rp": "Entra.EventHandlers.Security_SecretClientAdapter.html", "cl": 0, "ucl": 6, "cal": 6, "tl": 15, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor", "rp": "Entra.EventHandlers.Security_KeyVaultPasswordContextDecryptor.html", "cl": 0, "ucl": 27, "cal": 27, "tl": 50, "cb": 0, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Security.Decryptors.PasswordContextPayload", "rp": "Entra.EventHandlers.Security_PasswordContextPayload.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 29, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor", "rp": "Entra.EventHandlers.Security_KeyVaultPasswordContextDecryptor.html", "cl": 22, "ucl": 9, "cal": 31, "tl": 57, "cb": 1, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Security.Decryptors.PasswordContextPayload", "rp": "Entra.EventHandlers.Security_PasswordContextPayload.html", "cl": 4, "ucl": 4, "cal": 8, "tl": 29, "cb": 2, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Security.DI.ServiceCollectionExtensions", "rp": "Entra.EventHandlers.Security_ServiceCollectionExtensions.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 29, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider", "rp": "Entra.EventHandlers.Security_KeyVaultCertificateProvider.html", "cl": 44, "ucl": 9, "cal": 53, "tl": 96, "cb": 8, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider", "rp": "Entra.EventHandlers.Security_KeyVaultCertificateProvider.html", "cl": 51, "ucl": 2, "cal": 53, "tl": 96, "cb": 8, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Entra.EventHandlers.Workforce",
@@ -430,17 +430,9 @@ var metrics = [{ "name": "Crap Score", "abbreviation": "crp", "explanationUrl": 
 var historicCoverageExecutionTimes = [];
 
 var riskHotspotMetrics = [
-      { "name": "Crap Score", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" },
-      { "name": "Cyclomatic complexity", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" },
 ];
 
 var riskHotspots = [
-  {
-    "assembly": "Entra.EventHandlers.Security", "class": "Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor", "reportPath": "Entra.EventHandlers.Security_KeyVaultPasswordContextDecryptor.html", "methodName": "DecryptAsync()", "methodShortName": "DecryptAsync()", "fileIndex": 0, "line": 16,
-    "metrics": [
-      { "value": 42, "exceeded": true },
-      { "value": 6, "exceeded": false },
-    ]},
 ];
 
 var branchCoverageAvailable = true;
