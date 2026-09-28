@@ -8,6 +8,7 @@
     <File Path="global.json" />
     <File Path="LICENSE" />
     <File Path="LICENSE-COMMERCIAL.md" />
+    <File Path="llms.txt" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/.github/">
@@ -53,6 +54,9 @@
   <Folder Name="/core/tests/">
     <Project Path="core/Entra.EventHandlers.UnitTests/Entra.EventHandlers.UnitTests.csproj" />
     <Project Path="core/Entra.EventHandlers.Workforce.UnitTests/Entra.EventHandlers.Workforce.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/docs/">
+    <File Path="docs/getting-started.md" />
   </Folder>
   <Folder Name="/hosting/">
     <Project Path="hosting/Entra.EventHandlers.Hosting/Entra.EventHandlers.Hosting.csproj" />
