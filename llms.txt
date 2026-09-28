@@ -1,0 +1,25 @@
+# Entra.EventHandlers
+ 
+> Entra.EventHandlers is a strongly typed .NET ecosystem for building Microsoft Entra External ID custom authentication extension event handlers.
+ 
+Entra.EventHandlers provides strongly typed event models, fluent response builders,
+event handler infrastructure, dependency injection integration, and hosting integrations
+for ASP.NET Core and Azure Functions.
+ 
+Use the documentation and samples below when implementing Microsoft Entra External ID
+custom authentication extensions with Entra.EventHandlers.
+ 
+## Documentation
+ 
+- https://github.com/szubajak/entra-event-handlers/blob/main/docs/getting-started.md: Start here. Install Entra.EventHandlers, implement an event handler, register dependency injection, choose a hosting model, and find complete samples.
+ 
+## Source
+ 
+- https://github.com/szubajak/entra-event-handlers: Main Entra.EventHandlers repository containing the core libraries, hosting integrations, samples, tests, and documentation.
+ 
+## Samples
+ 
+- https://github.com/szubajak/entra-event-handlers/tree/main/samples/Sample.Common: Shared event handler implementations demonstrating fluent response builders, custom claims, prefill values, block responses, and handler business logic.
+- https://github.com/szubajak/entra-event-handlers/tree/main/samples/ApiSample: Complete ASP.NET Core sample using Entra.EventHandlers.
+- https://github.com/szubajak/entra-event-handlers/tree/main/samples/AzureFunctionsSample: Complete Azure Functions sample using Entra.EventHandlers.AzureFunctions.
+- https://github.com/szubajak/entra-eventhandlers-azurefunctions: Minimal standalone Azure Functions Isolated Worker sample demonstrating a single EmailOtpSend handler and function, dependency injection, exception handling, and unit testing.

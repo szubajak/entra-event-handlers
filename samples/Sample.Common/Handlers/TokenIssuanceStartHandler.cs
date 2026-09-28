@@ -17,20 +17,19 @@ public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger
         var userId = request.Data.AuthenticationContext?.User?.Id;
 
         // Example: determine roles based on user ID
-        var roles = userId switch
+        string[] roles = userId switch
         {
             // Example: special admin GUID
             var id when id == Guid.Parse("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee")
                 => ["Admin", "PowerUser"],
 
             // Default
-            _ => new[] { "User" }
+            _ => ["User"]
         };
 
         // Example: add custom claims
         var customClaims = new Dictionary<string, object>
         {
-            { "tenantId", "contoso-eu" },
             { "department", "Engineering" },
             { "roles", roles }
         };
