@@ -1,6 +1,69 @@
-# Entra Event Handlers — .NET Ecosystem
+# Entra.EventHandlers
 
 [![Coverage](https://szubajak.github.io/entra-event-handlers/badge_shieldsio_branchcoverage_blue.svg)](https://szubajak.github.io/entra-event-handlers/)
+
+A modern **.NET library** for building **Microsoft Entra External ID** authentication event handlers with strongly typed models, 
+fluent response builders, and hosting integrations for **ASP.NET Core** and **Azure Functions**.
+
+## Why Entra.EventHandlers?
+
+Microsoft Entra External ID authentication events are exposed as HTTP-based extensibility points. 
+Implementing them directly often requires manual request parsing, validation, routing, logging, and response construction.
+
+Entra.EventHandlers provides:
+
+- Strongly typed event models
+- Event handler base classes
+- Fluent response builders
+- Dependency injection integration
+- ASP.NET Core hosting support
+- Azure Functions hosting support
+- Unified programming model across hosting platforms
+- Built-in validation, correlation, logging, and execution tracking
+
+## Quick Start
+ 
+Install the core package:
+ 
+```bash
+dotnet add package Entra.EventHandlers
+```
+ 
+Install a hosting integration:
+ 
+```bash
+dotnet add package Entra.EventHandlers.AspNetCore
+```
+ 
+or
+ 
+```bash
+dotnet add package Entra.EventHandlers.AzureFunctions
+```
+
+Register the framework:
+ 
+```csharp
+builder.Services.AddEntraEventHandlers();
+```
+
+## Documentation
+ 
+### Start Here
+ 
+- docs/getting-started.md
+
+[getting-started](./docs/getting-started.md)
+
+
+---
+
+
+
+
+# Entra Event Handlers — .NET Ecosystem
+
+
 
 A modern, strongly‑typed, developer‑focused ecosystem for building 
 **Microsoft Entra External ID and Workforce Authentication Event Handlers** in .NET.
