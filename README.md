@@ -51,15 +51,77 @@ builder.Services.AddEntraEventHandlers();
  
 ### Start Here
  
-- docs/getting-started.md
+- ./docs/getting-started.md
 
-[getting-started](./docs/getting-started.md)
+### Hosting
+ 
+- ./docs/hosting/aspnetcore.md
+- ./docs/hosting/azure-functions.md
 
+### Events
+ 
+- ./docs/events/attribute-collection-start.md
 
 ---
 
+Minimal standalone sample:
+ 
+- https://github.com/szubajak/entra-eventhandlers-azurefunctions
+ 
+## AI Discovery
+ 
+This repository includes AI-friendly documentation:
+ 
+- `llms.txt`
+- `docs/`
+
+AI assistants should begin with:
+ 
+1. `llms.txt`
+2. `docs/getting-started.md`
+
+---
+
+## Licensing
+ 
+### Open Source
+ 
+- MIT: Entra.EventHandlers.Abstractions
+ 
+### Source Available
+ 
+- Entra.EventHandlers
+- Entra.EventHandlers.Workforce
+- Entra.EventHandlers.AspNetCore
+- Entra.EventHandlers.AzureFunctions
+
+See the individual package licenses for details.
+
+## Commercial Licensing
+ 
+Commercial licenses and support are available.
+ 
+Contact:
+ 
+**jakub.szubarga@gmail.com**
 
 
+## Contributing
+ 
+Contributions are welcome for the MIT-licensed abstractions package.
+ 
+## Author
+ 
+Jakub Szubarga
+ 
+If this project helps you, consider starring the repository.
+
+
+
+
+
+
+---
 
 # Entra Event Handlers — .NET Ecosystem
 

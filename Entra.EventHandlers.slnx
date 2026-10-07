@@ -58,6 +58,9 @@
   <Folder Name="/docs/">
     <File Path="docs/getting-started.md" />
   </Folder>
+  <Folder Name="/docs/events/">
+    <File Path="docs/events/attribute-collection-start.md" />
+  </Folder>
   <Folder Name="/hosting/">
     <Project Path="hosting/Entra.EventHandlers.Hosting/Entra.EventHandlers.Hosting.csproj" />
   </Folder>
