@@ -53,6 +53,12 @@ builder.Services.AddEntraEventHandlers();
  
 - ./docs/getting-started.md
 
+[getting-started](./docs/getting-started.md)
+
+- ./docs/architecture.md
+
+[architecture](./docs/architecture.md)
+
 ### Hosting
  
 - ./docs/hosting/aspnetcore.md
