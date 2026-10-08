@@ -131,8 +131,4 @@ sample for your hosting model.
  
 ## Next steps
  
-More detailed documentation for event handlers, dependency injection, hosting,
-and testing will be added over time.
- 
-Until then, the sample projects show how the library components work together
-in complete applications.
+- [Architecture](./docs/architecture.md)
