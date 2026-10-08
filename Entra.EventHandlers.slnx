@@ -63,6 +63,7 @@
     <File Path="docs/events/attribute-collection-start.md" />
     <File Path="docs/events/attribute-collection-submit.md" />
     <File Path="docs/events/email-otp-send.md" />
+    <File Path="docs/events/password-submit.md" />
   </Folder>
   <Folder Name="/docs/hosting/">
     <File Path="docs/hosting/azure-functions.md" />
