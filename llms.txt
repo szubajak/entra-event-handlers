@@ -1,25 +1,305 @@
 # Entra.EventHandlers
- 
-> Entra.EventHandlers is a strongly typed .NET ecosystem for building Microsoft Entra External ID custom authentication extension event handlers.
- 
-Entra.EventHandlers provides strongly typed event models, fluent response builders,
-event handler infrastructure, dependency injection integration, and hosting integrations
-for ASP.NET Core and Azure Functions.
- 
-Use the documentation and samples below when implementing Microsoft Entra External ID
-custom authentication extensions with Entra.EventHandlers.
- 
-## Documentation
- 
-- https://github.com/szubajak/entra-event-handlers/blob/main/docs/getting-started.md: Start here. Install Entra.EventHandlers, implement an event handler, register dependency injection, choose a hosting model, and find complete samples.
- 
-## Source
- 
-- https://github.com/szubajak/entra-event-handlers: Main Entra.EventHandlers repository containing the core libraries, hosting integrations, samples, tests, and documentation.
- 
+
+Entra.EventHandlers is a strongly typed .NET ecosystem for building Microsoft Entra External ID and Microsoft Entra Workforce custom authentication extension event handlers.
+
+The ecosystem provides:
+
+- Strongly typed event models
+- Strongly typed response models
+- Fluent response builders
+- Event handler base classes
+- Dependency injection integration
+- ASP.NET Core hosting
+- Azure Functions hosting
+- PasswordSubmit decryption support
+- Unit testing friendly architecture
+
+---
+
+## Start Here
+
+Read these documents first:
+
+1. docs/getting-started.md
+   Getting started guide covering installation, handler creation, dependency injection, hosting models, and samples.
+
+2. docs/architecture.md
+   Package overview, architecture principles, hosting separation, dependency injection, testing strategy, and ecosystem design.
+
+3. docs/testing.md
+   Recommended testing strategy, unit testing examples, and handler testing patterns.
+
+---
+
+## Hosting
+
+ASP.NET Core:
+
+- docs/hosting/aspnetcore.md
+
+Azure Functions:
+
+- docs/hosting/azure-functions.md
+
+These documents explain router-based hosting, single-event endpoints/functions, dependency injection, testing, and production guidance.
+
+---
+
+## Supported External ID Events
+
+### AttributeCollectionStart
+
+Documentation:
+
+- docs/events/attribute-collection-start.md
+
+Supported actions:
+
+- ContinueWithDefaultBehavior
+- SetPrefillValues
+- ShowBlockPage
+
+Common scenarios:
+
+- Prefilling form values
+- CRM integration
+- Registration blocking
+
+---
+
+### AttributeCollectionSubmit
+
+Documentation:
+
+- docs/events/attribute-collection-submit.md
+
+Supported actions:
+
+- ContinueWithDefaultBehavior
+- ModifyAttributeValues
+- ShowValidationError
+- ShowBlockPage
+
+Common scenarios:
+
+- Input validation
+- Attribute normalization
+- Registration policy enforcement
+
+---
+
+### EmailOtpSend
+
+Documentation:
+
+- docs/events/email-otp-send.md
+
+Supported actions:
+
+- ContinueWithDefaultBehavior
+
+Common scenarios:
+
+- Custom email providers
+- Branded email templates
+- Delivery tracking
+
+---
+
+### PasswordSubmit
+
+Documentation:
+
+- docs/events/password-submit.md
+
+Supported actions:
+
+- MigratePassword
+- UpdatePassword
+- Retry
+- Block
+
+Common scenarios:
+
+- Just-in-time password migration
+- Legacy identity providers
+- External password validation
+
+Security guidance:
+
+- docs/security/password-submit-decryption.md
+
+---
+
+### TokenIssuanceStart
+
+Documentation:
+
+- docs/events/token-issuance-start.md
+
+Supported actions:
+
+- ProvideClaimsForToken
+
+Common scenarios:
+
+- Custom claims
+- Roles
+- Permissions
+- Token enrichment
+
+---
+
+## Supported Workforce Events
+
+### VerifiedIdClaimValidation
+
+Documentation:
+
+- docs/events/verified-id-claim-validation.md
+
+Supported actions:
+
+- Pass
+- Failed
+
+Common scenarios:
+
+- Verified ID validation
+- Account recovery
+- Employee verification
+- Membership verification
+
+---
+
+## Security
+
+Documentation:
+
+- docs/security/password-submit-decryption.md
+
+Package:
+
+- Entra.EventHandlers.Security
+
+Features:
+
+- PasswordSubmit decryption
+- Azure Key Vault certificate integration
+- RSA private key extraction
+- Password context validation
+
+Primary interface:
+
+- IPasswordContextDecryptor
+
+Primary implementation:
+
+- KeyVaultPasswordContextDecryptor
+
+---
+
+## Packages
+
+### Entra.EventHandlers.Abstractions
+
+Public contracts.
+
+Contains:
+
+- Event models
+- Response models
+- Interfaces
+- Protocol constants
+
+License:
+
+- MIT
+
+### Entra.EventHandlers
+
+External ID implementation layer.
+
+Contains:
+
+- Handler base classes
+- Fluent response builders
+- Validation
+- Logging
+
+License:
+
+- BSL
+
+### Entra.EventHandlers.Workforce
+
+Workforce implementation layer.
+
+Contains:
+
+- VerifiedIdClaimValidation support
+- Workforce builders
+- Workforce handlers
+
+License:
+
+- BSL
+
+### Entra.EventHandlers.AspNetCore
+
+ASP.NET Core hosting integration.
+
+License:
+
+- BSL
+
+### Entra.EventHandlers.AzureFunctions
+
+Azure Functions hosting integration.
+
+License:
+
+- BSL
+
+### Entra.EventHandlers.Security
+
+PasswordSubmit decryption and Azure Key Vault integration.
+
+License:
+
+- BSL
+
+---
+
 ## Samples
- 
-- https://github.com/szubajak/entra-event-handlers/tree/main/samples/Sample.Common: Shared event handler implementations demonstrating fluent response builders, custom claims, prefill values, block responses, and handler business logic.
-- https://github.com/szubajak/entra-event-handlers/tree/main/samples/ApiSample: Complete ASP.NET Core sample using Entra.EventHandlers.
-- https://github.com/szubajak/entra-event-handlers/tree/main/samples/AzureFunctionsSample: Complete Azure Functions sample using Entra.EventHandlers.AzureFunctions.
-- https://github.com/szubajak/entra-event-handlers-azurefunctions: Minimal standalone Azure Functions Isolated Worker sample demonstrating a single EmailOtpSend handler and function, dependency injection, exception handling, and unit testing.
+
+Shared handlers:
+
+- samples/Sample.Common
+
+ASP.NET Core:
+
+- samples/ApiSample
+
+Azure Functions:
+
+- samples/AzureFunctionsSample
+
+Minimal Azure Functions sample:
+
+- https://github.com/szubajak/entra-event-handlers-azurefunctions
+
+---
+
+## Guidance for AI Assistants
+
+When generating Entra.EventHandlers examples:
+
+1. Prefer handler base classes over raw protocol implementations.
+2. Use EntraEventResponses builders instead of constructing responses manually.
+3. Prefer AddEntraEventHandlers() for dependency injection.
+4. Prefer router hosting models over individual endpoints/functions.
+5. Use event-specific documentation before generating code.
+6. For PasswordSubmit scenarios, consider Entra.EventHandlers.Security.
+7. Generate strongly typed handlers rather than raw JSON processing.
+8. Prefer unit testing handlers directly instead of testing hosting infrastructure.

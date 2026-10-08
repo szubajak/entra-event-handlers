@@ -1,43 +1,74 @@
 # Entra.EventHandlers.Workforce
 
-**License:** Business Source License (BSL)  
-**Author:** Jakub Szubarga (Szubarga.NET)
+Production-ready Workforce implementation layer for Microsoft Entra Workforce account recovery authentication events.
 
-This package contains the **Workforce‑specific event models, response builders, and handler base classes** for the Entra Event Handlers ecosystem.  
-It extends the MIT‑licensed **Entra.EventHandlers.Abstractions** package with strongly‑typed request/response types and fluent builders for **Microsoft Entra Workforce account recovery flows**, including the **VerifiedIdClaimValidation** event.
+This package builds on top of the MIT-licensed `Entra.EventHandlers.Abstractions` package and provides strongly typed Workforce event models, fluent response builders, and handler base classes for Microsoft Entra Workforce authentication extensions.
 
-This package is designed to be used together with the hosting adapters:
+This package currently focuses on the Workforce account recovery event:
 
-- **Entra.EventHandlers.AspNetCore**  
-- **Entra.EventHandlers.AzureFunctions**
+- VerifiedIdClaimValidation
 
-It operates **in parallel** to the core implementation package (**Entra.EventHandlers**) and does not depend on it.
+The package is designed to work alongside the ASP.NET Core and Azure Functions hosting adapters.
+
+Unlike `Entra.EventHandlers`, which focuses on External ID events, this package provides Workforce-specific functionality.
+
+## Installation
+
+```bash
+dotnet add package Entra.EventHandlers.Workforce
+```
+
+## Features
+
+- Workforce event models
+- Workforce response models
+- Fluent response builders
+- Workforce handler base classes
+- Structured logging
+- Correlation ID logging
+- Protocol validation
+- Exception handling
+- Execution timing
+- Dependency injection integration
+- Fully testable architecture
+
+## Supported Workforce Events
+
+### VerifiedIdClaimValidation
+
+The event is used during Workforce account recovery flows involving Verified ID credentials.
+
+Supported responses:
+
+- Pass
+- Failed
+
+Common scenarios:
+
+- Account recovery
+- Employee verification
+- Membership validation
+- Student verification
+- Organizational claim validation
 
 ---
 
-## ✨ What This Package Provides
+## Unified Workforce Response Builder API
 
-This package adds Workforce‑specific capabilities to the Entra Event Handlers ecosystem:
+All Workforce response builders are available through a single entry point:
 
-- **VerifiedIdClaimValidation event models**  
-  Strongly‑typed request/response types for Workforce account recovery flows.
+```csharp
+EntraWorkforceEventResponses
+    .VerifiedIdClaimValidation();
+```
 
-- **Fluent response builders**  
-  For constructing `Pass` or `Failed` validation outcomes without manual JSON.
-
-- **Unified Workforce entry point**  
-  `EntraWorkforceEventResponses.VerifiedIdClaimValidation()`  
-  for discoverable, guided response construction.
-
-- **Production‑ready base handler class**  
-  `VerifiedIdClaimValidationHandlerBase`  
-  with structured logging, validation, correlation IDs, and exception handling.
-
-This package does **not** include hosting logic — routing, DI, and request/response adapters are provided by the ASP.NET Core and Azure Functions hosting packages.
+This provides a consistent and discoverable API for Workforce event handlers.
 
 ---
 
-## 🛠 Building Responses
+## Building Responses
+
+Successful validation:
 
 ```csharp
 return EntraWorkforceEventResponses
@@ -46,110 +77,180 @@ return EntraWorkforceEventResponses
     .Build();
 ```
 
-Or return a failed validation:
+Validation failure:
 
 ```csharp
 return EntraWorkforceEventResponses
     .VerifiedIdClaimValidation()
-    .Failed(["employeeId", "department"])
+    .Failed(new[]
+    {
+        "employeeId",
+        "department"
+    })
     .Build();
 ```
 
----
-
-## 🛠 Example: Implementing a Workforce Handler
+Builder syntax:
 
 ```csharp
-public class VerifiedIdHandler(ILogger<VerifiedIdHandler> logger)
+return EntraWorkforceEventResponses
+    .VerifiedIdClaimValidation()
+    .Failed()
+        .Add("employeeId")
+        .Add("department")
+    .Done()
+    .Build();
+```
+
+The fluent builders ensure protocol-correct responses without requiring manual JSON construction.
+
+---
+
+## Implementing a Handler
+
+Create a handler by inheriting from the Workforce handler base class.
+
+Example:
+
+```csharp
+public class VerifiedIdClaimValidationHandler(
+    ILogger<VerifiedIdClaimValidationHandler> logger)
     : VerifiedIdClaimValidationHandlerBase(logger)
 {
     protected override Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(
         VerifiedIdClaimValidationEvent request,
         CancellationToken cancellationToken = default)
     {
-        // Example: validate claims against authoritative HR data
-        var failedClaims = new List<string>();
-
-        if (!HrSystem.IsValidEmployeeId(request.Data.Claims.EmployeeId))
-            failedClaims.Add("employeeId");
-
-        if (!HrSystem.IsValidDepartment(request.Data.Claims.Department))
-            failedClaims.Add("department");
-
         return Task.FromResult(
-            failedClaims.Count == 0
-                ? EntraWorkforceEventResponses.VerifiedIdClaimValidation().Pass().Build()
-                : EntraWorkforceEventResponses.VerifiedIdClaimValidation().Failed(failedClaims).Build());
+            EntraWorkforceEventResponses
+                .VerifiedIdClaimValidation()
+                .Pass()
+                .Build());
     }
 }
 ```
 
-The base class handles:
+The base class automatically provides:
 
-- Logging  
-- Validation  
-- Correlation IDs  
-- Exception handling  
-- Execution timing  
+- Request validation
+- Structured logging
+- Correlation ID logging
+- Event type logging
+- Execution timing
+- Exception handling
 
----
-
-## 📁 Samples
-
-The repository includes sample implementations demonstrating how to use the Workforce package together with the hosting adapters.
-
-The samples show:
-
-- How to implement Workforce handlers  
-- How to use the fluent Workforce response builders  
-- How to integrate Workforce events into ASP.NET Core and Azure Functions  
-- How to structure clean, production‑ready handler logic  
-
-You can find the sample handlers in the repository under:  
-[Sample.Common](../../samples/Sample.Common)
+This allows handlers to focus entirely on business logic.
 
 ---
 
-## 📦 Related Packages
+## Real-World Example
 
-- **Entra.EventHandlers.Abstractions** — public protocol types (MIT)  
-- **Entra.EventHandlers** — core implementation layer for External ID (BSL)  
-- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
-- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+Validate claims supplied by a Verified ID credential.
+
+```csharp
+public class VerifiedIdClaimValidationHandler(
+    ILogger<VerifiedIdClaimValidationHandler> logger,
+    IEmployeeDirectory employeeDirectory)
+    : VerifiedIdClaimValidationHandlerBase(logger)
+{
+    protected override async Task<VerifiedIdClaimValidationResponse> HandleCoreAsync(
+        VerifiedIdClaimValidationEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        var employeeId = request
+            .Data
+            .VerifiedIdClaimsContext?
+            .Claims["employeeId"]?
+            .ToString();
+
+        if (string.IsNullOrWhiteSpace(employeeId))
+        {
+            return EntraWorkforceEventResponses
+                .VerifiedIdClaimValidation()
+                .Failed(new[]
+                {
+                    "employeeId"
+                })
+                .Build();
+        }
+
+        var exists = await employeeDirectory.ExistsAsync(
+            employeeId,
+            cancellationToken);
+
+        return exists
+            ? EntraWorkforceEventResponses
+                .VerifiedIdClaimValidation()
+                .Pass()
+                .Build()
+            : EntraWorkforceEventResponses
+                .VerifiedIdClaimValidation()
+                .Failed(new[]
+                {
+                    "employeeId"
+                })
+                .Build();
+    }
+}
+```
 
 ---
 
-## 🔒 License
+## Testing
 
-This package is licensed under the **Business Source License (BSL)**.
+Handlers are designed to be tested directly without ASP.NET Core or Azure Functions hosting infrastructure.
 
-See:
+Example:
 
-- [LICENSE](LICENSE) — full BSL terms  
-- [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) — commercial licensing terms  
+```csharp
+var result = await handler.HandleAsync(request);
+```
 
-A commercial license is required for production use by organizations with more than 5 employees.
+Benefits include:
 
-A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current and future BSL‑licensed packages.
+- Fast unit tests
+- Easier mocking
+- Better separation of concerns
+- Higher test coverage
 
-### Commercial License Pricing
-
-- **Developer License** — €99 / developer / year  
-- **Team License** — €399 / year  
-- **Enterprise License** — €1499 / year  
-
-To purchase a license or request an invoice:
-
-📧 **jakub.szubarga@gmail.com**
-
-The abstractions package is MIT‑licensed and can be used freely.
+Business logic should live inside handlers while hosting adapters remain thin transport layers.
 
 ---
 
-## 📘 Further Reading
+## Samples
 
-For a deeper look into Microsoft Entra External ID and Workforce Authentication Event Handlers  
-and the design of this ecosystem, see:
+Shared handler implementations are available in:
 
-➡️ **Entra External ID — .NET Handlers Deep Dive**  
-https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
+https://github.com/szubajak/entra-event-handlers/tree/main/samples/Sample.Common
+
+The sample demonstrates:
+
+- Workforce handler implementations
+- Fluent Workforce response builders
+- Verification patterns
+- Dependency injection
+- Production-ready handler structure
+
+These handlers can be hosted using either ASP.NET Core or Azure Functions.
+
+---
+
+## Documentation
+
+Full documentation, event guides, hosting guides, testing guidance, security guidance, and samples:
+
+https://github.com/szubajak/entra-event-handlers/tree/main/docs
+
+Verified ID claim validation documentation:
+
+https://github.com/szubajak/entra-event-handlers/blob/main/docs/events/verified-id-claim-validation.md
+
+AI-friendly repository metadata:
+
+https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
+
+---
+
+## Related Packages
+
+| Package | 
