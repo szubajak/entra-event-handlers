@@ -563,3 +563,9 @@ Supported actions:
 | Block | Deny authentication |
 
 This event is commonly used for legacy identity migration, password synchronization, and staged migrations into Microsoft Entra External ID.
+
+## Related Documentation
+
+### Security
+
+- ../security/password-submit-decryption.md

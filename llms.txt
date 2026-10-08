@@ -22,4 +22,4 @@ custom authentication extensions with Entra.EventHandlers.
 - https://github.com/szubajak/entra-event-handlers/tree/main/samples/Sample.Common: Shared event handler implementations demonstrating fluent response builders, custom claims, prefill values, block responses, and handler business logic.
 - https://github.com/szubajak/entra-event-handlers/tree/main/samples/ApiSample: Complete ASP.NET Core sample using Entra.EventHandlers.
 - https://github.com/szubajak/entra-event-handlers/tree/main/samples/AzureFunctionsSample: Complete Azure Functions sample using Entra.EventHandlers.AzureFunctions.
-- https://github.com/szubajak/entra-eventhandlers-azurefunctions: Minimal standalone Azure Functions Isolated Worker sample demonstrating a single EmailOtpSend handler and function, dependency injection, exception handling, and unit testing.
+- https://github.com/szubajak/entra-event-handlers-azurefunctions: Minimal standalone Azure Functions Isolated Worker sample demonstrating a single EmailOtpSend handler and function, dependency injection, exception handling, and unit testing.
