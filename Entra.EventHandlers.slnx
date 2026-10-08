@@ -65,6 +65,7 @@
     <File Path="docs/events/email-otp-send.md" />
     <File Path="docs/events/password-submit.md" />
     <File Path="docs/events/token-issuance-start.md" />
+    <File Path="docs/events/verified-id-claim-validation.md" />
   </Folder>
   <Folder Name="/docs/hosting/">
     <File Path="docs/hosting/azure-functions.md" />
