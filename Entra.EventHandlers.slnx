@@ -62,6 +62,9 @@
   <Folder Name="/docs/events/">
     <File Path="docs/events/attribute-collection-start.md" />
   </Folder>
+  <Folder Name="/docs/hosting/">
+    <File Path="docs/hosting/azure-functions.md" />
+  </Folder>
   <Folder Name="/hosting/">
     <Project Path="hosting/Entra.EventHandlers.Hosting/Entra.EventHandlers.Hosting.csproj" />
   </Folder>
