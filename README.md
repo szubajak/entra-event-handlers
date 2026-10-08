@@ -163,36 +163,32 @@ public class TokenIssuanceStartHandler(
 
 ### Start Here
 
-- ./docs/getting-started.md
-- ./docs/architecture.md
-- ./docs/testing.md
-
-
 - [Getting Started](./docs/getting-started.md)
 - [Architecture](./docs/architecture.md)
+- [Unit Testing](./docs/testing.md)
 
 ### Hosting
 
-- ./docs/hosting/aspnetcore.md
-- ./docs/hosting/azure-functions.md
+- [AspNetCore](./docs/hosting/aspnetcore.md)
+- [AzureFunctions](./docs/hosting/azure-functions.md)
 
 ### Security
 
-- ./docs/security/password-submit-decryption.md
+- [EncryptedPasswordContext Decryption](./docs/security/password-submit-decryption.md)
 
 ### Events
 
 #### External ID
 
-- ./docs/events/attribute-collection-start.md
-- ./docs/events/attribute-collection-submit.md
-- ./docs/events/email-otp-send.md
-- ./docs/events/password-submit.md
-- [TokenIssuanceStart](./uance-start.md
+- [AttributeCollectionStart](./docs/events/attribute-collection-start.md)
+- [AttributeCollectionSubmit](./docs/events/attribute-collection-submit.md)
+- [AspNetCore](./docs/events/email-otp-send.md)
+- [PasswordSubmit](./docs/events/password-submit.md)
+- [TokenIssuanceStart](./docs/events/token-issuance-start.md)
 
 #### Workforce
 
-- [VerifiedIdClaimValidation](./docs/idation.md
+- [VerifiedIdClaimValidation](./docs/events/verified-id-claim-validation.md)
 
 ---
 
@@ -307,144 +303,4 @@ For implementation packages, issues, discussions, bug reports, feature requests,
 
 **Jakub Szubarga**
 
-If this project helps you, consider starring the repository.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Entra.EventHandlers
-
-[![Coverage](https://szubajak.github.io/entra-event-handlers/badge_shieldsio_branchcoverage_blue.svg)](https://szubajak.github.io/entra-event-handlers/)
-
-A modern **.NET library** for building **Microsoft Entra External ID** authentication event handlers with strongly typed models, 
-fluent response builders, and hosting integrations for **ASP.NET Core** and **Azure Functions**.
-
-## Why Entra.EventHandlers?
-
-Microsoft Entra External ID authentication events are exposed as HTTP-based extensibility points. 
-Implementing them directly often requires manual request parsing, validation, routing, logging, and response construction.
-
-Entra.EventHandlers provides:
-
-- Strongly typed event models
-- Event handler base classes
-- Fluent response builders
-- Dependency injection integration
-- ASP.NET Core hosting support
-- Azure Functions hosting support
-- Unified programming model across hosting platforms
-- Built-in validation, correlation, logging, and execution tracking
-
-## Quick Start
- 
-Install the core package:
- 
-```bash
-dotnet add package Entra.EventHandlers
-```
- 
-Install a hosting integration:
- 
-```bash
-dotnet add package Entra.EventHandlers.AspNetCore
-```
- 
-or
- 
-```bash
-dotnet add package Entra.EventHandlers.AzureFunctions
-```
-
-Register the framework:
- 
-```csharp
-builder.Services.AddEntraEventHandlers();
-```
-
-## Documentation
- 
-### Start Here
-
-- [Getting Started](./docs/getting-started.md)
-- [Architecture](./docs/architecture.md)
-
-### Hosting
-
-- [Azure Functions](./docs/hosting/azure-functions.md)
-
-### Events
-- [AttributeCollectionStart](./docs/events/attribute-collection-start.md)
-
-## Documentation Structure
-
-```text
-docs/
-├── getting-started.md
-├── architecture.md
-├── events/
-└── hosting/
-```
-
----
-
-Minimal standalone sample:
- 
-- https://github.com/szubajak/entra-event-handlers-azurefunctions
- 
-## AI Discovery
- 
-This repository includes AI-friendly documentation:
- 
-- `llms.txt`
-- `docs/`
-
-AI assistants should begin with:
- 
-1. `llms.txt`
-2. `docs/getting-started.md`
-
----
-
-## Licensing
- 
-### Open Source
- 
-- MIT: Entra.EventHandlers.Abstractions
- 
-### Source Available
- 
-- Entra.EventHandlers
-- Entra.EventHandlers.Workforce
-- Entra.EventHandlers.AspNetCore
-- Entra.EventHandlers.AzureFunctions
-
-See the individual package licenses for details.
-
-## Commercial Licensing
- 
-Commercial licenses and support are available.
- 
-Contact:
- 
-**jakub.szubarga@gmail.com**
-
-
-## Contributing
- 
-Contributions are welcome for the MIT-licensed abstractions package.
- 
-## Author
- 
-Jakub Szubarga
- 
 If this project helps you, consider starring the repository.
