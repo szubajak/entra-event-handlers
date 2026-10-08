@@ -75,7 +75,7 @@ docs/
 
 Minimal standalone sample:
  
-- https://github.com/szubajak/entra-eventhandlers-azurefunctions
+- https://github.com/szubajak/entra-event-handlers-azurefunctions
  
 ## AI Discovery
  

@@ -335,7 +335,7 @@ Azure Functions should typically remain thin adapters while handlers contain the
 
 A minimal Azure Functions sample focused on a single event handler is available:
 
-https://github.com/szubajak/entra-eventhandlers-azurefunctions
+https://github.com/szubajak/entra-event-handlers-azurefunctions
 
 The sample demonstrates:
 

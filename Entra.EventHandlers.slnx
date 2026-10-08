@@ -61,6 +61,7 @@
   </Folder>
   <Folder Name="/docs/events/">
     <File Path="docs/events/attribute-collection-start.md" />
+    <File Path="docs/events/attribute-collection-submit.md" />
   </Folder>
   <Folder Name="/docs/hosting/">
     <File Path="docs/hosting/azure-functions.md" />

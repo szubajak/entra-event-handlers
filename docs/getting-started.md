@@ -199,7 +199,7 @@ samples/AzureFunctionsSample
 
 ### Minimal Azure Functions Sample
 
-https://github.com/szubajak/entra-eventhandlers-azurefunctions
+https://github.com/szubajak/entra-event-handlers-azurefunctions
 
 A minimal Azure Functions Isolated Worker example focused on:
 
