@@ -88,11 +88,11 @@ Those capabilities are provided by the implementation packages.
 
 Full documentation, event guides, hosting guides, and samples:
 
-https://github.com/szubajak/entra-eventhandlers/tree/main/docs
+https://github.com/szubajak/entra-event-handlers/tree/main/docs
 
 AI-friendly repository metadata:
 
-https://github.com/szubajak/entra-eventhandlers/blob/main/llms.txt
+https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
 
 ## License
 
