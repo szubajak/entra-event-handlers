@@ -54,13 +54,16 @@ including:
 
 The public protocol abstractions are available separately under the MIT License in:
 
-- **Entra.EventHandlers.Abstractions** (MIT)
+- Entra.EventHandlers.Abstractions (MIT)
 
-Additional BSL‑licensed packages extend the ecosystem with implementation layers and other hosting models:
+Additional BSL-licensed packages extend the Entra.EventHandlers ecosystem:
 
-- **Entra.EventHandlers** — External ID implementation layer (BSL)  
-- **Entra.EventHandlers.Workforce** — Workforce event models & builders (BSL)  
-- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+- Entra.EventHandlers — External ID implementation layer (BSL)
+- Entra.EventHandlers.Workforce — Workforce implementation layer (BSL)
+- Entra.EventHandlers.AspNetCore — ASP.NET Core hosting adapter (BSL)
+- Entra.EventHandlers.AzureFunctions — Azure Functions hosting adapter (BSL)
+- Entra.EventHandlers.Security — PasswordSubmit decryption and Azure Key Vault integration (BSL)
 
-These packages provide the full execution pipeline, fluent builders, validation, and hosting
-infrastructure built on top of the abstractions.
+These packages provide strongly typed handlers, fluent response builders,
+security integrations, hosting infrastructure, routing, dependency injection
+integration, and request/response adapters built on top of the abstractions.

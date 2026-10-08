@@ -1,11 +1,61 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	<IsPackable>true</IsPackable>
+
+	<!-- NuGet metadata -->
+	<PackageId>Entra.EventHandlers.Security</PackageId>
+	<Version>1.0.0</Version>
+	<Authors>Jakub Szubarga</Authors>
+	<Company>Szubarga.NET Jakub Szubarga</Company>
+
+	<Description>Security extensions for Microsoft Entra External ID Authentication Event Handlers. Provides PasswordSubmit encrypted password context decryption, Azure Key Vault certificate integration, RSA private key extraction, certificate caching, and production-ready implementations of IPasswordContextDecryptor for Just-In-Time password migration scenarios.</Description>
+
+	<PackageTags>
+	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;ciam;
+	authentication-events;passwordsubmit;password-migration;
+	password-submit;jit-migration;keyvault;azure-key-vault;
+	security;cryptography;certificate;rsa;identity;dotnet;csharp
+	</PackageTags>
+
+	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
+
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageIcon>icon.png</PackageIcon>
+
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+	<PackageReleaseNotes>
+	Provides PasswordSubmit encryptedPasswordContext decryption,
+	Azure Key Vault certificate integration, RSA private key extraction,
+	certificate caching, and production-ready implementations of
+	IPasswordContextDecryptor for Microsoft Entra External ID
+	Just-In-Time password migration scenarios.
+	</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+	<IsPackable>false</IsPackable>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.21.0" />
-    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.11.2" />
-    <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.5.4" />
-    <PackageReference Include="jose-jwt" Version="5.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.12" />
+	<None Include="LICENSE" Pack="true" PackagePath="" />
+	<None Include="LICENSE-COMMERCIAL.md" Pack="true" PackagePath="" />
+	<None Include="README.md" Pack="true" PackagePath="" />
+	<None Include="icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Azure.Identity" Version="1.21.0" />
+	<PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.11.2" />
+	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.5.4" />
+	<PackageReference Include="jose-jwt" Version="5.3.0" />
+	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
+	<PackageReference Include="Microsoft.Extensions.Options" Version="10.0.12" />
   </ItemGroup>
 
   <ItemGroup>
