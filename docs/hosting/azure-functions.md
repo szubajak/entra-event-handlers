@@ -75,7 +75,7 @@ Microsoft Entra
 
 ## Dependency Injection
 
-Register Entra.EventHandlers services during startup.
+Register Entra.EventHandlers during application startup:
 
 ```csharp
 builder.Services.AddEntraEventHandlers();
@@ -87,13 +87,23 @@ This automatically registers:
 - Handler resolver
 - Request adapters
 - Response adapters
-- Event handlers
+- Event handlers discovered in the application
+
+The registration also enables:
+
+- Automatic handler discovery
+- Automatic handler resolution
+- Event orchestration
+- Request deserialization
+- Response serialization
+
+Most applications do not require additional Entra.EventHandlers service registrations.
 
 ---
 
 ## Router Function
 
-The router function is the preferred approach for most applications.
+The router function is the recommended approach for most applications.
 
 ```csharp
 public sealed class EntraEventRouterFunction(
@@ -124,26 +134,46 @@ The router automatically:
 - Identifies the incoming event type
 - Resolves the correct handler
 - Executes the handler
-- Converts the response to the Entra protocol format
+- Serializes the response
 - Maps exceptions to appropriate HTTP responses
+
+No custom routing logic is required.
 
 ---
 
-## Handler Registration
+## Handler Discovery
 
-Any handler registered with dependency injection becomes available to the router.
+Event handlers are automatically discovered and registered when calling:
+
+```csharp
+builder.Services.AddEntraEventHandlers();
+```
 
 Example:
 
 ```csharp
-builder.Services.AddScoped<
-    IAttributeCollectionStartHandler,
-    AttributeCollectionStartHandler>();
+public class AttributeCollectionStartHandler(
+    ILogger<AttributeCollectionStartHandler> logger)
+    : AttributeCollectionStartHandlerBase(logger)
+{
+    protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .ContinueWithDefaultBehavior()
+                .Build());
+    }
+}
 ```
+
+No additional registration is required.
 
 When Microsoft Entra sends an `AttributeCollectionStart` event, the router automatically resolves and executes the corresponding handler.
 
-No custom routing logic is required.
+The same applies to all supported event types.
 
 ---
 
@@ -208,7 +238,7 @@ The same pattern applies to all supported events.
 | Dedicated endpoint per event | Single-Event Functions |
 | Separate ownership per event | Single-Event Functions |
 
-For most applications, the router function provides the best developer experience and the smallest maintenance cost.
+For most applications, the router function provides the best developer experience and the lowest maintenance cost.
 
 ---
 
@@ -225,36 +255,79 @@ Examples include:
 
 Appropriate HTTP responses are generated automatically.
 
-This avoids repetitive exception-handling code inside Azure Functions.
+This removes repetitive exception-handling code from Azure Functions and keeps the hosting layer focused on request handling.
 
 ---
 
 ## Testing
 
-Business logic should be implemented in handlers, not in Azure Functions.
+Business logic should be implemented in handlers rather than Azure Functions.
 
 Example:
 
 ```csharp
-public class EmailOtpSendHandler
-    : EmailOtpSendHandlerBase
+public sealed class EmailOtpSendHandler(
+    ILogger<EmailOtpSendHandler> logger,
+    IEmailSender emailSender)
+    : EmailOtpSendHandlerBase(logger)
 {
+    protected override async Task<EmailOtpSendResponse> HandleCoreAsync(
+        EmailOtpSendEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        var otpContext = request.Data.OtpContext;
+
+        await emailSender.SendOtpAsync(
+            otpContext.Identifier,
+            otpContext.OneTimeCode,
+            cancellationToken);
+
+        return EntraEventResponses.EmailOtpSend()
+            .ContinueWithDefaultBehavior()
+            .Build();
+    }
 }
 ```
 
-This allows handlers to be tested without:
+Because handlers are independent from Azure Functions hosting infrastructure, they can be tested directly.
 
-- Running Azure Functions
+Example:
+
+```csharp
+[Fact]
+public async Task HandleAsync_SendsOtp_AndContinuesDefaultBehavior()
+{
+    var result = await handler.HandleAsync(request);
+
+    await emailSender
+        .Received(1)
+        .SendOtpAsync(...);
+
+    result.HasException.Should().BeFalse();
+}
+```
+
+This approach allows testing:
+
+- Business logic
+- External service interactions
+- Response generation
+- Error paths
+
+without:
+
+- Starting Azure Functions
 - Creating HTTP requests
-- Starting a Functions host
+- Running the Functions host
 
-Benefits:
+Benefits include:
 
 - Fast unit tests
 - Easier mocking
 - Better separation of concerns
+- Higher test coverage
 
-The Azure Function itself typically acts as a thin adapter.
+Azure Functions should typically remain thin adapters while handlers contain the application behavior.
 
 ---
 
@@ -309,6 +382,7 @@ Benefits:
 - Less code
 - Fewer functions
 - Centralized configuration
+- Consistent behavior
 - Simpler deployment
 
 ---
@@ -324,6 +398,8 @@ AttributeCollectionStartHandler
 ```
 
 Avoid placing business logic directly inside Azure Functions.
+
+Handlers should contain application behavior while Functions remain transport adapters.
 
 ---
 
@@ -346,16 +422,21 @@ public class EmailOtpSendHandler(
 
 ### Test Handlers Directly
 
-Most testing effort should focus on handlers.
+Focus testing efforts on handlers rather than Azure Functions.
 
-Azure Functions should remain thin adapters between Microsoft Entra and your application code.
+This provides faster, simpler, and more reliable tests while keeping the hosting layer minimal.
 
 ---
 
 ## Related Documentation
 
+### Start Here
+
 - ../getting-started.md
 - ../architecture.md
+
+### Events
+
 - ../events/attribute-collection-start.md
 - ../events/attribute-collection-submit.md
 - ../events/email-otp-send.md
