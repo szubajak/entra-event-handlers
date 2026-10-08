@@ -55,7 +55,7 @@ The base class automatically provides:
 - Event name and event type logging scopes
 - Execution duration measurement
 - Exception handling
-- Automatic exception-to-ShowBlockPage mapping
+- Default response (`ShowBlockPage`) when an unhandled exception occurs
 
 ---
 
@@ -104,13 +104,13 @@ The event supports the following actions:
 
 | Action | Purpose |
 |----------|----------|
-| ContinueWithDefaultBehavior | Continue the flow |
+| ContinueWithDefaultBehavior | Continue the user journey |
 | SetPrefillValues | Prefill form fields |
-| ShowBlockPage | Stop the flow and display a message |
+| ShowBlockPage | Stop the flow and display a custom message |
 
 ---
 
-### ContinueWithDefaultBehavior
+## ContinueWithDefaultBehavior
 
 Allows Microsoft Entra to continue the attribute collection flow without modifications.
 
@@ -147,7 +147,7 @@ Microsoft Entra displays the configured attribute collection form and continues 
 
 ---
 
-### SetPrefillValues
+## SetPrefillValues
 
 Provides attribute values that are displayed as initial input when the attribute collection page is shown.
 
@@ -217,7 +217,7 @@ The user may review or modify those values depending on the Entra configuration.
 
 ---
 
-### ShowBlockPage
+## ShowBlockPage
 
 Displays a custom block page and stops the current user journey.
 
