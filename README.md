@@ -56,7 +56,6 @@ builder.Services.AddEntraEventHandlers();
 
 ### Hosting
 
-- [AspNetCore](./docs/hosting/aspnetcore.md)
 - [Azure Functions](./docs/hosting/azure-functions.md)
 
 ### Events
@@ -69,8 +68,7 @@ docs/
 ├── getting-started.md
 ├── architecture.md
 ├── events/
-├── hosting/
-└── testing.md
+└── hosting/
 ```
 
 ---

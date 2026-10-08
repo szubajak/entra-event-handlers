@@ -1,66 +1,73 @@
 # Getting Started with Entra.EventHandlers
- 
-Entra.EventHandlers is a .NET library for implementing Microsoft Entra External ID
-custom authentication extension event handlers.
- 
-It provides strongly typed event models, event handler dispatching,
-dependency injection integration, fluent response builders, and hosting integrations
-for ASP.NET Core and Azure Functions.
- 
+
+Entra.EventHandlers is a .NET library for implementing Microsoft Entra External ID custom authentication extension event handlers.
+
+It provides:
+
+- Strongly typed event models
+- Event handler dispatching
+- Dependency injection integration
+- Fluent response builders
+- ASP.NET Core hosting integration
+- Azure Functions hosting integration
+
+This guide walks through the basic setup required to create and host an event handler.
+
+---
+
 ## Installation
- 
+
 Install the core package:
- 
+
 ```bash
 dotnet add package Entra.EventHandlers
 ```
- 
-Add the integration package for your hosting model:
- 
+
+Install a hosting adapter for your preferred hosting model:
+
+### ASP.NET Core
+
 ```bash
 dotnet add package Entra.EventHandlers.AspNetCore
 ```
- 
-or:
- 
+
+### Azure Functions
+
 ```bash
 dotnet add package Entra.EventHandlers.AzureFunctions
 ```
- 
-## Create an event handler
- 
-Implement an event handler for the Microsoft Entra External ID event you want to process.
- 
-The following example handles the Token Issuance Start event and adds custom claims
-to the issued token.
- 
+
+---
+
+## Create an Event Handler
+
+Implement a handler for the Microsoft Entra event you want to process.
+
+The following example handles the Token Issuance Start event and adds custom claims to the issued token.
+
 ```csharp
-public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger)
+public class TokenIssuanceStartHandler(
+    ILogger<TokenIssuanceStartHandler> logger)
     : TokenIssuanceStartHandlerBase(logger)
 {
     protected override Task<TokenIssuanceStartResponse> HandleCoreAsync(
         TokenIssuanceStartEvent request,
         CancellationToken cancellationToken = default)
     {
-        // Extract user ID (GUID)
         var userId = request.Data.AuthenticationContext?.User?.Id;
 
-        // Example: determine roles based on user ID
         string[] roles = userId switch
         {
-            // Example: special admin GUID
             var id when id == Guid.Parse("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee")
                 => ["Admin", "PowerUser"],
 
-            // Default
             _ => ["User"]
         };
 
-        // Example: add custom claims
         var customClaims = new Dictionary<string, object>
         {
-            { "department", "Engineering" },
-            { "roles", roles }
+            ["department"] = "Engineering",
+            ["roles"] = roles
         };
 
         return Task.FromResult(
@@ -71,64 +78,164 @@ public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger
     }
 }
 ```
- 
+
+---
+
 ## Register Entra.EventHandlers
- 
-Register Entra.EventHandlers and your handlers with dependency injection:
- 
+
+Register Entra.EventHandlers during application startup:
+
 ```csharp
 builder.Services.AddEntraEventHandlers();
 ```
- 
+
+This single registration automatically:
+
+- Discovers and registers event handlers
+- Registers the event orchestrator
+- Registers request and response adapters
+- Enables handler resolution
+- Configures the hosting pipeline
+
 The same handler implementations can be used with either ASP.NET Core or Azure Functions.
- 
-## Choose a hosting model
- 
-Entra.EventHandlers separates event handler logic from the hosting integration.
- 
+
+---
+
+## Choose a Hosting Model
+
+Entra.EventHandlers separates business logic from hosting concerns.
+
+The same handler can be hosted in different environments without modification.
+
 ### ASP.NET Core
- 
-Install `Entra.EventHandlers.AspNetCore` when hosting your custom authentication
-extension in an ASP.NET Core application.
- 
-The integration supports both a shared Entra event router and individual event endpoints.
- 
-See ../samples/ApiSample for a complete ASP.NET Core example.
- 
+
+Use:
+
+```bash
+dotnet add package Entra.EventHandlers.AspNetCore
+```
+
+Features:
+
+- Router endpoint
+- Individual event endpoints
+- Dependency injection integration
+- Minimal API support
+
+See:
+
+- `hosting/aspnetcore.md`
+- `../samples/ApiSample`
+
+---
+
 ### Azure Functions
- 
-Install `Entra.EventHandlers.AzureFunctions` when hosting your custom authentication
-extension in Azure Functions.
- 
-The integration supports both router functions and individual event functions.
- 
-See ../samples/AzureFunctionsSample for the complete
-Azure Functions example included in this repository.
- 
+
+Use:
+
+```bash
+dotnet add package Entra.EventHandlers.AzureFunctions
+```
+
+Features:
+
+- Router function
+- Individual event functions
+- Dependency injection integration
+- Azure Functions Isolated Worker support
+
+See:
+
+- `hosting/azure-functions.md`
+- `../samples/AzureFunctionsSample`
+
+---
+
 ## Samples
- 
-Choose a sample based on what you want to learn:
- 
-- ../samples/Sample.Common
-Shared handler implementations demonstrating fluent response builders, custom claims,
-prefill values, block responses, and handler-specific business logic.
- 
-- ../samples/ApiSample
-Complete ASP.NET Core host using the shared sample handlers.
- 
-- ../samples/AzureFunctionsSample
-Complete Azure Functions host using the shared sample handlers.
- 
-- [Minimal Azure Functions sample](https://github.com/szubajak/entra-eventhandlers-azurefunctions)
-Standalone Azure Functions Isolated Worker example focused on a single
-`EmailOtpSend` handler and function. This is a good starting point when you want
-the smallest end-to-end Azure Functions example.
- 
-If you are learning the handler API itself, start with `Sample.Common`.
- 
-If you want to build an application, choose the ASP.NET Core or Azure Functions
-sample for your hosting model.
- 
-## Next steps
- 
-- [Architecture](./docs/architecture.md)
+
+Choose a sample based on what you want to learn.
+
+### Sample.Common
+
+Shared handler implementations demonstrating:
+
+- Fluent response builders
+- Custom claims
+- Prefill values
+- Block pages
+- Event-specific business logic
+
+Location:
+
+```text
+samples/Sample.Common
+```
+
+---
+
+### ApiSample
+
+Complete ASP.NET Core host using the shared handlers.
+
+Location:
+
+```text
+samples/ApiSample
+```
+
+---
+
+### AzureFunctionsSample
+
+Complete Azure Functions host using the shared handlers.
+
+Location:
+
+```text
+samples/AzureFunctionsSample
+```
+
+---
+
+### Minimal Azure Functions Sample
+
+https://github.com/szubajak/entra-eventhandlers-azurefunctions
+
+A minimal Azure Functions Isolated Worker example focused on:
+
+- One handler
+- One function
+- Dependency injection
+- Unit testing
+
+Recommended when learning the Azure Functions hosting model for the first time.
+
+---
+
+## Event Documentation
+
+Detailed documentation is available for each supported event.
+
+### External ID
+
+- `events/attribute-collection-start.md`
+- `events/attribute-collection-submit.md`
+- `events/email-otp-send.md`
+- `events/password-submit.md`
+- `events/token-issuance-start.md`
+
+### Workforce
+
+- `events/verified-id-claim-validation.md`
+
+---
+
+## Next Steps
+
+After completing this guide, continue with:
+
+- ./architecture.md
+- ./hosting/aspnetcore.md
+- ./hosting/azure-functions.md
+
+Then explore the event-specific documentation for the event type you are implementing.
