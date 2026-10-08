@@ -31,20 +31,19 @@ Common use cases include:
 Implement `AttributeCollectionStartHandlerBase` and override `HandleCoreAsync`.
  
 ```csharp
-public class AttributeCollectionStartHandler(
-ILogger<AttributeCollectionStartHandler> logger)
-: AttributeCollectionStartHandlerBase(logger)
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
+    : AttributeCollectionStartHandlerBase(logger)
 {
-protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
-AttributeCollectionStartEvent request,
-CancellationToken cancellationToken = default)
-{
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.ContinueWithDefaultBehavior()
-.Build());
-}
+    protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .ContinueWithDefaultBehavior()
+                .Build());
+    }
 }
 ```
  
@@ -56,6 +55,7 @@ The base class automatically provides:
 - Event name and event type logging scopes
 - Execution duration measurement
 - Exception handling
+- Automatic exception-to-ShowBlockPage mapping
  
 ---
  
@@ -73,16 +73,16 @@ Example:
  
 ```csharp
 protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
-AttributeCollectionStartEvent request,
-CancellationToken cancellationToken = default)
+    AttributeCollectionStartEvent request,
+    CancellationToken cancellationToken = default)
 {
-var correlationId = request.Data?.Context?.CorrelationId;
+    var correlationId = request.CorrelationId; 
  
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.ContinueWithDefaultBehavior()
-.Build());
+    return Task.FromResult(
+        EntraEventResponses
+            .AttributeCollectionStart()
+            .ContinueWithDefaultBehavior()
+            .Build());
 }
 ```
  
@@ -109,20 +109,19 @@ Use this response when:
 ### Example
  
 ```csharp
-public class AttributeCollectionStartHandler(
-ILogger<AttributeCollectionStartHandler> logger)
-: AttributeCollectionStartHandlerBase(logger)
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
+    : AttributeCollectionStartHandlerBase(logger)
 {
-protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
-AttributeCollectionStartEvent request,
-CancellationToken cancellationToken = default)
-{
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.ContinueWithDefaultBehavior()
-.Build());
-}
+    protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .ContinueWithDefaultBehavior()
+                .Build());
+    }
 }
 ```
  
@@ -150,26 +149,25 @@ Use this response when:
 Prefill a user's email address and display name.
  
 ```csharp
-public class AttributeCollectionStartHandler(
-ILogger<AttributeCollectionStartHandler> logger)
-: AttributeCollectionStartHandlerBase(logger)
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
+    : AttributeCollectionStartHandlerBase(logger)
 {
-protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
-AttributeCollectionStartEvent request,
-CancellationToken cancellationToken = default)
-{
-var attributes = new Dictionary<string, object>
-{
-["email"] = "john.doe@contoso.com",
-["displayName"] = "John Doe"
-};
+    protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        var attributes = new Dictionary<string, object>
+        {
+            ["email"] = "john.doe@contoso.com",
+            ["displayName"] = "John Doe"
+        };
  
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.SetPrefillValues(attributes)
-.Build());
-}
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .SetPrefillValues(attributes)
+                .Build());
+    }
 }
 ```
  
@@ -179,13 +177,13 @@ For complex scenarios, the fluent builder can be used.
  
 ```csharp
 return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.SetPrefillValues()
-.Add("email", "john.doe@contoso.com")
-.Add("displayName", "John Doe")
-.Done()
-.Build());
+    EntraEventResponses
+        .AttributeCollectionStart()
+        .SetPrefillValues()
+            .Add("email", "john.doe@contoso.com")
+            .Add("displayName", "John Doe")
+        .Done()
+        .Build());
 ```
  
 ### Result
@@ -222,35 +220,34 @@ Use this response when:
 Block all registrations from a specific email domain.
  
 ```csharp
-public class AttributeCollectionStartHandler(
-ILogger<AttributeCollectionStartHandler> logger)
-: AttributeCollectionStartHandlerBase(logger)
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
+    : AttributeCollectionStartHandlerBase(logger)
 {
-protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
-AttributeCollectionStartEvent request,
-CancellationToken cancellationToken = default)
-{
-const string blockedDomain = "example.net";
+    protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        const string blockedDomain = "example.net";
  
-bool registrationBlocked = true;
+        bool registrationBlocked = true;
  
-if (registrationBlocked)
-{
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.ShowBlockPage(
-"Registration Not Allowed",
-$"Registrations from {blockedDomain} are not permitted.")
-.Build());
-}
+        if (registrationBlocked)
+        {
+            return Task.FromResult(
+                EntraEventResponses
+                    .AttributeCollectionStart()
+                    .ShowBlockPage(
+                        "Registration Not Allowed",
+                        $"Registrations from {blockedDomain} are not permitted.")
+                    .Build());
+        }
  
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.ContinueWithDefaultBehavior()
-.Build());
-}
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .ContinueWithDefaultBehavior()
+                .Build());
+    }
 }
 ```
  
@@ -281,45 +278,44 @@ If the customer is blocked, a block page is displayed.
 Otherwise, the journey continues using the default behavior.
  
 ```csharp
-public class AttributeCollectionStartHandler(
-ILogger<AttributeCollectionStartHandler> logger)
-: AttributeCollectionStartHandlerBase(logger)
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
+    : AttributeCollectionStartHandlerBase(logger)
 {
-protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
-AttributeCollectionStartEvent request,
-CancellationToken cancellationToken = default)
-{
-var customer = GetCustomer();
+    protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
+        AttributeCollectionStartEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        var customer = GetCustomer();
  
-if (customer.IsBlocked)
-{
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.ShowBlockPage(
-"Account Blocked",
-"Your account has been disabled. Please contact support.")
-.Build());
-}
+        if (customer.IsBlocked)
+        {
+            return Task.FromResult(
+                EntraEventResponses
+                    .AttributeCollectionStart()
+                    .ShowBlockPage(
+                        "Account Blocked",
+                        "Your account has been disabled. Please contact support.")
+                    .Build());
+        }
  
-if (customer.Exists)
-{
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.SetPrefillValues()
-.Add("email", customer.Email)
-.Add("displayName", customer.DisplayName)
-.Done()
-.Build());
-}
+        if (customer.Exists)
+        {
+            return Task.FromResult(
+                EntraEventResponses
+                    .AttributeCollectionStart()
+                    .SetPrefillValues()
+                        .Add("email", customer.Email)
+                        .Add("displayName", customer.DisplayName)
+                    .Done()
+                    .Build());
+        }
  
-return Task.FromResult(
-EntraEventResponses
-.AttributeCollectionStart()
-.ContinueWithDefaultBehavior()
-.Build());
-}
+        return Task.FromResult(
+            EntraEventResponses
+                .AttributeCollectionStart()
+                .ContinueWithDefaultBehavior()
+                .Build());
+        }
 }
 ```
  
@@ -353,7 +349,7 @@ Example:
  
 ```csharp
 .SetPrefillValues()
-.Add("email", customer.Email)
+    .Add("email", customer.Email)
 ```
  
 Avoid prefilling values from untrusted sources.
@@ -368,16 +364,16 @@ Good:
  
 ```csharp
 .ShowBlockPage(
-"Registration Not Allowed",
-"Your organization is not eligible for self-service registration.")
+    "Registration Not Allowed",
+    "Your organization is not eligible for self-service registration.")
 ```
  
 Poor:
  
 ```csharp
 .ShowBlockPage(
-"Error",
-"Something went wrong.")
+    "Error",
+    "Something went wrong.")
 ```
  
 ---
