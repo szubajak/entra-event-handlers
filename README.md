@@ -50,23 +50,28 @@ builder.Services.AddEntraEventHandlers();
 ## Documentation
  
 ### Start Here
- 
-- ./docs/getting-started.md
 
-[getting-started](./docs/getting-started.md)
-
-- ./docs/architecture.md
-
-[architecture](./docs/architecture.md)
+- [Getting Started](./docs/getting-started.md)
+- [Architecture](./docs/architecture.md)
 
 ### Hosting
- 
-- ./docs/hosting/aspnetcore.md
-- ./docs/hosting/azure-functions.md
+
+- [AspNetCore](./docs/hosting/aspnetcore.md)
+- [Azure Functions](./docs/hosting/azure-functions.md)
 
 ### Events
- 
-- ./docs/events/attribute-collection-start.md
+- [AttributeCollectionStart](./docs/events/attribute-collection-start.md)
+
+## Documentation Structure
+
+```text
+docs/
+├── getting-started.md
+├── architecture.md
+├── events/
+├── hosting/
+└── testing.md
+```
 
 ---
 

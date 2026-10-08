@@ -21,7 +21,7 @@
 	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
 	  
 	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<PackageReadmeFile>README.NuGet.md</PackageReadmeFile>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageIcon>icon.png</PackageIcon>
 
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -41,7 +41,6 @@
 
   <ItemGroup>
 	<None Include="LICENSE" Pack="true" PackagePath="" />
-	<None Include="README.NuGet.md" Pack="true" PackagePath="" />
 	<None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
