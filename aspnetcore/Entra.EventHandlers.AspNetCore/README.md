@@ -246,4 +246,26 @@ The sample demonstrates:
 |----------|----------|
 | Entra.EventHandlers.Abstractions | Public contracts and protocol models |
 | Entra.EventHandlers | External ID implementation layer |
-| Entra.EventHandlers.Workforce | Workforce
+| Entra.EventHandlers.Workforce | Workforce implementation layer |
+| Entra.EventHandlers.AzureFunctions | Azure Functions hosting |
+| Entra.EventHandlers.Security | PasswordSubmit decryption and Azure Key Vault integration |
+
+## License
+
+This package is licensed under the Business Source License (BSL).
+
+The Entra.EventHandlers.Abstractions package is licensed under MIT and may be used freely.
+
+See the repository for licensing details and commercial licensing information.
+
+---
+
+## Further Reading
+
+Entra External ID .NET Handlers Deep Dive
+
+https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
+
+Building CIAM-Ready Azure Functions with Entra.EventHandlers
+
+https://medium.com/@jakub.szubarga/entra-eventhandlers-ciam-azure-functions-97c5e1940272

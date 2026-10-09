@@ -218,6 +218,10 @@ Full documentation, event guides, hosting guides, testing guidance, security gui
 
 https://github.com/szubajak/entra-event-handlers/tree/main/docs
 
+Microsoft Entra External ID authentication event handlers documentation:
+
+https://github.com/szubajak/entra-event-handlers/blob/main/docs/events
+
 AI-friendly repository metadata:
 
 https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
