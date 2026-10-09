@@ -65,6 +65,9 @@ jobs:
             Entra.EventHandlers.Workforce)
               PROJECT_PATH="core/Entra.EventHandlers.Workforce/Entra.EventHandlers.Workforce.csproj"
               ;;
+            Entra.EventHandlers.Security)
+              PROJECT_PATH="security/Entra.EventHandlers.Security/Entra.EventHandlers.Security.csproj"
+              ;;
             *)
               echo "Unknown package: $PACKAGE"
               exit 1
