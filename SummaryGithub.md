@@ -3,7 +3,7 @@
 
 |||
 |:---|:---|
-| Generated on: | 10/09/2026 - 08:09:56 |
+| Generated on: | 10/09/2026 - 08:41:52 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 104 |
