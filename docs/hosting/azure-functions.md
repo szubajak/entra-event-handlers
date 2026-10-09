@@ -432,17 +432,21 @@ This provides faster, simpler, and more reliable tests while keeping the hosting
 
 ### Start Here
 
-- ../getting-started.md
-- ../architecture.md
+- [Getting Started](../getting-started.md)
+- [Architecture](../architecture.md)
 
 ### Events
 
-- ../events/attribute-collection-start.md
-- ../events/attribute-collection-submit.md
-- ../events/email-otp-send.md
-- ../events/password-submit.md
-- ../events/token-issuance-start.md
-- ../events/verified-id-claim-validation.md
+- [AttributeCollectionStart](../events/attribute-collection-start.md)
+- [AttributeCollectionSubmit](../events/attribute-collection-submit.md)
+- [AspNetCore](../events/email-otp-send.md)
+- [PasswordSubmit](../events/password-submit.md)
+- [TokenIssuanceStart](../events/token-issuance-start.md)
+- [VerifiedIdClaimValidation](../events/verified-id-claim-validation.md)
+
+### Hosting
+
+- [AspNetCore](./aspnetcore.md)
 
 ---
 

@@ -470,9 +470,9 @@ These principles allow developers to focus on business logic rather than Microso
 
 ### Start Here
 
-- ./getting-started.md
+- [Getting Started](./getting-started.md)
 
 ### Hosting
 
-- ./hosting/aspnetcore.md
-- ./hosting/azure-functions.md
+- [AspNetCore](./hosting/aspnetcore.md)
+- [AzureFunctions](./hosting/azure-functions.md)
