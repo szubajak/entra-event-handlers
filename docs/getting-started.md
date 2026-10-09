@@ -208,7 +208,7 @@ Detailed documentation is available for each supported event.
 
 - [AttributeCollectionStart](./events/attribute-collection-start.md)
 - [AttributeCollectionSubmit](./events/attribute-collection-submit.md)
-- [AspNetCore](./events/email-otp-send.md)
+- [EmailOtpSet](./events/email-otp-send.md)
 - [PasswordSubmit](./events/password-submit.md)
 - [TokenIssuanceStart](./events/token-issuance-start.md)
 

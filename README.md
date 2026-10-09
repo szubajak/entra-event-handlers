@@ -182,7 +182,7 @@ public class TokenIssuanceStartHandler(
 
 - [AttributeCollectionStart](./docs/events/attribute-collection-start.md)
 - [AttributeCollectionSubmit](./docs/events/attribute-collection-submit.md)
-- [AspNetCore](./docs/events/email-otp-send.md)
+- [EmailOtpSet](./docs/events/email-otp-send.md)
 - [PasswordSubmit](./docs/events/password-submit.md)
 - [TokenIssuanceStart](./docs/events/token-issuance-start.md)
 

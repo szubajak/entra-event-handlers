@@ -415,7 +415,7 @@ This provides faster, simpler, and more reliable tests while keeping the hosting
 
 - [AttributeCollectionStart](../events/attribute-collection-start.md)
 - [AttributeCollectionSubmit](../events/attribute-collection-submit.md)
-- [AspNetCore](../events/email-otp-send.md)
+- [EmailOtpSet](../events/email-otp-send.md)
 - [PasswordSubmit](../events/password-submit.md)
 - [TokenIssuanceStart](../events/token-issuance-start.md)
 - [VerifiedIdClaimValidation](../events/verified-id-claim-validation.md)
