@@ -173,7 +173,7 @@ Shared handler implementations demonstrating:
 
 Complete ASP.NET Core host using the shared handlers.
 
-[Api Sample](samples/ApiSample)
+[Api Sample](../samples/ApiSample)
 
 ---
 
@@ -181,7 +181,7 @@ Complete ASP.NET Core host using the shared handlers.
 
 Complete Azure Functions host using the shared handlers.
 
-[Function App (AzureFunctions) Sample](samples/AzureFunctionsSample)
+[Function App (AzureFunctions) Sample](../samples/AzureFunctionsSample)
 
 ---
 
