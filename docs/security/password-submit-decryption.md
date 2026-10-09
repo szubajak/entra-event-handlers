@@ -1,8 +1,10 @@
 # PasswordSubmit Decryption
 
-Microsoft Entra External ID sends the user's password inside an encrypted password context during the PasswordSubmit custom authentication extension flow.
+Microsoft Entra External ID sends the user's password inside an encrypted password context during the `PasswordSubmit` custom authentication extension flow.
 
-The Entra.EventHandlers.Security package provides a production-ready implementation for decrypting this payload using certificates stored in Azure Key Vault.
+The `Entra.EventHandlers.Security` package provides production-ready components for decrypting this payload using certificates stored in Azure Key Vault.
+
+For most applications, decryption is handled automatically by `PasswordSubmitHandlerBase`.
 
 ---
 
@@ -22,7 +24,7 @@ This value contains:
 
 encrypted using the public key configured in Microsoft Entra.
 
-To validate the password, the payload must first be decrypted.
+Before password validation or migration can occur, the payload must first be decrypted.
 
 ---
 
@@ -48,6 +50,9 @@ DecryptedPasswordContext
         │
         ▼
 Password Validation
+        │
+        ▼
+Password Migration
 ```
 
 ---
@@ -91,39 +96,115 @@ builder.Services.AddEntraEventHandlersSecurity();
 
 ---
 
-## Password Context Decryptor
+## Provided Components
 
-The package provides:
+### Password Context Decryption
+
+Primary interface:
 
 ```csharp
 IPasswordContextDecryptor
 ```
 
-Implementation:
+Provided implementation:
 
 ```csharp
 KeyVaultPasswordContextDecryptor
 ```
 
-The decryptor:
+Responsibilities:
 
-1. Retrieves the certificate from Azure Key Vault.
-2. Extracts the RSA private key.
-3. Decrypts the payload.
-4. Validates the payload.
-5. Returns a strongly typed model.
+- Retrieve certificates from Azure Key Vault
+- Extract RSA private keys
+- Decrypt encrypted password contexts
+- Deserialize decrypted payloads
+- Validate payload contents
+- Return strongly typed models
 
 ---
 
-## Using PasswordSubmitHandlerBase
+### Certificate Retrieval
 
-The simplest approach is using:
+Primary interface:
+
+```csharp
+IKeyVaultCertificateProvider
+```
+
+Provided implementation:
+
+```csharp
+KeyVaultCertificateProvider
+```
+
+Responsibilities:
+
+- Retrieve certificates from Azure Key Vault
+- Extract RSA private keys
+- Cache RSA instances
+- Provide thread-safe initialization
+- Reduce repeated Key Vault requests
+
+---
+
+### Dependency Injection
+
+Register security services:
+
+```csharp
+builder.Services.AddEntraEventHandlersSecurity();
+```
+
+This registers the Azure Key Vault integration services used by the package.
+
+---
+
+## Manual vs Automatic Decryption
+
+The package supports both approaches.
+
+### Recommended
+
+Use:
 
 ```csharp
 PasswordSubmitHandlerBase
 ```
 
-The decrypted context is automatically supplied.
+which automatically decrypts the password context before your handler executes.
+
+### Advanced
+
+Inject and use:
+
+```csharp
+IPasswordContextDecryptor
+```
+
+directly when building custom processing pipelines.
+
+For most applications, automatic decryption through `PasswordSubmitHandlerBase` is the preferred approach.
+
+---
+
+## Using PasswordSubmitHandlerBase
+
+The recommended approach is using:
+
+```csharp
+PasswordSubmitHandlerBase
+```
+
+The base handler automatically:
+
+- Validates the incoming request
+- Validates `@odata.type`
+- Decrypts `EncryptedPasswordContext`
+- Validates the decrypted payload
+- Creates correlation logging scopes
+- Measures execution duration
+- Provides safe exception handling
+- Preserves the nonce for failure scenarios
 
 Example:
 
@@ -167,6 +248,10 @@ public sealed class DecryptedPasswordContext
 }
 ```
 
+This model is supplied automatically by `PasswordSubmitHandlerBase`.
+
+You typically do not need to deserialize or validate the payload yourself.
+
 Example:
 
 ```csharp
@@ -174,6 +259,14 @@ var password = decrypted.Password;
 var nonce = decrypted.Nonce;
 var username = decrypted.Username;
 ```
+
+Properties:
+
+| Property | Description |
+|-----------|-------------|
+| Password | Plaintext password submitted by the user |
+| Nonce | Protocol nonce provided by Microsoft Entra |
+| Username | Optional username included in the encrypted payload |
 
 ---
 
@@ -206,7 +299,7 @@ The RSA key is loaded only once and reused for subsequent requests.
 
 ## Password Validation Example
 
-Validate against a legacy user store:
+Validate credentials against a legacy identity store.
 
 ```csharp
 public class PasswordSubmitHandler(
@@ -240,6 +333,14 @@ public class PasswordSubmitHandler(
 }
 ```
 
+In this scenario:
+
+1. Microsoft Entra sends an encrypted password context.
+2. The base handler decrypts the payload.
+3. The handler receives a validated `DecryptedPasswordContext`.
+4. Credentials are validated against a legacy user store.
+5. The user is either migrated or blocked.
+
 ---
 
 ## Security Considerations
@@ -267,6 +368,8 @@ Avoid storing decrypted passwords in:
 - Distributed caches
 - Telemetry systems
 
+Passwords should remain in memory only for the duration of the request.
+
 ---
 
 ### Always Return the Nonce
@@ -283,19 +386,30 @@ The nonce is required by the Microsoft Entra protocol.
 
 ### Prefer Azure Key Vault
 
-Store PasswordSubmit certificates in Azure Key Vault rather than local machine certificate stores whenever possible.
+Store PasswordSubmit certificates in Azure Key Vault whenever possible.
 
 Benefits include:
 
-- Centralized management
-- Rotation support
+- Centralized certificate management
 - Managed Identity integration
+- Certificate rotation support
 - Improved operational security
 
 ---
 
 ## Related Documentation
 
+### Start Here
+
+- ../getting-started.md
+- ../architecture.md
+- ../testing.md
+
 ### Events
 
 - ../events/password-submit.md
+
+### Hosting
+
+- ../hosting/aspnetcore.md
+- ../hosting/azure-functions.md
