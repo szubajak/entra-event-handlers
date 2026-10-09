@@ -124,8 +124,8 @@ Features:
 
 See:
 
-[AspNetCore Hosting](./hosting/aspnetcore.md)
-[AspNetCore Sample](../samples/ApiSample)
+- [AspNetCore Hosting](./hosting/aspnetcore.md)
+- [AspNetCore Sample](../samples/ApiSample)
 
 ---
 
@@ -146,8 +146,8 @@ Features:
 
 See:
 
-[Azure Functions Hosting](./hosting/azure-functions.md)
-[Azure Functions Sample](../samples/AzureFunctionsSample)
+- [Azure Functions Hosting](./hosting/azure-functions.md)
+- [Azure Functions Sample](../samples/AzureFunctionsSample)
 
 ---
 
