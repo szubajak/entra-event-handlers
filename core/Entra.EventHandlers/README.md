@@ -220,7 +220,7 @@ https://github.com/szubajak/entra-event-handlers/tree/main/docs
 
 Microsoft Entra External ID authentication event handlers documentation:
 
-https://github.com/szubajak/entra-event-handlers/blob/main/docs/events
+https://github.com/szubajak/entra-event-handlers/tree/main/docs/events
 
 AI-friendly repository metadata:
 
