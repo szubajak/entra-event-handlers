@@ -345,7 +345,7 @@ var assemblies = [
       { "name": "Entra.EventHandlers.Abstractions.Responses.PasswordSubmitResponsePayload", "rp": "Entra.EventHandlers.Abstractions_PasswordSubmitResponsePayload.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 50, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayload", "rp": "Entra.EventHandlers.Abstractions_TokenIssuanceStartResponsePayload.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 37, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Abstractions.Responses.VerifiedIdClaimValidationResponsePayload", "rp": "Entra.EventHandlers.Abstractions_VerifiedIdClaimValidationResponsePayload.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 37, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Abstractions.Results.EntraHandlerResult\u003CTResponse\u003E", "rp": "Entra.EventHandlers.Abstractions_EntraHandlerResult_TResponse_.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Abstractions.Results.EntraHandlerResult\u003CTResponse\u003E", "rp": "Entra.EventHandlers.Abstractions_EntraHandlerResult_TResponse_.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Entra.EventHandlers.AspNetCore",
