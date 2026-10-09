@@ -196,11 +196,11 @@ public class TokenIssuanceStartHandler(
 
 ### ASP.NET Core
 
-- [Api Sample](samples/ApiSample)
+- [AspNetCore Sample](samples/ApiSample)
 
 ### Azure Functions
 
-- [Function App (AzureFunctions) Sample](samples/AzureFunctionsSample)
+- [Azure Functions Sample](samples/AzureFunctionsSample)
 
 ### Entra Event Handlers
 

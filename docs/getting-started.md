@@ -124,8 +124,8 @@ Features:
 
 See:
 
-- `hosting/aspnetcore.md`
-- `../samples/ApiSample`
+[AspNetCore Hosting](./hosting/aspnetcore.md)
+[AspNetCore Sample](../samples/ApiSample)
 
 ---
 
@@ -146,8 +146,8 @@ Features:
 
 See:
 
-- `hosting/azure-functions.md`
-- `../samples/AzureFunctionsSample`
+[Azure Functions Hosting](./hosting/azure-functions.md)
+[Azure Functions Sample](../samples/AzureFunctionsSample)
 
 ---
 
@@ -173,7 +173,7 @@ Shared handler implementations demonstrating:
 
 Complete ASP.NET Core host using the shared handlers.
 
-[Api Sample](../samples/ApiSample)
+[AspNetCore Sample](../samples/ApiSample)
 
 ---
 
@@ -181,7 +181,7 @@ Complete ASP.NET Core host using the shared handlers.
 
 Complete Azure Functions host using the shared handlers.
 
-[Function App (AzureFunctions) Sample](../samples/AzureFunctionsSample)
+[Azure Functions Sample](../samples/AzureFunctionsSample)
 
 ---
 
