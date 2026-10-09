@@ -380,40 +380,17 @@ Benefits include:
 
 ## Documentation
 
-### Start Here
+Full documentation, event guides, hosting guides, testing guidance, security guidance, and samples:
 
-- [Getting Started](../../docs/getting-started.md)
-- [Architecture](../../docs/architecture.md)
-- [Unit Testing](docs/testing.md)
+https://github.com/szubajak/entra-event-handlers/tree/main/docs
 
-### Security
+Microsoft Entra External ID authentication event handlers documentation:
 
-- ../docs/security/password-submit-decryption.md
+https://github.com/szubajak/entra-event-handlers/blob/main/docs/events
 
-### Related Events
+AI-friendly repository metadata:
 
-- ../docs/events/password-submit.md
-
-### Hosting
-
-- ../docs/hosting/aspnetcore.md
-- ../docs/hosting/azure-functions.md
-
----
-
-## AI Discovery
-
-This repository includes AI-friendly documentation and metadata:
-
-- `llms.txt`
-- `docs/`
-
-AI assistants should begin with:
-
-1. `llms.txt`
-2. `docs/getting-started.md`
-3. `docs/events/password-submit.md`
-4. `docs/security/password-submit-decryption.md`
+https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
 
 ---
 
