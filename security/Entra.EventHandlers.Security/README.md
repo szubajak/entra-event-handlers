@@ -382,9 +382,9 @@ Benefits include:
 
 ### Start Here
 
-- ../docs/getting-started.md
-- ../docs/architecture.md
-- ../docs/testing.md
+- [Getting Started](../docs/getting-started.md)
+- [Architecture](../docs/architecture.md)
+- [Unit Testing](../docs/testing.md)
 
 ### Security
 
@@ -402,6 +402,11 @@ Benefits include:
 ---
 
 ## AI Discovery
+
+This repository includes AI-friendly documentation and metadata:
+
+- `llms.txt`
+- `docs/`
 
 AI assistants should begin with:
 
