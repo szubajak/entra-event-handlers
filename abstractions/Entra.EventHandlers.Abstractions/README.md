@@ -1,130 +1,107 @@
 # Entra.EventHandlers.Abstractions
 
-**License:** MIT  
-**Author:** Jakub Szubarga (Szubarga.NET)  
-This package is free for all use cases, including commercial use.
+MIT-licensed public contracts for building Microsoft Entra External ID and Microsoft Entra Workforce authentication event handlers in .NET.
 
-Lightweight, dependency‑free **public abstractions** for building  
-**Microsoft Entra External ID and Workforce Authentication Event Handlers**.
+This package provides the strongly typed protocol models, action definitions, interfaces, and shared primitives used throughout the Entra.EventHandlers ecosystem.
 
-This package defines the protocol‑level contract for the entire ecosystem:
-event request/response models, action definitions, directory attribute primitives,
-and handler interfaces. All types include full XML documentation for a first‑class
-developer experience.
+## Installation
 
----
-
-## ✨ What This Package Provides
-
-The abstractions package contains the **public contract** used by all Entra Event Handler extensions:
-
-- Strongly‑typed **event request models**  
-- Strongly‑typed **response models**  
-- **Action definitions** and protocol constants  
-- **Directory attribute primitives**  
-- **Handler interfaces**, e.g.:  
-```csharp
-public interface IAttributeCollectionStartHandler
-    : IEntraEventHandler<AttributeCollectionStartEvent, AttributeCollectionStartResponse> { }
+```bash
+dotnet add package Entra.EventHandlers.Abstractions
 ```
-- Enums and metadata types  
-- OData‑typed payload models  
-- Event type identifiers  
 
-These types represent the JSON protocol used by Microsoft Entra External ID and Workforce authentication flows.
+## Features
 
-The abstractions are stable, versioned, and safe to depend on in long‑term projects.
+- Strongly typed event request models
+- Strongly typed response models
+- Action definitions
+- Handler interfaces
+- Protocol constants
+- OData payload models
+- Dependency-free design
+- Full XML documentation
 
----
+## Supported Events
 
-## 🧩 Supported Events
+### External ID
 
-This package includes complete request/response models and handler interfaces for all currently supported events:
+- AttributeCollectionStart
+- AttributeCollectionSubmit
+- EmailOtpSend
+- PasswordSubmit
+- TokenIssuanceStart
 
-### **External ID Events**
-- AttributeCollectionStart  
-- AttributeCollectionSubmit  
-- EmailOtpSend  
-- PasswordSubmit (just‑in‑time password migration)  
-- TokenIssuanceStart  
+### Workforce
 
-### **Workforce Event**
-- VerifiedIdClaimValidation (account recovery)
+- VerifiedIdClaimValidation
 
 Each event includes:
 
-- Request model  
-- Response model  
-- Payload types  
-- Action definitions  
-- Handler interface  
+- Request model
+- Response model
+- Action definitions
+- Payload types
+- Handler interfaces
 
----
+## Example
 
-## 🧩 Why a Separate Abstractions Package?
+```csharp
+public interface IAttributeCollectionStartHandler
+    : IEntraEventHandler<AttributeCollectionStartEvent, AttributeCollectionStartResponse>
+{
+}
+```
 
-The abstractions are **MIT‑licensed** to maximize adoption and interoperability.
+## Why This Package Exists
 
-They allow you to:
+The abstractions package separates the public protocol contract from the implementation layer.
 
-- Build your own handlers  
-- Integrate with Entra External ID or Workforce events  
-- Test locally without Azure  
-- Reference the protocol without pulling in implementation details  
-- Use the models in any hosting environment (Functions, ASP.NET Core, custom hosts)
+Benefits include:
 
-The full implementation lives in separate packages under the Business Source License (BSL).
+- Stable API surface
+- Framework-independent contracts
+- Easier testing
+- Reusable integrations
+- Long-term compatibility
 
----
+This package contains no:
 
-## 📦 Related Packages
+- Hosting integrations
+- Dependency injection setup
+- Logging
+- Validation pipelines
+- Response builders
 
-These packages extend the abstractions with production‑ready functionality:
+Those capabilities are provided by the implementation packages.
 
-### **Entra.EventHandlers** — implementation layer (BSL)
-- Fluent response builders  
-- Handler base classes  
-- Validation  
-- Logging & telemetry  
+## Related Packages
 
-### **Entra.EventHandlers.Workforce** — Workforce event models & builders (BSL)
-- VerifiedIdClaimValidation response builders  
-- Workforce handler base classes  
+| Package | Purpose |
+|----------|----------|
+| Entra.EventHandlers | External ID implementation layer |
+| Entra.EventHandlers.Workforce | Workforce implementation layer |
+| Entra.EventHandlers.AspNetCore | ASP.NET Core hosting |
+| Entra.EventHandlers.AzureFunctions | Azure Functions hosting |
+| Entra.EventHandlers.Security | PasswordSubmit decryption and Azure Key Vault integration |
 
-### **Entra.EventHandlers.AspNetCore** — ASP.NET Core adapter (BSL)
-- Minimal API endpoint integration  
-- Router endpoint  
-- Single‑event endpoint classes  
+## Documentation
 
-### **Entra.EventHandlers.AzureFunctions** — Azure Functions adapter (BSL)
-- Automatic request/response handling  
-- DI wiring  
-- Minimal boilerplate for production deployments  
+Full documentation, event guides, hosting guides, and samples:
 
-All packages are available on NuGet.
+https://github.com/szubajak/entra-event-handlers/tree/main/docs
 
----
+AI-friendly repository metadata:
 
-## 📄 License
+https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
 
-This package is licensed under the **MIT License**.  
-See the [LICENSE](./LICENSE) file for details.
+## License
 
-The implementation and hosting adapters are available under the  
-**Business Source License (BSL)** in the related packages.
+This package is licensed under the MIT License.
 
----
+The implementation and hosting packages use the Business Source License (BSL).
 
-## 📚 Documentation
+## Further Reading
 
-Full documentation, examples, and production templates are available in the main repository.
+Entra External ID .NET Handlers Deep Dive
 
----
-
-## 📘 Further Reading
-
-For a deeper look into Microsoft Entra External ID Authentication Event Handlers  
-and the design of this ecosystem, see:
-
-➡️ **Entra External ID — .NET Handlers Deep Dive**  
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

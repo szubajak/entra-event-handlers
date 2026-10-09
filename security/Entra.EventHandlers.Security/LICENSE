@@ -14,7 +14,7 @@ License.
 ---
 
 Licensed Work:
-Entra.EventHandlers.Workforce (Workforce-specific implementation layer for Microsoft Entra Workforce Authentication Event Handlers, including VerifiedIdClaimValidation models, builders, and handler base classes)
+Entra.EventHandlers.Security (security extensions for Microsoft Entra External ID Authentication Event Handlers)
 
 Additional Use Grant:
 Production use is permitted for individuals and organizations with fewer than
@@ -43,13 +43,20 @@ USE OF THE LICENSED WORK.
 
 ---
 
-This package contains the **Workforce-specific implementation layer** for the Entra Event
-Handlers ecosystem, including:
+This package contains security-focused extensions for Microsoft Entra External ID
+Authentication Event Handlers.
 
-- VerifiedIdClaimValidation event models  
-- Fluent Workforce response builders  
-- Workforce handler base classes  
-- Production-ready execution pipeline components  
+Current features include:
+
+- PasswordSubmit encryptedPasswordContext decryption
+- Azure Key Vault certificate integration
+- RSA private key extraction
+- Certificate caching
+- Password context validation
+- IPasswordContextDecryptor implementations
+
+The package is primarily intended for PasswordSubmit and Just-In-Time password
+migration scenarios.
 
 The public protocol abstractions are available separately under the MIT License in:
 

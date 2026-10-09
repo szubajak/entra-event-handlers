@@ -1,44 +1,31 @@
 # Entra.EventHandlers.AspNetCore
 
-**License:** Business Source License (BSL)
-**Author:** Jakub Szubarga (Szubarga.NET)
+ASP.NET Core hosting adapter for Microsoft Entra External ID and Microsoft Entra Workforce authentication event handlers.
 
-This package provides the **ASP.NET Core hosting adapter** for the Entra Event Handlers ecosystem. 
-It enables production‑ready **Microsoft Entra External ID and Workforce Authentication Event Handler** 
-extensions to run inside ASP.NET Core with:
+This package provides ASP.NET Core integration for the Entra.EventHandlers ecosystem, enabling strongly typed event handlers with dependency injection, endpoint routing, request/response adapters, and centralized event orchestration.
 
-- Minimal boilerplate
-- Full DI support
-- Unified exception handling
-- Structured logging
-- Clean endpoint mapping
-- Complete testability
+## Installation
 
----
+```bash
+dotnet add package Entra.EventHandlers.AspNetCore
+```
 
-## ✨ What This Package Provides
+## Features
 
-### ✔ Unified hosting pipeline
-A consistent execution model for all Entra event handlers:
+- ASP.NET Core integration
+- Multi-event router endpoint
+- Single-event endpoints
+- Automatic request deserialization
+- Automatic response serialization
+- Dynamic handler resolution
+- Centralized event orchestration
+- Structured error handling
+- Dependency injection integration
+- Fully testable architecture
 
-- Request deserialization
-- Event orchestration (resolution → invocation)
-- Response serialization
-- Structured error mapping
-- Logging for known and unknown exceptions
+## Quick Start
 
-### ✔ Router endpoint (multi‑event hosting)
-A single endpoint capable of hosting **multiple Entra event types**.
-
-### ✔ Single‑event endpoints
-Explicit endpoints for scenarios where you want separate routes per event.
-
-### ✔ Endpoint mapping extensions
-Consumers map endpoints using simple, explicit extension methods.
-
----
-
-## 🚀 Quick Start
+Register Entra.EventHandlers:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -47,215 +34,238 @@ builder.Services.AddEntraEventHandlers();
 
 var app = builder.Build();
 
-// Option A: Multi‑event router
 app.MapEntraRouter();
-
-// Option B: Individual event endpoints
-// app.MapEntraAttributeCollectionStart();
-// app.MapEntraAttributeCollectionSubmit();
-// app.MapEntraTokenIssuanceStart();
-// app.MapEntraEmailOtpSend();
-// app.MapPasswordSubmit();
-// app.MapVerifiedIdClaimValidation();
 
 app.Run();
 ```
 
----
+The router endpoint automatically:
 
-## 🧭 Endpoint Mapping Extensions
-
-This package exposes extension methods for clean, explicit endpoint registration:
-
-```csharp
-app.MapEntraRouter();                // Multi‑event router
-app.MapEntraTokenIssuanceStart();    // Single‑event endpoint
-```
-
-These extensions:
-
-- Resolve the endpoint class from DI
-- Call its `Map()` method
-- Attach the correct route
-- Ensure unified exception handling and logging
-
-### Default Routes
-
-| Endpoint                    | Default Route                |
-|-----------------------------|------------------------------|
-| Router                      | `router`                     |
-| AttributeCollectionStart    | `attributecollectionstart`   |
-| AttributeCollectionSubmit   | `attributecollectionsubmit`  |
-| TokenIssuanceStart          | `tokenissuancestart`         |
-| EmailOtpSend                | `emailotpsend`               |
-| PasswordSubmit              | `passwordsubmit`             |
-| VerifiedIdClaimValidation   | `verifiedidclaimvalidation`  |
+- Deserializes requests
+- Resolves handlers
+- Executes handlers
+- Serializes responses
+- Maps exceptions to HTTP responses
 
 ---
 
-## 🧩 Router Endpoint (Recommended)
+## Recommended Hosting Model
 
-The router endpoint (`EntraEventRouterEndpoint`) provides:
+The recommended approach is a single router endpoint that can handle multiple Microsoft Entra event types.
 
-- Automatic event deserialization
-- Automatic orchestration of the event execution pipeline
-- Automatic handler resolution (via the orchestrator)
-- Automatic handler invocation
-- Automatic response serialization
-- Structured error responses
-- Logging for expected and unexpected exceptions
+Benefits:
 
-### Mapping the router
+- Single HTTP endpoint
+- Centralized configuration
+- Minimal boilerplate
+- Automatic event dispatching
+- Consistent error handling
+- Easier maintenance
+
+---
+
+## Router Endpoint
+
+Register the router endpoint:
 
 ```csharp
 app.MapEntraRouter();
 ```
 
-This exposes a POST endpoint (default `/router`) that can host multiple event types behind a single route.
+The router provides:
+
+- Automatic event deserialization
+- Event orchestration
+- Dynamic handler resolution
+- Handler invocation
+- Response serialization
+- Structured exception handling
+
+A single endpoint can process multiple event types using the same orchestration pipeline.
 
 ---
 
-## 📦 Single‑Event Endpoints
+## Dependency Injection
 
-If you prefer explicit per‑event routes, you can map individual endpoints:
-
-```csharp
-app.MapEntraTokenIssuanceStart();
-```
-
-This exposes a POST endpoint (default `/tokenissuancestart`) that:
-
-- Deserializes the event
-- Invokes the correct handler
-- Writes the response
-- Logs exceptions
-- Uses the same unified pipeline as the router
-
-All single‑event endpoint classes are included in this package.
-
----
-
-## 🛠 Dependency Injection
-
-Register all required components with:
+Register Entra.EventHandlers services:
 
 ```csharp
-services.AddEntraEventHandlers();
+builder.Services.AddEntraEventHandlers();
 ```
 
 This automatically registers:
 
-- Request/response adapters
+- Request adapters
+- Response adapters
 - Event orchestrator
 - Handler resolver
-- All handlers implementing `IEntraEventHandler<,>`
-- All ASP.NET Core endpoint classes (router + single‑event endpoints)
+- Event handlers discovered in the application
+- ASP.NET Core endpoint implementations
 
-Endpoints are activated automatically when you map them:
-
-```csharp
-app.MapEntraRouter();
-app.MapEntraTokenIssuanceStart();
-```
+Most applications do not require additional Entra.EventHandlers registrations.
 
 ---
 
-## 🧠 Handler Resolution
+## Handler Discovery
 
-Handlers are resolved dynamically by the event orchestrator, which uses the typed resolver:
+Handlers are automatically discovered and resolved using the incoming event type.
+
+Example:
 
 ```csharp
-public interface IEntraEventHandlerResolver
+public class TokenIssuanceStartHandler(
+    ILogger<TokenIssuanceStartHandler> logger)
+    : TokenIssuanceStartHandlerBase(logger)
 {
-    IEntraEventHandler<TEvent, TResponse> Resolve<TEvent, TResponse>()
-        where TEvent : EntraEvent
-        where TResponse : EntraEventResponse;
 }
 ```
 
-This enables multi‑event hosting behind a single ASP.NET Core endpoint.
+No manual registration is required.
+
+When Microsoft Entra sends a matching event, the framework automatically resolves and executes the appropriate handler.
 
 ---
 
-## 🔧 Extensibility
+## Alternative: Single-Event Endpoints
 
-All endpoints inherit from a unified execution pipeline with:
+The package also provides dedicated endpoint mappings for individual events.
 
-- Overridable logging hooks
-- Centralized exception handling
-- Consistent request/response processing
+Available mappings:
 
-This allows advanced consumers to customize behavior while keeping the core pipeline intact.
+- `app.MapEntraAttributeCollectionStart()`
+- `app.MapEntraAttributeCollectionSubmit()`
+- `app.MapEntraTokenIssuanceStart()`
+- `app.MapEntraEmailOtpSend()`
+- `app.MapPasswordSubmit()`
+- `app.MapVerifiedIdClaimValidation()`
+
+Example:
+
+```csharp
+app.MapEntraTokenIssuanceStart();
+```
+
+Single-event endpoints may be useful when:
+
+- Each event requires its own route
+- Teams manage events independently
+- Routing is handled externally
 
 ---
 
-## 🧪 Testing
+## Default Routes
 
-The router, adapters, and orchestrator are fully testable thanks to the abstractions.
-
-Unit tests are available in:
-👉 [Entra.EventHandlers.AspNetCore.UnitTests](../Entra.EventHandlers.AspNetCore.UnitTests)
-
-Integration tests are available in:
-👉 [Entra.EventHandlers.AspNetCore.IntegrationTests](../Entra.EventHandlers.AspNetCore.IntegrationTests)
+| Endpoint | Route |
+|----------|----------|
+| Router | `/router` |
+| AttributeCollectionStart | `/attributecollectionstart` |
+| AttributeCollectionSubmit | `/attributecollectionsubmit` |
+| TokenIssuanceStart | `/tokenissuancestart` |
+| EmailOtpSend | `/emailotpsend` |
+| PasswordSubmit | `/passwordsubmit` |
+| VerifiedIdClaimValidation | `/verifiedidclaimvalidation` |
 
 ---
 
-## 📁 Samples
+## Supported Event Types
 
-A complete ASP.NET Core sample project is available in the repository under:
-[ApiSample](../../samples/ApiSample) project.
+The hosting adapter supports all event handlers implemented using the Entra.EventHandlers ecosystem.
+
+### External ID
+
+- AttributeCollectionStart
+- AttributeCollectionSubmit
+- EmailOtpSend
+- PasswordSubmit
+- TokenIssuanceStart
+
+### Workforce
+
+- VerifiedIdClaimValidation
+
+---
+
+## Testing
+
+The hosting infrastructure is designed to be testable.
+
+Because handlers remain isolated from hosting concerns, business logic can be tested without requiring ASP.NET Core hosting infrastructure.
+
+Benefits include:
+
+- Fast unit tests
+- Simple mocking
+- Dependency injection support
+- Clear separation of concerns
+
+Example:
+
+```csharp
+var result = await handler.HandleAsync(request);
+```
+
+The ASP.NET Core endpoints should remain thin adapters while handlers contain the application behavior.
+
+---
+
+## Documentation
+
+Full documentation, event guides, hosting guides, and samples:
+
+https://github.com/szubajak/entra-event-handlers/tree/main/docs
+
+ASP.NET Core hosting guide:
+
+https://github.com/szubajak/entra-event-handlers/blob/main/docs/hosting/aspnetcore.md
+
+AI-friendly repository metadata:
+
+https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
+
+---
+
+## Samples
+
+ASP.NET Core sample application:
+
+https://github.com/szubajak/entra-event-handlers/tree/main/samples/ApiSample
 
 The sample demonstrates:
 
-- Registering handlers with `AddEntraEventHandlers()`
-- Mapping the router endpoint (`app.MapEntraRouter()`)
-- Mapping individual single‑event endpoints
-- Using the unified execution pipeline (deserialization → orchestration → resolution → invocation → response)
-- Structuring a clean, production‑ready ASP.NET Core application
+- Dependency injection setup
+- Router endpoint hosting
+- Single-event endpoint hosting
+- Event orchestration
+- Shared handler implementations
 
 ---
 
-## 📦 Related Packages
+## Related Packages
 
-- **Entra.EventHandlers.Abstractions** — public protocol types (MIT)
-- **Entra.EventHandlers** — core implementation layer for External ID (BSL)
-- **Entra.EventHandlers.Workforce** — Workforce‑specific event models and builders (BSL)
-- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+| Package | Purpose |
+|----------|----------|
+| Entra.EventHandlers.Abstractions | Public contracts and protocol models |
+| Entra.EventHandlers | External ID implementation layer |
+| Entra.EventHandlers.Workforce | Workforce implementation layer |
+| Entra.EventHandlers.AzureFunctions | Azure Functions hosting |
+| Entra.EventHandlers.Security | PasswordSubmit decryption and Azure Key Vault integration |
 
----
+## License
 
-## 🔒 License
+This package is licensed under the Business Source License (BSL).
 
-This package is licensed under the **Business Source License (BSL)**.
+The Entra.EventHandlers.Abstractions package is licensed under MIT and may be used freely.
 
-See:
-
-- [LICENSE](LICENSE) — full BSL terms
-- [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md) — commercial licensing terms
-
-A commercial license is required for production use by organizations with more than 5 employees.
-
-A commercial license covers the entire **Entra Event Handlers** ecosystem, including all current and future BSL‑licensed packages.
-
-### Commercial License Pricing
-
-- **Developer License** — €99 / developer / year
-- **Team License** — €399 / year
-- **Enterprise License** — €1499 / year
-
-To purchase a license or request an invoice:
-
-📧 **jakub.szubarga@gmail.com**
-
-The abstractions package is MIT‑licensed and can be used freely.
+See the repository for licensing details and commercial licensing information.
 
 ---
 
-## 📘 Further Reading
+## Further Reading
 
-For a deeper look into Microsoft Entra External ID and Workforce Authentication Event Handlers 
-and the design of this ecosystem, see:
+Entra External ID .NET Handlers Deep Dive
 
-➡️ **Entra External ID — .NET Handlers Deep Dive**
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
+
+Building CIAM-Ready Azure Functions with Entra.EventHandlers
+
+https://medium.com/@jakub.szubarga/entra-eventhandlers-ciam-azure-functions-97c5e1940272
