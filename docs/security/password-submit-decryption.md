@@ -401,15 +401,20 @@ Benefits include:
 
 ### Start Here
 
-- ../getting-started.md
-- ../architecture.md
-- ../testing.md
+- [Getting Started](../getting-started.md)
+- [Architecture](../architecture.md)
+- [Unit Testing](../testing.md)
 
 ### Events
 
-- ../events/password-submit.md
+- [AttributeCollectionStart](../events/attribute-collection-start.md)
+- [AttributeCollectionSubmit](../events/attribute-collection-submit.md)
+- [AspNetCore](../events/email-otp-send.md)
+- [PasswordSubmit](../events/password-submit.md)
+- [TokenIssuanceStart](../events/token-issuance-start.md)
+- [VerifiedIdClaimValidation](../events/verified-id-claim-validation.md)
 
 ### Hosting
 
-- ../hosting/aspnetcore.md
-- ../hosting/azure-functions.md
+- [AspNetCore](../hosting/aspnetcore.md)
+- [AzureFunctions](../hosting/azure-functions.md)

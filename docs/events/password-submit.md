@@ -393,32 +393,22 @@ public sealed class PasswordSubmitHandler(
             decrypted.Password,
             cancellationToken);
 
+        if (isValid)
+        {
+            return EntraEventResponses
+                .PasswordSubmit()
+                .WithNonce(decrypted.Nonce)
+                .MigratePassword()
+                .Build();
+        }
+
         return EntraEventResponses
             .PasswordSubmit()
             .WithNonce(decrypted.Nonce)
-            .MigratePassword(isValid)
+            .Block()
             .Build();
-    }
-}
-```
-
-A more explicit version:
-
-```csharp
-if (isValid)
-{
-    return EntraEventResponses
-        .PasswordSubmit()
-        .WithNonce(decrypted.Nonce)
-        .MigratePassword()
-        .Build();
-}
-
-return EntraEventResponses
-    .PasswordSubmit()
-    .WithNonce(decrypted.Nonce)
-    .Block()
-    .Build();
+            }
+        }
 ```
 
 ---
@@ -568,4 +558,4 @@ This event is commonly used for legacy identity migration, password synchronizat
 
 ### Security
 
-- ../security/password-submit-decryption.md
+- [Password Submit Decryption](../security/password-submit-decryption.md)
