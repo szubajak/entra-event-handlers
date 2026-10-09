@@ -22,17 +22,38 @@ IN THE SOFTWARE.
 
 ---
 
-This package contains only the **public abstractions** for the Entra Event Handlers ecosystem.
-It is fully MIT‑licensed, dependency‑free, and safe to use in any open‑source or commercial
-project.
+This package contains the public protocol contracts for the Entra.EventHandlers ecosystem.
 
-Full implementations, fluent response builders, validation, and handler base classes are available
-under the **Business Source License (BSL)** in the related packages:
+It is fully MIT-licensed, dependency-free, and safe to use in open-source,
+commercial, and proprietary applications.
 
-- **Entra.EventHandlers** — External ID implementation layer (BSL)  
-- **Entra.EventHandlers.Workforce** — Workforce event models & builders (BSL)  
-- **Entra.EventHandlers.AspNetCore** — ASP.NET Core hosting adapter (BSL)  
-- **Entra.EventHandlers.AzureFunctions** — Azure Functions hosting adapter (BSL)
+Contents include:
 
-These packages extend the abstractions with production‑ready execution pipelines, hosting
-infrastructure, and advanced developer tooling.
+- Event models
+- Response models
+- Action models
+- Handler interfaces
+- Protocol constants
+- Shared primitives
+
+The abstractions package intentionally does not include:
+
+- Fluent response builders
+- Handler base classes
+- Hosting integrations
+- Validation pipelines
+- Logging
+- Dependency injection
+
+Additional packages extend these abstractions with implementation, hosting,
+and security capabilities:
+
+- Entra.EventHandlers — External ID implementation layer (BSL)
+- Entra.EventHandlers.Workforce — Workforce implementation layer (BSL)
+- Entra.EventHandlers.AspNetCore — ASP.NET Core hosting adapter (BSL)
+- Entra.EventHandlers.AzureFunctions — Azure Functions hosting adapter (BSL)
+- Entra.EventHandlers.Security — PasswordSubmit decryption and Azure Key Vault integration (BSL)
+
+These packages provide strongly typed handlers, fluent response builders,
+security integrations, hosting infrastructure, routing, dependency injection
+integration, and request/response adapters built on top of the abstractions.

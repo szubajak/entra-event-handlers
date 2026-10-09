@@ -56,7 +56,24 @@
     <Project Path="core/Entra.EventHandlers.Workforce.UnitTests/Entra.EventHandlers.Workforce.UnitTests.csproj" />
   </Folder>
   <Folder Name="/docs/">
+    <File Path="docs/architecture.md" />
     <File Path="docs/getting-started.md" />
+    <File Path="docs/testing.md" />
+  </Folder>
+  <Folder Name="/docs/events/">
+    <File Path="docs/events/attribute-collection-start.md" />
+    <File Path="docs/events/attribute-collection-submit.md" />
+    <File Path="docs/events/email-otp-send.md" />
+    <File Path="docs/events/password-submit.md" />
+    <File Path="docs/events/token-issuance-start.md" />
+    <File Path="docs/events/verified-id-claim-validation.md" />
+  </Folder>
+  <Folder Name="/docs/hosting/">
+    <File Path="docs/hosting/aspnetcore.md" />
+    <File Path="docs/hosting/azure-functions.md" />
+  </Folder>
+  <Folder Name="/docs/security/">
+    <File Path="docs/security/password-submit-decryption.md" />
   </Folder>
   <Folder Name="/hosting/">
     <Project Path="hosting/Entra.EventHandlers.Hosting/Entra.EventHandlers.Hosting.csproj" />

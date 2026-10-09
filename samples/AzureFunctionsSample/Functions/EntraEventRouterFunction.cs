@@ -12,11 +12,18 @@ public sealed class EntraEventRouterFunction(
     IEntraEventOrchestrator orchestrator,
     IRequestAdapter requestAdapter,
     IResponseAdapter responseAdapter)
-    : EntraEventRouterFunctionBase(logger, orchestrator, requestAdapter, responseAdapter)
+    : EntraEventRouterFunctionBase(
+        logger,
+        orchestrator,
+        requestAdapter,
+        responseAdapter)
 {
     [Function("Router")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")]
-        HttpRequestData req) =>
-        InvokeAsync(req);
+        [HttpTrigger(
+            AuthorizationLevel.Function,
+            "post",
+            Route = "router")]
+        HttpRequestData req)
+            => InvokeAsync(req);
 }
