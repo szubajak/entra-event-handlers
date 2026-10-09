@@ -196,7 +196,7 @@ public class TokenIssuanceStartHandler(
 
 ### ASP.NET Core
 
-- `samples/ApiSample`
+- [Api Sample](samples/ApiSample)
 
 ### Azure Functions
 
