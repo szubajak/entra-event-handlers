@@ -234,8 +234,8 @@ Detailed documentation is available for each supported event.
 
 After completing this guide, continue with:
 
-- ./architecture.md
-- ./hosting/aspnetcore.md
-- ./hosting/azure-functions.md
+- [Architecture](./architecture.md)
+- [AspNetCore](./hosting/aspnetcore.md)
+- [AzureFunctions](./hosting/azure-functions.md)
 
 Then explore the event-specific documentation for the event type you are implementing.
