@@ -165,11 +165,7 @@ Shared handler implementations demonstrating:
 - Block pages
 - Event-specific business logic
 
-Location:
-
-```text
-samples/Sample.Common
-```
+[Entra Event Handlers Sample](samples/Sample.Common)
 
 ---
 
@@ -177,11 +173,7 @@ samples/Sample.Common
 
 Complete ASP.NET Core host using the shared handlers.
 
-Location:
-
-```text
-samples/ApiSample
-```
+[Api Sample](samples/ApiSample)
 
 ---
 
@@ -189,11 +181,7 @@ samples/ApiSample
 
 Complete Azure Functions host using the shared handlers.
 
-Location:
-
-```text
-samples/AzureFunctionsSample
-```
+[Function App (AzureFunctions) Sample](samples/AzureFunctionsSample)
 
 ---
 
@@ -218,15 +206,15 @@ Detailed documentation is available for each supported event.
 
 ### External ID
 
-- `events/attribute-collection-start.md`
-- `events/attribute-collection-submit.md`
-- `events/email-otp-send.md`
-- `events/password-submit.md`
-- `events/token-issuance-start.md`
+- [AttributeCollectionStart](./events/attribute-collection-start.md)
+- [AttributeCollectionSubmit](./events/attribute-collection-submit.md)
+- [AspNetCore](./events/email-otp-send.md)
+- [PasswordSubmit](./events/password-submit.md)
+- [TokenIssuanceStart](./events/token-issuance-start.md)
 
 ### Workforce
 
-- `events/verified-id-claim-validation.md`
+- [VerifiedIdClaimValidation](./events/verified-id-claim-validation.md)
 
 ---
 
@@ -235,6 +223,10 @@ Detailed documentation is available for each supported event.
 After completing this guide, continue with:
 
 - [Architecture](./architecture.md)
+- [Unit Testing](./testing.md)
+
+### Hosting
+
 - [AspNetCore](./hosting/aspnetcore.md)
 - [AzureFunctions](./hosting/azure-functions.md)
 
