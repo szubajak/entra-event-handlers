@@ -200,11 +200,11 @@ public class TokenIssuanceStartHandler(
 
 ### Azure Functions
 
-- `samples/AzureFunctionsSample`
+- [Function App (AzureFunctions) Sample](samples/AzureFunctionsSample)
 
-### Shared Handlers
+### Entra Event Handlers
 
-- `samples/Sample.Common`
+- [Entra Event Handlers Sample](samples/Sample.Common)
 
 ### Minimal Azure Functions Sample
 
@@ -236,7 +236,7 @@ Entra.EventHandlers Ecosystem
 
 For detailed architecture documentation see:
 
-- ./docs/architecture.md
+- [Architecture](./docs/architecture.md)
 
 ---
 
