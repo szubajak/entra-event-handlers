@@ -1,8 +1,8 @@
 # Entra.EventHandlers.Security
 
-Security utilities for Microsoft Entra External ID custom authentication extensions.
+Security extensions for Microsoft Entra External ID authentication event handlers.
 
-This package provides production-ready components for handling security-related operations in Entra event handlers, including PasswordSubmit payload decryption using certificates stored in Azure Key Vault.
+This package provides production-ready components for handling security-sensitive scenarios in the Entra.EventHandlers ecosystem, including PasswordSubmit payload decryption using certificates stored in Azure Key Vault.
 
 ## Installation
 
@@ -16,13 +16,20 @@ The Microsoft Entra External ID `PasswordSubmit` event sends the user's password
 
 Decrypting this payload requires:
 
-- Accessing the private certificate used by Entra
-- Retrieving certificate material securely
-- Extracting the RSA private key
-- Performing JWT/JWE decryption
-- Deserializing and validating the payload
+- Secure certificate management
+- RSA private key extraction
+- JWE/JWT decryption
+- Payload deserialization
+- Payload validation
+- Secure cryptographic handling
 
-This package provides a reusable implementation of that workflow.
+This package provides production-ready implementations for these requirements.
+
+Most applications using `PasswordSubmit` never need to manually decrypt the payload.
+
+When using `PasswordSubmitHandlerBase`, the encrypted password context is automatically decrypted and provided as a strongly typed `DecryptedPasswordContext` instance.
+
+---
 
 ## Features
 
@@ -30,29 +37,37 @@ This package provides a reusable implementation of that workflow.
 
 Decrypt encrypted password contexts received during the `PasswordSubmit` event.
 
+Primary interface:
+
 ```csharp
 IPasswordContextDecryptor
 ```
 
-Default implementation:
+Provided implementation:
 
 ```csharp
 KeyVaultPasswordContextDecryptor
 ```
 
+---
+
 ### Azure Key Vault Certificate Integration
 
 Load certificates stored in Azure Key Vault.
+
+Primary interface:
 
 ```csharp
 IKeyVaultCertificateProvider
 ```
 
-Default implementation:
+Provided implementation:
 
 ```csharp
 KeyVaultCertificateProvider
 ```
+
+---
 
 ### Dependency Injection Integration
 
@@ -62,7 +77,9 @@ Simple registration using standard .NET dependency injection.
 builder.Services.AddEntraEventHandlersSecurity();
 ```
 
-### Secure Key Caching
+---
+
+### Secure RSA Key Caching
 
 The RSA private key is:
 
@@ -75,7 +92,7 @@ This minimizes Azure Key Vault traffic and reduces request latency.
 
 ---
 
-# Supported Scenario
+## Supported Scenario
 
 This package currently focuses on the Microsoft Entra External ID:
 
@@ -94,7 +111,7 @@ Microsoft Entra
 PasswordSubmit Event
         │
         ▼
-Encrypted Password Context
+EncryptedPasswordContext
         │
         ▼
 Azure Key Vault Certificate
@@ -103,15 +120,18 @@ Azure Key Vault Certificate
 RSA Private Key
         │
         ▼
-Decrypted Password Payload
+DecryptedPasswordContext
         │
         ▼
-Password Validation or Migration
+Password Validation
+        │
+        ▼
+Password Migration
 ```
 
 ---
 
-# Configuration
+## Configuration
 
 Configure access to the Azure Key Vault certificate.
 
@@ -124,7 +144,7 @@ Configure access to the Azure Key Vault certificate.
 }
 ```
 
-Bind configuration:
+Register configuration:
 
 ```csharp
 builder.Services.Configure<KeyVaultCertificateOptions>(
@@ -140,47 +160,64 @@ builder.Services.AddEntraEventHandlersSecurity();
 
 ---
 
-# Password Context Decryption
+## PasswordSubmit Integration
 
-Inject the decryptor into your handler:
+The primary use case for this package is the `PasswordSubmit` event.
+
+The security package integrates directly with:
+
+```csharp
+PasswordSubmitHandlerBase
+```
+
+Once an `IPasswordContextDecryptor` implementation is supplied, the encrypted password context is automatically decrypted before your business logic executes.
+
+Example:
 
 ```csharp
 public class PasswordSubmitHandler(
     ILogger<PasswordSubmitHandler> logger,
     IPasswordContextDecryptor decryptor)
-    : PasswordSubmitHandlerBase(logger)
+    : PasswordSubmitHandlerBase(logger, decryptor)
 {
-    private readonly IPasswordContextDecryptor _decryptor = decryptor;
-
-    protected override async Task<PasswordSubmitResponse> HandleCoreAsync(
+    protected override Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,
+        DecryptedPasswordContext decrypted,
         CancellationToken cancellationToken = default)
     {
-        var context = await _decryptor.DecryptAsync(
-            request.Data.PasswordContext,
-            cancellationToken);
-
-        var username = context.Username;
-        var password = context.Password;
-
-        // Validate credentials
-        // Migrate user
-        // Call external identity provider
-
-        return EntraEventResponses
-            .PasswordSubmit()
-            .ValidateCredentials(
-                PasswordValidationStatus.Valid)
-            .Build();
+        return Task.FromResult(
+            EntraEventResponses
+                .PasswordSubmit()
+                .WithNonce(decrypted.Nonce)
+                .MigratePassword()
+                .Build());
     }
 }
 ```
 
+The handler receives a fully validated:
+
+```csharp
+DecryptedPasswordContext
+```
+
+without any manual decryption code.
+
+The base handler automatically:
+
+- Validates the request
+- Decrypts the encrypted password context
+- Validates the decrypted payload
+- Handles structured logging
+- Creates correlation scopes
+- Preserves the nonce
+- Generates safe responses when failures occur
+
 ---
 
-# Decrypted Payload
+## Decrypted Password Context
 
-The decrypted context contains:
+The decrypted payload is represented by:
 
 ```csharp
 public sealed class DecryptedPasswordContext
@@ -193,13 +230,31 @@ public sealed class DecryptedPasswordContext
 }
 ```
 
-Values are validated before being returned.
+Properties:
+
+| Property | Description |
+|-----------|-------------|
+| Password | Plaintext password submitted by the user |
+| Nonce | Protocol nonce provided by Microsoft Entra |
+| Username | Optional username associated with the password |
+
+Example:
+
+```csharp
+var username = decrypted.Username;
+var password = decrypted.Password;
+var nonce = decrypted.Nonce;
+```
+
+Values are validated before being returned to your handler.
 
 ---
 
-# Azure Key Vault Certificate Provider
+## Azure Key Vault Certificate Provider
 
-The package includes a certificate provider that retrieves PKCS#12 certificates from Azure Key Vault and extracts the RSA private key.
+The package includes a certificate provider that retrieves PKCS#12 certificates from Azure Key Vault and extracts RSA private keys.
+
+Primary interface:
 
 ```csharp
 IKeyVaultCertificateProvider
@@ -215,64 +270,136 @@ Features:
 
 - Azure Key Vault integration
 - Certificate loading
-- RSA extraction
+- RSA key extraction
 - In-memory caching
 - Thread-safe initialization
 - Structured logging
 
+The RSA private key is extracted only once and reused across requests.
+
 ---
 
-# Example
+## Example
 
-Complete PasswordSubmit handler:
+Validate credentials against a legacy identity store.
 
 ```csharp
 public class PasswordSubmitHandler(
     ILogger<PasswordSubmitHandler> logger,
     IPasswordContextDecryptor decryptor)
-    : PasswordSubmitHandlerBase(logger)
+    : PasswordSubmitHandlerBase(logger, decryptor)
 {
     protected override async Task<PasswordSubmitResponse> HandleCoreAsync(
         PasswordSubmitEvent request,
+        DecryptedPasswordContext decrypted,
         CancellationToken cancellationToken = default)
     {
-        var passwordContext = await decryptor.DecryptAsync(
-            request.Data.PasswordContext,
-            cancellationToken);
-
-        bool validCredentials =
+        var validCredentials =
             await ValidateCredentialsAsync(
-                passwordContext.Username,
-                passwordContext.Password);
+                decrypted.Username,
+                decrypted.Password);
 
-        return EntraEventResponses
-            .PasswordSubmit()
-            .ValidateCredentials(
-                validCredentials
-                    ? PasswordValidationStatus.Valid
-                    : PasswordValidationStatus.Invalid)
-            .Build();
+        return validCredentials
+            ? EntraEventResponses
+                .PasswordSubmit()
+                .WithNonce(decrypted.Nonce)
+                .MigratePassword()
+                .Build()
+            : EntraEventResponses
+                .PasswordSubmit()
+                .WithNonce(decrypted.Nonce)
+                .Block()
+                .Build();
     }
 }
 ```
 
+In this example:
+
+1. Microsoft Entra sends an encrypted password context.
+2. The base handler decrypts the payload.
+3. Business logic receives a strongly typed `DecryptedPasswordContext`.
+4. The password is validated against a legacy identity store.
+5. A migration or block response is returned.
+
 ---
 
-# Documentation
+## Security Considerations
 
-Start here:
+### Never Log Passwords
 
-- Getting Started  
-  https://github.com/szubajak/entra-eventhandlers/blob/main/docs/getting-started.md
+Avoid:
 
-- Architecture  
-  https://github.com/szubajak/entra-eventhandlers/blob/main/docs/architecture.md
+```csharp
+_logger.LogInformation(
+    "Password: {Password}",
+    decrypted.Password);
+```
 
-- PasswordSubmit Event Documentation  
-  https://github.com/szubajak/entra-eventhandlers/blob/main/docs/events/password-submit.md
+Passwords should never be logged.
 
-- Samples  
-  https://github.com/szubajak/entra-eventhandlers/tree/main/samples
+---
+
+### Never Persist Passwords
+
+Avoid storing decrypted passwords in:
+
+- Databases
+- Logs
+- Telemetry systems
+- Distributed caches
+
+Passwords should exist only for the duration of the request.
+
+---
+
+### Always Return the Nonce
+
+PasswordSubmit responses must include:
+
+```csharp
+.WithNonce(decrypted.Nonce)
+```
+
+The nonce is required by the Microsoft Entra protocol.
+
+---
+
+### Prefer Azure Key Vault
+
+Store PasswordSubmit certificates in Azure Key Vault whenever possible.
+
+Benefits include:
+
+- Centralized management
+- Managed Identity integration
+- Certificate rotation
+- Improved operational security
+
+---
+
+## Documentation
+
+### Start Here
+
+- ../docs/getting-started.md
+- ../docs/architecture.md
+- ../docs/testing.md
+
+### Security
+
+- ../docs/security/password-submit-decryption.md
+
+### Related Events
+
+- ../docs/events/password-submit.md
+
+### Hosting
+
+- ../docs/hosting/aspnetcore.md
+- ../docs/hosting/azure-functions.md
+
+---
 
 ## AI Discovery
 
@@ -281,34 +408,38 @@ AI assistants should begin with:
 1. `llms.txt`
 2. `docs/getting-started.md`
 3. `docs/events/password-submit.md`
+4. `docs/security/password-submit-decryption.md`
 
 ---
 
-# Related Packages
+## Related Packages
 
 | Package | Purpose |
 |----------|----------|
-| Entra.EventHandlers.Abstractions | Event contracts and protocol models |
-| Entra.EventHandlers | Event handlers and fluent response builders |
+| Entra.EventHandlers.Abstractions | Public contracts and protocol models |
+| Entra.EventHandlers | External ID implementation layer |
+| Entra.EventHandlers.Workforce | Workforce implementation layer |
 | Entra.EventHandlers.AspNetCore | ASP.NET Core hosting |
 | Entra.EventHandlers.AzureFunctions | Azure Functions hosting |
 
 ---
 
-# License
+## License
 
 This package is licensed under the Business Source License (BSL).
 
-See the repository for complete licensing details.
+The Entra.EventHandlers.Abstractions package is licensed under MIT and may be used freely.
+
+See the repository for licensing details and commercial licensing information.
 
 ---
 
-# Further Reading
+## Further Reading
 
-**Microsoft Entra External ID Password Migration**
+Microsoft Entra External ID Just-In-Time Password Migration
 
-https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-define-custom-claims-customization
+https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-migrate-passwords-just-in-time
 
-**Entra External ID .NET Handlers Deep Dive**
+Entra External ID .NET Handlers Deep Dive
 
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
