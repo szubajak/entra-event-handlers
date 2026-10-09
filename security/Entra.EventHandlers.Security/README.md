@@ -382,9 +382,9 @@ Benefits include:
 
 ### Start Here
 
-- [Getting Started](./docs/getting-started.md)
-- [Architecture](./docs/architecture.md)
-- [Unit Testing](./docs/testing.md)
+- [Getting Started](../../docs/getting-started.md)
+- [Architecture](../../docs/architecture.md)
+- [Unit Testing](docs/testing.md)
 
 ### Security
 
