@@ -4,7 +4,7 @@
 
 	<!-- NuGet metadata -->
 	<PackageId>Entra.EventHandlers.Security</PackageId>
-	<Version>1.0.0</Version>
+	<Version>1.0.1</Version>
 	<Authors>Jakub Szubarga</Authors>
 	<Company>Szubarga.NET Jakub Szubarga</Company>
 
@@ -54,8 +54,8 @@
 	<PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.11.2" />
 	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.6.0" />
 	<PackageReference Include="jose-jwt" Version="5.3.0" />
-	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
-	<PackageReference Include="Microsoft.Extensions.Options" Version="10.0.12" />
+	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.13" />
+	<PackageReference Include="Microsoft.Extensions.Options" Version="10.0.13" />
   </ItemGroup>
 
   <ItemGroup>
