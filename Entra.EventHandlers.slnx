@@ -22,12 +22,30 @@
     <File Path=".github/workflows/pr-validate-main.yml" />
     <File Path=".github/workflows/publish-abstractions.yml" />
     <File Path=".github/workflows/publish.yml" />
+    <File Path=".github/workflows/sync-to-azure.yml" />
   </Folder>
   <Folder Name="/abstractions/">
     <Project Path="abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj" />
   </Folder>
   <Folder Name="/abstractions/tests/">
     <Project Path="abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/ai/" />
+  <Folder Name="/ai/context/">
+    <File Path="ai/context/agent-context.md" />
+    <File Path="ai/context/coding-principles.md" />
+    <File Path="ai/context/product-vision.md" />
+    <File Path="ai/context/repository-rules.md" />
+    <File Path="ai/context/roadmap.md" />
+  </Folder>
+  <Folder Name="/ai/decisions/" />
+  <Folder Name="/ai/proposals/" />
+  <Folder Name="/ai/reviews/" />
+  <Folder Name="/ai/specs/" />
+  <Folder Name="/ai/templates/">
+    <File Path="ai/templates/decision-template.md" />
+    <File Path="ai/templates/review-template.md" />
+    <File Path="ai/templates/spec-template.md" />
   </Folder>
   <Folder Name="/aspnetcore/">
     <Project Path="aspnetcore/Entra.EventHandlers.AspNetCore/Entra.EventHandlers.AspNetCore.csproj" />
