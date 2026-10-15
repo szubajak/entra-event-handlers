@@ -3,7 +3,7 @@
 
 |||
 |:---|:---|
-| Generated on: | 10/14/2026 - 11:40:20 |
+| Generated on: | 10/15/2026 - 16:22:03 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 104 |
@@ -147,8 +147,8 @@
 |**Entra.EventHandlers.Observability**|**95.2%**|**100%**|
 |Entra.EventHandlers.Observability.Clients.ObservabilityApiClient|28.5%||
 |Entra.EventHandlers.Observability.Context.EventLogContext|100%||
-|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%|100%|
+|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions|100%|100%|
 |Entra.EventHandlers.Observability.Factories.EventLogMapperFactory|100%||
 |Entra.EventHandlers.Observability.Logging.EventLogPublisher|100%||
