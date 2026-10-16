@@ -41,4 +41,21 @@ Feature pull requests should contain:
 - Tests
 - Documentation updates
 
-A feature is not complete if documentation is missing.
+A feature is not complete until:
+
+- implementation exists
+- tests exist
+- documentation exists
+
+Documentation review must include:
+
+- root README.md
+- package README.md files
+- docs/architecture.md
+- docs/getting-started.md
+- affected docs/events/*
+- affected docs/hosting/*
+
+Documentation should remain:
+- human friendly
+- AI friendly

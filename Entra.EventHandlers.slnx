@@ -33,7 +33,10 @@
   <Folder Name="/ai/" />
   <Folder Name="/ai/context/">
     <File Path="ai/context/agent-context.md" />
+    <File Path="ai/context/api-evolution-policy.md" />
+    <File Path="ai/context/architecture-principles.md" />
     <File Path="ai/context/coding-principles.md" />
+    <File Path="ai/context/documentation-strategy.md" />
     <File Path="ai/context/product-vision.md" />
     <File Path="ai/context/repository-rules.md" />
     <File Path="ai/context/roadmap.md" />
