@@ -47,6 +47,7 @@
   <Folder Name="/ai/specs/" />
   <Folder Name="/ai/templates/">
     <File Path="ai/templates/decision-template.md" />
+    <File Path="ai/templates/proposal-template.md" />
     <File Path="ai/templates/review-template.md" />
     <File Path="ai/templates/spec-template.md" />
   </Folder>

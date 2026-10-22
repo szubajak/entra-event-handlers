@@ -18,4 +18,6 @@
 
 ## Migration Considerations
 
+## Documentation Impact
+
 ## Open Questions
