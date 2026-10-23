@@ -44,6 +44,31 @@ Benefits include:
 - Easier maintenance
 - Simpler deployment
 
+Example: Minimal router function
+
+```
+public sealed class EntraEventRouterFunction(
+    ILogger<EntraEventRouterFunction> logger,
+    IEntraEventOrchestrator orchestrator,
+    IRequestAdapter requestAdapter,
+    IResponseAdapter responseAdapter)
+    : EntraEventRouterFunctionBase(
+        logger,
+        orchestrator,
+        requestAdapter,
+        responseAdapter)
+{
+    [Function("Router")]
+    public Task<HttpResponseData> RunAsync(
+        [HttpTrigger(
+            AuthorizationLevel.Function,
+            "post",
+            Route = "router")]
+        HttpRequestData request)
+            => InvokeAsync(request);
+}
+```
+
 The overall request flow is:
 
 ```text
@@ -439,7 +464,7 @@ This provides faster, simpler, and more reliable tests while keeping the hosting
 
 - [AttributeCollectionStart](../events/attribute-collection-start.md)
 - [AttributeCollectionSubmit](../events/attribute-collection-submit.md)
-- [EmailOtpSet](../events/email-otp-send.md)
+- [EmailOtpSend](../events/email-otp-send.md)
 - [PasswordSubmit](../events/password-submit.md)
 - [TokenIssuanceStart](../events/token-issuance-start.md)
 - [VerifiedIdClaimValidation](../events/verified-id-claim-validation.md)

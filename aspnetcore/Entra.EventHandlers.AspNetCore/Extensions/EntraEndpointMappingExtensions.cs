@@ -28,13 +28,13 @@ public static class EntraEndpointMappingExtensions
         return endpoints;
     }
 
-    public static IEndpointRouteBuilder MapPasswordSubmit(this IEndpointRouteBuilder endpoints)
+    public static IEndpointRouteBuilder MapEntraPasswordSubmit(this IEndpointRouteBuilder endpoints)
     {
         endpoints.ServiceProvider.GetRequiredService<PasswordSubmitEndpoint>().Map(endpoints);
         return endpoints;
     }
 
-    public static IEndpointRouteBuilder MapVerifiedIdClaimValidation(this IEndpointRouteBuilder endpoints)
+    public static IEndpointRouteBuilder MapEntraVerifiedIdClaimValidation(this IEndpointRouteBuilder endpoints)
     {
         endpoints.ServiceProvider.GetRequiredService<VerifiedIdClaimValidationEndpoint>().Map(endpoints);
         return endpoints;

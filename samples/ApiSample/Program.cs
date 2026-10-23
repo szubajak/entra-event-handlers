@@ -25,8 +25,8 @@ app.MapEntraAttributeCollectionStart();
 app.MapEntraAttributeCollectionSubmit();
 app.MapEntraTokenIssuanceStart();
 app.MapEntraEmailOtpSend();
-app.MapPasswordSubmit();
-app.MapVerifiedIdClaimValidation();
+app.MapEntraPasswordSubmit();
+app.MapEntraVerifiedIdClaimValidation();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

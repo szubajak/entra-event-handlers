@@ -165,7 +165,7 @@ Shared handler implementations demonstrating:
 - Block pages
 - Event-specific business logic
 
-[Entra Event Handlers Sample](samples/Sample.Common)
+[Entra Event Handlers Sample](../samples/Sample.Common)
 
 ---
 
@@ -208,7 +208,7 @@ Detailed documentation is available for each supported event.
 
 - [AttributeCollectionStart](./events/attribute-collection-start.md)
 - [AttributeCollectionSubmit](./events/attribute-collection-submit.md)
-- [EmailOtpSet](./events/email-otp-send.md)
+- [EmailOtpSend](./events/email-otp-send.md)
 - [PasswordSubmit](./events/password-submit.md)
 - [TokenIssuanceStart](./events/token-issuance-start.md)
 
