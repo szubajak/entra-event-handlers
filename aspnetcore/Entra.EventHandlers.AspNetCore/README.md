@@ -41,11 +41,12 @@ app.Run();
 
 The router endpoint automatically:
 
-- Deserializes requests
+- Deserializes requests (Content-Type: application/json; UTF‑8)
 - Resolves handlers
 - Executes handlers
-- Serializes responses
-- Maps exceptions to HTTP responses
+- Serializes responses (application/json; UTF‑8)
+- Maps exceptions to HTTP responses (problem response contract with correlation ID when available)
+- See IRequestAdapter and IResponseAdapter for request/response adaptation details.
 
 ---
 
@@ -82,6 +83,8 @@ The router provides:
 - Structured exception handling
 
 A single endpoint can process multiple event types using the same orchestration pipeline.
+
+
 
 ---
 
@@ -136,8 +139,8 @@ Available mappings:
 - `app.MapEntraAttributeCollectionSubmit()`
 - `app.MapEntraTokenIssuanceStart()`
 - `app.MapEntraEmailOtpSend()`
-- `app.MapPasswordSubmit()`
-- `app.MapVerifiedIdClaimValidation()`
+- `app.MapEntraPasswordSubmit()`
+- `app.MapEntraVerifiedIdClaimValidation()`
 
 Example:
 
