@@ -3,19 +3,19 @@
 
 |||
 |:---|:---|
-| Generated on: | 10/25/2026 - 12:00:57 |
+| Generated on: | 10/25/2026 - 12:14:45 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 104 |
 | Files: | 93 |
-| **Line coverage:** | 87.8% (1119 of 1274) |
-| Covered lines: | 1119 |
+| **Line coverage:** | 87.8% (1116 of 1271) |
+| Covered lines: | 1116 |
 | Uncovered lines: | 155 |
-| Coverable lines: | 1274 |
-| Total lines: | 4143 |
-| **Branch coverage:** | 99.3% (163 of 164) |
-| Covered branches: | 163 |
-| Total branches: | 164 |
+| Coverable lines: | 1271 |
+| Total lines: | 4139 |
+| **Branch coverage:** | 100% (162 of 162) |
+| Covered branches: | 162 |
+| Total branches: | 162 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -147,8 +147,8 @@
 |**Entra.EventHandlers.Observability**|**95.2%**|**100%**|
 |Entra.EventHandlers.Observability.Clients.ObservabilityApiClient|28.5%||
 |Entra.EventHandlers.Observability.Context.EventLogContext|100%||
-|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%|100%|
 |Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
+|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%|100%|
 |Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions|100%|100%|
 |Entra.EventHandlers.Observability.Factories.EventLogMapperFactory|100%||
 |Entra.EventHandlers.Observability.Logging.EventLogPublisher|100%||
@@ -162,12 +162,12 @@
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Security**|**100%**|**94.4%**|
+|**Entra.EventHandlers.Security**|**100%**|**100%**|
 |Entra.EventHandlers.Security.Adapters.SecretClientAdapter|100%||
 |Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor|100%|100%|
 |Entra.EventHandlers.Security.Decryptors.PasswordContextPayload|100%|100%|
 |Entra.EventHandlers.Security.DI.ServiceCollectionExtensions|100%|100%|
-|Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider|100%|90%|
+|Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider|100%|100%|
 
 </details>
 <details><summary>Entra.EventHandlers.Workforce - 90.8%</summary>
