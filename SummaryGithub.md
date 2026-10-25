@@ -3,18 +3,18 @@
 
 |||
 |:---|:---|
-| Generated on: | 10/25/2026 - 09:26:01 |
+| Generated on: | 10/25/2026 - 10:45:31 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 104 |
 | Files: | 93 |
-| **Line coverage:** | 85% (1084 of 1274) |
-| Covered lines: | 1084 |
-| Uncovered lines: | 190 |
+| **Line coverage:** | 86.2% (1099 of 1274) |
+| Covered lines: | 1099 |
+| Uncovered lines: | 175 |
 | Coverable lines: | 1274 |
 | Total lines: | 4143 |
-| **Branch coverage:** | 95.7% (157 of 164) |
-| Covered branches: | 157 |
+| **Branch coverage:** | 96.9% (159 of 164) |
+| Covered branches: | 159 |
 | Total branches: | 164 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -158,15 +158,15 @@
 |Entra.EventHandlers.Observability.Models.CustomLogEntry|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.Security - 68.7%</summary>
+<details><summary>Entra.EventHandlers.Security - 82.1%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Security**|**68.7%**|**61.1%**|
+|**Entra.EventHandlers.Security**|**82.1%**|**72.2%**|
 |Entra.EventHandlers.Security.Adapters.SecretClientAdapter|0%||
-|Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor|70.9%|50%|
+|Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor|100%|50%|
 |Entra.EventHandlers.Security.Decryptors.PasswordContextPayload|50%|50%|
-|Entra.EventHandlers.Security.DI.ServiceCollectionExtensions|0%|0%|
+|Entra.EventHandlers.Security.DI.ServiceCollectionExtensions|42.8%|100%|
 |Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider|96.2%|80%|
 
 </details>

@@ -410,9 +410,9 @@ var assemblies = [
     "name": "Entra.EventHandlers.Security",
     "classes": [
       { "name": "Entra.EventHandlers.Security.Adapters.SecretClientAdapter", "rp": "Entra.EventHandlers.Security_SecretClientAdapter.html", "cl": 0, "ucl": 6, "cal": 6, "tl": 15, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor", "rp": "Entra.EventHandlers.Security_KeyVaultPasswordContextDecryptor.html", "cl": 22, "ucl": 9, "cal": 31, "tl": 57, "cb": 1, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor", "rp": "Entra.EventHandlers.Security_KeyVaultPasswordContextDecryptor.html", "cl": 31, "ucl": 0, "cal": 31, "tl": 57, "cb": 1, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Security.Decryptors.PasswordContextPayload", "rp": "Entra.EventHandlers.Security_PasswordContextPayload.html", "cl": 4, "ucl": 4, "cal": 8, "tl": 29, "cb": 2, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Security.DI.ServiceCollectionExtensions", "rp": "Entra.EventHandlers.Security_ServiceCollectionExtensions.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 29, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Security.DI.ServiceCollectionExtensions", "rp": "Entra.EventHandlers.Security_ServiceCollectionExtensions.html", "cl": 6, "ucl": 8, "cal": 14, "tl": 29, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider", "rp": "Entra.EventHandlers.Security_KeyVaultCertificateProvider.html", "cl": 51, "ucl": 2, "cal": 53, "tl": 96, "cb": 8, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
