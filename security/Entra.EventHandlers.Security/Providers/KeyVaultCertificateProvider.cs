@@ -74,13 +74,9 @@ public class KeyVaultCertificateProvider(
 
             var certificate = X509CertificateLoader.LoadPkcs12(pfxBytes, null, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.MachineKeySet);
 
-            if (!certificate.HasPrivateKey)
-            {
-                throw new InvalidOperationException($"Certificate '{_options.CertificateName}' does not contain a private key.");
-            }
-
-            _cachedRsa = certificate.GetRSAPrivateKey()
-                ?? throw new InvalidOperationException($"Failed to extract RSA private key from certificate '{_options.CertificateName}'.");
+            var rsa = certificate.GetRSAPrivateKey() ?? throw new InvalidOperationException($"Certificate '{_options.CertificateName}' does not contain an RSA private key.");
+           
+            _cachedRsa = rsa;
 
             _logger.LogDebug(
                 "RSA private key extracted successfully from certificate '{CertificateName}'.",

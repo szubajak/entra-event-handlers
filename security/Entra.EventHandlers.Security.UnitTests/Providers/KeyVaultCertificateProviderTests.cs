@@ -233,6 +233,6 @@ public class KeyVaultCertificateProviderTests
 
         // Assert
         await act.Should().ThrowAsync<InvalidOperationException>()
-           .WithMessage($"Certificate '{CertificateName}' does not contain a private key.");
+           .WithMessage($"Certificate '{CertificateName}' does not contain an RSA private key.");
     }
 }
