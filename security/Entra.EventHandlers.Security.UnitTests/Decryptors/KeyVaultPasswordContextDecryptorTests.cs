@@ -5,6 +5,7 @@ using Entra.EventHandlers.Security.Providers;
 using FluentAssertions;
 using Jose;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using System.Security.Cryptography;
 
 namespace Entra.EventHandlers.Security.UnitTests.Decryptors;
@@ -59,6 +60,70 @@ public class KeyVaultPasswordContextDecryptorTests
         // Assert
         await act.Should().ThrowAsync<EntraSecurityException>()
            .WithMessage("The RSA key required to decrypt the password context is unavailable.");
+    }
+
+    [Fact]
+    public async Task DecryptAsync_InvalidBase64_ShouldThrowEntraSecurityException()
+    {
+        // Arrange
+        var invalidEncryptedPasswordContext = "!!";
+
+        using var rsa = RSA.Create(2048);
+
+        _certificateProvider.GetRsaAsync(Arg.Any<CancellationToken>()).Returns(rsa);
+
+        // Act
+        Func<Task> act = () => _sut.DecryptAsync(invalidEncryptedPasswordContext, TestContext.Current.CancellationToken);
+
+        // Assert
+        (await act.Should().ThrowAsync<EntraSecurityException>().WithMessage("Unable to decrypt the password context.*"))
+            .WithInnerException<JoseException>();
+    }
+
+    [Fact]
+    public async Task DecryptAsync_OperationCanceled_ShouldPropagateWithoutWrapping()
+    {
+        // Arrange
+        var error = _fixture.Create<string>();
+
+        _certificateProvider.GetRsaAsync(Arg.Any<CancellationToken>())
+            .Throws(new OperationCanceledException(error));
+
+        // Act
+        Func<Task> act = () => _sut.DecryptAsync(_fixture.Create<string>(), TestContext.Current.CancellationToken);
+
+        // Assert
+        await act.Should().ThrowAsync<OperationCanceledException>()
+            .WithMessage(error);
+    }
+
+    [Fact]
+    public async Task DecryptAsync_InvalidJson_ShouldThrowEntraDeserializationException()
+    {
+        // Arrange
+        var nonce = _fixture.Create<string>();
+        var mail = _fixture.Create<string>();
+        var password = _fixture.Create<string>();
+
+        using var rsa = RSA.Create(2048);
+
+        var payload =
+        """
+        {
+          "@odata.type": "invalidJson"
+        """;
+
+        var innerJwt = JWT.Encode(payload, null, JwsAlgorithm.none);
+        var encryptedPasswordContext = JWT.Encode(innerJwt, rsa, JweAlgorithm.RSA_OAEP_256, JweEncryption.A256GCM);
+
+        _certificateProvider.GetRsaAsync(Arg.Any<CancellationToken>()).Returns(rsa);
+
+        // Act
+        Func<Task> act = () => _sut.DecryptAsync(encryptedPasswordContext, TestContext.Current.CancellationToken);
+
+        // Assert
+        await act.Should().ThrowAsync<EntraDeserializationException>()
+            .WithMessage("Unable to deserialize the decrypted password context.");
     }
 
     [Fact]
