@@ -413,7 +413,7 @@ var assemblies = [
       { "name": "Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor", "rp": "Entra.EventHandlers.Security_KeyVaultPasswordContextDecryptor.html", "cl": 31, "ucl": 0, "cal": 31, "tl": 57, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Security.Decryptors.PasswordContextPayload", "rp": "Entra.EventHandlers.Security_PasswordContextPayload.html", "cl": 8, "ucl": 0, "cal": 8, "tl": 29, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Entra.EventHandlers.Security.DI.ServiceCollectionExtensions", "rp": "Entra.EventHandlers.Security_ServiceCollectionExtensions.html", "cl": 14, "ucl": 0, "cal": 14, "tl": 29, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider", "rp": "Entra.EventHandlers.Security_KeyVaultCertificateProvider.html", "cl": 51, "ucl": 2, "cal": 53, "tl": 96, "cb": 8, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider", "rp": "Entra.EventHandlers.Security_KeyVaultCertificateProvider.html", "cl": 53, "ucl": 0, "cal": 53, "tl": 96, "cb": 9, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Entra.EventHandlers.Workforce",
