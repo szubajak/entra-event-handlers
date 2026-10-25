@@ -78,13 +78,52 @@ public class KeyVaultCertificateProviderTests
             .GetSecretAsync(CertificateName, Arg.Is(ct))
             .Returns(keyVaultSecret);
 
+        var t1 = _sut.GetRsaAsync(ct);
+        var t2 = _sut.GetRsaAsync(ct);
+
         // Act
-        var first = await _sut.GetRsaAsync(ct);
-        var second = await _sut.GetRsaAsync(ct);
+        await Task.WhenAll(t1, t2);
+
+        // Act
+        var first = t1.Result;
+        var second = t2.Result;
 
         // Assert
         first.Should().Be(second);
         _ = _secretClient.Received(1).GetSecretAsync(CertificateName, ct);
+    }
+
+    [Fact]
+    public async Task GetRsaAsync_ManyConcurrentCallers_OnlySeedsOnce_And_AllReceiveSameInstance()
+    {
+        // Arrange
+        var ct = new CancellationTokenSource().Token;
+
+        var expectedRsa = RSA.Create(2048);
+        var certificate = TestCertificates.CreatePfxCertificate(expectedRsa);
+
+        var keyVaultSecret = new KeyVaultSecret(CertificateName, Convert.ToBase64String(certificate));
+
+        _secretClient
+            .GetSecretAsync(CertificateName, Arg.Is(ct))
+            .Returns(keyVaultSecret);
+
+        var callCount = 0;
+        _secretClient
+            .GetSecretAsync(CertificateName, Arg.Is(ct))
+            .Returns(_ =>
+            {
+                Interlocked.Increment(ref callCount);
+                return Task.FromResult(keyVaultSecret);
+            });
+
+        // Act
+        var callers = Enumerable.Range(0, 8).Select(_ => _sut.GetRsaAsync(ct));
+        var results = await Task.WhenAll(callers);
+
+        // Assert
+        results.Should().OnlyContain(r => r == results[0]);
+        callCount.Should().Be(1);
     }
 
     [Fact]
