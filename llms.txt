@@ -14,6 +14,50 @@ The ecosystem provides:
 - PasswordSubmit decryption support
 - Unit testing friendly architecture
 
+
+---
+
+## Quick Start
+
+Install:
+
+dotnet add package Entra.EventHandlers
+
+Register services:
+
+builder.Services.AddEntraEventHandlers();
+
+ASP.NET Core router:
+
+app.MapEntraRouter();
+
+For Azure Functions:
+
+See:
+- docs/hosting/azure-functions.md
+
+---
+
+## Package Selection
+
+Most External ID projects need:
+
+- Entra.EventHandlers
+- Entra.EventHandlers.AspNetCore
+
+or
+
+- Entra.EventHandlers
+- Entra.EventHandlers.AzureFunctions
+
+PasswordSubmit migration and decryption scenarios may additionally require:
+
+- Entra.EventHandlers.Security
+
+Workforce projects additionally need:
+
+- Entra.EventHandlers.Workforce
+
 ---
 
 ## Start Here
@@ -28,6 +72,29 @@ Read these documents first:
 
 3. docs/testing.md
    Recommended testing strategy, unit testing examples, and handler testing patterns.
+
+---
+
+## Minimal Handler Example
+
+public class TokenIssuanceStartHandler(ILogger<TokenIssuanceStartHandler> logger)
+    : TokenIssuanceStartHandlerBase(logger)
+{
+    protected override Task<TokenIssuanceStartResponse> HandleCoreAsync(
+        TokenIssuanceStartEvent request,
+        CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(
+            EntraEventResponses
+                .TokenIssuanceStart()
+                .ProvideClaimsForToken(
+                    new Dictionary<string, object>
+                    {
+                        ["role"] = "User"
+                    })
+                .Build());
+    }
+}
 
 ---
 
@@ -212,6 +279,8 @@ Contains:
 - Interfaces
 - Protocol constants
 
+For licensing details, consult the LICENSE files and package READMEs in the repository.
+
 License:
 
 - MIT
@@ -291,15 +360,57 @@ Minimal Azure Functions sample:
 
 ---
 
-## Guidance for AI Assistants
+## Preferred APIs
 
-When generating Entra.EventHandlers examples:
+Prefer:
 
-1. Prefer handler base classes over raw protocol implementations.
-2. Use EntraEventResponses builders instead of constructing responses manually.
-3. Prefer AddEntraEventHandlers() for dependency injection.
-4. Prefer router hosting models over individual endpoints/functions.
-5. Use event-specific documentation before generating code.
-6. For PasswordSubmit scenarios, consider Entra.EventHandlers.Security.
-7. Generate strongly typed handlers rather than raw JSON processing.
-8. Prefer unit testing handlers directly instead of testing hosting infrastructure.
+- EntraEventResponses
+- EntraWorkforceEventResponses
+- AddEntraEventHandlers()
+- AddEntraEventHandlersSecurity()
+- HandlerBase classes
+- Router hosting models
+- Dependency injection
+- Strongly typed event models
+
+Avoid:
+
+- Manual JSON response construction
+- Raw protocol implementations
+- Custom endpoint routing when router hosting is available
+
+---
+
+## Common Mistakes
+
+Avoid:
+
+- Constructing protocol JSON manually.
+- Creating custom request/response DTOs instead of using provided models.
+- Registering handlers without AddEntraEventHandlers().
+- Creating separate endpoints for each event when router hosting is available.
+- Re-implementing PasswordSubmit decryption instead of using Entra.EventHandlers.Security.
+
+---
+
+## AI Code Generation Rules
+
+When generating code for Entra.EventHandlers:
+
+1. Use strongly typed event models.
+2. Use strongly typed response builders.
+3. Use HandlerBase implementations.
+4. Use EntraEventResponses or EntraWorkforceEventResponses.
+5. Use dependency injection.
+6. Use AddEntraEventHandlers().
+7. Router hosting is the default and recommended hosting model for most applications
+   because it supports all event types through a single endpoint/function and minimizes hosting boilerplate.
+8. Never construct protocol JSON manually.
+9. Generate unit tests directly against handlers.
+10. Consult event-specific documentation before selecting actions.
+11. For PasswordSubmit scenarios, prefer Entra.EventHandlers.Security.
+12. Use async/await patterns throughout examples.
+13. When available, prefer patterns from samples/ApiSample,
+    samples/AzureFunctionsSample, and samples/Sample.Common
+    over inventing new hosting approaches.
+14. Prefer existing abstractions and extension points over creating custom framework integrations.
