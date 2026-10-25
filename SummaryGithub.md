@@ -3,14 +3,14 @@
 
 |||
 |:---|:---|
-| Generated on: | 10/25/2026 - 11:39:24 |
+| Generated on: | 10/25/2026 - 11:53:09 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 104 |
 | Files: | 93 |
-| **Line coverage:** | 87.3% (1113 of 1274) |
-| Covered lines: | 1113 |
-| Uncovered lines: | 161 |
+| **Line coverage:** | 87.6% (1117 of 1274) |
+| Covered lines: | 1117 |
+| Uncovered lines: | 157 |
 | Coverable lines: | 1274 |
 | Total lines: | 4143 |
 | **Branch coverage:** | 98.7% (162 of 164) |
@@ -147,8 +147,8 @@
 |**Entra.EventHandlers.Observability**|**95.2%**|**100%**|
 |Entra.EventHandlers.Observability.Clients.ObservabilityApiClient|28.5%||
 |Entra.EventHandlers.Observability.Context.EventLogContext|100%||
-|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%|100%|
+|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
 |Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions|100%|100%|
 |Entra.EventHandlers.Observability.Factories.EventLogMapperFactory|100%||
 |Entra.EventHandlers.Observability.Logging.EventLogPublisher|100%||
@@ -158,12 +158,12 @@
 |Entra.EventHandlers.Observability.Models.CustomLogEntry|100%||
 
 </details>
-<details><summary>Entra.EventHandlers.Security - 94.6%</summary>
+<details><summary>Entra.EventHandlers.Security - 98.2%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Security**|**94.6%**|**88.8%**|
-|Entra.EventHandlers.Security.Adapters.SecretClientAdapter|33.3%||
+|**Entra.EventHandlers.Security**|**98.2%**|**88.8%**|
+|Entra.EventHandlers.Security.Adapters.SecretClientAdapter|100%||
 |Entra.EventHandlers.Security.Decryptors.KeyVaultPasswordContextDecryptor|100%|100%|
 |Entra.EventHandlers.Security.Decryptors.PasswordContextPayload|100%|100%|
 |Entra.EventHandlers.Security.DI.ServiceCollectionExtensions|100%|100%|
