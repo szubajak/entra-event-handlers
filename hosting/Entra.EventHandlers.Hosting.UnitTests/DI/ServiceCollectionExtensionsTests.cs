@@ -18,7 +18,7 @@ public class ServiceCollectionExtensionsTests
 
         // Act
         services.AddEntraEventHandlersHosting();
-        var provider = services.BuildServiceProvider();
+        using var provider = services.BuildServiceProvider(validateScopes: true);
 
         // Assert
         var generic = services.SingleOrDefault(x => x.ServiceType == typeof(IEntraEventHandler<TestEvent, TestResponse>));
