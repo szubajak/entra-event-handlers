@@ -127,6 +127,31 @@ public class KeyVaultPasswordContextDecryptorTests
     }
 
     [Fact]
+    public async Task DecryptAsync_DeserializeReturnsNull_ShouldThrowEntraDeserializationException()
+    {
+        // Arrange
+        var nonce = _fixture.Create<string>();
+        var mail = _fixture.Create<string>();
+        var password = _fixture.Create<string>();
+
+        using var rsa = RSA.Create(2048);
+
+        var payload = "null";
+
+        var innerJwt = JWT.Encode(payload, null, JwsAlgorithm.none);
+        var encryptedPasswordContext = JWT.Encode(innerJwt, rsa, JweAlgorithm.RSA_OAEP_256, JweEncryption.A256GCM);
+
+        _certificateProvider.GetRsaAsync(Arg.Any<CancellationToken>()).Returns(rsa);
+
+        // Act
+        Func<Task> act = () => _sut.DecryptAsync(encryptedPasswordContext, TestContext.Current.CancellationToken);
+
+        // Assert
+        await act.Should().ThrowAsync<EntraDeserializationException>()
+            .WithMessage("The decrypted password context payload is empty.");
+    }
+
+    [Fact]
     public async Task DecryptAsync_Success()
     {
         // Arrange
