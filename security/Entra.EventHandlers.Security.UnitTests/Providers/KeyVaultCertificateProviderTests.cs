@@ -127,6 +127,54 @@ public class KeyVaultCertificateProviderTests
     }
 
     [Fact]
+    public async Task GetRsaAsync_SecondCaller_HitsInnerCacheCheck()
+    {
+        // Arrange
+        var ct = CancellationToken.None;
+
+        var rsa = RSA.Create(2048);
+        var certificate = TestCertificates.CreatePfxCertificate(rsa);
+
+        var keyVaultSecret = new KeyVaultSecret(CertificateName, Convert.ToBase64String(certificate));
+
+        var gate = new TaskCompletionSource();
+
+        var callCount = 0;
+
+        _secretClient
+            .GetSecretAsync(CertificateName, Arg.Any<CancellationToken>())
+            .Returns(async _ =>
+            {
+                Interlocked.Increment(ref callCount);
+
+                await gate.Task; // hold first caller
+
+                return keyVaultSecret;
+            });
+
+        // First caller acquires semaphore
+        var firstTask = _sut.GetRsaAsync(ct);
+
+        // Give it a moment to enter GetSecretAsync
+        await Task.Delay(50, ct);
+
+        // Second caller reaches semaphore and waits
+        var secondTask = _sut.GetRsaAsync(ct);
+
+        // Allow first caller to complete and seed cache
+        gate.SetResult();
+
+        // Act
+        var first = await firstTask;
+        var second = await secondTask;
+
+        // Assert
+        first.Should().BeSameAs(second);
+
+        callCount.Should().Be(1);
+    }
+
+    [Fact]
     public async Task GetRsaAsync_SecretClientThrows_LogsError()
     {
         // Arrange
