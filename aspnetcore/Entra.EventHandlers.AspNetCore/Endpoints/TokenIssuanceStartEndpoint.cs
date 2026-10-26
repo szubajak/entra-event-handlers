@@ -8,11 +8,9 @@ namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class TokenIssuanceStartEndpoint(
     ILogger<TokenIssuanceStartEndpoint> logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter,
-    IEntraEventHandlerResolver resolver)
-    : EntraTypedEndpointBase<TokenIssuanceStartEvent, TokenIssuanceStartResponse>(
-        logger, requestAdapter, responseAdapter, resolver)
+    IHttpAdapter httpAdapter,
+    IEntraEventHandlerResolver resolver
+) : EntraTypedEndpointBase<TokenIssuanceStartEvent, TokenIssuanceStartResponse>(logger, httpAdapter, resolver)
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {

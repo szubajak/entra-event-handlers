@@ -17,16 +17,14 @@ public class EntraEndpointBaseTests
     private readonly TestEntraEndpointBase _sut;
 
     private readonly TestLogger _logger;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
+    private readonly IHttpAdapter _httpAdapter;
 
     public EntraEndpointBaseTests()
     {
         _logger = new TestLogger();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
 
-        _sut = new TestEntraEndpointBase(_logger, _requestAdapter, _responseAdapter);
+        _sut = new TestEntraEndpointBase(_logger, _httpAdapter);
     }
 
     [Fact]
@@ -60,22 +58,21 @@ public class EntraEndpointBaseTests
         var services = new ServiceCollection();
         var provider = services.BuildServiceProvider();
 
-        var ctx = new DefaultHttpContext
-        {
-            RequestServices = provider
-        };
+        var ctx = new DefaultHttpContext { RequestServices = provider };
 
         // Act
         await _sut.Invoke(ctx);
 
         // Assert
-        _ = _responseAdapter.Received(1)
-            .WriteErrorAsync(ctx, StatusCodes.Status400BadRequest, Arg.Any<EntraErrorResponse>());
+        _ = _httpAdapter.Received(1).WriteErrorAsync(ctx, StatusCodes.Status400BadRequest, Arg.Any<EntraErrorResponse>());
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Warning &&
-            e.Exception == exception &&
-            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Warning
+                && e.Exception == exception
+                && e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling.")
+            );
     }
 
     [Fact]
@@ -89,22 +86,21 @@ public class EntraEndpointBaseTests
         var services = new ServiceCollection();
         var provider = services.BuildServiceProvider();
 
-        var ctx = new DefaultHttpContext
-        {
-            RequestServices = provider
-        };
+        var ctx = new DefaultHttpContext { RequestServices = provider };
 
         // Act
         await _sut.Invoke(ctx);
 
         // Assert
-        _ = _responseAdapter.Received(1)
-            .WriteErrorAsync(ctx, StatusCodes.Status500InternalServerError, Arg.Any<EntraErrorResponse>());
+        _ = _httpAdapter.Received(1).WriteErrorAsync(ctx, StatusCodes.Status500InternalServerError, Arg.Any<EntraErrorResponse>());
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Error &&
-            e.Exception == exception &&
-            e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Error
+                && e.Exception == exception
+                && e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling.")
+            );
     }
 
     [Fact]
@@ -121,10 +117,7 @@ public class EntraEndpointBaseTests
         services.AddSingleton<IEntraExceptionHandler>(handler);
         var provider = services.BuildServiceProvider();
 
-        var ctx = new DefaultHttpContext
-        {
-            RequestServices = provider
-        };
+        var ctx = new DefaultHttpContext { RequestServices = provider };
 
         _sut.ExecuteDelegate = _ => throw exception;
 

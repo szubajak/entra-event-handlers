@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.AppFactories;
 
-public class TestAppFactoryResponseAdapterThrows : TestAppFactory
+public class TestAppFactoryHttpAdapterThrows : TestAppFactory
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -11,8 +11,8 @@ public class TestAppFactoryResponseAdapterThrows : TestAppFactory
 
         builder.ConfigureServices(services =>
         {
-            services.RemoveAll<IResponseAdapter>();
-            services.AddSingleton<IResponseAdapter, TestResponseAdapterThrows>();
+            services.RemoveAll<IHttpAdapter>();
+            services.AddSingleton<IHttpAdapter, TestHttpAdapterThrows>();
         });
     }
 }

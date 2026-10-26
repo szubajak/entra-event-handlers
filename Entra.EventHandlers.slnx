@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/.config/">
+    <File Path=".csharpierrc" />
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
     <File Path="CHANGELOG.md" />

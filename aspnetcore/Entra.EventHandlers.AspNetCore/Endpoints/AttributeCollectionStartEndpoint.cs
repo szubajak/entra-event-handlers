@@ -8,11 +8,9 @@ namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class AttributeCollectionStartEndpoint(
     ILogger<AttributeCollectionStartEndpoint> logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter,
-    IEntraEventHandlerResolver resolver)
-    : EntraTypedEndpointBase<AttributeCollectionStartEvent, AttributeCollectionStartResponse>(
-        logger, requestAdapter, responseAdapter, resolver)
+    IHttpAdapter httpAdapter,
+    IEntraEventHandlerResolver resolver
+) : EntraTypedEndpointBase<AttributeCollectionStartEvent, AttributeCollectionStartResponse>(logger, httpAdapter, resolver)
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {

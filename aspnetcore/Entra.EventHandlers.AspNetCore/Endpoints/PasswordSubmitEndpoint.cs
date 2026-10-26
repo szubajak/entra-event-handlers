@@ -8,11 +8,9 @@ namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class PasswordSubmitEndpoint(
     ILogger<TokenIssuanceStartEndpoint> logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter,
-    IEntraEventHandlerResolver resolver)
-    : EntraTypedEndpointBase<PasswordSubmitEvent, PasswordSubmitResponse>(
-        logger, requestAdapter, responseAdapter, resolver)
+    IHttpAdapter httpAdapter,
+    IEntraEventHandlerResolver resolver
+) : EntraTypedEndpointBase<PasswordSubmitEvent, PasswordSubmitResponse>(logger, httpAdapter, resolver)
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {
