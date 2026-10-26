@@ -9,15 +9,9 @@ namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 public class TestHttpAdapterThrows : IHttpAdapter
 {
     public Task<TEvent> ReadEventAsync<TEvent>(HttpContext context)
-        where TEvent : EntraEvent
-    {
-        throw new NotImplementedException();
-    }
+        where TEvent : EntraEvent => throw new InvalidOperationException("Read failed");
 
-    public Task<EntraEvent> ReadEventAsync(HttpContext context)
-    {
-        throw new NotImplementedException();
-    }
+    public Task<EntraEvent> ReadEventAsync(HttpContext context) => throw new InvalidOperationException("Read failed");
 
     public Task WriteOkAsync(HttpContext context, EntraEventResponse response) => throw new InvalidOperationException("Write failed");
 
