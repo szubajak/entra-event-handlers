@@ -1,33 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	<IsPackable>true</IsPackable>
+    <IsPackable>true</IsPackable>
 
-	 <!-- NuGet metadata -->
-	<PackageId>Entra.EventHandlers</PackageId>
-	<Version>1.5.2</Version>
-	<Authors>Jakub Szubarga</Authors>
-	<Company>Szubarga.NET Jakub Szubarga</Company>
+    <!-- NuGet metadata -->
+    <PackageId>Entra.EventHandlers</PackageId>
+    <Version>1.5.3</Version>
+    <Authors>Jakub Szubarga</Authors>
+    <Company>Szubarga.NET Jakub Szubarga</Company>
 
-	<Description>Core implementation library for Microsoft Entra External ID Authentication Event Handlers. Provides fluent response builders, production-ready handler base classes, protocol validation, correlation-scoped logging, an execution pipeline, and extensibility points for building custom External ID authentication flows. Extends the MIT-licensed Entra.EventHandlers.Abstractions package and is designed to be used together with the Entra.EventHandlers.AzureFunctions and Entra.EventHandlers.AspNetCore hosting adapters.</Description>
+    <Description>Core implementation library for Microsoft Entra External ID Authentication Event Handlers. Provides fluent response builders, production-ready handler base classes, protocol validation, correlation-scoped logging, an execution pipeline, and extensibility points for building custom External ID authentication flows. Extends the MIT-licensed Entra.EventHandlers.Abstractions package and is designed to be used together with the Entra.EventHandlers.AzureFunctions and Entra.EventHandlers.AspNetCore hosting adapters.</Description>
 
-	<PackageTags>
+    <PackageTags>
 	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;ciam;authentication-events;
 	event-handlers;identity;authentication;dotnet;dotnet-library;csharp;fluent-api
 	</PackageTags>
 
-	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
 
-	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
 
-	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<IncludeSymbols>true</IncludeSymbols>
-	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-	<PackageReleaseNotes>
+    <PackageReleaseNotes>
 	Includes fluent response builders, production-ready handler base classes, protocol validation,
 	structured logging, correlation scopes, and the unified execution pipeline for Microsoft Entra
 	External ID Authentication Event Handlers. Designed for use with the ASP.NET Core and Azure
@@ -36,18 +36,18 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-	<IsPackable>false</IsPackable>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-	<None Include="LICENSE" Pack="true" PackagePath="" />
-	<None Include="LICENSE-COMMERCIAL.md" Pack="true" PackagePath="" />
-	<None Include="README.md" Pack="true" PackagePath="" />
-	<None Include="icon.png" Pack="true" PackagePath="" />
+    <None Include="LICENSE" Pack="true" PackagePath="" />
+    <None Include="LICENSE-COMMERCIAL.md" Pack="true" PackagePath="" />
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.14" />
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.6.0" />
+    <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.6.1" />
   </ItemGroup>
 </Project>

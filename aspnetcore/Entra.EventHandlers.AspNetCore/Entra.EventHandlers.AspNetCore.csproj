@@ -9,7 +9,7 @@
 
     <!-- NuGet metadata -->
     <PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-    <Version>1.5.3</Version>
+    <Version>1.5.4</Version>
     <Authors>Jakub Szubarga</Authors>
     <Company>Szubarga.NET Jakub Szubarga</Company>
 
@@ -53,7 +53,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" PrivateAssets="All" />
-    <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.6.0" />
+    <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.6.1" />
     <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
