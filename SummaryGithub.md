@@ -3,19 +3,19 @@
 
 |||
 |:---|:---|
-| Generated on: | 10/26/2026 - 15:58:02 |
+| Generated on: | 10/27/2026 - 09:50:08 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
-| Classes: | 104 |
-| Files: | 93 |
-| **Line coverage:** | 87.8% (1116 of 1271) |
-| Covered lines: | 1116 |
-| Uncovered lines: | 155 |
-| Coverable lines: | 1271 |
-| Total lines: | 4139 |
-| **Branch coverage:** | 100% (162 of 162) |
-| Covered branches: | 162 |
-| Total branches: | 162 |
+| Classes: | 102 |
+| Files: | 91 |
+| **Line coverage:** | 88.7% (1132 of 1275) |
+| Covered lines: | 1132 |
+| Uncovered lines: | 143 |
+| Coverable lines: | 1275 |
+| Total lines: | 3922 |
+| **Branch coverage:** | 100% (164 of 164) |
+| Covered branches: | 164 |
+| Total branches: | 164 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -87,17 +87,16 @@
 |Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|0%||
 
 </details>
-<details><summary>Entra.EventHandlers.AspNetCore - 61.9%</summary>
+<details><summary>Entra.EventHandlers.AspNetCore - 65.3%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AspNetCore**|**61.9%**|**100%**|
-|Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|75.9%|100%|
+|**Entra.EventHandlers.AspNetCore**|**65.3%**|**100%**|
+|Entra.EventHandlers.AspNetCore.Abstractions.EntraEndpointBase|77.2%|100%|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase<TEvent, <br/>TResponse>|100%|100%|
 |Entra.EventHandlers.AspNetCore.Abstractions.EntraTypedEndpointBase<TEvent, <br/>TResponse>|100%||
-|Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter|86.3%|100%|
-|Entra.EventHandlers.AspNetCore.Adapters.RequestAdapter<TEvent>|86.3%|100%|
-|Entra.EventHandlers.AspNetCore.Adapters.ResponseAdapter|100%||
+|Entra.EventHandlers.AspNetCore.Adapters.HttpAdapter|90.9%|100%|
+|Entra.EventHandlers.AspNetCore.Adapters.HttpAdapter<TEvent>|90.9%|100%|
 |Entra.EventHandlers.AspNetCore.DI.ServiceCollectionExtensions|100%|100%|
 |Entra.EventHandlers.AspNetCore.Endpoints.AttributeCollectionStartEndpoint|0%||
 |Entra.EventHandlers.AspNetCore.Endpoints.AttributeCollectionSubmitEndpoint|0%||
@@ -110,15 +109,14 @@
 |Entra.EventHandlers.AspNetCore.Routing.EntraEventRouterEndpointBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.AzureFunctions - 90.2%</summary>
+<details><summary>Entra.EventHandlers.AzureFunctions - 92.2%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.AzureFunctions**|**90.2%**|**100%**|
-|Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|73.3%||
-|Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter|86.3%|100%|
-|Entra.EventHandlers.AzureFunctions.Adapters.RequestAdapter<TEvent>|86.3%|100%|
-|Entra.EventHandlers.AzureFunctions.Adapters.ResponseAdapter|100%||
+|**Entra.EventHandlers.AzureFunctions**|**92.2%**|**100%**|
+|Entra.EventHandlers.AzureFunctions.Abstractions.EntraFunctionBase|74.2%||
+|Entra.EventHandlers.AzureFunctions.Adapters.HttpAdapter|92.1%|100%|
+|Entra.EventHandlers.AzureFunctions.Adapters.HttpAdapter<TEvent>|92.1%|100%|
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionStartFunctionBas<br/>e|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Base.AttributeCollectionSubmitFunctionBa<br/>se|100%|100%|
 |Entra.EventHandlers.AzureFunctions.Base.EmailOtpSendFunctionBase|100%|100%|
