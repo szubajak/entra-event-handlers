@@ -3,14 +3,14 @@
 
 |||
 |:---|:---|
-| Generated on: | 10/27/2026 - 09:50:08 |
+| Generated on: | 10/27/2026 - 12:09:56 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 102 |
 | Files: | 91 |
-| **Line coverage:** | 88.7% (1132 of 1275) |
-| Covered lines: | 1132 |
-| Uncovered lines: | 143 |
+| **Line coverage:** | 88.9% (1134 of 1275) |
+| Covered lines: | 1134 |
+| Uncovered lines: | 141 |
 | Coverable lines: | 1275 |
 | Total lines: | 3922 |
 | **Branch coverage:** | 100% (164 of 164) |
@@ -40,11 +40,11 @@
 |Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|84%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Abstractions - 96.5%</summary>
+<details><summary>Entra.EventHandlers.Abstractions - 98.8%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Abstractions**|**96.5%**|**100%**|
+|**Entra.EventHandlers.Abstractions**|**98.8%**|**100%**|
 |Entra.EventHandlers.Abstractions.Actions.ContinueAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.ModifyAttributeValuesAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.PasswordSubmitAction|100%||
@@ -84,7 +84,7 @@
 |Entra.EventHandlers.Abstractions.Responses.PasswordSubmitResponsePayload|100%||
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
 |Entra.EventHandlers.Abstractions.Responses.VerifiedIdClaimValidationRespons<br/>ePayload|100%||
-|Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|0%||
+|Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|100%||
 
 </details>
 <details><summary>Entra.EventHandlers.AspNetCore - 65.3%</summary>
