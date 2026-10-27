@@ -65,6 +65,8 @@ The base class automatically provides:
 - Exception handling
 - Safe default behavior for unhandled exceptions
 
+This allows handlers to focus entirely on token enrichment and authorization decisions while the framework handles protocol, logging, validation, and error-management concerns.
+
 ---
 
 ## Request Model
@@ -75,7 +77,7 @@ The incoming request is represented by:
 TokenIssuanceStartEvent
 ```
 
-The event contains information about the current authentication operation and the user for whom the token is being generated.
+The event contains information about the current authentication operation, user context, and correlation information supplied by Microsoft Entra.
 
 Example:
 
@@ -97,21 +99,21 @@ protected override Task<TokenIssuanceStartResponse> HandleCoreAsync(
 
 ---
 
-## Response Builder
+## Building Responses
 
-Use:
+Builder entry point:
 
 ```csharp
 EntraEventResponses.TokenIssuanceStart()
 ```
 
-to create `TokenIssuanceStartResponse` instances.
+All TokenIssuanceStart responses are created from this builder.
 
 ---
 
 ## Available Responses
 
-The `TokenIssuanceStart` event supports a single response type.
+The `TokenIssuanceStart` event supports a single response action.
 
 | Action | Purpose |
 |----------|----------|
@@ -311,9 +313,9 @@ result.Response
 and validation of generated claims:
 
 ```csharp
-claims["department"]
-claims["roles"]
-claims["permissions"]
+claims["department"];
+claims["roles"];
+claims["permissions"];
 ```
 
 without:
@@ -364,21 +366,41 @@ Large tokens can affect authentication performance and downstream applications.
 
 Prefer:
 
-```csharp
+```text
 department
 roles
 employeeId
 subscription
+customerTier
 ```
 
 Avoid:
 
-```csharp
+```text
 engineeringDepartmentValue
 customerPremiumLevelInternalV2
 ```
 
 Stable claim names simplify client integration.
+
+---
+
+### Prefer Strongly Typed Claim Construction
+
+For larger claim sets, construct claims in a dedicated model or service before building the response.
+
+Example:
+
+```csharp
+var claims = claimsProvider.BuildClaims(user);
+
+return EntraEventResponses
+    .TokenIssuanceStart()
+    .ProvideClaimsForToken(claims)
+    .Build();
+```
+
+This keeps handlers focused on orchestration and business decisions.
 
 ---
 
@@ -421,4 +443,4 @@ Supported responses:
 |-----------|----------|
 | ProvideClaimsForToken | Add claims to the token being issued |
 
-This event is commonly used for authorization data, application roles, permissions, profile enrichment, subscription information, and external system integration.
+This event is commonly used for authorization data, application roles, permissions, profile enrichment, subscription information, tenant-specific claims, and external system integration.

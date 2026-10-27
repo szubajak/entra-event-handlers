@@ -65,6 +65,8 @@ The base class automatically provides:
 - Exception handling
 - Safe default behavior when exceptions occur
 
+This allows handlers to focus entirely on claim validation and recovery decisions while the framework handles protocol, logging, validation, and error-management concerns.
+
 ---
 
 ## Request Model
@@ -81,7 +83,7 @@ The event contains:
 request.Data.VerifiedIdClaimsContext
 ```
 
-which holds claims extracted from the Verified ID credential.
+which holds claims extracted from the Verified ID credential together with correlation and request context information provided by Microsoft Entra.
 
 Example:
 
@@ -127,7 +129,7 @@ Typical examples include:
 
 ---
 
-## Response Builder
+## Building Responses
 
 Workforce events use:
 
@@ -141,12 +143,14 @@ rather than:
 EntraEventResponses
 ```
 
-To create a response:
+Builder entry point:
 
 ```csharp
 EntraWorkforceEventResponses
     .VerifiedIdClaimValidation()
 ```
+
+All VerifiedIdClaimValidation responses are created from this builder.
 
 ---
 
@@ -396,6 +400,24 @@ This clearly identifies which claim caused validation to fail.
 
 ---
 
+### Prefer Builder Syntax for Complex Failures
+
+When multiple claims may fail validation, fluent builders are often easier to read and maintain.
+
+Example:
+
+```csharp
+.Failed()
+    .Add("employeeId")
+    .Add("department")
+    .Add("organization")
+.Done()
+```
+
+This approach scales better as validation requirements grow.
+
+---
+
 ### Use Dependency Injection
 
 Inject validation services into handlers.
@@ -435,4 +457,4 @@ Supported responses:
 | Pass | Validation succeeds |
 | Failed | Validation fails for one or more claims |
 
-This event is commonly used for account recovery, employee verification, membership validation, student verification, and organizational claim validation.
+This event is commonly used for account recovery, employee verification, contractor validation, membership validation, student verification, and organizational claim validation.

@@ -2,7 +2,7 @@
 
 Security extensions for Microsoft Entra External ID authentication event handlers.
 
-This package provides production-ready components for handling security-sensitive scenarios in the Entra.EventHandlers ecosystem, including PasswordSubmit payload decryption using certificates stored in Azure Key Vault.
+This package provides security-focused components for the Entra.EventHandlers ecosystem, including PasswordSubmit payload decryption using certificates stored in Azure Key Vault.
 
 ## Installation
 
@@ -12,7 +12,7 @@ dotnet add package Entra.EventHandlers.Security
 
 ## Why This Package Exists
 
-The Microsoft Entra External ID `PasswordSubmit` event sends the user's password inside an encrypted password context.
+The Microsoft Entra External ID `PasswordSubmit` event sends user credentials inside an encrypted password context.
 
 Decrypting this payload requires:
 
@@ -23,7 +23,7 @@ Decrypting this payload requires:
 - Payload validation
 - Secure cryptographic handling
 
-This package provides production-ready implementations for these requirements.
+This package provides reusable implementations for these requirements.
 
 Most applications using `PasswordSubmit` never need to manually decrypt the payload.
 
@@ -164,13 +164,13 @@ builder.Services.AddEntraEventHandlersSecurity();
 
 The primary use case for this package is the `PasswordSubmit` event.
 
-The security package integrates directly with:
+The security components integrate directly with:
 
 ```csharp
 PasswordSubmitHandlerBase
 ```
 
-Once an `IPasswordContextDecryptor` implementation is supplied, the encrypted password context is automatically decrypted before your business logic executes.
+Once an `IPasswordContextDecryptor` implementation is supplied, the encrypted password context is automatically decrypted before business logic executes.
 
 Example:
 
@@ -201,7 +201,7 @@ The handler receives a fully validated:
 DecryptedPasswordContext
 ```
 
-without any manual decryption code.
+without requiring manual decryption code.
 
 The base handler automatically:
 
@@ -229,8 +229,6 @@ public sealed class DecryptedPasswordContext
     public string? Username { get; init; }
 }
 ```
-
-Properties:
 
 | Property | Description |
 |-----------|-------------|
@@ -314,14 +312,6 @@ public class PasswordSubmitHandler(
 }
 ```
 
-In this example:
-
-1. Microsoft Entra sends an encrypted password context.
-2. The base handler decrypts the payload.
-3. Business logic receives a strongly typed `DecryptedPasswordContext`.
-4. The password is validated against a legacy identity store.
-5. A migration or block response is returned.
-
 ---
 
 ## Security Considerations
@@ -378,6 +368,20 @@ Benefits include:
 
 ---
 
+## Ecosystem Architecture
+
+The Entra.EventHandlers ecosystem is organized into layers:
+
+- Entra.EventHandlers.Abstractions provides shared protocol contracts
+- Entra.EventHandlers provides External ID implementations
+- Entra.EventHandlers.Workforce provides Workforce implementations
+- Entra.EventHandlers.Security provides PasswordSubmit security integrations
+- Entra.EventHandlers.AspNetCore and Entra.EventHandlers.AzureFunctions provide hosting integrations
+
+Most applications reference this package together with `Entra.EventHandlers` and a hosting package.
+
+---
+
 ## Documentation
 
 Full documentation, event guides, hosting guides, testing guidance, security guidance, and samples:
@@ -401,8 +405,8 @@ https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
 | Entra.EventHandlers.Abstractions | Public contracts and protocol models |
 | Entra.EventHandlers | External ID implementation layer |
 | Entra.EventHandlers.Workforce | Workforce implementation layer |
-| Entra.EventHandlers.AspNetCore | ASP.NET Core hosting |
-| Entra.EventHandlers.AzureFunctions | Azure Functions hosting |
+| Entra.EventHandlers.AspNetCore | ASP.NET Core hosting adapter |
+| Entra.EventHandlers.AzureFunctions | Azure Functions hosting adapter |
 
 ---
 
@@ -410,7 +414,7 @@ https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
 
 This package is licensed under the Business Source License (BSL).
 
-The Entra.EventHandlers.Abstractions package is licensed under MIT and may be used freely.
+The Entra.EventHandlers.Abstractions package is licensed under the MIT License.
 
 See the repository for licensing details and commercial licensing information.
 
@@ -418,10 +422,10 @@ See the repository for licensing details and commercial licensing information.
 
 ## Further Reading
 
-Microsoft Entra External ID Just-In-Time Password Migration
+**Microsoft Entra External ID Just-In-Time Password Migration**
 
 https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-migrate-passwords-just-in-time
 
-Entra External ID .NET Handlers Deep Dive
+**Entra External ID .NET Handlers Deep Dive**
 
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437

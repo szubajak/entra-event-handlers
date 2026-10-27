@@ -17,7 +17,7 @@ The hosting adapter provides:
 
 ## Installation
 
-Install the core package:
+Install the implementation package:
 
 ```bash
 dotnet add package Entra.EventHandlers
@@ -44,9 +44,9 @@ Benefits include:
 - Easier maintenance
 - Simpler deployment
 
-Example: Minimal router function
+Example: minimal router function
 
-```
+```csharp
 public sealed class EntraEventRouterFunction(
     ILogger<EntraEventRouterFunction> logger,
     IHttpAdapter httpAdapter,
@@ -54,8 +54,13 @@ public sealed class EntraEventRouterFunction(
 ) : EntraEventRouterFunctionBase(logger, httpAdapter, orchestrator)
 {
     [Function("Router")]
-    public Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")] HttpRequestData req) =>
-        InvokeAsync(req);
+    public Task<HttpResponseData> RunAsync(
+        [HttpTrigger(
+            AuthorizationLevel.Function,
+            "post",
+            Route = "router")]
+        HttpRequestData req)
+        => InvokeAsync(req);
 }
 ```
 
@@ -68,7 +73,7 @@ Microsoft Entra
 Azure Function
         │
         ▼
-Http Adapter
+IHttpAdapter
         │
         ▼
 Event Orchestrator
@@ -80,7 +85,10 @@ Handler Resolution
 Event Handler
         │
         ▼
-Http Adapter
+Response Builder
+        │
+        ▼
+IHttpAdapter
         │
         ▼
 Microsoft Entra
@@ -98,9 +106,9 @@ builder.Services.AddEntraEventHandlers();
 
 This automatically registers:
 
-- Event orchestrator
-- Handler resolver
-- Http adapter
+- `IEntraEventOrchestrator`
+- `IEntraEventHandlerResolver`
+- `IHttpAdapter`
 - Event handlers discovered in the application
 
 The registration also enables:
@@ -127,8 +135,13 @@ public sealed class EntraEventRouterFunction(
 ) : EntraEventRouterFunctionBase(logger, httpAdapter, orchestrator)
 {
     [Function("Router")]
-    public Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")] HttpRequestData req) =>
-        InvokeAsync(req);
+    public Task<HttpResponseData> RunAsync(
+        [HttpTrigger(
+            AuthorizationLevel.Function,
+            "post",
+            Route = "router")]
+        HttpRequestData req)
+        => InvokeAsync(req);
 }
 ```
 
@@ -156,7 +169,8 @@ builder.Services.AddEntraEventHandlers();
 Example:
 
 ```csharp
-public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
+public class AttributeCollectionStartHandler(
+    ILogger<AttributeCollectionStartHandler> logger)
     : AttributeCollectionStartHandlerBase(logger)
 {
     protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
@@ -186,18 +200,18 @@ The package provides dedicated base classes for individual event types.
 
 | Event | Function Base Class |
 |---------|---------|
-| AttributeCollectionStart | AttributeCollectionStartFunctionBase |
-| AttributeCollectionSubmit | AttributeCollectionSubmitFunctionBase |
-| EmailOtpSend | EmailOtpSendFunctionBase |
-| PasswordSubmit | PasswordSubmitFunctionBase |
-| TokenIssuanceStart | TokenIssuanceStartFunctionBase |
-| VerifiedIdClaimValidation | VerifiedIdClaimValidationFunctionBase |
+| AttributeCollectionStart | `AttributeCollectionStartFunctionBase` |
+| AttributeCollectionSubmit | `AttributeCollectionSubmitFunctionBase` |
+| EmailOtpSend | `EmailOtpSendFunctionBase` |
+| PasswordSubmit | `PasswordSubmitFunctionBase` |
+| TokenIssuanceStart | `TokenIssuanceStartFunctionBase` |
+| VerifiedIdClaimValidation | `VerifiedIdClaimValidationFunctionBase` |
 
 ---
 
 ## Single-Event Functions
 
-Although the router is recommended, individual event endpoints are also supported.
+Although the router is recommended, individual event functions are also supported.
 
 This approach creates one Azure Function per event type.
 
@@ -208,12 +222,19 @@ public sealed class AttributeCollectionStartFunction(
     ILogger<AttributeCollectionStartFunction> logger,
     IHttpAdapter httpAdapter,
     IAttributeCollectionStartHandler handler
-) : AttributeCollectionStartFunctionBase(logger, httpAdapter, handler)
+) : AttributeCollectionStartFunctionBase(
+        logger,
+        httpAdapter,
+        handler)
 {
     [Function("AttributeCollectionStart")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "attributecollectionstart")] HttpRequestData req
-    ) => InvokeAsync(req);
+        [HttpTrigger(
+            AuthorizationLevel.Function,
+            "post",
+            Route = "attributecollectionstart")]
+        HttpRequestData req)
+        => InvokeAsync(req);
 }
 ```
 
@@ -276,7 +297,8 @@ public sealed class EmailOtpSendHandler(
             otpContext.OneTimeCode,
             cancellationToken);
 
-        return EntraEventResponses.EmailOtpSend()
+        return EntraEventResponses
+            .EmailOtpSend()
             .ContinueWithDefaultBehavior()
             .Build();
     }
@@ -321,7 +343,7 @@ Benefits include:
 - Better separation of concerns
 - Higher test coverage
 
-Azure Functions should typically remain thin adapters while handlers contain the application behavior.
+Azure Functions should remain thin transport adapters while handlers contain the application behavior.
 
 ---
 
@@ -369,7 +391,7 @@ These samples demonstrate:
 
 ### Prefer the Router Function
 
-Use a single router endpoint whenever possible.
+Use a single router function whenever possible.
 
 Benefits:
 
@@ -393,7 +415,7 @@ AttributeCollectionStartHandler
 
 Avoid placing business logic directly inside Azure Functions.
 
-Handlers should contain application behavior while Functions remain transport adapters.
+Handlers should contain application behavior while functions remain transport adapters.
 
 ---
 
@@ -428,6 +450,7 @@ This provides faster, simpler, and more reliable tests while keeping the hosting
 
 - [Getting Started](../getting-started.md)
 - [Architecture](../architecture.md)
+- [Testing](../testing.md)
 
 ### Events
 

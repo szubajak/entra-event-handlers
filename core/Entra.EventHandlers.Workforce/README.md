@@ -1,8 +1,8 @@
 # Entra.EventHandlers.Workforce
 
-Production-ready Workforce implementation layer for Microsoft Entra Workforce account recovery authentication events.
+Implementation layer for building Microsoft Entra Workforce authentication event handlers in .NET.
 
-This package builds on top of the MIT-licensed `Entra.EventHandlers.Abstractions` package and provides strongly typed Workforce event models, fluent response builders, and handler base classes for Microsoft Entra Workforce authentication extensions.
+This package builds on top of the MIT-licensed `Entra.EventHandlers.Abstractions` package and provides Workforce-specific event models, fluent response builders, handler base classes, validation, logging, exception handling, and execution infrastructure for Microsoft Entra Workforce authentication extensions.
 
 This package currently focuses on the Workforce account recovery event:
 
@@ -36,14 +36,14 @@ dotnet add package Entra.EventHandlers.Workforce
 
 ### VerifiedIdClaimValidation
 
-The event is used during Workforce account recovery flows involving Verified ID credentials.
+The event is used during Microsoft Entra Workforce account recovery flows involving Verified ID credentials.
 
 Supported responses:
 
 - Pass
 - Failed
 
-Common scenarios:
+Common scenarios include:
 
 - Account recovery
 - Employee verification
@@ -62,7 +62,7 @@ EntraWorkforceEventResponses
     .VerifiedIdClaimValidation();
 ```
 
-This provides a consistent and discoverable API for Workforce event handlers.
+This provides a consistent and discoverable API across Workforce event handlers.
 
 ---
 
@@ -102,13 +102,13 @@ return EntraWorkforceEventResponses
     .Build();
 ```
 
-The fluent builders ensure protocol-correct responses without requiring manual JSON construction.
+The fluent builders help ensure protocol-correct responses without requiring manual JSON construction.
 
 ---
 
 ## Implementing a Handler
 
-Create a handler by inheriting from the Workforce handler base class.
+Create a handler by inheriting from the Workforce-specific handler base class.
 
 Example:
 
@@ -130,7 +130,7 @@ public class VerifiedIdClaimValidationHandler(
 }
 ```
 
-The base class automatically provides:
+The base classes automatically provide:
 
 - Request validation
 - Structured logging
@@ -145,7 +145,7 @@ This allows handlers to focus entirely on business logic.
 
 ## Real-World Example
 
-Validate claims supplied by a Verified ID credential.
+Validate claims supplied by a Verified ID credential against an internal directory.
 
 ```csharp
 public class VerifiedIdClaimValidationHandler(
@@ -217,6 +217,20 @@ Business logic should live inside handlers while hosting adapters remain thin tr
 
 ---
 
+## Ecosystem Architecture
+
+The Entra.EventHandlers ecosystem is organized into layers:
+
+- Entra.EventHandlers.Abstractions provides shared protocol contracts
+- Entra.EventHandlers provides External ID implementations
+- Entra.EventHandlers.Workforce provides Workforce implementations
+- Entra.EventHandlers.Security provides PasswordSubmit security integrations
+- Entra.EventHandlers.AspNetCore and Entra.EventHandlers.AzureFunctions provide hosting integrations
+
+Most applications reference this package together with one of the hosting packages.
+
+---
+
 ## Samples
 
 Shared handler implementations are available in:
@@ -257,15 +271,15 @@ https://github.com/szubajak/entra-event-handlers/blob/main/llms.txt
 |----------|----------|
 | Entra.EventHandlers.Abstractions | Public contracts and protocol models |
 | Entra.EventHandlers | External ID implementation layer |
-| Entra.EventHandlers.AspNetCore | ASP.NET Core hosting |
-| Entra.EventHandlers.AzureFunctions | Azure Functions hosting |
+| Entra.EventHandlers.AspNetCore | ASP.NET Core hosting adapter |
+| Entra.EventHandlers.AzureFunctions | Azure Functions hosting adapter |
 | Entra.EventHandlers.Security | PasswordSubmit decryption and Azure Key Vault integration |
 
 ## License
 
 This package is licensed under the Business Source License (BSL).
 
-The Entra.EventHandlers.Abstractions package is licensed under MIT and may be used freely.
+The Entra.EventHandlers.Abstractions package is licensed under the MIT License.
 
 See the repository for licensing details and commercial licensing information.
 
@@ -273,10 +287,10 @@ See the repository for licensing details and commercial licensing information.
 
 ## Further Reading
 
-Entra External ID .NET Handlers Deep Dive
+**Entra External ID .NET Handlers Deep Dive**
 
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
 
-Building CIAM-Ready Azure Functions with Entra.EventHandlers
+**Building CIAM-Ready Azure Functions with Entra.EventHandlers**
 
 https://medium.com/@jakub.szubarga/entra-eventhandlers-ciam-azure-functions-97c5e1940272

@@ -69,11 +69,32 @@ Handlers are ordinary C# classes and can be tested like any other application se
 
 ---
 
+## Recommended Testing Pyramid
+
+```text
+                Integration Tests
+                      ▲
+                      │
+               Hosting Verification
+                      ▲
+                      │
+                 Handler Tests
+                      ▲
+                      │
+                 Business Logic
+```
+
+The majority of tests should be focused on handlers and business logic.
+
+Integration tests should validate hosting configuration and external dependencies rather than core application behavior.
+
+---
+
 ## Typical Test Structure
 
 A handler usually depends on:
 
-- Logger
+- ILogger<T>
 - Application services
 - Repositories
 - External APIs
@@ -214,7 +235,9 @@ response.Data.Actions
 
 ---
 
-## Testing EmailOtpSend
+## Testing by Event Type
+
+### EmailOtpSend
 
 Recommended assertions:
 
@@ -223,9 +246,17 @@ Recommended assertions:
 - Correct response action returned
 - Exceptions handled correctly
 
+Common builder:
+
+```csharp
+EntraEventResponses
+    .EmailOtpSend()
+    .ContinueWithDefaultBehavior()
+```
+
 ---
 
-## Testing AttributeCollectionStart
+### AttributeCollectionStart
 
 Recommended assertions:
 
@@ -233,13 +264,11 @@ Recommended assertions:
 - Block page generated correctly
 - Correct action returned
 
-Example:
+Common builders:
 
 ```csharp
 .SetPrefillValues(...)
 ```
-
-or
 
 ```csharp
 .ShowBlockPage(...)
@@ -247,7 +276,7 @@ or
 
 ---
 
-## Testing AttributeCollectionSubmit
+### AttributeCollectionSubmit
 
 Recommended assertions:
 
@@ -255,13 +284,11 @@ Recommended assertions:
 - Modified attributes generated correctly
 - Blocking behavior works correctly
 
-Example:
+Common builders:
 
 ```csharp
 .ShowValidationError(...)
 ```
-
-or
 
 ```csharp
 .ModifyAttributeValues(...)
@@ -269,7 +296,7 @@ or
 
 ---
 
-## Testing TokenIssuanceStart
+### TokenIssuanceStart
 
 Recommended assertions:
 
@@ -277,7 +304,7 @@ Recommended assertions:
 - Roles generated correctly
 - Claim values match application expectations
 
-Example:
+Common builder:
 
 ```csharp
 .ProvideClaimsForToken(...)
@@ -285,7 +312,7 @@ Example:
 
 ---
 
-## Testing PasswordSubmit
+### PasswordSubmit
 
 Recommended assertions:
 
@@ -303,9 +330,13 @@ IPasswordContextDecryptor
 
 to avoid real cryptography and certificate dependencies during unit tests.
 
+When testing PasswordSubmit handlers, focus on business decisions rather than cryptographic implementation details.
+
+Cryptography, certificate loading, and Azure Key Vault integration should be tested separately at the component level.
+
 ---
 
-## Testing VerifiedIdClaimValidation
+### VerifiedIdClaimValidation
 
 Recommended assertions:
 
@@ -313,17 +344,46 @@ Recommended assertions:
 - Failed claims identified correctly
 - Pass responses generated when validation succeeds
 
-Example:
+Common builders:
 
 ```csharp
 .Pass()
 ```
 
-or
-
 ```csharp
 .Failed(...)
 ```
+
+---
+
+## Testing Security Components
+
+Most applications should test PasswordSubmit handlers by mocking:
+
+```csharp
+IPasswordContextDecryptor
+```
+
+Example:
+
+```csharp
+decryptor
+    .DecryptAsync(...)
+    .Returns(
+        new DecryptedPasswordContext
+        {
+            Username = "user@example.com",
+            Password = "secret",
+            Nonce = "nonce"
+        });
+```
+
+This keeps handler tests fast and independent from:
+
+- Azure Key Vault
+- Certificates
+- RSA keys
+- JWE decryption
 
 ---
 
@@ -333,10 +393,11 @@ Avoid unit testing:
 
 - ASP.NET Core endpoint mappings
 - Azure Function trigger attributes
-- Http adapter
+- IHttpAdapter implementations
 - Framework plumbing
+- Dependency injection registration
 
-These components already contain minimal logic.
+These components intentionally contain very little business logic.
 
 Focus tests on:
 
@@ -350,15 +411,26 @@ Business Logic
 
 ## Integration Testing
 
-Use integration tests only when validating:
+Use integration tests when validating:
 
 - Dependency injection configuration
 - ASP.NET Core routing
 - Azure Functions hosting
+- Azure Key Vault integration
 - Database interactions
 - External APIs
 
 Most business logic should remain covered by handler-level unit tests.
+
+A good rule of thumb is:
+
+```text
+Handler behavior
+    → Unit Test
+
+Hosting configuration
+    → Integration Test
+```
 
 ---
 
@@ -388,6 +460,41 @@ Any testing framework may be used.
 
 ---
 
+## Testing Hosting Adapters
+
+Hosting adapters are intentionally thin.
+
+Applications should generally test:
+
+```text
+Handler
+        +
+Business Logic
+```
+
+rather than:
+
+```text
+ASP.NET Core Endpoint
+```
+
+or:
+
+```text
+Azure Function
+```
+
+The hosting adapters are primarily responsible for:
+
+- HTTP request adaptation
+- Event orchestration
+- Handler invocation
+- HTTP response adaptation
+
+These behaviors are already covered by framework and library-level testing.
+
+---
+
 ## Summary
 
 Entra.EventHandlers is designed around direct handler testing.
@@ -400,4 +507,8 @@ Recommended approach:
 4. Execute `HandleAsync()`.
 5. Assert the generated response.
 
-Most tests should focus on business behavior inside handlers rather than ASP.NET Core or Azure Functions hosting infrastructure.
+Keep business logic inside handlers.
+
+Keep hosting adapters thin.
+
+Test behavior, not plumbing.
