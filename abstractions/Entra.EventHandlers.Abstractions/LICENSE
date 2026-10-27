@@ -56,4 +56,4 @@ and security capabilities:
 
 These packages provide strongly typed handlers, fluent response builders,
 security integrations, hosting infrastructure, routing, dependency injection
-integration, and request/response adapters built on top of the abstractions.
+integration, and http adapters built on top of the abstractions.

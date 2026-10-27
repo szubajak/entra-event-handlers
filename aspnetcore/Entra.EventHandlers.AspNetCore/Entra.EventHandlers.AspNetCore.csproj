@@ -1,69 +1,71 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-	
   <PropertyGroup>
-	<OutputType>Library</OutputType>
-	<IsPackable>true</IsPackable>
-	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
-	<WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
-	<SuppressDependenciesWhenPacking>false</SuppressDependenciesWhenPacking>
-	<NoWarn>NU5128</NoWarn>
+    <OutputType>Library</OutputType>
+    <IsPackable>true</IsPackable>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
+    <SuppressDependenciesWhenPacking>false</SuppressDependenciesWhenPacking>
+    <NoWarn>NU5128</NoWarn>
 
-	<!-- NuGet metadata -->
-	<PackageId>Entra.EventHandlers.AspNetCore</PackageId>
-	<Version>1.5.3</Version>
-	<Authors>Jakub Szubarga</Authors>
-	<Company>Szubarga.NET Jakub Szubarga</Company>
+    <!-- NuGet metadata -->
+    <PackageId>Entra.EventHandlers.AspNetCore</PackageId>
+    <Version>1.5.3</Version>
+    <Authors>Jakub Szubarga</Authors>
+    <Company>Szubarga.NET Jakub Szubarga</Company>
 
-	<Description>ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers. Provides minimal‑boilerplate endpoint mapping, request/response adapters, a unified execution pipeline, DI integration, structured logging, and production‑ready hosting for custom authentication extensions. Extends the MIT‑licensed Entra.EventHandlers.Abstractions package and is designed to be used together with the Entra.EventHandlers and Entra.EventHandlers.Workforce implementation packages.</Description>
+    <Description>ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication Event Handlers. Provides minimal‑boilerplate endpoint mapping, http adapter, a unified execution pipeline, DI integration, structured logging, and production‑ready hosting for custom authentication extensions. Extends the MIT‑licensed Entra.EventHandlers.Abstractions package and is designed to be used together with the Entra.EventHandlers and Entra.EventHandlers.Workforce implementation packages.</Description>
 
-	<PackageTags>
+    <PackageTags>
 	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;workforce;verified-id;ciam;
 	authentication-events;event-handlers;identity;authentication;dotnet;aspnetcore;minimal-apis;
 	middleware;csharp
 	</PackageTags>
 
-	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
 
-	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
 
-	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<IncludeSymbols>true</IncludeSymbols>
-	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-	<PackageReleaseNotes>
+    <PackageReleaseNotes>
 	Includes ASP.NET Core hosting adapter for Microsoft Entra External ID and Workforce Authentication
-	Event Handlers. Provides request/response adapters, endpoint base classes, DI integration, unified
+	Event Handlers. Provides http adapter, endpoint base classes, DI integration, unified
 	execution pipeline, router endpoint, and single-event endpoint mapping extensions.
 	</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-	<IsPackable>false</IsPackable>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
-	
+
   <ItemGroup>
-	<None Include="LICENSE" Pack="true" PackagePath="" />
-	<None Include="LICENSE-COMMERCIAL.md" Pack="true" PackagePath="" />
-	<None Include="README.md" Pack="true" PackagePath="" />
-	<None Include="icon.png" Pack="true" PackagePath="" />
+    <None Include="LICENSE" Pack="true" PackagePath="" />
+    <None Include="LICENSE-COMMERCIAL.md" Pack="true" PackagePath="" />
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" PrivateAssets="All" />
-	<PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.6.0" />
-	<PackageReference Include="Scrutor" Version="7.0.0" />
+    <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" PrivateAssets="All" />
+    <PackageReference Include="Entra.EventHandlers.Abstractions" Version="1.6.0" />
+    <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-	<ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj">
+    <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj">
       <IncludeAssets>none</IncludeAssets>
-	</ProjectReference>
+    </ProjectReference>
 
-	<None Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll" Pack="true" PackagePath="lib/net10.0/" />
+    <None
+      Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
+      Pack="true"
+      PackagePath="lib/net10.0/"
+    />
   </ItemGroup>
-
 </Project>

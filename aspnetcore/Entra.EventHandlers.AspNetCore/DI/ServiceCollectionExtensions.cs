@@ -11,21 +11,22 @@ public static class ServiceCollectionExtensions
     {
         services.AddEntraEventHandlersHosting();
 
-        services.AddSingleton<IRequestAdapter, RequestAdapter>()
-                .AddSingleton<IResponseAdapter, ResponseAdapter>()
-                .AddTransient<AttributeCollectionStartEndpoint>()
-                .AddTransient<AttributeCollectionSubmitEndpoint>()
-                .AddTransient<TokenIssuanceStartEndpoint>()
-                .AddTransient<EmailOtpSendEndpoint>()
-                .AddTransient<PasswordSubmitEndpoint>()
-                .AddTransient<VerifiedIdClaimValidationEndpoint>()
-                .AddTransient<EntraEventRouterEndpoint>();
+        services
+            .AddSingleton<IHttpAdapter, HttpAdapter>()
+            .AddTransient<AttributeCollectionStartEndpoint>()
+            .AddTransient<AttributeCollectionSubmitEndpoint>()
+            .AddTransient<TokenIssuanceStartEndpoint>()
+            .AddTransient<EmailOtpSendEndpoint>()
+            .AddTransient<PasswordSubmitEndpoint>()
+            .AddTransient<VerifiedIdClaimValidationEndpoint>()
+            .AddTransient<EntraEventRouterEndpoint>();
 
-        services.Scan(scan => scan
-            .FromApplicationDependencies()
-            .AddClasses(c => c.AssignableTo<IEntraExceptionHandler>())
-            .AsImplementedInterfaces()
-            .WithSingletonLifetime());
+        services.Scan(scan =>
+            scan.FromApplicationDependencies()
+                .AddClasses(c => c.AssignableTo<IEntraExceptionHandler>())
+                .AsImplementedInterfaces()
+                .WithSingletonLifetime()
+        );
 
         return services;
     }

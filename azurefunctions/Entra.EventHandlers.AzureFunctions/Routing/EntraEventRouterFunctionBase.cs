@@ -33,11 +33,8 @@ namespace Entra.EventHandlers.AzureFunctions.Routing;
 /// Consumers should inherit from this class and expose a single HTTP‑triggered
 /// Azure Function that delegates to <see cref="ExecuteAsync"/>.
 /// </remarks>
-public abstract class EntraEventRouterFunctionBase(
-    ILogger logger,
-    IEntraEventOrchestrator orchestrator,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EntraFunctionBase(logger, requestAdapter, responseAdapter)
+public abstract class EntraEventRouterFunctionBase(ILogger logger, IHttpAdapter httpAdapter, IEntraEventOrchestrator orchestrator)
+    : EntraFunctionBase(logger, httpAdapter)
 {
     private readonly IEntraEventOrchestrator _orchestrator = orchestrator;
 
@@ -54,7 +51,7 @@ public abstract class EntraEventRouterFunctionBase(
     /// </returns>
     protected sealed override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
     {
-        var evt = await RequestAdapter.ReadEventAsync(req);
+        var evt = await HttpAdapter.ReadEventAsync(req);
         var result = await _orchestrator.DispatchAsync(evt, req.FunctionContext.CancellationToken);
 
         if (result.HasException)
@@ -62,6 +59,6 @@ public abstract class EntraEventRouterFunctionBase(
             await OnExceptionAsync(result.Exception!);
         }
 
-        return await ResponseAdapter.FromAsync(req, result.Response);
+        return await HttpAdapter.CreateResponseAsync(req, result.Response);
     }
 }

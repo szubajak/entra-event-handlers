@@ -9,15 +9,15 @@ namespace Entra.EventHandlers.AzureFunctions.Base;
 
 public abstract class AttributeCollectionSubmitFunctionBase(
     ILogger logger,
-    IAttributeCollectionSubmitHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EntraFunctionBase(logger, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    IAttributeCollectionSubmitHandler handler
+) : EntraFunctionBase(logger, httpAdapter)
 {
     private readonly IAttributeCollectionSubmitHandler _handler = handler;
 
     protected sealed override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
     {
-        var evt = await RequestAdapter.ReadEventAsync<AttributeCollectionSubmitEvent>(req);
+        var evt = await HttpAdapter.ReadEventAsync<AttributeCollectionSubmitEvent>(req);
         var result = await _handler.HandleAsync(evt, req.FunctionContext.CancellationToken);
 
         if (result.HasException)
@@ -25,6 +25,6 @@ public abstract class AttributeCollectionSubmitFunctionBase(
             await OnExceptionAsync(result.Exception!);
         }
 
-        return await ResponseAdapter.FromAsync(req, result.Response);
+        return await HttpAdapter.CreateResponseAsync(req, result.Response);
     }
 }

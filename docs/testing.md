@@ -333,8 +333,7 @@ Avoid unit testing:
 
 - ASP.NET Core endpoint mappings
 - Azure Function trigger attributes
-- Request adapters
-- Response adapters
+- Http adapter
 - Framework plumbing
 
 These components already contain minimal logic.

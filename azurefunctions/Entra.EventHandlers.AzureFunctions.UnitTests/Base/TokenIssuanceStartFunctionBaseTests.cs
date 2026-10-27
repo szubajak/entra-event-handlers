@@ -21,18 +21,16 @@ public class TokenIssuanceStartFunctionBaseTests
     private readonly Fixture _fixture = new();
 
     private readonly ILogger _logger;
+    private readonly IHttpAdapter _httpAdapter;
     private readonly ITokenIssuanceStartHandler _handler;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
 
     public TokenIssuanceStartFunctionBaseTests()
     {
         _logger = Substitute.For<ILogger>();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
         _handler = Substitute.For<ITokenIssuanceStartHandler>();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestTokenIssuanceStartFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
+        _sut = new TestTokenIssuanceStartFunctionBase(_logger, _httpAdapter, _handler);
     }
 
     [Fact]
@@ -45,18 +43,14 @@ public class TokenIssuanceStartFunctionBaseTests
 
         var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture);
 
-        _requestAdapter
-            .ReadEventAsync<TokenIssuanceStartEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<TokenIssuanceStartEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateTokenIssuanceStartResponse();
         var handlerResult = new EntraHandlerResult<TokenIssuanceStartResponse>(entraResponse);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);
@@ -78,18 +72,14 @@ public class TokenIssuanceStartFunctionBaseTests
 
         var exception = new InvalidOperationException("Invalid!");
 
-        _requestAdapter
-            .ReadEventAsync<TokenIssuanceStartEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<TokenIssuanceStartEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateTokenIssuanceStartResponse();
         var handlerResult = new EntraHandlerResult<TokenIssuanceStartResponse>(entraResponse, exception);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);

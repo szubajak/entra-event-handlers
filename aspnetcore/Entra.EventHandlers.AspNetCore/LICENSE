@@ -49,7 +49,7 @@ including:
 - Multi‑event router endpoint  
 - Single‑event endpoint classes  
 - Unified execution pipeline  
-- Request/response adapters  
+- Http adapter  
 - DI integration and endpoint mapping extensions  
 
 The public protocol abstractions are available separately under the MIT License in:
@@ -66,4 +66,4 @@ Additional BSL-licensed packages extend the Entra.EventHandlers ecosystem:
 
 These packages provide strongly typed handlers, fluent response builders,
 security integrations, hosting infrastructure, routing, dependency injection
-integration, and request/response adapters built on top of the abstractions.
+integration, and http adapter built on top of the abstractions.

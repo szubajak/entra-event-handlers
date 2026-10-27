@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Net;
+using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.AzureFunctions.Adapters;
 using Entra.EventHandlers.Hosting.Errors;
@@ -8,7 +9,6 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using System.Net;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Abstractions;
 
@@ -17,16 +17,14 @@ public class EntraFunctionBaseTests
     private readonly TestEntraFunctionBase _sut;
 
     private readonly TestLogger _logger;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
+    private readonly IHttpAdapter _httpAdapter;
 
     public EntraFunctionBaseTests()
     {
         _logger = new TestLogger();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
 
-        _sut = new TestEntraFunctionBase(_logger, _requestAdapter, _responseAdapter);
+        _sut = new TestEntraFunctionBase(_logger, _httpAdapter);
     }
 
     [Fact]
@@ -92,13 +90,15 @@ public class EntraFunctionBaseTests
         await _sut.Invoke(req);
 
         // Assert
-        _ = _responseAdapter.Received(1)
-            .FromErrorAsync(req, HttpStatusCode.BadRequest, Arg.Any<EntraErrorResponse>());
+        _ = _httpAdapter.Received(1).CreateErrorResponseAsync(req, HttpStatusCode.BadRequest, Arg.Any<EntraErrorResponse>());
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Warning &&
-            e.Exception == exception &&
-            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Warning
+                && e.Exception == exception
+                && e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling.")
+            );
     }
 
     [Fact]
@@ -116,12 +116,14 @@ public class EntraFunctionBaseTests
         await _sut.InvokeAsync(req);
 
         // Assert
-        _ = _responseAdapter.Received(1)
-            .FromErrorAsync(req, HttpStatusCode.InternalServerError, Arg.Any<EntraErrorResponse>());
+        _ = _httpAdapter.Received(1).CreateErrorResponseAsync(req, HttpStatusCode.InternalServerError, Arg.Any<EntraErrorResponse>());
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Error &&
-            e.Exception == exception &&
-            e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Error
+                && e.Exception == exception
+                && e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling.")
+            );
     }
 }

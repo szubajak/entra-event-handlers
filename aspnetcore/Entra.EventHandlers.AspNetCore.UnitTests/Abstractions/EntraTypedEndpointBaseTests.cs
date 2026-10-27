@@ -16,18 +16,16 @@ public class EntraTypedEndpointBaseTests
     private readonly TestTypedEntraEndpointBase _sut;
 
     private readonly ILogger _logger;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
+    private readonly IHttpAdapter _httpAdapter;
     private readonly IEntraEventHandlerResolver _resolver;
 
     public EntraTypedEndpointBaseTests()
     {
         _logger = Substitute.For<ILogger>();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
         _resolver = Substitute.For<IEntraEventHandlerResolver>();
 
-        _sut = new TestTypedEntraEndpointBase(_logger, _requestAdapter, _responseAdapter, _resolver);
+        _sut = new TestTypedEntraEndpointBase(_logger, _httpAdapter, _resolver);
     }
 
     [Fact]
@@ -41,32 +39,22 @@ public class EntraTypedEndpointBaseTests
 
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
 
-        _requestAdapter
-            .ReadEventAsync<TestEvent>(ctx)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<TestEvent>(ctx).Returns(evt);
 
-        _resolver
-            .Resolve<TestEvent, TestResponse>()
-            .Returns(handler);
+        _resolver.Resolve<TestEvent, TestResponse>().Returns(handler);
 
-        handler
-            .HandleAsync(evt, ctx.RequestAborted)
-            .Returns(new EntraHandlerResult<TestResponse>(response));
+        handler.HandleAsync(evt, ctx.RequestAborted).Returns(new EntraHandlerResult<TestResponse>(response));
 
-        _responseAdapter
-            .WriteOkAsync(ctx, response)
-            .Returns(Task.CompletedTask);
+        _httpAdapter.WriteOkAsync(ctx, response).Returns(Task.CompletedTask);
 
         // Act
         await _sut.Invoke(ctx);
 
         // Assert
-        _resolver
-            .Received(1)
-            .Resolve<TestEvent, TestResponse>();
+        _resolver.Received(1).Resolve<TestEvent, TestResponse>();
 
         _ = handler.Received(1).HandleAsync(evt, ctx.RequestAborted);
-        _ = _responseAdapter.Received(1).WriteOkAsync(ctx, response);
+        _ = _httpAdapter.Received(1).WriteOkAsync(ctx, response);
     }
 
     [Fact]
@@ -78,10 +66,7 @@ public class EntraTypedEndpointBaseTests
         services.AddSingleton(exceptionHandler);
         var provider = services.BuildServiceProvider();
 
-        var ctx = new DefaultHttpContext
-        {
-            RequestServices = provider
-        };
+        var ctx = new DefaultHttpContext { RequestServices = provider };
 
         var evt = new TestEvent();
         var response = new TestResponse();
@@ -89,31 +74,21 @@ public class EntraTypedEndpointBaseTests
 
         var handler = Substitute.For<IEntraEventHandler<TestEvent, TestResponse>>();
 
-        _requestAdapter
-            .ReadEventAsync<TestEvent>(ctx)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<TestEvent>(ctx).Returns(evt);
 
-        _resolver
-            .Resolve<TestEvent, TestResponse>()
-            .Returns(handler);
+        _resolver.Resolve<TestEvent, TestResponse>().Returns(handler);
 
-        handler
-            .HandleAsync(evt, ctx.RequestAborted)
-            .Returns(new EntraHandlerResult<TestResponse>(response, exception));
+        handler.HandleAsync(evt, ctx.RequestAborted).Returns(new EntraHandlerResult<TestResponse>(response, exception));
 
-        _responseAdapter
-            .WriteOkAsync(ctx, response)
-            .Returns(Task.CompletedTask);
+        _httpAdapter.WriteOkAsync(ctx, response).Returns(Task.CompletedTask);
 
         // Act
         await _sut.Invoke(ctx);
 
         // Assert
-        _resolver
-            .Received(1)
-            .Resolve<TestEvent, TestResponse>();
+        _resolver.Received(1).Resolve<TestEvent, TestResponse>();
 
         _ = exceptionHandler.Received(1).HandleAsync(exception);
-        _ = _responseAdapter.Received(1).WriteOkAsync(ctx, response);
+        _ = _httpAdapter.Received(1).WriteOkAsync(ctx, response);
     }
 }

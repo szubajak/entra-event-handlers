@@ -1,18 +1,17 @@
-﻿using Entra.EventHandlers.Abstractions.Errors;
+﻿using System.Net;
+using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.AzureFunctions.Adapters;
 using Entra.EventHandlers.Hosting.Errors;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using System.Net;
 
 namespace Entra.EventHandlers.AzureFunctions.Abstractions;
 
-public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestAdapter, IResponseAdapter responseAdapter)
+public abstract class EntraFunctionBase(ILogger logger, IHttpAdapter httpAdapter)
 {
     protected ILogger Logger { get; } = logger;
-    protected IRequestAdapter RequestAdapter { get; } = requestAdapter;
-    protected IResponseAdapter ResponseAdapter { get; } = responseAdapter;
+    protected IHttpAdapter HttpAdapter { get; } = httpAdapter;
 
     protected virtual Task OnExceptionAsync(Exception ex) => Task.CompletedTask;
 
@@ -28,14 +27,11 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
 
             await OnExceptionAsync(ex);
 
-            return await ResponseAdapter.FromErrorAsync(
+            return await HttpAdapter.CreateErrorResponseAsync(
                 req,
                 HttpStatusCode.RequestTimeout,
-                new EntraErrorResponse
-                {
-                    Error = EntraErrorCodes.RequestCanceled,
-                    Details = "The request was canceled."
-                });
+                new EntraErrorResponse { Error = EntraErrorCodes.RequestCanceled, Details = "The request was canceled." }
+            );
         }
         catch (Exception ex) when (ex.IsEntraException())
         {
@@ -43,14 +39,11 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
 
             await OnExceptionAsync(ex);
 
-            return await ResponseAdapter.FromErrorAsync(
+            return await HttpAdapter.CreateErrorResponseAsync(
                 req,
                 HttpStatusCode.BadRequest,
-                new EntraErrorResponse
-                {
-                    Error = ex.ToEntraErrorCode(),
-                    Details = ex.Message
-                });
+                new EntraErrorResponse { Error = ex.ToEntraErrorCode(), Details = ex.Message }
+            );
         }
         catch (Exception ex)
         {
@@ -58,14 +51,11 @@ public abstract class EntraFunctionBase(ILogger logger, IRequestAdapter requestA
 
             await OnExceptionAsync(ex);
 
-            return await ResponseAdapter.FromErrorAsync(
+            return await HttpAdapter.CreateErrorResponseAsync(
                 req,
                 HttpStatusCode.InternalServerError,
-                new EntraErrorResponse
-                {
-                    Error = EntraErrorCodes.UnhandledException,
-                    Details = "Unexpected failure occurred."
-                });
+                new EntraErrorResponse { Error = EntraErrorCodes.UnhandledException, Details = "Unexpected failure occurred." }
+            );
         }
     }
 

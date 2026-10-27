@@ -2,7 +2,7 @@
 
 Azure Functions hosting adapter for Microsoft Entra External ID and Microsoft Entra Workforce authentication event handlers.
 
-This package provides Azure Functions integration for the Entra.EventHandlers ecosystem, enabling strongly typed event handlers with dependency injection, event routing, request/response adapters, and centralized orchestration.
+This package provides Azure Functions integration for the Entra.EventHandlers ecosystem, enabling strongly typed event handlers with dependency injection, event routing, http adapter, and centralized orchestration.
 
 ## Installation
 
@@ -35,23 +35,13 @@ Create a router function:
 ```csharp
 public sealed class EntraEventRouterFunction(
     ILogger<EntraEventRouterFunction> logger,
-    IEntraEventOrchestrator orchestrator,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraEventRouterFunctionBase(
-        logger,
-        orchestrator,
-        requestAdapter,
-        responseAdapter)
+    IHttpAdapter httpAdapter,
+    IEntraEventOrchestrator orchestrator
+) : EntraEventRouterFunctionBase(logger, httpAdapter, orchestrator)
 {
     [Function("Router")]
-    public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(
-            AuthorizationLevel.Function,
-            "post",
-            Route = "router")]
-        HttpRequestData request)
-            => InvokeAsync(request);
+    public Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")] HttpRequestData req) =>
+        InvokeAsync(req);
 }
 ```
 
@@ -79,15 +69,14 @@ Example:
 ```csharp
 public sealed class TokenIssuanceStartFunction(
     ILogger<TokenIssuanceStartFunction> logger,
-    ITokenIssuanceStartHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : TokenIssuanceStartFunctionBase(
-        logger,
-        handler,
-        requestAdapter,
-        responseAdapter)
+    IHttpAdapter httpAdapter,
+    ITokenIssuanceStartHandler handler
+) : TokenIssuanceStartFunctionBase(logger, httpAdapter, handler)
 {
+    [Function("TokenIssuanceStart")]
+    public Task<HttpResponseData> RunAsync(
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")] HttpRequestData req
+    ) => InvokeAsync(req);
 }
 ```
 
