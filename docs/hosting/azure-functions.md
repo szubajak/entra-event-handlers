@@ -169,8 +169,7 @@ builder.Services.AddEntraEventHandlers();
 Example:
 
 ```csharp
-public class AttributeCollectionStartHandler(
-    ILogger<AttributeCollectionStartHandler> logger)
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
     : AttributeCollectionStartHandlerBase(logger)
 {
     protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
