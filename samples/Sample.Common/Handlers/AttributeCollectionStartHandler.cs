@@ -6,17 +6,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Sample.Common.Handlers;
 
-public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
-    : AttributeCollectionStartHandlerBase(logger)
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger) : AttributeCollectionStartHandlerBase(logger)
 {
     protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
         AttributeCollectionStartEvent request,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default
+    )
     {
-        return Task.FromResult(
-            EntraEventResponses
-                .AttributeCollectionStart()
-                .ContinueWithDefaultBehavior()
-                .Build());
+        return Task.FromResult(EntraEventResponses.AttributeCollectionStart().ContinueWithDefaultBehavior().Build());
     }
 }

@@ -6,13 +6,13 @@ using FluentAssertions;
 
 namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Endpoints;
 
-public class EntraEventRouterEndpointResponseAdapterThrowsTests(TestAppFactoryHttpAdapterThrows factory)
+public class EntraEventRouterEndpointHttpAdapterThrowsTests(TestAppFactoryHttpAdapterThrows factory)
     : IClassFixture<TestAppFactoryHttpAdapterThrows>
 {
     private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
-    public async Task Router_ShouldReturnServerError_WhenResponseAdapterFails()
+    public async Task Router_ShouldReturnServerError_WhenHttpAdapterFails()
     {
         // Arrange
         var payload = EventSamples.PasswordSubmit();

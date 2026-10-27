@@ -9,14 +9,12 @@ namespace AzureFunctionsSample.Functions;
 
 public sealed class TokenIssuanceStartFunction(
     ILogger<TokenIssuanceStartFunction> logger,
-    ITokenIssuanceStartHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : TokenIssuanceStartFunctionBase(logger, handler, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    ITokenIssuanceStartHandler handler
+) : TokenIssuanceStartFunctionBase(logger, httpAdapter, handler)
 {
     [Function("TokenIssuanceStart")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")]
-        HttpRequestData req) =>
-        InvokeAsync(req);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "tokenissuancestart")] HttpRequestData req
+    ) => InvokeAsync(req);
 }

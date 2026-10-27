@@ -7,9 +7,9 @@ namespace Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
 
 public sealed class TestAttributeCollectionSubmitFunctionBase(
     ILogger logger,
-    IAttributeCollectionSubmitHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : AttributeCollectionSubmitFunctionBase(logger, handler, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    IAttributeCollectionSubmitHandler handler
+) : AttributeCollectionSubmitFunctionBase(logger, httpAdapter, handler)
 {
     public bool ExceptionCalled { get; private set; }
 

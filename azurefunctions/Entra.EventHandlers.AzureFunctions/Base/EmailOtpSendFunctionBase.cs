@@ -7,17 +7,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.Base;
 
-public abstract class EmailOtpSendFunctionBase(
-    ILogger logger,
-    IEmailOtpSendHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EntraFunctionBase(logger, requestAdapter, responseAdapter)
+public abstract class EmailOtpSendFunctionBase(ILogger logger, IHttpAdapter httpAdapter, IEmailOtpSendHandler handler)
+    : EntraFunctionBase(logger, httpAdapter)
 {
     private readonly IEmailOtpSendHandler _handler = handler;
 
     protected sealed override async Task<HttpResponseData> ExecuteAsync(HttpRequestData req)
     {
-        var evt = await RequestAdapter.ReadEventAsync<EmailOtpSendEvent>(req);
+        var evt = await HttpAdapter.ReadEventAsync<EmailOtpSendEvent>(req);
         var result = await _handler.HandleAsync(evt, req.FunctionContext.CancellationToken);
 
         if (result.HasException)
@@ -25,6 +22,6 @@ public abstract class EmailOtpSendFunctionBase(
             await OnExceptionAsync(result.Exception!);
         }
 
-        return await ResponseAdapter.FromAsync(req, result.Response);
+        return await HttpAdapter.CreateResponseAsync(req, result.Response);
     }
 }

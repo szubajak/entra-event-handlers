@@ -9,14 +9,12 @@ namespace AzureFunctionsSample.Functions;
 
 public sealed class AttributeCollectionStartFunction(
     ILogger<AttributeCollectionStartFunction> logger,
-    IAttributeCollectionStartHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : AttributeCollectionStartFunctionBase(logger, handler, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    IAttributeCollectionStartHandler handler
+) : AttributeCollectionStartFunctionBase(logger, httpAdapter, handler)
 {
     [Function("AttributeCollectionStart")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "attributecollectionstart")]
-        HttpRequestData req) => 
-        InvokeAsync(req);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "attributecollectionstart")] HttpRequestData req
+    ) => InvokeAsync(req);
 }

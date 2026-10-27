@@ -46,7 +46,7 @@ The router endpoint automatically:
 - Executes handlers
 - Serializes responses (application/json; UTF‑8)
 - Maps exceptions to HTTP responses (problem response contract with correlation ID when available)
-- See IRequestAdapter and IResponseAdapter for request/response adaptation details.
+- See IHttpAdapter for request/response adaptation details
 
 ---
 
@@ -98,8 +98,7 @@ builder.Services.AddEntraEventHandlers();
 
 This automatically registers:
 
-- Request adapters
-- Response adapters
+- HTTP adapter
 - Event orchestrator
 - Handler resolver
 - Event handlers discovered in the application

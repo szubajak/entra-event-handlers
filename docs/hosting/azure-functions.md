@@ -49,23 +49,13 @@ Example: Minimal router function
 ```
 public sealed class EntraEventRouterFunction(
     ILogger<EntraEventRouterFunction> logger,
-    IEntraEventOrchestrator orchestrator,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraEventRouterFunctionBase(
-        logger,
-        orchestrator,
-        requestAdapter,
-        responseAdapter)
+    IHttpAdapter httpAdapter,
+    IEntraEventOrchestrator orchestrator
+) : EntraEventRouterFunctionBase(logger, httpAdapter, orchestrator)
 {
     [Function("Router")]
-    public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(
-            AuthorizationLevel.Function,
-            "post",
-            Route = "router")]
-        HttpRequestData request)
-            => InvokeAsync(request);
+    public Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")] HttpRequestData req) =>
+        InvokeAsync(req);
 }
 ```
 
@@ -78,7 +68,7 @@ Microsoft Entra
 Azure Function
         │
         ▼
-Request Adapter
+Http Adapter
         │
         ▼
 Event Orchestrator
@@ -90,7 +80,7 @@ Handler Resolution
 Event Handler
         │
         ▼
-Response Adapter
+Http Adapter
         │
         ▼
 Microsoft Entra
@@ -110,8 +100,7 @@ This automatically registers:
 
 - Event orchestrator
 - Handler resolver
-- Request adapters
-- Response adapters
+- Http adapter
 - Event handlers discovered in the application
 
 The registration also enables:
@@ -133,23 +122,13 @@ The router function is the recommended approach for most applications.
 ```csharp
 public sealed class EntraEventRouterFunction(
     ILogger<EntraEventRouterFunction> logger,
-    IEntraEventOrchestrator orchestrator,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraEventRouterFunctionBase(
-        logger,
-        orchestrator,
-        requestAdapter,
-        responseAdapter)
+    IHttpAdapter httpAdapter,
+    IEntraEventOrchestrator orchestrator
+) : EntraEventRouterFunctionBase(logger, httpAdapter, orchestrator)
 {
     [Function("Router")]
-    public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(
-            AuthorizationLevel.Function,
-            "post",
-            Route = "router")]
-        HttpRequestData request)
-            => InvokeAsync(request);
+    public Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")] HttpRequestData req) =>
+        InvokeAsync(req);
 }
 ```
 
@@ -177,8 +156,7 @@ builder.Services.AddEntraEventHandlers();
 Example:
 
 ```csharp
-public class AttributeCollectionStartHandler(
-    ILogger<AttributeCollectionStartHandler> logger)
+public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHandler> logger)
     : AttributeCollectionStartHandlerBase(logger)
 {
     protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
@@ -228,23 +206,14 @@ Example:
 ```csharp
 public sealed class AttributeCollectionStartFunction(
     ILogger<AttributeCollectionStartFunction> logger,
-    IAttributeCollectionStartHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : AttributeCollectionStartFunctionBase(
-        logger,
-        handler,
-        requestAdapter,
-        responseAdapter)
+    IHttpAdapter httpAdapter,
+    IAttributeCollectionStartHandler handler
+) : AttributeCollectionStartFunctionBase(logger, httpAdapter, handler)
 {
     [Function("AttributeCollectionStart")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(
-            AuthorizationLevel.Function,
-            "post",
-            Route = "attributecollectionstart")]
-        HttpRequestData request)
-            => InvokeAsync(request);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "attributecollectionstart")] HttpRequestData req
+    ) => InvokeAsync(req);
 }
 ```
 

@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Net;
+using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Abstractions.Results;
@@ -12,7 +13,6 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
-using System.Net;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
 
@@ -21,19 +21,18 @@ public class EntraEventRouterFunctionBaseTests
     private readonly TestEntraEventRouterFunctionBase _sut;
 
     private readonly Fixture _fixture = new();
+
     private readonly TestLogger _logger;
+    private readonly IHttpAdapter _httpAdapter;
     private readonly IEntraEventOrchestrator _orchestrator;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
 
     public EntraEventRouterFunctionBaseTests()
     {
         _logger = new TestLogger();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
         _orchestrator = Substitute.For<IEntraEventOrchestrator>();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEntraEventRouterFunctionBase(_logger, _orchestrator, _requestAdapter, _responseAdapter);
+        _sut = new TestEntraEventRouterFunctionBase(_logger, _httpAdapter, _orchestrator);
     }
 
     [Fact]
@@ -47,13 +46,9 @@ public class EntraEventRouterFunctionBaseTests
         var statusCode = HttpStatusCode.BadRequest;
         var errorMessage = _fixture.Create<string>();
         var exception = new EntraDeserializationException(errorMessage);
-        _requestAdapter
-            .ReadEventAsync(request)
-            .Throws(exception);
+        _httpAdapter.ReadEventAsync(request).Throws(exception);
 
-        _responseAdapter
-            .FromErrorAsync(request, statusCode, Arg.Any<EntraErrorResponse>())
-            .Returns(response);
+        _httpAdapter.CreateErrorResponseAsync(request, statusCode, Arg.Any<EntraErrorResponse>()).Returns(response);
 
         // Act
         var result = await _sut.RunAsync(request);
@@ -61,21 +56,21 @@ public class EntraEventRouterFunctionBaseTests
         // Assert
         result.Should().Be(response);
 
-        _ = _responseAdapter
+        _ = _httpAdapter
             .Received(1)
-            .FromErrorAsync(
+            .CreateErrorResponseAsync(
                 request,
                 statusCode,
-                Arg.Is<EntraErrorResponse>(e =>
-                    e != null &&
-                    e.Error == EntraErrorCodes.DeserializationError &&
-                    e.Details == errorMessage
-            ));
+                Arg.Is<EntraErrorResponse>(e => e != null && e.Error == EntraErrorCodes.DeserializationError && e.Details == errorMessage)
+            );
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Warning &&
-            e.Exception == exception &&
-            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Warning
+                && e.Exception == exception
+                && e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling.")
+            );
     }
 
     [Fact]
@@ -87,20 +82,14 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter
-            .ReadEventAsync(request)
-            .Returns(entraEvent);
+        _httpAdapter.ReadEventAsync(request).Returns(entraEvent);
 
         var statusCode = HttpStatusCode.BadRequest;
         var exception = new EntraHandlerNotFoundException(entraEvent.GetType());
 
-        _orchestrator
-            .DispatchAsync(entraEvent, ctx.CancellationToken)
-            .Throws(exception);
+        _orchestrator.DispatchAsync(entraEvent, ctx.CancellationToken).Throws(exception);
 
-        _responseAdapter
-            .FromErrorAsync(request, statusCode, Arg.Any<EntraErrorResponse>())
-            .Returns(response);
+        _httpAdapter.CreateErrorResponseAsync(request, statusCode, Arg.Any<EntraErrorResponse>()).Returns(response);
 
         // Act
         var result = await _sut.RunAsync(request);
@@ -108,22 +97,26 @@ public class EntraEventRouterFunctionBaseTests
         // Assert
         result.Should().Be(response);
 
-        _ = _responseAdapter
+        _ = _httpAdapter
             .Received(1)
-            .FromErrorAsync(
+            .CreateErrorResponseAsync(
                 request,
                 statusCode,
                 Arg.Is<EntraErrorResponse>(e =>
-                    e != null &&
-                    e.Error == EntraErrorCodes.HandlerNotFound &&
-                    !string.IsNullOrEmpty(e.Details) &&
-                    e.Details.Contains(entraEvent.GetType().Name)
-            ));
+                    e != null
+                    && e.Error == EntraErrorCodes.HandlerNotFound
+                    && !string.IsNullOrEmpty(e.Details)
+                    && e.Details.Contains(entraEvent.GetType().Name)
+                )
+            );
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Warning &&
-            e.Exception == exception &&
-            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Warning
+                && e.Exception == exception
+                && e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling.")
+            );
     }
 
     [Fact]
@@ -135,21 +128,15 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter
-            .ReadEventAsync(request)
-            .Returns(entraEvent);
+        _httpAdapter.ReadEventAsync(request).Returns(entraEvent);
 
         var statusCode = HttpStatusCode.BadRequest;
         var errorMessage = _fixture.Create<string>();
         var exception = new EntraValidationException(errorMessage);
 
-        _orchestrator
-            .DispatchAsync(entraEvent, ctx.CancellationToken)
-            .Throws(exception);
+        _orchestrator.DispatchAsync(entraEvent, ctx.CancellationToken).Throws(exception);
 
-        _responseAdapter
-            .FromErrorAsync(request, statusCode, Arg.Any<EntraErrorResponse>())
-            .Returns(response);
+        _httpAdapter.CreateErrorResponseAsync(request, statusCode, Arg.Any<EntraErrorResponse>()).Returns(response);
 
         // Act
         var result = await _sut.RunAsync(request);
@@ -157,21 +144,21 @@ public class EntraEventRouterFunctionBaseTests
         // Assert
         result.Should().Be(response);
 
-        _ = _responseAdapter
+        _ = _httpAdapter
             .Received(1)
-            .FromErrorAsync(
+            .CreateErrorResponseAsync(
                 request,
                 statusCode,
-                Arg.Is<EntraErrorResponse>(e =>
-                    e != null &&
-                    e.Error == EntraErrorCodes.ValidationError &&
-                    e.Details == errorMessage
-            ));
+                Arg.Is<EntraErrorResponse>(e => e != null && e.Error == EntraErrorCodes.ValidationError && e.Details == errorMessage)
+            );
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Warning &&
-            e.Exception == exception &&
-            e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Warning
+                && e.Exception == exception
+                && e.Message.Contains("Entra domain exception occurred in hosting layer during Entra event handling.")
+            );
     }
 
     [Fact]
@@ -183,20 +170,14 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter
-            .ReadEventAsync(request)
-            .Returns(entraEvent);
+        _httpAdapter.ReadEventAsync(request).Returns(entraEvent);
 
         var statusCode = HttpStatusCode.InternalServerError;
         var exception = new InvalidOperationException();
 
-        _orchestrator
-            .DispatchAsync(entraEvent, ctx.CancellationToken)
-            .Throws(exception);
+        _orchestrator.DispatchAsync(entraEvent, ctx.CancellationToken).Throws(exception);
 
-        _responseAdapter
-            .FromErrorAsync(request, statusCode, Arg.Any<EntraErrorResponse>())
-            .Returns(response);
+        _httpAdapter.CreateErrorResponseAsync(request, statusCode, Arg.Any<EntraErrorResponse>()).Returns(response);
 
         // Act
         var result = await _sut.RunAsync(request);
@@ -204,21 +185,23 @@ public class EntraEventRouterFunctionBaseTests
         // Assert
         result.Should().Be(response);
 
-        _ = _responseAdapter
+        _ = _httpAdapter
             .Received(1)
-            .FromErrorAsync(
+            .CreateErrorResponseAsync(
                 request,
                 statusCode,
                 Arg.Is<EntraErrorResponse>(e =>
-                    e != null &&
-                    e.Error == EntraErrorCodes.UnhandledException &&
-                    e.Details == "Unexpected failure occurred."
-            ));
+                    e != null && e.Error == EntraErrorCodes.UnhandledException && e.Details == "Unexpected failure occurred."
+                )
+            );
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Error &&
-            e.Exception == exception &&
-            e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Error
+                && e.Exception == exception
+                && e.Message.Contains("Unexpected failure occurred in hosting layer during Entra event handling.")
+            );
     }
 
     [Fact]
@@ -230,23 +213,16 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter.ReadEventAsync(request).Returns(entraEvent);
+        _httpAdapter.ReadEventAsync(request).Returns(entraEvent);
 
         var entraResponse = new TestResponse();
         var exception = new InvalidOperationException("boom");
 
-        var handlerResult = new EntraHandlerResult<EntraEventResponse>(
-            entraResponse,
-            exception
-        );
+        var handlerResult = new EntraHandlerResult<EntraEventResponse>(entraResponse, exception);
 
-        _orchestrator
-            .DispatchAsync(entraEvent, ctx.CancellationToken)
-            .Returns(handlerResult);
+        _orchestrator.DispatchAsync(entraEvent, ctx.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter
-            .FromAsync(request, entraResponse)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, entraResponse).Returns(response);
 
         // Act
         var result = await _sut.RunAsync(request);
@@ -255,7 +231,7 @@ public class EntraEventRouterFunctionBaseTests
         result.Should().Be(response);
         _sut.ExceptionCalled.Should().BeTrue();
 
-        _ = _responseAdapter.Received(1).FromAsync(request, entraResponse);
+        _ = _httpAdapter.Received(1).CreateResponseAsync(request, entraResponse);
     }
 
     [Fact]
@@ -267,20 +243,14 @@ public class EntraEventRouterFunctionBaseTests
         var response = Substitute.For<HttpResponseData>(ctx);
 
         var entraEvent = new TestEvent();
-        _requestAdapter
-            .ReadEventAsync(request)
-            .Returns(entraEvent);
+        _httpAdapter.ReadEventAsync(request).Returns(entraEvent);
 
         var entraResponse = new TestResponse();
         var expectedResult = new EntraHandlerResult<EntraEventResponse>(entraResponse);
 
-        _orchestrator
-            .DispatchAsync(entraEvent, ctx.CancellationToken)
-            .Returns(expectedResult);
+        _orchestrator.DispatchAsync(entraEvent, ctx.CancellationToken).Returns(expectedResult);
 
-        _responseAdapter
-            .FromAsync(request, entraResponse)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, entraResponse).Returns(response);
 
         // Act
         var result = await _sut.RunAsync(request);
@@ -288,8 +258,6 @@ public class EntraEventRouterFunctionBaseTests
         // Assert
         result.Should().Be(response);
 
-        _ = _orchestrator
-            .Received(1)
-            .DispatchAsync(entraEvent, ctx.CancellationToken);
+        _ = _orchestrator.Received(1).DispatchAsync(entraEvent, ctx.CancellationToken);
     }
 }

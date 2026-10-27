@@ -21,18 +21,16 @@ public class EmailOtpSendFunctionBaseTests
     private readonly Fixture _fixture = new();
 
     private readonly ILogger _logger;
+    private readonly IHttpAdapter _httpAdapter;
     private readonly IEmailOtpSendHandler _handler;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
 
     public EmailOtpSendFunctionBaseTests()
     {
         _logger = Substitute.For<ILogger>();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
         _handler = Substitute.For<IEmailOtpSendHandler>();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestEmailOtpSendFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
+        _sut = new TestEmailOtpSendFunctionBase(_logger, _httpAdapter, _handler);
     }
 
     [Fact]
@@ -45,18 +43,14 @@ public class EmailOtpSendFunctionBaseTests
 
         var evt = TestEvents.CreateEmailOtpSendEvent(_fixture);
 
-        _requestAdapter
-            .ReadEventAsync<EmailOtpSendEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<EmailOtpSendEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateEmailOtpSendResponse();
         var handlerResult = new EntraHandlerResult<EmailOtpSendResponse>(entraResponse);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);
@@ -78,18 +72,14 @@ public class EmailOtpSendFunctionBaseTests
 
         var exception = new InvalidOperationException("Invalid!");
 
-        _requestAdapter
-            .ReadEventAsync<EmailOtpSendEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<EmailOtpSendEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateEmailOtpSendResponse();
         var handlerResult = new EntraHandlerResult<EmailOtpSendResponse>(entraResponse, exception);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);

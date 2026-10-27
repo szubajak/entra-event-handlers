@@ -21,18 +21,16 @@ public class AttributeCollectionSubmitFunctionBaseTests
     private readonly Fixture _fixture = new();
 
     private readonly ILogger _logger;
+    private readonly IHttpAdapter _httpAdapter;
     private readonly IAttributeCollectionSubmitHandler _handler;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
 
     public AttributeCollectionSubmitFunctionBaseTests()
     {
         _logger = Substitute.For<ILogger>();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
         _handler = Substitute.For<IAttributeCollectionSubmitHandler>();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestAttributeCollectionSubmitFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
+        _sut = new TestAttributeCollectionSubmitFunctionBase(_logger, _httpAdapter, _handler);
     }
 
     [Fact]
@@ -45,18 +43,14 @@ public class AttributeCollectionSubmitFunctionBaseTests
 
         var evt = TestEvents.CreateAttributeCollectionSubmitEvent(_fixture);
 
-        _requestAdapter
-            .ReadEventAsync<AttributeCollectionSubmitEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<AttributeCollectionSubmitEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateAttributeCollectionSubmitResponse();
         var handlerResult = new EntraHandlerResult<AttributeCollectionSubmitResponse>(entraResponse);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);
@@ -78,18 +72,14 @@ public class AttributeCollectionSubmitFunctionBaseTests
 
         var exception = new InvalidOperationException("Invalid!");
 
-        _requestAdapter
-            .ReadEventAsync<AttributeCollectionSubmitEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<AttributeCollectionSubmitEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateAttributeCollectionSubmitResponse();
         var handlerResult = new EntraHandlerResult<AttributeCollectionSubmitResponse>(entraResponse, exception);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);

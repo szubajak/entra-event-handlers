@@ -9,14 +9,12 @@ namespace AzureFunctionsSample.Functions;
 
 public sealed class AttributeCollectionSubmitFunction(
     ILogger<AttributeCollectionSubmitFunction> logger,
-    IAttributeCollectionSubmitHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : AttributeCollectionSubmitFunctionBase(logger, handler, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    IAttributeCollectionSubmitHandler handler
+) : AttributeCollectionSubmitFunctionBase(logger, httpAdapter, handler)
 {
     [Function("AttributeCollectionSubmit")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "attributecollectionsubmit")]
-        HttpRequestData req) =>
-        InvokeAsync(req);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "attributecollectionsubmit")] HttpRequestData req
+    ) => InvokeAsync(req);
 }

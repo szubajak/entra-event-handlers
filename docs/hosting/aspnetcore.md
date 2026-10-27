@@ -53,7 +53,7 @@ Microsoft Entra
 ASP.NET Core Endpoint
         │
         ▼
-Request Adapter
+Http Adapter
         │
         ▼
 Event Orchestrator
@@ -65,7 +65,7 @@ Handler Resolution
 Event Handler
         │
         ▼
-Response Adapter
+Http Adapter
         │
         ▼
 Microsoft Entra
@@ -85,8 +85,7 @@ This automatically registers:
 
 - Event orchestrator
 - Handler resolver
-- Request adapters
-- Response adapters
+- Http adapter
 - Event handlers discovered in the application
 - ASP.NET Core endpoint implementations
 

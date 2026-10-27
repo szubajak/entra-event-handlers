@@ -13,7 +13,7 @@ public class ServiceCollectionExtensionsTests
     {
         // Arrange
         var services = new ServiceCollection();
-        
+
         // Act
         services.AddEntraEventHandlers();
 
@@ -39,9 +39,5 @@ public class ServiceCollectionExtensionsTests
     }
 
     public static TheoryData<Type, ServiceLifetime> ServicesRegistrations() =>
-        new()
-        {
-            { typeof(IRequestAdapter), ServiceLifetime.Singleton },
-            { typeof(IResponseAdapter), ServiceLifetime.Singleton }
-        };
+        new() { { typeof(IHttpAdapter), ServiceLifetime.Singleton } };
 }

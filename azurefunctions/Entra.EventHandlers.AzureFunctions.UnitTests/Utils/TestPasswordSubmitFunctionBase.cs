@@ -5,11 +5,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
 
-public sealed class TestPasswordSubmitFunctionBase(
-    ILogger logger,
-    IPasswordSubmitHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : PasswordSubmitFunctionBase(logger, handler, requestAdapter, responseAdapter)
+public sealed class TestPasswordSubmitFunctionBase(ILogger logger, IHttpAdapter httpAdapter, IPasswordSubmitHandler handler)
+    : PasswordSubmitFunctionBase(logger, httpAdapter, handler)
 {
     public bool ExceptionCalled { get; private set; }
 

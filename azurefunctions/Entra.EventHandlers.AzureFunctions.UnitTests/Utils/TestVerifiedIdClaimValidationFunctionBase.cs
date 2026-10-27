@@ -7,9 +7,9 @@ namespace Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
 
 public sealed class TestVerifiedIdClaimValidationFunctionBase(
     ILogger logger,
-    IVerifiedIdClaimValidationHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : VerifiedIdClaimValidationFunctionBase(logger, handler, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    IVerifiedIdClaimValidationHandler handler
+) : VerifiedIdClaimValidationFunctionBase(logger, httpAdapter, handler)
 {
     public bool ExceptionCalled { get; private set; }
 
