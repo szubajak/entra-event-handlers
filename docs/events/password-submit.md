@@ -92,6 +92,8 @@ DecryptedPasswordContext decrypted
 
 The framework decrypts and validates the encrypted password payload before invoking your business logic.
 
+This allows handlers to focus entirely on password validation and migration decisions while the framework handles protocol, decryption, logging, validation, and error-management concerns.
+
 ---
 
 ## Request Model
@@ -108,13 +110,13 @@ The event includes:
 request.Data.EncryptedPasswordContext
 ```
 
-This value contains:
+After decryption, the payload contains:
 
 - User password
 - Nonce
 - Optional username
 
-encrypted using the certificate configured for the PasswordSubmit flow.
+The encrypted payload is protected using the certificate configured for the PasswordSubmit flow.
 
 ---
 
@@ -215,7 +217,9 @@ The security package includes:
 
 Microsoft Entra includes a nonce in the encrypted password context.
 
-This nonce must always be returned in the response.
+The nonce should be treated as mandatory protocol data.
+
+Every successful or error response must return the original nonce supplied by Microsoft Entra.
 
 Example:
 
@@ -233,15 +237,15 @@ The response builder enforces this requirement.
 
 ---
 
-## Response Builder
+## Building Responses
 
-Use:
+Builder entry point:
 
 ```csharp
 EntraEventResponses.PasswordSubmit()
 ```
 
-to create `PasswordSubmitResponse` instances.
+All PasswordSubmit responses are created from this builder.
 
 All responses require:
 
@@ -407,8 +411,8 @@ public sealed class PasswordSubmitHandler(
             .WithNonce(decrypted.Nonce)
             .Block()
             .Build();
-            }
-        }
+    }
+}
 ```
 
 ---
@@ -520,6 +524,30 @@ instead of implementing decryption infrastructure yourself.
 
 ---
 
+### Keep Cryptography Outside Handlers
+
+Handlers should focus on business decisions rather than cryptographic operations.
+
+Good:
+
+```csharp
+protected override Task<PasswordSubmitResponse> HandleCoreAsync(
+    PasswordSubmitEvent request,
+    DecryptedPasswordContext decrypted,
+    CancellationToken cancellationToken = default)
+```
+
+Avoid:
+
+- Manual certificate loading
+- Manual RSA operations
+- Manual JWE processing
+- Custom decryption logic inside handlers
+
+Use `IPasswordContextDecryptor` instead.
+
+---
+
 ### Return Exactly One Action
 
 Every `PasswordSubmit` response returns a single action.
@@ -536,6 +564,8 @@ Choose one:
 ## Summary
 
 The Microsoft Entra External ID `PasswordSubmit` event enables Just-In-Time password migration and external password validation.
+
+Unlike other Microsoft Entra events, PasswordSubmit introduces an additional security layer through encrypted password transport and nonce-based response validation.
 
 Required response component:
 

@@ -17,7 +17,7 @@ The hosting adapter provides:
 
 ## Installation
 
-Install the core package:
+Install the implementation package:
 
 ```bash
 dotnet add package Entra.EventHandlers
@@ -53,7 +53,7 @@ Microsoft Entra
 ASP.NET Core Endpoint
         │
         ▼
-Http Adapter
+IHttpAdapter
         │
         ▼
 Event Orchestrator
@@ -65,7 +65,10 @@ Handler Resolution
 Event Handler
         │
         ▼
-Http Adapter
+Response Builder
+        │
+        ▼
+IHttpAdapter
         │
         ▼
 Microsoft Entra
@@ -83,11 +86,11 @@ builder.Services.AddEntraEventHandlers();
 
 This automatically registers:
 
-- Event orchestrator
-- Handler resolver
-- Http adapter
+- `IEntraEventOrchestrator`
+- `IEntraEventHandlerResolver`
+- `IHttpAdapter`
 - Event handlers discovered in the application
-- ASP.NET Core endpoint implementations
+- ASP.NET Core hosting components
 
 The registration also enables:
 
@@ -275,7 +278,8 @@ public class EmailOtpSendHandler(
             otpContext.OneTimeCode,
             cancellationToken);
 
-        return EntraEventResponses.EmailOtpSend()
+        return EntraEventResponses
+            .EmailOtpSend()
             .ContinueWithDefaultBehavior()
             .Build();
     }
@@ -320,7 +324,7 @@ Benefits include:
 - Better separation of concerns
 - Higher test coverage
 
-ASP.NET Core endpoints should typically remain thin adapters while handlers contain the application behavior.
+ASP.NET Core endpoints should remain thin transport adapters while handlers contain the application behavior.
 
 ---
 

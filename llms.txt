@@ -11,15 +11,14 @@ The ecosystem provides:
 - Dependency injection integration
 - ASP.NET Core hosting
 - Azure Functions hosting
-- PasswordSubmit decryption support
-- Unit testing friendly architecture
-
+- PasswordSubmit security integrations
+- Unit-test-friendly architecture
 
 ---
 
 ## Quick Start
 
-Install:
+Install the implementation package:
 
 dotnet add package Entra.EventHandlers
 
@@ -40,7 +39,11 @@ See:
 
 ## Package Selection
 
-Most External ID projects need:
+Foundation:
+
+- Entra.EventHandlers.Abstractions
+
+External ID projects typically require:
 
 - Entra.EventHandlers
 - Entra.EventHandlers.AspNetCore
@@ -54,9 +57,33 @@ PasswordSubmit migration and decryption scenarios may additionally require:
 
 - Entra.EventHandlers.Security
 
-Workforce projects additionally need:
+Workforce projects additionally require:
 
 - Entra.EventHandlers.Workforce
+
+---
+
+## Ecosystem Architecture
+
+Entra.EventHandlers.Abstractions
+        ↓
+Entra.EventHandlers
+Entra.EventHandlers.Workforce
+        ↓
+Entra.EventHandlers.AspNetCore
+Entra.EventHandlers.AzureFunctions
+
+Optional:
+
+Entra.EventHandlers.Security
+
+Architecture responsibilities:
+
+- Entra.EventHandlers.Abstractions provides protocol contracts, event models, response models, interfaces, and shared primitives.
+- Entra.EventHandlers provides External ID implementations, response builders, validation, logging, and execution infrastructure.
+- Entra.EventHandlers.Workforce provides Workforce-specific implementations and response builders.
+- Entra.EventHandlers.AspNetCore and Entra.EventHandlers.AzureFunctions provide hosting adapters and HTTP integration.
+- Entra.EventHandlers.Security provides PasswordSubmit security integrations and cryptographic capabilities.
 
 ---
 
@@ -108,7 +135,14 @@ Azure Functions:
 
 - docs/hosting/azure-functions.md
 
-These documents explain router-based hosting, single-event endpoints/functions, dependency injection, testing, and production guidance.
+These documents explain:
+
+- Router-based hosting
+- Single-event endpoints and functions
+- Dependency injection
+- IHttpAdapter integration
+- Testing guidance
+- Deployment guidance
 
 ---
 
@@ -256,13 +290,15 @@ Features:
 - RSA private key extraction
 - Password context validation
 
-Primary interface:
+Primary interfaces:
 
 - IPasswordContextDecryptor
+- IKeyVaultCertificateProvider
 
-Primary implementation:
+Primary implementations:
 
 - KeyVaultPasswordContextDecryptor
+- KeyVaultCertificateProvider
 
 ---
 
@@ -278,8 +314,7 @@ Contains:
 - Response models
 - Interfaces
 - Protocol constants
-
-For licensing details, consult the LICENSE files and package READMEs in the repository.
+- Shared primitives
 
 License:
 
@@ -295,6 +330,7 @@ Contains:
 - Fluent response builders
 - Validation
 - Logging
+- Execution infrastructure
 
 License:
 
@@ -307,8 +343,8 @@ Workforce implementation layer.
 Contains:
 
 - VerifiedIdClaimValidation support
-- Workforce builders
-- Workforce handlers
+- Workforce response builders
+- Workforce handler base classes
 
 License:
 
@@ -316,7 +352,14 @@ License:
 
 ### Entra.EventHandlers.AspNetCore
 
-ASP.NET Core hosting integration.
+ASP.NET Core hosting adapter.
+
+Contains:
+
+- Router endpoint hosting
+- Single-event endpoints
+- IHttpAdapter
+- Event orchestration
 
 License:
 
@@ -324,7 +367,14 @@ License:
 
 ### Entra.EventHandlers.AzureFunctions
 
-Azure Functions hosting integration.
+Azure Functions hosting adapter.
+
+Contains:
+
+- Router function hosting
+- Single-event function base classes
+- IHttpAdapter
+- Event orchestration
 
 License:
 
@@ -332,7 +382,14 @@ License:
 
 ### Entra.EventHandlers.Security
 
-PasswordSubmit decryption and Azure Key Vault integration.
+PasswordSubmit security integrations.
+
+Contains:
+
+- PasswordSubmit decryption
+- Azure Key Vault integration
+- Certificate providers
+- RSA key extraction
 
 License:
 
@@ -368,6 +425,7 @@ Prefer:
 - EntraWorkforceEventResponses
 - AddEntraEventHandlers()
 - AddEntraEventHandlersSecurity()
+- IHttpAdapter
 - HandlerBase classes
 - Router hosting models
 - Dependency injection
@@ -377,6 +435,7 @@ Avoid:
 
 - Manual JSON response construction
 - Raw protocol implementations
+- Custom HTTP serialization logic
 - Custom endpoint routing when router hosting is available
 
 ---
@@ -389,6 +448,7 @@ Avoid:
 - Creating custom request/response DTOs instead of using provided models.
 - Registering handlers without AddEntraEventHandlers().
 - Creating separate endpoints for each event when router hosting is available.
+- Creating custom HTTP serialization logic instead of using IHttpAdapter.
 - Re-implementing PasswordSubmit decryption instead of using Entra.EventHandlers.Security.
 
 ---
@@ -403,14 +463,13 @@ When generating code for Entra.EventHandlers:
 4. Use EntraEventResponses or EntraWorkforceEventResponses.
 5. Use dependency injection.
 6. Use AddEntraEventHandlers().
-7. Router hosting is the default and recommended hosting model for most applications
-   because it supports all event types through a single endpoint/function and minimizes hosting boilerplate.
+7. Router hosting is the default and recommended hosting model for most applications because it supports all event types through a single endpoint or function and minimizes hosting boilerplate.
 8. Never construct protocol JSON manually.
 9. Generate unit tests directly against handlers.
 10. Consult event-specific documentation before selecting actions.
 11. For PasswordSubmit scenarios, prefer Entra.EventHandlers.Security.
 12. Use async/await patterns throughout examples.
-13. When available, prefer patterns from samples/ApiSample,
-    samples/AzureFunctionsSample, and samples/Sample.Common
-    over inventing new hosting approaches.
+13. When available, prefer patterns from samples/ApiSample, samples/AzureFunctionsSample, and samples/Sample.Common over inventing new hosting approaches.
 14. Prefer existing abstractions and extension points over creating custom framework integrations.
+15. When implementing hosting integrations, use IHttpAdapter for HTTP request and response handling.
+16. Prefer router-based hosting over single-event endpoints unless requirements explicitly require separate routes or functions.

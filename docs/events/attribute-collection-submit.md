@@ -63,6 +63,8 @@ The base class automatically provides:
 - Exception handling
 - Default response (`ShowBlockPage`) when an unhandled exception occurs
 
+This allows handlers to focus entirely on business logic while the framework handles protocol, logging, validation, and error-management concerns.
+
 ---
 
 ## Request Model
@@ -73,7 +75,7 @@ The incoming request is represented by:
 AttributeCollectionSubmitEvent
 ```
 
-The event contains the values submitted by the user during the attribute collection step.
+The event contains the values submitted by the user, together with journey, authentication, and correlation information supplied by Microsoft Entra.
 
 Example:
 
@@ -94,15 +96,15 @@ protected override Task<AttributeCollectionSubmitResponse> HandleCoreAsync(
 
 ---
 
-## Response Builder
+## Building Responses
 
-Use:
+Builder entry point:
 
 ```csharp
 EntraEventResponses.AttributeCollectionSubmit()
 ```
 
-to create `AttributeCollectionSubmitResponse` instances.
+All AttributeCollectionSubmit responses are created from this builder.
 
 ---
 

@@ -2,7 +2,7 @@
 
 ASP.NET Core hosting adapter for Microsoft Entra External ID and Microsoft Entra Workforce authentication event handlers.
 
-This package provides ASP.NET Core integration for the Entra.EventHandlers ecosystem, enabling strongly typed event handlers with dependency injection, endpoint routing, request/response adapters, and centralized event orchestration.
+This package provides ASP.NET Core integration for the Entra.EventHandlers ecosystem, enabling strongly typed event handlers, dependency injection, endpoint routing, HTTP adaptation, and centralized event orchestration.
 
 ## Installation
 
@@ -41,20 +41,20 @@ app.Run();
 
 The router endpoint automatically:
 
-- Deserializes requests (Content-Type: application/json; UTF‑8)
+- Deserializes incoming event requests
 - Resolves handlers
 - Executes handlers
-- Serializes responses (application/json; UTF‑8)
-- Maps exceptions to HTTP responses (problem response contract with correlation ID when available)
-- See IHttpAdapter for request/response adaptation details
+- Serializes event responses
+- Maps exceptions to HTTP responses
+- Uses `IHttpAdapter` for HTTP request and response adaptation
 
 ---
 
 ## Recommended Hosting Model
 
-The recommended approach is a single router endpoint that can handle multiple Microsoft Entra event types.
+The recommended approach is a single router endpoint capable of handling multiple Microsoft Entra event types.
 
-Benefits:
+Benefits include:
 
 - Single HTTP endpoint
 - Centralized configuration
@@ -82,9 +82,7 @@ The router provides:
 - Response serialization
 - Structured exception handling
 
-A single endpoint can process multiple event types using the same orchestration pipeline.
-
-
+A single endpoint can process multiple event types through the same orchestration pipeline.
 
 ---
 
@@ -98,7 +96,7 @@ builder.Services.AddEntraEventHandlers();
 
 This automatically registers:
 
-- HTTP adapter
+- `IHttpAdapter`
 - Event orchestrator
 - Handler resolver
 - Event handlers discovered in the application
@@ -187,11 +185,26 @@ The hosting adapter supports all event handlers implemented using the Entra.Even
 
 ---
 
+## Ecosystem Architecture
+
+The Entra.EventHandlers ecosystem is organized into layers:
+
+- Entra.EventHandlers.Abstractions provides shared protocol contracts
+- Entra.EventHandlers provides External ID implementations
+- Entra.EventHandlers.Workforce provides Workforce implementations
+- Entra.EventHandlers.Security provides PasswordSubmit security integrations
+- Entra.EventHandlers.AspNetCore provides ASP.NET Core hosting integration
+- Entra.EventHandlers.AzureFunctions provides Azure Functions hosting integration
+
+Applications typically reference one or more implementation packages together with a hosting package.
+
+---
+
 ## Testing
 
 The hosting infrastructure is designed to be testable.
 
-Because handlers remain isolated from hosting concerns, business logic can be tested without requiring ASP.NET Core hosting infrastructure.
+Because handlers remain isolated from hosting concerns, business logic can be tested without requiring ASP.NET Core infrastructure.
 
 Benefits include:
 
@@ -206,7 +219,7 @@ Example:
 var result = await handler.HandleAsync(request);
 ```
 
-The ASP.NET Core endpoints should remain thin adapters while handlers contain the application behavior.
+ASP.NET Core endpoints should remain thin transport adapters while handlers contain the application behavior.
 
 ---
 
@@ -249,14 +262,14 @@ The sample demonstrates:
 | Entra.EventHandlers.Abstractions | Public contracts and protocol models |
 | Entra.EventHandlers | External ID implementation layer |
 | Entra.EventHandlers.Workforce | Workforce implementation layer |
-| Entra.EventHandlers.AzureFunctions | Azure Functions hosting |
+| Entra.EventHandlers.AzureFunctions | Azure Functions hosting adapter |
 | Entra.EventHandlers.Security | PasswordSubmit decryption and Azure Key Vault integration |
 
 ## License
 
 This package is licensed under the Business Source License (BSL).
 
-The Entra.EventHandlers.Abstractions package is licensed under MIT and may be used freely.
+The Entra.EventHandlers.Abstractions package is licensed under the MIT License.
 
 See the repository for licensing details and commercial licensing information.
 
@@ -264,10 +277,10 @@ See the repository for licensing details and commercial licensing information.
 
 ## Further Reading
 
-Entra External ID .NET Handlers Deep Dive
+**Entra External ID .NET Handlers Deep Dive**
 
 https://medium.com/@jakub.szubarga/entra-external-id-dotnet-handlers-a7447dc1e437
 
-Building CIAM-Ready Azure Functions with Entra.EventHandlers
+**Building CIAM-Ready Azure Functions with Entra.EventHandlers**
 
 https://medium.com/@jakub.szubarga/entra-eventhandlers-ciam-azure-functions-97c5e1940272

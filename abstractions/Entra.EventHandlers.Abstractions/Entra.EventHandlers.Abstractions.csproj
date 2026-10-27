@@ -1,34 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	<IsPackable>true</IsPackable>
+    <IsPackable>true</IsPackable>
 
-	<!-- NuGet metadata -->
-	<PackageId>Entra.EventHandlers.Abstractions</PackageId>
-	<Version>1.6.0</Version>
-	<Authors>Jakub Szubarga</Authors>
-	<Company>Szubarga.NET Jakub Szubarga</Company>
-	  
-	<Description>Lightweight, dependency-free abstractions for Microsoft Entra External ID and Workforce Authentication Event Handlers. Provides strongly-typed request/response models, action definitions, protocol constants, directory attribute primitives, and handler interfaces for all supported events. Fully MIT-licensed and safe to use in any .NET project or hosting environment.</Description>
+    <!-- NuGet metadata -->
+    <PackageId>Entra.EventHandlers.Abstractions</PackageId>
+    <Version>1.6.1</Version>
+    <Authors>Jakub Szubarga</Authors>
+    <Company>Szubarga.NET Jakub Szubarga</Company>
 
-	<PackageTags>
+    <Description>Lightweight, dependency-free abstractions for Microsoft Entra External ID and Workforce Authentication Event Handlers. Provides strongly-typed request/response models, action definitions, protocol constants, directory attribute primitives, and handler interfaces for all supported events. Fully MIT-licensed and safe to use in any .NET project or hosting environment.</Description>
+
+    <PackageTags>
 	entra;entra-id;microsoft-entra;microsoft-entra-id;external-id;workforce;verified-id;
 	authentication-events;event-handlers;identity;authentication;dotnet;dotnet-library;csharp
 	</PackageTags>
-	
-	<RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-	<PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
-	  
-	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageIcon>icon.png</PackageIcon>
 
-	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<IncludeSymbols>true</IncludeSymbols>
-	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryUrl>https://github.com/szubajak/entra-event-handlers</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/szubajak/entra-event-handlers</PackageProjectUrl>
 
-	<PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+    <PackageReleaseNotes>
 	Includes complete request/response models, action definitions, and handler interfaces for all
 	Microsoft Entra External ID and Workforce Authentication Event Handlers, including
 	VerifiedIdClaimValidation. Fully MIT-licensed and dependency-free.
@@ -36,12 +35,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-	<IsPackable>false</IsPackable>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-	<None Include="LICENSE" Pack="true" PackagePath="" />
-	<None Include="README.md" Pack="true" PackagePath="" />
-	<None Include="icon.png" Pack="true" PackagePath="" />
+    <None Include="LICENSE" Pack="true" PackagePath="" />
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>

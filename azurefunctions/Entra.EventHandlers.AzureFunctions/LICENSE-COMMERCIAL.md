@@ -1,57 +1,46 @@
-# Entra.EventHandlers Ecosystem — Commercial License Terms
+# Entra.EventHandlers Ecosystem — Commercial License
 
 The Entra.EventHandlers ecosystem is licensed under the Business Source License (BSL).
 
-A commercial license is required for production use by organizations with more
-than 5 employees, or for any use not permitted under the BSL.
+A commercial license is required for:
 
-A commercial license covers the entire Entra.EventHandlers ecosystem, including
-all current and future BSL-licensed packages:
+- Production use by organizations with more than 5 employees
+- Any use not permitted under the applicable BSL license
 
-- Entra.EventHandlers (External ID implementation layer)
-- Entra.EventHandlers.Workforce (Workforce implementation layer)
-- Entra.EventHandlers.AspNetCore (ASP.NET Core hosting adapter)
-- Entra.EventHandlers.AzureFunctions (Azure Functions hosting adapter)
-- Entra.EventHandlers.Security (PasswordSubmit decryption and Azure Key Vault integration)
-
-Commercial licenses are available directly from the author.
+A commercial license applies to all current and future BSL-licensed packages in the Entra.EventHandlers ecosystem.
 
 ---
 
-## License Options
+## Commercial License Options
 
 - Developer License — €99 / developer / year
-- Team License — €399 / year (up to 10 developers)
-- Enterprise License — €1499 / year (unlimited developers, priority support)
+- Team License — €399 / year
+- Enterprise License — €1499 / year
 
-A commercial license grants:
+Commercial licensing includes:
 
 - Production use without BSL restrictions
-- Access to all updates and new releases
-- Priority email support
-- Optional custom agreements for enterprises
+- Access to updates and new releases
+- Priority support
+- Optional custom agreements
 
 ---
 
-## How to Purchase
+## Purchasing
 
-To obtain a commercial license, please contact:
+To obtain a commercial license, contact:
 
 jakub.szubarga@gmail.com
 
 Include:
 
-- Company name
+- Organization name
 - Number of developers
 - Preferred license type
-- Billing details (address, NIP/VAT ID)
-
-An invoice will be issued and licensing terms will be delivered upon payment.
+- Billing details
 
 ---
 
 ## Contact
-
-For questions, custom agreements, or enterprise support:
 
 jakub.szubarga@gmail.com
