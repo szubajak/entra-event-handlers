@@ -8,15 +8,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AspNetCore.UnitTests.Abstractions;
 
-public sealed class TestTypedEntraEndpointBase(
-    ILogger logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter,
-    IEntraEventHandlerResolver resolver) 
-    : EntraTypedEndpointBase<TestEvent, TestResponse>(logger, requestAdapter, responseAdapter, resolver)
+public sealed class TestTypedEntraEndpointBase(ILogger logger, IHttpAdapter httpAdapter, IEntraEventHandlerResolver resolver)
+    : EntraTypedEndpointBase<TestEvent, TestResponse>(logger, httpAdapter, resolver)
 {
     public Task Invoke(HttpContext httpContext) => InvokeAsync(httpContext);
 
-    public override void Map(IEndpointRouteBuilder endpoints) =>
-        throw new NotSupportedException("Not needed for tests.");
+    public override void Map(IEndpointRouteBuilder endpoints) => throw new NotSupportedException("Not needed for tests.");
 }

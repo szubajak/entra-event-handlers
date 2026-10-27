@@ -44,8 +44,7 @@ public class TestAppFactory : WebApplicationFactory<Program>
             services.AddSingleton<IEntraEventOrchestrator, EntraEventOrchestrator>();
             services.AddSingleton<IEntraEventHandlerResolver, TestResolver>();
 
-            services.AddSingleton<IRequestAdapter, RequestAdapter>();
-            services.AddSingleton<IResponseAdapter, ResponseAdapter>();
+            services.AddSingleton<IHttpAdapter, HttpAdapter>();
         });
 
         builder.Configure(app =>

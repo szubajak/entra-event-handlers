@@ -9,14 +9,12 @@ namespace AzureFunctionsSample.Functions;
 
 public sealed class VerifiedIdClaimValidationFunction(
     ILogger<TokenIssuanceStartFunction> logger,
-    IVerifiedIdClaimValidationHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : VerifiedIdClaimValidationFunctionBase(logger, handler, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    IVerifiedIdClaimValidationHandler handler
+) : VerifiedIdClaimValidationFunctionBase(logger, httpAdapter, handler)
 {
     [Function("VerifiedIdClaimValidation")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "verifiedidclaimvalidation")]
-        HttpRequestData req) =>
-        InvokeAsync(req);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "verifiedidclaimvalidation")] HttpRequestData req
+    ) => InvokeAsync(req);
 }

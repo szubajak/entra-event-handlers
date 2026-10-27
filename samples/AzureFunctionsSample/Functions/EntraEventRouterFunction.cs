@@ -9,21 +9,11 @@ namespace AzureFunctionsSample.Functions;
 
 public sealed class EntraEventRouterFunction(
     ILogger<EntraEventRouterFunction> logger,
-    IEntraEventOrchestrator orchestrator,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraEventRouterFunctionBase(
-        logger,
-        orchestrator,
-        requestAdapter,
-        responseAdapter)
+    IHttpAdapter httpAdapter,
+    IEntraEventOrchestrator orchestrator
+) : EntraEventRouterFunctionBase(logger, httpAdapter, orchestrator)
 {
     [Function("Router")]
-    public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(
-            AuthorizationLevel.Function,
-            "post",
-            Route = "router")]
-        HttpRequestData req)
-            => InvokeAsync(req);
+    public Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "router")] HttpRequestData req) =>
+        InvokeAsync(req);
 }

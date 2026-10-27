@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-	<IsPackable>false</IsPackable>
-	<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <IsPackable>false</IsPackable>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
-
 </Project>

@@ -6,12 +6,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Routing;
 
-public sealed class TestEntraEventRouterFunctionBase(
-    ILogger logger,
-    IEntraEventOrchestrator orchestrator,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraEventRouterFunctionBase(logger, orchestrator, requestAdapter, responseAdapter)
+public sealed class TestEntraEventRouterFunctionBase(ILogger logger, IHttpAdapter httpAdapter, IEntraEventOrchestrator orchestrator)
+    : EntraEventRouterFunctionBase(logger, httpAdapter, orchestrator)
 {
     public bool ExceptionCalled { get; private set; }
 
@@ -21,6 +17,5 @@ public sealed class TestEntraEventRouterFunctionBase(
         return Task.CompletedTask;
     }
 
-    public Task<HttpResponseData> RunAsync(HttpRequestData req) =>
-        InvokeAsync(req);
+    public Task<HttpResponseData> RunAsync(HttpRequestData req) => InvokeAsync(req);
 }

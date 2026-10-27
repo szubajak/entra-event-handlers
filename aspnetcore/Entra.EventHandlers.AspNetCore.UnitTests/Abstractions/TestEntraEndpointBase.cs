@@ -6,11 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AspNetCore.UnitTests.Abstractions;
 
-public sealed class TestEntraEndpointBase(
-    ILogger logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) 
-    : EntraEndpointBase(logger, requestAdapter, responseAdapter)
+public sealed class TestEntraEndpointBase(ILogger logger, IHttpAdapter httpAdapter) : EntraEndpointBase(logger, httpAdapter)
 {
     public Func<HttpContext, Task>? ExecuteDelegate { get; set; }
 
@@ -24,6 +20,5 @@ public sealed class TestEntraEndpointBase(
 
     public Task Invoke(HttpContext httpContext) => InvokeAsync(httpContext);
 
-    public override void Map(IEndpointRouteBuilder endpoints) =>
-        throw new NotSupportedException("Not needed for tests.");
+    public override void Map(IEndpointRouteBuilder endpoints) => throw new NotSupportedException("Not needed for tests.");
 }

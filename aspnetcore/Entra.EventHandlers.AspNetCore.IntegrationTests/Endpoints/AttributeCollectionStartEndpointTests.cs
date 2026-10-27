@@ -1,9 +1,9 @@
-﻿using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
+﻿using System.Net;
+using System.Text;
+using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.AppFactories;
 using Entra.EventHandlers.TestData;
 using FluentAssertions;
-using System.Net;
-using System.Text;
 
 namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Endpoints;
 
@@ -20,8 +20,9 @@ public class AttributeCollectionStartTests(TestAppFactory factory) : IClassFixtu
         // Act
         var response = await _client.PostAsync(
             "/attributecollectionstart",
-            new StringContent(payload, Encoding.UTF8, "application/json"), 
-            TestContext.Current.CancellationToken);
+            new StringContent(payload, Encoding.UTF8, "application/json"),
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -37,9 +38,11 @@ public class AttributeCollectionStartTests(TestAppFactory factory) : IClassFixtu
         var handler = factory.Services.GetRequiredService<TestAttributeCollectionStartHandler>();
 
         // Assert
-        await _client.PostAsync("/attributecollectionstart",
+        await _client.PostAsync(
+            "/attributecollectionstart",
             new StringContent(payload, Encoding.UTF8, "application/json"),
-            TestContext.Current.CancellationToken);
+            TestContext.Current.CancellationToken
+        );
 
         handler.CapturedCancellationToken.CanBeCanceled.Should().BeTrue();
     }

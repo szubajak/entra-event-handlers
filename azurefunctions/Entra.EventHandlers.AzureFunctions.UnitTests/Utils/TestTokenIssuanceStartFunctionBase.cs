@@ -5,11 +5,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
 
-public sealed class TestTokenIssuanceStartFunctionBase(
-    ILogger logger,
-    ITokenIssuanceStartHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : TokenIssuanceStartFunctionBase(logger, handler, requestAdapter, responseAdapter)
+public sealed class TestTokenIssuanceStartFunctionBase(ILogger logger, IHttpAdapter httpAdapter, ITokenIssuanceStartHandler handler)
+    : TokenIssuanceStartFunctionBase(logger, httpAdapter, handler)
 {
     public bool ExceptionCalled { get; private set; }
 

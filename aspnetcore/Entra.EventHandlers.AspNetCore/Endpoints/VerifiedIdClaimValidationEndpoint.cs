@@ -8,11 +8,9 @@ namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class VerifiedIdClaimValidationEndpoint(
     ILogger<TokenIssuanceStartEndpoint> logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter,
-    IEntraEventHandlerResolver resolver)
-    : EntraTypedEndpointBase<VerifiedIdClaimValidationEvent, VerifiedIdClaimValidationResponse>(
-        logger, requestAdapter, responseAdapter, resolver)
+    IHttpAdapter httpAdapter,
+    IEntraEventHandlerResolver resolver
+) : EntraTypedEndpointBase<VerifiedIdClaimValidationEvent, VerifiedIdClaimValidationResponse>(logger, httpAdapter, resolver)
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {

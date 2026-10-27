@@ -7,16 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace AzureFunctionsSample.Functions;
 
-public sealed class PasswordSubmitFunction(
-    ILogger<PasswordSubmitFunction> logger,
-    IPasswordSubmitHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : PasswordSubmitFunctionBase(logger, handler, requestAdapter, responseAdapter)
+public sealed class PasswordSubmitFunction(ILogger<PasswordSubmitFunction> logger, IHttpAdapter httpAdapter, IPasswordSubmitHandler handler)
+    : PasswordSubmitFunctionBase(logger, httpAdapter, handler)
 {
     [Function("PasswordSubmit")]
     public Task<HttpResponseData> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "passwordsubmit")]
-        HttpRequestData req) =>
-        InvokeAsync(req);
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "passwordsubmit")] HttpRequestData req
+    ) => InvokeAsync(req);
 }

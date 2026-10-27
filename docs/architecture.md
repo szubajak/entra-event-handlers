@@ -335,8 +335,7 @@ This automatically registers:
 
 - Event orchestrator
 - Handler resolver
-- Request adapters
-- Response adapters
+- Http adapter
 - Event handlers discovered in the application
 
 Benefits:

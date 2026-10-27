@@ -40,16 +40,15 @@ public class ServiceCollectionExtensionsTests
     }
 
     public static TheoryData<Type, ServiceLifetime> ServicesRegistrations() =>
-       new()
-       {
-            { typeof(IRequestAdapter), ServiceLifetime.Singleton },
-            { typeof(IResponseAdapter), ServiceLifetime.Singleton },
+        new()
+        {
+            { typeof(IHttpAdapter), ServiceLifetime.Singleton },
             { typeof(AttributeCollectionStartEndpoint), ServiceLifetime.Transient },
             { typeof(AttributeCollectionSubmitEndpoint), ServiceLifetime.Transient },
             { typeof(TokenIssuanceStartEndpoint), ServiceLifetime.Transient },
             { typeof(EmailOtpSendEndpoint), ServiceLifetime.Transient },
             { typeof(PasswordSubmitEndpoint), ServiceLifetime.Transient },
             { typeof(VerifiedIdClaimValidationEndpoint), ServiceLifetime.Transient },
-            { typeof(EntraEventRouterEndpoint), ServiceLifetime.Transient }
-       };
+            { typeof(EntraEventRouterEndpoint), ServiceLifetime.Transient },
+        };
 }

@@ -5,11 +5,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Utils;
 
-public sealed class TestEmailOtpSendFunctionBase(
-    ILogger logger,
-    IEmailOtpSendHandler handler,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EmailOtpSendFunctionBase(logger, handler, requestAdapter, responseAdapter)
+public sealed class TestEmailOtpSendFunctionBase(ILogger logger, IHttpAdapter httpAdapter, IEmailOtpSendHandler handler)
+    : EmailOtpSendFunctionBase(logger, httpAdapter, handler)
 {
     public bool ExceptionCalled { get; private set; }
 

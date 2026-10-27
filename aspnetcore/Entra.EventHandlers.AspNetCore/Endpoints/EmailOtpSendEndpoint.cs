@@ -8,11 +8,9 @@ namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class EmailOtpSendEndpoint(
     ILogger<EmailOtpSendEndpoint> logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter,
-    IEntraEventHandlerResolver resolver)
-    : EntraTypedEndpointBase<EmailOtpSendEvent, EmailOtpSendResponse>(
-        logger, requestAdapter, responseAdapter, resolver)
+    IHttpAdapter httpAdapter,
+    IEntraEventHandlerResolver resolver
+) : EntraTypedEndpointBase<EmailOtpSendEvent, EmailOtpSendResponse>(logger, httpAdapter, resolver)
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {

@@ -6,9 +6,9 @@ namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class EntraEventRouterEndpoint(
     ILogger<EntraEventRouterEndpoint> logger,
-    IEntraEventOrchestrator orchestrator,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EntraEventRouterEndpointBase(logger, orchestrator, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    IEntraEventOrchestrator orchestrator
+) : EntraEventRouterEndpointBase(logger, httpAdapter, orchestrator)
 {
     public override void Map(IEndpointRouteBuilder endpoints)
     {

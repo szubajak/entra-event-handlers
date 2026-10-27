@@ -31,11 +31,8 @@ namespace Entra.EventHandlers.AspNetCore.Routing;
 /// Consumers should inherit from this class and map an ASP.NET Core endpoint
 /// that delegates to <see cref="ExecuteAsync"/>.
 /// </remarks>
-public abstract class EntraEventRouterEndpointBase(
-    ILogger logger,
-    IEntraEventOrchestrator orchestrator,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter) : EntraEndpointBase(logger, requestAdapter, responseAdapter)
+public abstract class EntraEventRouterEndpointBase(ILogger logger, IHttpAdapter httpAdapter, IEntraEventOrchestrator orchestrator)
+    : EntraEndpointBase(logger, httpAdapter)
 {
     private readonly IEntraEventOrchestrator _orchestrator = orchestrator;
 
@@ -47,7 +44,7 @@ public abstract class EntraEventRouterEndpointBase(
     /// <param name="httpContext">The current ASP.NET Core HTTP context.</param>
     protected sealed override async Task ExecuteAsync(HttpContext httpContext)
     {
-        var evt = await RequestAdapter.ReadEventAsync(httpContext);
+        var evt = await HttpAdapter.ReadEventAsync(httpContext);
         var result = await _orchestrator.DispatchAsync(evt, httpContext.RequestAborted);
 
         if (result.HasException)
@@ -55,6 +52,6 @@ public abstract class EntraEventRouterEndpointBase(
             await OnExceptionAsync(result.Exception!, httpContext);
         }
 
-        await ResponseAdapter.WriteOkAsync(httpContext, result.Response);
+        await HttpAdapter.WriteOkAsync(httpContext, result.Response);
     }
 }

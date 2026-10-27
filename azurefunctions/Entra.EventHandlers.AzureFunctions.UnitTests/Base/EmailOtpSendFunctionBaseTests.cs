@@ -21,18 +21,16 @@ public class AttributeCollectionStartFunctionBaseTests
     private readonly Fixture _fixture = new();
 
     private readonly ILogger _logger;
+    private readonly IHttpAdapter _httpAdapter;
     private readonly IAttributeCollectionStartHandler _handler;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
 
     public AttributeCollectionStartFunctionBaseTests()
     {
         _logger = Substitute.For<ILogger>();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
         _handler = Substitute.For<IAttributeCollectionStartHandler>();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestAttributeCollectionStartFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
+        _sut = new TestAttributeCollectionStartFunctionBase(_logger, _httpAdapter, _handler);
     }
 
     [Fact]
@@ -45,18 +43,14 @@ public class AttributeCollectionStartFunctionBaseTests
 
         var evt = TestEvents.CreateAttributeCollectionStartEvent(_fixture);
 
-        _requestAdapter
-            .ReadEventAsync<AttributeCollectionStartEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<AttributeCollectionStartEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateAttributeCollectionStartResponse();
         var handlerResult = new EntraHandlerResult<AttributeCollectionStartResponse>(entraResponse);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);
@@ -78,18 +72,14 @@ public class AttributeCollectionStartFunctionBaseTests
 
         var exception = new InvalidOperationException("Invalid!");
 
-        _requestAdapter
-            .ReadEventAsync<AttributeCollectionStartEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<AttributeCollectionStartEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateAttributeCollectionStartResponse();
         var handlerResult = new EntraHandlerResult<AttributeCollectionStartResponse>(entraResponse, exception);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);

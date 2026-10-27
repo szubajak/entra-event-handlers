@@ -21,18 +21,16 @@ public class VerifiedIdClaimValidationFunctionBaseTests
     private readonly Fixture _fixture = new();
 
     private readonly ILogger _logger;
+    private readonly IHttpAdapter _httpAdapter;
     private readonly IVerifiedIdClaimValidationHandler _handler;
-    private readonly IRequestAdapter _requestAdapter;
-    private readonly IResponseAdapter _responseAdapter;
 
     public VerifiedIdClaimValidationFunctionBaseTests()
     {
         _logger = Substitute.For<ILogger>();
+        _httpAdapter = Substitute.For<IHttpAdapter>();
         _handler = Substitute.For<IVerifiedIdClaimValidationHandler>();
-        _requestAdapter = Substitute.For<IRequestAdapter>();
-        _responseAdapter = Substitute.For<IResponseAdapter>();
 
-        _sut = new TestVerifiedIdClaimValidationFunctionBase(_logger, _handler, _requestAdapter, _responseAdapter);
+        _sut = new TestVerifiedIdClaimValidationFunctionBase(_logger, _httpAdapter, _handler);
     }
 
     [Fact]
@@ -45,18 +43,14 @@ public class VerifiedIdClaimValidationFunctionBaseTests
 
         var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture);
 
-        _requestAdapter
-            .ReadEventAsync<VerifiedIdClaimValidationEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<VerifiedIdClaimValidationEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateVerifiedIdClaimValidationResponse();
         var handlerResult = new EntraHandlerResult<VerifiedIdClaimValidationResponse>(entraResponse);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);
@@ -78,18 +72,14 @@ public class VerifiedIdClaimValidationFunctionBaseTests
 
         var exception = new InvalidOperationException("Invalid!");
 
-        _requestAdapter
-            .ReadEventAsync<VerifiedIdClaimValidationEvent>(request)
-            .Returns(evt);
+        _httpAdapter.ReadEventAsync<VerifiedIdClaimValidationEvent>(request).Returns(evt);
 
         var entraResponse = TestResponses.CreateVerifiedIdClaimValidationResponse();
         var handlerResult = new EntraHandlerResult<VerifiedIdClaimValidationResponse>(entraResponse, exception);
 
-        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken)
-            .Returns(handlerResult);
+        _handler.HandleAsync(evt, request.FunctionContext.CancellationToken).Returns(handlerResult);
 
-        _responseAdapter.FromAsync(request, handlerResult.Response)
-            .Returns(response);
+        _httpAdapter.CreateResponseAsync(request, handlerResult.Response).Returns(response);
 
         // Act
         var result = await _sut.InvokeAsync(request);

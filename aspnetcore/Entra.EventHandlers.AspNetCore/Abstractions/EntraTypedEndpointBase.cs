@@ -7,9 +7,9 @@ namespace Entra.EventHandlers.AspNetCore.Abstractions;
 
 public abstract class EntraTypedEndpointBase<TEvent, TResponse>(
     ILogger logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter,
-    IEntraEventHandlerResolver resolver) : EntraEndpointBase(logger, requestAdapter, responseAdapter)
+    IHttpAdapter httpAdapter,
+    IEntraEventHandlerResolver resolver
+) : EntraEndpointBase(logger, httpAdapter)
     where TEvent : EntraEvent
     where TResponse : EntraEventResponse
 {
@@ -17,7 +17,7 @@ public abstract class EntraTypedEndpointBase<TEvent, TResponse>(
 
     protected sealed override async Task ExecuteAsync(HttpContext httpContext)
     {
-        var evt = await RequestAdapter.ReadEventAsync<TEvent>(httpContext);
+        var evt = await HttpAdapter.ReadEventAsync<TEvent>(httpContext);
         var handler = Resolver.Resolve<TEvent, TResponse>();
         var result = await handler.HandleAsync(evt, httpContext.RequestAborted);
 
@@ -26,6 +26,6 @@ public abstract class EntraTypedEndpointBase<TEvent, TResponse>(
             await OnExceptionAsync(result.Exception!, httpContext);
         }
 
-        await ResponseAdapter.WriteOkAsync(httpContext, result.Response);
+        await HttpAdapter.WriteOkAsync(httpContext, result.Response);
     }
 }

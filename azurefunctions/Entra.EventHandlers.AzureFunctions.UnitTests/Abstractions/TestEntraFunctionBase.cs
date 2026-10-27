@@ -5,11 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AzureFunctions.UnitTests.Abstractions;
 
-public sealed class TestEntraFunctionBase(
-    ILogger logger,
-    IRequestAdapter requestAdapter,
-    IResponseAdapter responseAdapter)
-    : EntraFunctionBase(logger, requestAdapter, responseAdapter)
+public sealed class TestEntraFunctionBase(ILogger logger, IHttpAdapter httpAdapter) : EntraFunctionBase(logger, httpAdapter)
 {
     public Func<HttpRequestData, Task<HttpResponseData>>? ExecuteDelegate { get; set; }
 
