@@ -14,7 +14,7 @@ License.
 ---
 
 Licensed Work:
-Entra.EventHandlers.Security (security extensions for Microsoft Entra External ID Authentication Event Handlers)
+Entra.EventHandlers.Security
 
 Additional Use Grant:
 Production use is permitted for individuals and organizations with fewer than
@@ -40,36 +40,3 @@ IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR
 OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE,
 ARISING FROM, OUT OF, OR IN CONNECTION WITH THE LICENSED WORK OR THE
 USE OF THE LICENSED WORK.
-
----
-
-This package contains security-focused extensions for Microsoft Entra External ID
-Authentication Event Handlers.
-
-Current features include:
-
-- PasswordSubmit encryptedPasswordContext decryption
-- Azure Key Vault certificate integration
-- RSA private key extraction
-- Certificate caching
-- Password context validation
-- IPasswordContextDecryptor implementations
-
-The package is primarily intended for PasswordSubmit and Just-In-Time password
-migration scenarios.
-
-The public protocol abstractions are available separately under the MIT License in:
-
-- Entra.EventHandlers.Abstractions (MIT)
-
-Additional BSL-licensed packages extend the Entra.EventHandlers ecosystem:
-
-- Entra.EventHandlers — External ID implementation layer (BSL)
-- Entra.EventHandlers.Workforce — Workforce implementation layer (BSL)
-- Entra.EventHandlers.AspNetCore — ASP.NET Core hosting adapter (BSL)
-- Entra.EventHandlers.AzureFunctions — Azure Functions hosting adapter (BSL)
-- Entra.EventHandlers.Security — PasswordSubmit decryption and Azure Key Vault integration (BSL)
-
-These packages provide strongly typed handlers, fluent response builders,
-security integrations, hosting infrastructure, routing, dependency injection
-integration, and http adapters built on top of the abstractions.

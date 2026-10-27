@@ -2,7 +2,7 @@
 
 [![Coverage](https://szubajak.github.io/entra-event-handlers/badge_shieldsio_branchcoverage_blue.svg)](https://szubajak.github.io/entra-event-handlers/)
 
-A modern .NET ecosystem for building Microsoft Entra External ID and Microsoft Entra Workforce authentication event handlers using strongly typed models, fluent response builders, and production-ready hosting integrations.
+A modern .NET ecosystem for building Microsoft Entra External ID and Microsoft Entra Workforce authentication event handlers using strongly typed models, fluent response builders, and integrated hosting support.
 
 The ecosystem provides:
 
@@ -13,14 +13,50 @@ The ecosystem provides:
 - Dependency injection integration
 - ASP.NET Core hosting
 - Azure Functions hosting
-- PasswordSubmit decryption support
-- Unit testing friendly architecture
+- PasswordSubmit security integrations
+- Unit-test-friendly architecture
+
+---
+
+## Ecosystem Overview
+
+```text
+Entra.EventHandlers Ecosystem
+
+├─ Entra.EventHandlers.Abstractions
+│  └─ Public contracts and protocol models
+│
+├─ Entra.EventHandlers
+│  └─ External ID implementation layer
+│
+├─ Entra.EventHandlers.Workforce
+│  └─ Workforce implementation layer
+│
+├─ Hosting
+│  ├─ Entra.EventHandlers.AspNetCore
+│  └─ Entra.EventHandlers.AzureFunctions
+│
+└─ Optional Extensions
+   └─ Entra.EventHandlers.Security
+```
+
+The ecosystem is organized into clear layers:
+
+- **Entra.EventHandlers.Abstractions** provides shared protocol contracts and models.
+- **Entra.EventHandlers** provides External ID implementations.
+- **Entra.EventHandlers.Workforce** provides Workforce implementations.
+- **Entra.EventHandlers.AspNetCore** and **Entra.EventHandlers.AzureFunctions** provide hosting integrations.
+- **Entra.EventHandlers.Security** provides PasswordSubmit security integrations.
+
+For detailed architecture documentation see:
+
+- [Architecture](./docs/architecture.md)
 
 ---
 
 ## Packages
 
-### Abstractions (MIT)
+### Entra.EventHandlers.Abstractions (MIT)
 
 Public contracts, protocol models, interfaces, and shared primitives.
 
@@ -82,7 +118,7 @@ Security extensions including:
 - PasswordSubmit decryption
 - Azure Key Vault integration
 - Certificate providers
-- RSA key extraction
+- RSA private key handling
 
 [![NuGet](https://img.shields.io/nuget/v/Entra.EventHandlers.Security.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Security)
 [![Downloads](https://img.shields.io/nuget/dt/Entra.EventHandlers.Security.svg)](https://www.nuget.org/packages/Entra.EventHandlers.Security)
@@ -103,13 +139,13 @@ Implementing them directly typically requires:
 - Error handling
 - Dependency injection setup
 
-Entra.EventHandlers provides a unified programming model that removes this boilerplate while remaining strongly typed and testable.
+Entra.EventHandlers provides a unified programming model that removes this boilerplate while remaining strongly typed, testable, and host-agnostic.
 
 ---
 
 ## Quick Start
 
-Install the core package:
+Install the implementation package:
 
 ```bash
 dotnet add package Entra.EventHandlers
@@ -202,41 +238,13 @@ public class TokenIssuanceStartHandler(
 
 - [Azure Functions Sample](samples/AzureFunctionsSample)
 
-### Entra Event Handlers
+### Shared Handlers
 
-- [Entra Event Handlers Sample](samples/Sample.Common)
+- [Shared Handler Sample](samples/Sample.Common)
 
 ### Minimal Azure Functions Sample
 
 - https://github.com/szubajak/entra-event-handlers-azurefunctions
-
----
-
-## Ecosystem Overview
-
-```text
-Entra.EventHandlers Ecosystem
-
-├─ Entra.EventHandlers.Abstractions
-│  └─ Public contracts and protocol models
-│
-├─ Entra.EventHandlers
-│  └─ External ID implementation layer
-│
-├─ Entra.EventHandlers.Workforce
-│  └─ Workforce implementation layer
-│
-├─ Hosting
-│  ├─ Entra.EventHandlers.AspNetCore
-│  └─ Entra.EventHandlers.AzureFunctions
-│
-└─ Optional Extensions
-   └─ Entra.EventHandlers.Security
-```
-
-For detailed architecture documentation see:
-
-- [Architecture](./docs/architecture.md)
 
 ---
 
@@ -277,7 +285,9 @@ When generating examples, prefer:
 - Entra.EventHandlers.AzureFunctions
 - Entra.EventHandlers.Security
 
-See the individual package licenses for details.
+See the individual package licenses and the commercial licensing terms:
+
+- [LICENSE-COMMERCIAL.md](./LICENSE-COMMERCIAL.md)
 
 ---
 
@@ -285,7 +295,7 @@ See the individual package licenses for details.
 
 A commercial license covers the entire Entra.EventHandlers ecosystem, including all current and future BSL-licensed packages.
 
-For commercial licensing and support:
+For commercial licensing, support, or custom agreements:
 
 **jakub.szubarga@gmail.com**
 

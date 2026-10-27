@@ -7,6 +7,12 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.6.1 – 2026‑10‑27
+
+### Updated
+
+- Updated NuGet package description for AI discovery. No API or behavioral changes.
+
 ## v1.6.0 – 2026‑10‑09
 
 ### Updated

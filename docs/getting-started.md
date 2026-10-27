@@ -1,15 +1,17 @@
 # Getting Started with Entra.EventHandlers
 
-Entra.EventHandlers is a .NET library for implementing Microsoft Entra External ID custom authentication extension event handlers.
+Entra.EventHandlers is a .NET ecosystem for building Microsoft Entra External ID and Microsoft Entra Workforce custom authentication extension event handlers.
 
 It provides:
 
 - Strongly typed event models
-- Event handler dispatching
+- Strongly typed response models
+- Event orchestration
 - Dependency injection integration
 - Fluent response builders
 - ASP.NET Core hosting integration
 - Azure Functions hosting integration
+- PasswordSubmit security integrations
 
 This guide walks through the basic setup required to create and host an event handler.
 
@@ -17,13 +19,13 @@ This guide walks through the basic setup required to create and host an event ha
 
 ## Installation
 
-Install the core package:
+Install the implementation package:
 
 ```bash
 dotnet add package Entra.EventHandlers
 ```
 
-Install a hosting adapter for your preferred hosting model:
+Install a hosting adapter for your preferred hosting model.
 
 ### ASP.NET Core
 
@@ -35,6 +37,12 @@ dotnet add package Entra.EventHandlers.AspNetCore
 
 ```bash
 dotnet add package Entra.EventHandlers.AzureFunctions
+```
+
+For PasswordSubmit migration scenarios, you may additionally need:
+
+```bash
+dotnet add package Entra.EventHandlers.Security
 ```
 
 ---
@@ -93,11 +101,11 @@ This single registration automatically:
 
 - Discovers and registers event handlers
 - Registers the event orchestrator
-- Registers request and response adapters
+- Registers `IHttpAdapter`
 - Enables handler resolution
 - Configures the hosting pipeline
 
-The same handler implementations can be used with either ASP.NET Core or Azure Functions.
+The same handler implementations can be hosted in either ASP.NET Core or Azure Functions without modification.
 
 ---
 
@@ -105,7 +113,7 @@ The same handler implementations can be used with either ASP.NET Core or Azure F
 
 Entra.EventHandlers separates business logic from hosting concerns.
 
-The same handler can be hosted in different environments without modification.
+The same handler implementation can be hosted in different environments without code changes.
 
 ### ASP.NET Core
 
@@ -120,6 +128,7 @@ Features:
 - Router endpoint
 - Individual event endpoints
 - Dependency injection integration
+- IHttpAdapter integration
 - Minimal API support
 
 See:
@@ -142,12 +151,30 @@ Features:
 - Router function
 - Individual event functions
 - Dependency injection integration
+- IHttpAdapter integration
 - Azure Functions Isolated Worker support
 
 See:
 
 - [Azure Functions Hosting](./hosting/azure-functions.md)
 - [Azure Functions Sample](../samples/AzureFunctionsSample)
+
+---
+
+## Recommended Hosting Model
+
+For most applications, the recommended approach is router-based hosting.
+
+Benefits include:
+
+- Single endpoint or function
+- Minimal configuration
+- Automatic event dispatching
+- Consistent error handling
+- Easier maintenance
+- Support for all event types
+
+Single-event endpoints and functions remain available when separate routes are required.
 
 ---
 
@@ -215,6 +242,54 @@ Detailed documentation is available for each supported event.
 ### Workforce
 
 - [VerifiedIdClaimValidation](./events/verified-id-claim-validation.md)
+
+---
+
+## Understanding the Ecosystem
+
+The ecosystem is organized into layers:
+
+```text
+Entra.EventHandlers.Abstractions
+        ↓
+Entra.EventHandlers
+Entra.EventHandlers.Workforce
+        ↓
+Entra.EventHandlers.AspNetCore
+Entra.EventHandlers.AzureFunctions
+
+Optional:
+
+Entra.EventHandlers.Security
+```
+
+Typical External ID applications use:
+
+```text
+Entra.EventHandlers
++
+Entra.EventHandlers.AspNetCore
+```
+
+or
+
+```text
+Entra.EventHandlers
++
+Entra.EventHandlers.AzureFunctions
+```
+
+Workforce applications additionally use:
+
+```text
+Entra.EventHandlers.Workforce
+```
+
+PasswordSubmit migration scenarios may additionally use:
+
+```text
+Entra.EventHandlers.Security
+```
 
 ---
 

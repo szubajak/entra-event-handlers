@@ -54,8 +54,8 @@ Entra.EventHandlers Ecosystem
 | Entra.EventHandlers.Abstractions | Protocol contracts, models, interfaces, and shared primitives |
 | Entra.EventHandlers | External ID implementation layer |
 | Entra.EventHandlers.Workforce | Workforce implementation layer |
-| Entra.EventHandlers.AspNetCore | ASP.NET Core hosting |
-| Entra.EventHandlers.AzureFunctions | Azure Functions hosting |
+| Entra.EventHandlers.AspNetCore | ASP.NET Core hosting adapter |
+| Entra.EventHandlers.AzureFunctions | Azure Functions hosting adapter |
 | Entra.EventHandlers.Security | Optional security and cryptography helpers |
 
 ---
@@ -72,6 +72,15 @@ Entra.EventHandlers.Abstractions
       │                   │
       ▼                   ▼
 Entra.EventHandlers   Entra.EventHandlers.Workforce
+      ▲
+      │
+      ▼
+Entra.EventHandlers.Security
+
+(Optional extension package that builds upon
+Entra.EventHandlers and provides PasswordSubmit
+security integrations)
+
       ▲                   ▲
       │                   │
       └─────────┬─────────┘
@@ -80,13 +89,6 @@ Entra.EventHandlers   Entra.EventHandlers.Workforce
       ▼                   ▼
 Entra.EventHandlers  Entra.EventHandlers
 .AspNetCore          .AzureFunctions
-
-
-Entra.EventHandlers.Security
-
-(Optional extension package used
-primarily for PasswordSubmit and
-Azure Key Vault scenarios)
 ```
 
 ---
@@ -135,7 +137,7 @@ public interface IAttributeCollectionStartHandler
 
 # Entra.EventHandlers
 
-The core package provides the implementation layer for Microsoft Entra External ID authentication events.
+Provides the implementation layer for Microsoft Entra External ID authentication events.
 
 Contents:
 
@@ -222,8 +224,7 @@ Features:
 - Router endpoints
 - Single-event endpoints
 - Dependency injection integration
-- Request adaptation
-- Response adaptation
+- IHttpAdapter
 - Event orchestration
 
 Recommended when:
@@ -243,8 +244,7 @@ Features:
 - Router functions
 - Single-event functions
 - Dependency injection integration
-- Request adaptation
-- Response adaptation
+- IHttpAdapter
 - Event orchestration
 
 Recommended when:
@@ -280,7 +280,7 @@ Example:
 public class PasswordSubmitHandler(
     ILogger<PasswordSubmitHandler> logger,
     IPasswordContextDecryptor decryptor)
-    : PasswordSubmitHandlerBase(logger)
+    : PasswordSubmitHandlerBase(logger, decryptor)
 {
 }
 ```
@@ -302,7 +302,10 @@ Microsoft Entra Request
 Hosting Adapter
             │
             ▼
-Request Validation
+IHttpAdapter
+            │
+            ▼
+Event Orchestrator
             │
             ▼
 Handler Resolution
@@ -312,6 +315,9 @@ Handler Execution
             │
             ▼
 Response Builder
+            │
+            ▼
+IHttpAdapter
             │
             ▼
 Microsoft Entra Response
@@ -333,9 +339,9 @@ builder.Services.AddEntraEventHandlers();
 
 This automatically registers:
 
-- Event orchestrator
-- Handler resolver
-- Http adapter
+- IEntraEventOrchestrator
+- IEntraEventHandlerResolver
+- IHttpAdapter
 - Event handlers discovered in the application
 
 Benefits:
@@ -459,6 +465,7 @@ The Entra.EventHandlers ecosystem is built around several core principles:
 - Dependency injection by default
 - Testability first
 - Hosting model independence
+- HTTP abstraction through IHttpAdapter
 - Minimal developer ceremony
 
 These principles allow developers to focus on business logic rather than Microsoft Entra protocol details.

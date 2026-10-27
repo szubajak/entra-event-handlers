@@ -57,6 +57,8 @@ The base class automatically provides:
 - Exception handling
 - Default response (`ShowBlockPage`) when an unhandled exception occurs
 
+This allows handlers to focus entirely on business logic while the framework handles protocol, logging, validation, and error-management concerns.
+
 ---
 
 ## Request Model
@@ -67,7 +69,7 @@ The incoming request is represented by:
 AttributeCollectionStartEvent
 ```
 
-The event contains information supplied by Microsoft Entra about the current user journey and authentication context.
+The event contains information about the current user journey, authentication context, and correlation information supplied by Microsoft Entra.
 
 Example:
 
@@ -76,8 +78,8 @@ protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
     AttributeCollectionStartEvent request,
     CancellationToken cancellationToken = default)
 {
-    var correlationId = request.CorrelationId; 
- 
+    var correlationId = request.CorrelationId;
+
     return Task.FromResult(
         EntraEventResponses
             .AttributeCollectionStart()
@@ -88,13 +90,15 @@ protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
 
 ---
 
-## Response Builder
+## Building Responses
 
-Use:
+Builder entry point:
 
 ```csharp
 EntraEventResponses.AttributeCollectionStart()
 ```
+
+All AttributeCollectionStart responses are created from this builder.
 
 ## Available Responses
 
@@ -177,7 +181,7 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
             ["email"] = "john.doe@contoso.com",
             ["displayName"] = "John Doe"
         };
- 
+
         return Task.FromResult(
             EntraEventResponses
                 .AttributeCollectionStart()
@@ -209,8 +213,8 @@ The user sees the attribute collection form with pre-populated values.
 Example:
 
 ```text
-Email Address john.doe@contoso.com
-Display Name John Doe
+Email Address: john.doe@contoso.com
+Display Name:  John Doe
 ```
 
 The user may review or modify those values depending on the Entra configuration.
@@ -244,9 +248,9 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
         CancellationToken cancellationToken = default)
     {
         const string blockedDomain = "example.net";
- 
+
         bool registrationBlocked = true;
- 
+
         if (registrationBlocked)
         {
             return Task.FromResult(
@@ -257,7 +261,7 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
                         $"Registrations from {blockedDomain} are not permitted.")
                     .Build());
         }
- 
+
         return Task.FromResult(
             EntraEventResponses
                 .AttributeCollectionStart()
@@ -302,7 +306,7 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
         CancellationToken cancellationToken = default)
     {
         var customer = GetCustomer();
- 
+
         if (customer.IsBlocked)
         {
             return Task.FromResult(
@@ -313,7 +317,7 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
                         "Your account has been disabled. Please contact support.")
                     .Build());
         }
- 
+
         if (customer.Exists)
         {
             return Task.FromResult(
@@ -325,13 +329,13 @@ public class AttributeCollectionStartHandler(ILogger<AttributeCollectionStartHan
                     .Done()
                     .Build());
         }
- 
+
         return Task.FromResult(
             EntraEventResponses
                 .AttributeCollectionStart()
                 .ContinueWithDefaultBehavior()
                 .Build());
-        }
+    }
 }
 ```
 
@@ -403,6 +407,23 @@ Choose one:
 - `ContinueWithDefaultBehavior()`
 - `SetPrefillValues(...)`
 - `ShowBlockPage(...)`
+
+---
+
+## Prefer Builder Syntax for Complex Responses
+
+For responses containing multiple values, fluent builders are often easier to read and maintain.
+
+Example:
+
+```csharp
+.SetPrefillValues()
+    .Add("email", customer.Email)
+    .Add("displayName", customer.DisplayName)
+.Done()
+```
+
+This approach scales better as the number of returned attributes grows and keeps response construction consistent with other event handlers.
 
 ---
 

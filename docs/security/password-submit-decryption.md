@@ -2,7 +2,7 @@
 
 Microsoft Entra External ID sends the user's password inside an encrypted password context during the `PasswordSubmit` custom authentication extension flow.
 
-The `Entra.EventHandlers.Security` package provides production-ready components for decrypting this payload using certificates stored in Azure Key Vault.
+The `Entra.EventHandlers.Security` package provides components for decrypting this payload using certificates stored in Azure Key Vault.
 
 For most applications, decryption is handled automatically by `PasswordSubmitHandlerBase`.
 
@@ -28,7 +28,9 @@ Before password validation or migration can occur, the payload must first be dec
 
 ---
 
-## Decryption Flow
+## Architecture
+
+The decryption flow follows this sequence:
 
 ```text
 Microsoft Entra
@@ -106,7 +108,7 @@ Primary interface:
 IPasswordContextDecryptor
 ```
 
-Provided implementation:
+Default implementation:
 
 ```csharp
 KeyVaultPasswordContextDecryptor
@@ -131,7 +133,7 @@ Primary interface:
 IKeyVaultCertificateProvider
 ```
 
-Provided implementation:
+Default implementation:
 
 ```csharp
 KeyVaultCertificateProvider
@@ -149,21 +151,21 @@ Responsibilities:
 
 ### Dependency Injection
 
-Register security services:
+Register all security services using:
 
 ```csharp
 builder.Services.AddEntraEventHandlersSecurity();
 ```
 
-This registers the Azure Key Vault integration services used by the package.
+This registers the Azure Key Vault integration services required for password decryption.
 
 ---
 
-## Manual vs Automatic Decryption
+## Automatic vs Manual Decryption
 
 The package supports both approaches.
 
-### Recommended
+### Recommended Approach
 
 Use:
 
@@ -171,9 +173,9 @@ Use:
 PasswordSubmitHandlerBase
 ```
 
-which automatically decrypts the password context before your handler executes.
+The base handler automatically decrypts the password context before your business logic executes.
 
-### Advanced
+### Advanced Scenarios
 
 Inject and use:
 
@@ -181,7 +183,7 @@ Inject and use:
 IPasswordContextDecryptor
 ```
 
-directly when building custom processing pipelines.
+directly when building custom pipelines or advanced hosting scenarios.
 
 For most applications, automatic decryption through `PasswordSubmitHandlerBase` is the preferred approach.
 
@@ -189,7 +191,7 @@ For most applications, automatic decryption through `PasswordSubmitHandlerBase` 
 
 ## Using PasswordSubmitHandlerBase
 
-The recommended approach is using:
+The recommended approach is inheriting from:
 
 ```csharp
 PasswordSubmitHandlerBase
@@ -203,8 +205,8 @@ The base handler automatically:
 - Validates the decrypted payload
 - Creates correlation logging scopes
 - Measures execution duration
-- Provides safe exception handling
-- Preserves the nonce for failure scenarios
+- Provides exception handling
+- Preserves the protocol nonce
 
 Example:
 
@@ -250,7 +252,7 @@ public sealed class DecryptedPasswordContext
 
 This model is supplied automatically by `PasswordSubmitHandlerBase`.
 
-You typically do not need to deserialize or validate the payload yourself.
+Most applications do not need to deserialize or validate the payload manually.
 
 Example:
 
@@ -265,7 +267,7 @@ Properties:
 | Property | Description |
 |-----------|-------------|
 | Password | Plaintext password submitted by the user |
-| Nonce | Protocol nonce provided by Microsoft Entra |
+| Nonce | Protocol nonce supplied by Microsoft Entra |
 | Username | Optional username included in the encrypted payload |
 
 ---
@@ -293,7 +295,7 @@ Features:
 - Thread-safe initialization
 - Structured logging
 
-The RSA key is loaded only once and reused for subsequent requests.
+The RSA key is loaded once and reused across subsequent requests.
 
 ---
 
@@ -338,7 +340,7 @@ In this scenario:
 1. Microsoft Entra sends an encrypted password context.
 2. The base handler decrypts the payload.
 3. The handler receives a validated `DecryptedPasswordContext`.
-4. Credentials are validated against a legacy user store.
+4. Credentials are validated against a legacy identity store.
 5. The user is either migrated or blocked.
 
 ---
@@ -355,7 +357,7 @@ logger.LogInformation(
     decrypted.Password);
 ```
 
-Passwords should never be logged.
+Passwords should never be written to logs.
 
 ---
 
@@ -368,13 +370,13 @@ Avoid storing decrypted passwords in:
 - Distributed caches
 - Telemetry systems
 
-Passwords should remain in memory only for the duration of the request.
+Passwords should remain in memory only for the duration of request processing.
 
 ---
 
 ### Always Return the Nonce
 
-Every valid PasswordSubmit response must return:
+Every valid PasswordSubmit response must include:
 
 ```csharp
 .WithNonce(decrypted.Nonce)
@@ -399,7 +401,7 @@ Benefits include:
 
 ## Related Documentation
 
-### Start Here
+### Getting Started
 
 - [Getting Started](../getting-started.md)
 - [Architecture](../architecture.md)
