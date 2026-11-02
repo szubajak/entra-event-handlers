@@ -42,5 +42,11 @@ jobs:
       - name: Pack Abstractions
         run: dotnet pack abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release -p:PackageVersion=$VERSION
 
+      - name: Authenticate with NuGet (Trusted Publishing)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Publish Abstractions to NuGet
-        run: dotnet nuget push "abstractions/Entra.EventHandlers.Abstractions/bin/Release/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push "abstractions/Entra.EventHandlers.Abstractions/bin/Release/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
