@@ -3,16 +3,16 @@
 
 |||
 |:---|:---|
-| Generated on: | 11/04/2026 - 16:24:38 |
+| Generated on: | 11/05/2026 - 14:00:31 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 102 |
 | Files: | 91 |
-| **Line coverage:** | 88.7% (1132 of 1275) |
-| Covered lines: | 1132 |
-| Uncovered lines: | 143 |
-| Coverable lines: | 1275 |
-| Total lines: | 3922 |
+| **Line coverage:** | 92.5% (1184 of 1279) |
+| Covered lines: | 1184 |
+| Uncovered lines: | 95 |
+| Coverable lines: | 1279 |
+| Total lines: | 3957 |
 | **Branch coverage:** | 100% (164 of 164) |
 | Covered branches: | 164 |
 | Total branches: | 164 |
@@ -21,11 +21,11 @@
 </details>
 
 ## Coverage
-<details><summary>Entra.EventHandlers - 90.2%</summary>
+<details><summary>Entra.EventHandlers - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers**|**90.2%**|**100%**|
+|**Entra.EventHandlers**|**100%**|**100%**|
 |Entra.EventHandlers.Builders.ActionBuilders.PrefillValuesBuilder|100%||
 |Entra.EventHandlers.Builders.EntraEventResponses|100%||
 |Entra.EventHandlers.Builders.ResponseBuilders.AttributeCollectionStartRespo<br/>nseBuilder|100%|100%|
@@ -33,11 +33,11 @@
 |Entra.EventHandlers.Builders.ResponseBuilders.EmailOtpSendResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.PasswordSubmitResponseBuilder|100%|100%|
 |Entra.EventHandlers.Builders.ResponseBuilders.TokenIssuanceStartResponseBui<br/>lder|100%|100%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|84%|100%|
-|Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|84%|100%|
-|Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|84%|100%|
-|Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|85.9%|100%|
-|Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|84%|100%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionStartHandlerBase|100%|100%|
+|Entra.EventHandlers.Handlers.Base.AttributeCollectionSubmitHandlerBase|100%|100%|
+|Entra.EventHandlers.Handlers.Base.EmailOtpSendHandlerBase|100%|100%|
+|Entra.EventHandlers.Handlers.Base.PasswordSubmitHandlerBase|100%|100%|
+|Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|100%|
 
 </details>
 <details><summary>Entra.EventHandlers.Abstractions - 96.5%</summary>
@@ -168,14 +168,14 @@
 |Entra.EventHandlers.Security.Providers.KeyVaultCertificateProvider|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Workforce - 90.8%</summary>
+<details><summary>Entra.EventHandlers.Workforce - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Workforce**|**90.8%**|**100%**|
+|**Entra.EventHandlers.Workforce**|**100%**|**100%**|
 |Entra.EventHandlers.Workforce.Builders.ActionBuilders.FailedClaimsBuilder|100%||
 |Entra.EventHandlers.Workforce.Builders.EntraWorkforceEventResponses|100%||
 |Entra.EventHandlers.Workforce.Builders.ResponseBuilders.VerifiedIdClaimVali<br/>dationResponseBuilder|100%|100%|
-|Entra.EventHandlers.Workforce.Handlers.Base.VerifiedIdClaimValidationHandle<br/>rBase|84.3%|100%|
+|Entra.EventHandlers.Workforce.Handlers.Base.VerifiedIdClaimValidationHandle<br/>rBase|100%|100%|
 
 </details>
