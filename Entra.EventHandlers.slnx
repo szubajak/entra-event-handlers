@@ -43,9 +43,7 @@
     <File Path="ai/context/roadmap.md" />
   </Folder>
   <Folder Name="/ai/decisions/" />
-  <Folder Name="/ai/proposals/">
-    <File Path="ai/proposals/proposal-attributecollection-cancellation-tests.md" />
-  </Folder>
+  <Folder Name="/ai/proposals/" />
   <Folder Name="/ai/reviews/" />
   <Folder Name="/ai/specs/" />
   <Folder Name="/ai/templates/">

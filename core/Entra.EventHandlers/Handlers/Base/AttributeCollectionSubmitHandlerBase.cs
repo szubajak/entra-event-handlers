@@ -1,11 +1,11 @@
-﻿using Entra.EventHandlers.Abstractions.Events;
+﻿using System.Diagnostics;
+using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Builders;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace Entra.EventHandlers.Handlers.Base;
 
@@ -27,14 +27,19 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAt
     /// verification), establishes a logging scope with correlation identifiers,
     /// measures execution duration, and applies consistent exception handling.
     /// </remarks>
-    public async Task<EntraHandlerResult<AttributeCollectionSubmitResponse>> HandleAsync(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken = default)
+    public async Task<EntraHandlerResult<AttributeCollectionSubmitResponse>> HandleAsync(
+        AttributeCollectionSubmitEvent request,
+        CancellationToken cancellationToken = default
+    )
     {
-        using var scope = Logger.BeginScope(new Dictionary<string, object?>
-        {
-            ["CorrelationId"] = request.CorrelationId,
-            ["EventType"] = request.Type,
-            ["EventName"] = request.GetType().Name
-        });
+        using var scope = Logger.BeginScope(
+            new Dictionary<string, object?>
+            {
+                ["CorrelationId"] = request.CorrelationId,
+                ["EventType"] = request.Type,
+                ["EventName"] = request.GetType().Name,
+            }
+        );
 
         var sw = Stopwatch.StartNew();
 
@@ -53,7 +58,8 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAt
             Logger.LogInformation(
                 "Entra event handled successfully. DurationMs={DurationMs}, Action={ActionType}.",
                 sw.ElapsedMilliseconds,
-                actionType);
+                actionType
+            );
 
             return new EntraHandlerResult<AttributeCollectionSubmitResponse>(response);
         }
@@ -61,10 +67,7 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAt
         {
             sw.Stop();
 
-            Logger.LogInformation(
-                ex,
-                "Entra event handling was canceled. DurationMs={DurationMs}.",
-                sw.ElapsedMilliseconds);
+            Logger.LogInformation(ex, "Entra event handling was canceled. DurationMs={DurationMs}.", sw.ElapsedMilliseconds);
 
             throw;
         }
@@ -77,17 +80,20 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAt
                 Logger.LogWarning(
                     ex,
                     "Entra domain exception occurred during Entra event handling. DurationMs={DurationMs}.",
-                    sw.ElapsedMilliseconds);
+                    sw.ElapsedMilliseconds
+                );
             }
             else
             {
                 Logger.LogError(
                     ex,
                     "Unexpected failure occurred during Entra event handling. DurationMs={DurationMs}.",
-                    sw.ElapsedMilliseconds);
+                    sw.ElapsedMilliseconds
+                );
             }
 
-            var defaultResponse = EntraEventResponses.AttributeCollectionSubmit()
+            var defaultResponse = EntraEventResponses
+                .AttributeCollectionSubmit()
                 .ShowBlockPage("Error", "Unexpected error occurred.")
                 .Build();
 
@@ -100,5 +106,8 @@ public abstract class AttributeCollectionSubmitHandlerBase(ILogger logger) : IAt
     /// AttributeCollectionSubmit event. Implementations should override
     /// this method instead of <see cref="HandleAsync"/>.
     /// </summary>
-    protected abstract Task<AttributeCollectionSubmitResponse> HandleCoreAsync(AttributeCollectionSubmitEvent request, CancellationToken cancellationToken = default);
+    protected abstract Task<AttributeCollectionSubmitResponse> HandleCoreAsync(
+        AttributeCollectionSubmitEvent request,
+        CancellationToken cancellationToken = default
+    );
 }

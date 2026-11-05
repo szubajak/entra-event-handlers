@@ -1,11 +1,11 @@
-﻿using Entra.EventHandlers.Abstractions.Events;
+﻿using System.Diagnostics;
+using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Extensions;
 using Entra.EventHandlers.Abstractions.Interfaces;
 using Entra.EventHandlers.Abstractions.Responses;
 using Entra.EventHandlers.Abstractions.Results;
 using Entra.EventHandlers.Builders;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace Entra.EventHandlers.Handlers.Base;
 
@@ -29,14 +29,19 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
     /// In case of failure, a valid response containing an empty claim set is
     /// returned to ensure token issuance continues without interruption.
     /// </remarks>
-    public async Task<EntraHandlerResult<TokenIssuanceStartResponse>> HandleAsync(TokenIssuanceStartEvent request, CancellationToken cancellationToken = default)
+    public async Task<EntraHandlerResult<TokenIssuanceStartResponse>> HandleAsync(
+        TokenIssuanceStartEvent request,
+        CancellationToken cancellationToken = default
+    )
     {
-        using var scope = Logger.BeginScope(new Dictionary<string, object?>
-        {
-            ["CorrelationId"] = request.CorrelationId,
-            ["EventType"] = request.Type,
-            ["EventName"] = request.GetType().Name
-        });
+        using var scope = Logger.BeginScope(
+            new Dictionary<string, object?>
+            {
+                ["CorrelationId"] = request.CorrelationId,
+                ["EventType"] = request.Type,
+                ["EventName"] = request.GetType().Name,
+            }
+        );
 
         var sw = Stopwatch.StartNew();
 
@@ -55,7 +60,8 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
             Logger.LogInformation(
                 "Entra event handled successfully. DurationMs={DurationMs}, Action={ActionType}.",
                 sw.ElapsedMilliseconds,
-                actionType);
+                actionType
+            );
 
             return new EntraHandlerResult<TokenIssuanceStartResponse>(response);
         }
@@ -63,10 +69,7 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
         {
             sw.Stop();
 
-            Logger.LogInformation(
-                ex,
-                "Entra event handling was canceled. DurationMs={DurationMs}.",
-                sw.ElapsedMilliseconds);
+            Logger.LogInformation(ex, "Entra event handling was canceled. DurationMs={DurationMs}.", sw.ElapsedMilliseconds);
 
             throw;
         }
@@ -79,19 +82,19 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
                 Logger.LogWarning(
                     ex,
                     "Entra domain exception occurred during Entra event handling. DurationMs={DurationMs}.",
-                    sw.ElapsedMilliseconds);
+                    sw.ElapsedMilliseconds
+                );
             }
             else
             {
                 Logger.LogError(
                     ex,
                     "Unexpected failure occurred during Entra event handling. DurationMs={DurationMs}.",
-                    sw.ElapsedMilliseconds);
+                    sw.ElapsedMilliseconds
+                );
             }
 
-            var defaultResponse = EntraEventResponses.TokenIssuanceStart()
-                .ProvideClaimsForToken([])
-                .Build();
+            var defaultResponse = EntraEventResponses.TokenIssuanceStart().ProvideClaimsForToken([]).Build();
 
             return new EntraHandlerResult<TokenIssuanceStartResponse>(defaultResponse, ex);
         }
@@ -102,5 +105,8 @@ public abstract class TokenIssuanceStartHandlerBase(ILogger logger) : ITokenIssu
     /// TokenIssuanceStart event. Implementations should override
     /// this method instead of <see cref="HandleAsync"/>.
     /// </summary>
-    protected abstract Task<TokenIssuanceStartResponse> HandleCoreAsync(TokenIssuanceStartEvent request, CancellationToken cancellationToken = default);
+    protected abstract Task<TokenIssuanceStartResponse> HandleCoreAsync(
+        TokenIssuanceStartEvent request,
+        CancellationToken cancellationToken = default
+    );
 }
