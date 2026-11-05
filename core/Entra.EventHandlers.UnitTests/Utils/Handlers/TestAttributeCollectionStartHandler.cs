@@ -7,8 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.UnitTests.Utils.Handlers;
 
-public class TestAttributeCollectionStartHandler(ILogger logger)
-    : AttributeCollectionStartHandlerBase(logger)
+public class TestAttributeCollectionStartHandler(ILogger logger) : AttributeCollectionStartHandlerBase(logger)
 {
     public HandlerCoreTest CoreTest { get; } = new HandlerCoreTest();
 
@@ -16,7 +15,8 @@ public class TestAttributeCollectionStartHandler(ILogger logger)
 
     protected override Task<AttributeCollectionStartResponse> HandleCoreAsync(
         AttributeCollectionStartEvent request,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default
+    )
     {
         CoreTest.Record(cancellationToken);
         return Task.FromResult(ResponseToReturn);
