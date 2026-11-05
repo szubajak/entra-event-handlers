@@ -6,13 +6,16 @@ public sealed class HandlerCoreTest
 
     public CancellationToken? CapturedCancellationToken { get; set; }
 
-    public bool ShouldThrow { get; set; } = false;
+    public Exception? ExceptionToThrow { get; set; }
 
     public void Record(CancellationToken cancellationToken = default)
     {
         HandleCoreCallCount++;
         CapturedCancellationToken = cancellationToken;
 
-        if (ShouldThrow) throw new Exception("Test exception!");
+        if (ExceptionToThrow is not null)
+        {
+            throw ExceptionToThrow;
+        }
     }
 }

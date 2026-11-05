@@ -1,35 +1,47 @@
 # Technical Design Proposal
 
-## Status
+## Metadata
 
-Draft | Approved | Implemented | Rejected
+| Field | Value |
+|---------|---------|
+| Proposal ID | |
+| Status | Draft \| Approved \| Implemented \| Rejected |
+| Author | KubaAI |
+| Branch | |
 
-## Related Specification
-
-Link to the feature specification.
+---
 
 ## Summary
 
-Short description of the proposed technical solution.
+Short description of the proposed change.
 
-## Goals
+---
 
-### Functional Goals
+## Context
 
-### Non-Functional Goals
+What problem exists today?
 
-## Architecture Impact
+---
 
-Affected components, packages, and architectural layers.
+## Scope
+
+### In Scope
+
+- ...
+
+### Out of Scope
+
+- ...
+
+---
 
 ## Affected Projects
 
-- Entra.EventHandlers
-- Entra.EventHandlers.Abstractions
-- Entra.EventHandlers.AspNetCore
-- Entra.EventHandlers.AzureFunctions
+- ...
 
-## Proposed Changes
+---
+
+## Affected Types
 
 ### New Types
 
@@ -37,51 +49,81 @@ Affected components, packages, and architectural layers.
 
 ### Deprecated Types
 
-## Dependency Injection Impact
+---
 
-Describe any registration or service changes.
+## Proposed Changes
+
+Describe the implementation approach.
+
+---
 
 ## Public API Impact
 
-Describe new or modified public APIs.
+None | Description
+
+---
 
 ## Backward Compatibility
 
-Compatibility assessment and migration strategy.
+Compatible | Breaking
 
-## Alternatives Considered
+Description if required.
 
-### Alternative 1
+---
 
-Pros
+## Acceptance Criteria
 
-Cons
+- [ ]
+- [ ]
+- [ ]
 
-### Alternative 2
+---
 
-Pros
+## Testing Requirements
 
-Cons
+- [ ] Unit tests
+- [ ] Integration tests
+- [ ] Existing tests pass
 
-## Testing Strategy
+Notes:
 
-### Unit Tests
-
-### Integration Tests
-
-### Manual Validation
+---
 
 ## Documentation Impact
 
-- README.md
-- docs/architecture.md
-- docs/getting-started.md
-- docs/events/*
-- docs/hosting/*
-- Package README files
+- [ ] None
+- [ ] XML Comments
+- [ ] README
+- [ ] Samples
+- [ ] Other
+
+Notes:
+
+---
 
 ## Risks
 
-## Open Questions
+- ...
+
+---
+
+## DevAI Instructions
+
+Implement only the changes described in this proposal.
+
+Do not introduce unrelated refactoring.
+
+---
+
+## ReviewAI Checklist
+
+- [ ] Acceptance criteria satisfied
+- [ ] Tests updated
+- [ ] Documentation updated if needed
+- [ ] No unrelated changes
+
+---
 
 ## Recommendation
+
+Approve | Revise | Reject

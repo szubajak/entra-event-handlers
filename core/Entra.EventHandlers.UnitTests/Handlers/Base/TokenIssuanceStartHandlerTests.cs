@@ -39,13 +39,8 @@ public class TokenIssuanceStartHandlerTests
         {
             Data = new TokenIssuanceStartResponsePayload
             {
-                Actions = withAction
-                    ? new List<EntraAction>
-                    {
-                        new ProvideClaimsForTokenAction()
-                    }
-                    : Array.Empty<EntraAction>()
-            }
+                Actions = withAction ? new List<EntraAction> { new ProvideClaimsForTokenAction() } : Array.Empty<EntraAction>(),
+            },
         };
 
         _sut.ResponseToReturn = expectedResponse;
@@ -62,20 +57,16 @@ public class TokenIssuanceStartHandlerTests
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
         _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
-        _logger.Entries.Should().Contain(e =>
-            e.Level == LogLevel.Information &&
-            e.Message.Contains("Starting Entra event handling."));
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Starting Entra event handling."));
 
         var success = _logger.Entries.Single(e =>
-            e.Level == LogLevel.Information &&
-            e.Message.Contains("Entra event handled successfully."));
+            e.Level == LogLevel.Information && e.Message.Contains("Entra event handled successfully.")
+        );
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
-        var expected = withAction
-            ? EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken
-            : "None";
+        var expected = withAction ? EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken : "None";
 
         _logger.Scopes.Should().ContainSingle();
 
@@ -93,7 +84,7 @@ public class TokenIssuanceStartHandlerTests
         // Arrange
         var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture);
 
-        _sut.CoreTest.ShouldThrow = true;
+        _sut.CoreTest.ExceptionToThrow = new Exception();
 
         // Act
         var result = await _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
@@ -101,9 +92,9 @@ public class TokenIssuanceStartHandlerTests
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
 
-        _logger.Entries.Should().Contain(e =>
-            e.Level == LogLevel.Error &&
-            e.Message.Contains("Unexpected failure occurred during Entra event handling."));
+        _logger
+            .Entries.Should()
+            .Contain(e => e.Level == LogLevel.Error && e.Message.Contains("Unexpected failure occurred during Entra event handling."));
 
         result.Should().NotBeNull();
 
@@ -111,14 +102,33 @@ public class TokenIssuanceStartHandlerTests
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
-        var action = response.Data.Actions
-            .Single()
-            .Should()
-            .BeOfType<ProvideClaimsForTokenAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<ProvideClaimsForTokenAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken);
         action.Claims.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task HandleAsync_Cancelled()
+    {
+        // Arrange
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        var evt = TestEvents.CreateTokenIssuanceStartEvent(_fixture);
+
+        _sut.CoreTest.ExceptionToThrow = new OperationCanceledException(cts.Token);
+
+        // Act
+        var act = async () => await _sut.HandleAsync(evt, cts.Token);
+
+        // Assert
+        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("The operation was canceled.");
+
+        // Assert
+        _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
+
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
     }
 
     [Fact]
@@ -139,11 +149,7 @@ public class TokenIssuanceStartHandlerTests
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
-        var action = response.Data.Actions
-            .Single()
-            .Should()
-            .BeOfType<ProvideClaimsForTokenAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<ProvideClaimsForTokenAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken);
         action.Claims.Should().BeEmpty();
