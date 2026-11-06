@@ -12,8 +12,5 @@ public sealed class EmailOtpSendEndpoint(
     IEntraEventHandlerResolver resolver
 ) : EntraTypedEndpointBase<EmailOtpSendEvent, EmailOtpSendResponse>(logger, httpAdapter, resolver)
 {
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("emailotpsend", InvokeAsync);
-    }
+    protected override string Route => "emailotpsend";
 }

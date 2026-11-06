@@ -12,8 +12,5 @@ public sealed class AttributeCollectionSubmitEndpoint(
     IEntraEventHandlerResolver resolver
 ) : EntraTypedEndpointBase<AttributeCollectionSubmitEvent, AttributeCollectionSubmitResponse>(logger, httpAdapter, resolver)
 {
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("attributecollectionsubmit", InvokeAsync);
-    }
+    protected override string Route => "attributecollectionsubmit";
 }

@@ -10,8 +10,5 @@ public sealed class EntraEventRouterEndpoint(
     IEntraEventOrchestrator orchestrator
 ) : EntraEventRouterEndpointBase(logger, httpAdapter, orchestrator)
 {
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("router", InvokeAsync);
-    }
+    protected override string Route => "router";
 }

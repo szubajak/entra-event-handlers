@@ -7,13 +7,10 @@ using Entra.EventHandlers.Hosting.Resolvers;
 namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class VerifiedIdClaimValidationEndpoint(
-    ILogger<TokenIssuanceStartEndpoint> logger,
+    ILogger<VerifiedIdClaimValidationEndpoint> logger,
     IHttpAdapter httpAdapter,
     IEntraEventHandlerResolver resolver
 ) : EntraTypedEndpointBase<VerifiedIdClaimValidationEvent, VerifiedIdClaimValidationResponse>(logger, httpAdapter, resolver)
 {
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("verifiedidclaimvalidation", InvokeAsync);
-    }
+    protected override string Route => "verifiedidclaimvalidation";
 }
