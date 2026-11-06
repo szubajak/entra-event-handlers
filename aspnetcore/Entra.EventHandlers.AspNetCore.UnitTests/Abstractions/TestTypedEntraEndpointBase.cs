@@ -3,7 +3,6 @@ using Entra.EventHandlers.AspNetCore.Adapters;
 using Entra.EventHandlers.Hosting.Resolvers;
 using Entra.EventHandlers.TestHelpers;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 
 namespace Entra.EventHandlers.AspNetCore.UnitTests.Abstractions;
@@ -11,7 +10,7 @@ namespace Entra.EventHandlers.AspNetCore.UnitTests.Abstractions;
 public sealed class TestTypedEntraEndpointBase(ILogger logger, IHttpAdapter httpAdapter, IEntraEventHandlerResolver resolver)
     : EntraTypedEndpointBase<TestEvent, TestResponse>(logger, httpAdapter, resolver)
 {
-    public Task Invoke(HttpContext httpContext) => InvokeAsync(httpContext);
+    protected override string Route => "test-route";
 
-    public override void Map(IEndpointRouteBuilder endpoints) => throw new NotSupportedException("Not needed for tests.");
+    public Task Invoke(HttpContext httpContext) => InvokeAsync(httpContext);
 }
