@@ -12,8 +12,5 @@ public sealed class AttributeCollectionStartEndpoint(
     IEntraEventHandlerResolver resolver
 ) : EntraTypedEndpointBase<AttributeCollectionStartEvent, AttributeCollectionStartResponse>(logger, httpAdapter, resolver)
 {
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("attributecollectionstart", InvokeAsync);
-    }
+    protected override string Route => "attributecollectionstart";
 }

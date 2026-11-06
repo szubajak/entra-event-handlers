@@ -12,8 +12,5 @@ public sealed class TokenIssuanceStartEndpoint(
     IEntraEventHandlerResolver resolver
 ) : EntraTypedEndpointBase<TokenIssuanceStartEvent, TokenIssuanceStartResponse>(logger, httpAdapter, resolver)
 {
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("tokenissuancestart", InvokeAsync);
-    }
+    protected override string Route => "tokenissuancestart";
 }

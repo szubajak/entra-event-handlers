@@ -7,13 +7,10 @@ using Entra.EventHandlers.Hosting.Resolvers;
 namespace Entra.EventHandlers.AspNetCore.Endpoints;
 
 public sealed class PasswordSubmitEndpoint(
-    ILogger<TokenIssuanceStartEndpoint> logger,
+    ILogger<PasswordSubmitEndpoint> logger,
     IHttpAdapter httpAdapter,
     IEntraEventHandlerResolver resolver
 ) : EntraTypedEndpointBase<PasswordSubmitEvent, PasswordSubmitResponse>(logger, httpAdapter, resolver)
 {
-    public override void Map(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapPost("passwordsubmit", InvokeAsync);
-    }
+    protected override string Route => "passwordsubmit";
 }

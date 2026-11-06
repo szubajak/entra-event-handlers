@@ -11,6 +11,13 @@ public abstract class EntraEndpointBase(ILogger logger, IHttpAdapter httpAdapter
     protected ILogger Logger { get; } = logger;
     protected IHttpAdapter HttpAdapter { get; } = httpAdapter;
 
+    protected abstract string Route { get; }
+
+    public virtual void Map(IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapPost(Route, InvokeAsync);
+    }
+
     protected Task OnExceptionAsync(Exception ex, HttpContext context)
     {
         var exceptionHandler = context.RequestServices.GetService<IEntraExceptionHandler>();
@@ -65,6 +72,4 @@ public abstract class EntraEndpointBase(ILogger logger, IHttpAdapter httpAdapter
     }
 
     protected abstract Task ExecuteAsync(HttpContext httpContext);
-
-    public abstract void Map(IEndpointRouteBuilder endpoints);
 }
