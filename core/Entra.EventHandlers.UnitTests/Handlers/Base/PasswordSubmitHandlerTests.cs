@@ -49,7 +49,10 @@ public class PasswordSubmitHandlerTests
             Data = new PasswordSubmitResponsePayload
             {
                 Actions = withAction
-                    ? new List<EntraAction> { new PasswordSubmitAction(PasswordSubmitActionType.MigratePassword) }
+                    ? new List<EntraAction>
+                    {
+                        new PasswordSubmitAction(PasswordSubmitActionType.MigratePassword),
+                    }
                     : Array.Empty<EntraAction>(),
                 Nonce = "some-nonce",
             },
@@ -71,10 +74,16 @@ public class PasswordSubmitHandlerTests
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
         _sut.CoreTest.CapturedCancellationToken.Should().Be(ct);
 
-        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Starting Entra event handling."));
+        _logger
+            .Entries.Should()
+            .Contain(e =>
+                e.Level == LogLevel.Information
+                && e.Message.Contains("Starting Entra event handling.")
+            );
 
         var success = _logger.Entries.Single(e =>
-            e.Level == LogLevel.Information && e.Message.Contains("Entra event handled successfully.")
+            e.Level == LogLevel.Information
+            && e.Message.Contains("Entra event handled successfully.")
         );
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
@@ -95,13 +104,15 @@ public class PasswordSubmitHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_Fail()
+    public async Task HandleAsync_HandlerThrows_ReturnsBlockPageResponse()
     {
         // Arrange
         var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
 
         var decrypted = _fixture.Create<DecryptedPasswordContext>();
-        _decryptor.DecryptAsync(evt.Data.EncryptedPasswordContext, Arg.Any<CancellationToken>()).Returns(decrypted);
+        _decryptor
+            .DecryptAsync(evt.Data.EncryptedPasswordContext, Arg.Any<CancellationToken>())
+            .Returns(decrypted);
 
         _sut.CoreTest.ExceptionToThrow = new Exception();
 
@@ -113,7 +124,10 @@ public class PasswordSubmitHandlerTests
 
         _logger
             .Entries.Should()
-            .Contain(e => e.Level == LogLevel.Error && e.Message.Contains("Unexpected failure occurred during Entra event handling."));
+            .Contain(e =>
+                e.Level == LogLevel.Error
+                && e.Message.Contains("Unexpected failure occurred during Entra event handling.")
+            );
 
         result.Should().NotBeNull();
 
@@ -122,13 +136,30 @@ public class PasswordSubmitHandlerTests
         response.Data.Should().NotBeNull();
         response.Data.Nonce.Should().Be(decrypted.Nonce);
 
-        var action = response.Data.Actions.Single().Should().BeOfType<PasswordSubmitAction>().Subject;
+        var action = response
+            .Data.Actions.Single()
+            .Should()
+            .BeOfType<PasswordSubmitAction>()
+            .Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.PasswordSubmit.Block);
     }
 
     [Fact]
-    public async Task HandleAsync_Cancelled()
+    public async Task HandleAsync_InvalidRequest_ReturnsBlockPageResponse()
+    {
+        // Arrange
+        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture, valid: false);
+
+        // Act
+        Func<Task> act = () => _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
+
+        // Assert
+        await act.Should().ThrowAsync<Exception>();
+    }
+
+    [Fact]
+    public async Task HandleAsync_TaskCancelled_ShouldThrowOperationCanceledException()
     {
         // Arrange
         using var cts = new CancellationTokenSource();
@@ -142,24 +173,18 @@ public class PasswordSubmitHandlerTests
         var act = async () => await _sut.HandleAsync(evt, cts.Token);
 
         // Assert
-        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("The operation was canceled.");
+        await act.Should()
+            .ThrowAsync<OperationCanceledException>()
+            .WithMessage("The operation was canceled.");
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
 
-        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
-    }
-
-    [Fact]
-    public async Task HandleAsync_InvalidRequest()
-    {
-        // Arrange
-        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture, valid: false);
-
-        // Act
-        Func<Task> act = () => _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
-
-        // Assert
-        await act.Should().ThrowAsync<Exception>();
+        _logger
+            .Entries.Should()
+            .Contain(e =>
+                e.Level == LogLevel.Information
+                && e.Message.Contains("Entra event handling was canceled.")
+            );
     }
 }

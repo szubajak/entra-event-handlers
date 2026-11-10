@@ -100,7 +100,7 @@ public class HttpAdapterTests
     }
 
     [Fact]
-    public async Task ReadEventAsync_NonGeneric_Calls_Generic_With_EntraEvent()
+    public async Task ReadEventAsync_NonGenericOverload_CallsGenericOverload()
     {
         // Arrange
         var json = """

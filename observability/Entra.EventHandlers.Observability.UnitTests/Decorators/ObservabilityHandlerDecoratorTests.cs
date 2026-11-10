@@ -29,7 +29,7 @@ public class ObservabilityHandlerDecoratorTests
     }
 
     [Fact]
-    public async Task Decorator_Should_Map_And_Publish_EventLog()
+    public async Task HandleAsync_HandlerSucceeds_MapsAndPublishesEventLog()
     {
         // Arrange
         var fixture = new Fixture();
@@ -66,7 +66,7 @@ public class ObservabilityHandlerDecoratorTests
     }
 
     [Fact]
-    public async Task Decorator_Should_ReturnResult_WhenHasException_AndNotPublish()
+    public async Task HandleAsync_HandlerReturnsException_ReturnsResultWithoutPublishing()
     {
         // Arrange
         var ct = new CancellationTokenSource().Token;
@@ -79,10 +79,7 @@ public class ObservabilityHandlerDecoratorTests
 
         _handler.HandleAsync(request, ct).Returns(resultWithException);
 
-        var ctx = new EventLogContext
-        {
-            DefaultLog = null!
-        };
+        var ctx = new EventLogContext { DefaultLog = null! };
 
         _sut = new ObservabilityHandlerDecorator<TestEvent, TestResponse>(_handler, _publisher, _mapperFactory, ctx);
 

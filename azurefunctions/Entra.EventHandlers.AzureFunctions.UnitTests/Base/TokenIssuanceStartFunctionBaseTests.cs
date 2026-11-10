@@ -34,7 +34,7 @@ public class TokenIssuanceStartFunctionBaseTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_Should_Call_Handler_And_Return_Response()
+    public async Task ExecuteAsync_HandlerSucceeds_ReturnsResponse()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();
@@ -61,7 +61,7 @@ public class TokenIssuanceStartFunctionBaseTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_Should_Invoke_OnException_When_Handler_Returns_Exception()
+    public async Task ExecuteAsync_HandlerReturnsException_InvokesOnException()
     {
         // Arrange
         var ctx = Substitute.For<FunctionContext>();

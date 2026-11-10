@@ -59,7 +59,7 @@ public class ServiceCollectionExtensionsTests
     }
 
     [Fact]
-    public void AddEntraEventHandlersObservability_Decorates_IEntraEventHandler_With_ObservabilityDecorator()
+    public void AddEntraEventHandlersObservability_HandlerRegistered_AddsObservabilityDecorator()
     {
         // Arrange
         var services = new ServiceCollection();
@@ -92,7 +92,7 @@ public class ServiceCollectionExtensionsTests
     }
 
     [Fact]
-    public async Task Decorator_Invokes_Inner_Handler_And_ObservabilityPipeline()
+    public async Task HandleAsync_HandlerInvoked_RunsObservabilityPipeline()
     {
         // Arrange
         var fixture = new Fixture();
@@ -148,12 +148,9 @@ public class ServiceCollectionExtensionsTests
             { typeof(IEventLogPublisher), ServiceLifetime.Singleton },
             { typeof(IObservabilityApiClient), ServiceLifetime.Singleton },
             { typeof(IEventLogMapperFactory), ServiceLifetime.Singleton },
-            { typeof(IEventLogContextMapper), ServiceLifetime.Singleton }
+            { typeof(IEventLogContextMapper), ServiceLifetime.Singleton },
         };
 
     public static TheoryData<Type, Type> MapperRegistrations() =>
-        new()
-        {
-            { typeof(IEmailOtpSendEventLogMapper), typeof(IEventLogMapper<EmailOtpSendEvent, EmailOtpSendResponse>) }
-        };
+        new() { { typeof(IEmailOtpSendEventLogMapper), typeof(IEventLogMapper<EmailOtpSendEvent, EmailOtpSendResponse>) } };
 }
