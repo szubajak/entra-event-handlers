@@ -14,14 +14,25 @@ Changes to public APIs require:
 
 Prefer dependency injection.
 
-Avoid static dependencies.
+Avoid static mutable state and static service dependencies. Static factories and immutable protocol constants are acceptable when they do not hold application state or bypass dependency injection.
 
 ## Abstractions
 
-Create abstractions only when:
+Create abstractions when they define a stable public contract, isolate hosting or infrastructure concerns, support dependency injection or testing, or allow multiple implementations.
 
-- Multiple implementations are expected.
-- Hosting independence is required.
+Do not create abstractions solely to wrap a single private implementation without a meaningful boundary.
+
+## C# and .NET Style
+
+- Target .NET 10.
+- Preserve nullable reference type correctness.
+- Use implicit usings and avoid redundant framework usings.
+- Prefer file-scoped namespaces and primary constructors when consistent with surrounding code.
+- Use four-space indentation and PascalCase for types and members.
+- Prefix interfaces with `I`.
+- Prefer collection expressions where the target type is clear.
+- Follow the repository `.editorconfig` rather than introducing local formatting conventions.
+- Preserve XML documentation on public APIs.
 
 ## Testing
 

@@ -37,7 +37,21 @@ What problem exists today?
 
 ## Affected Projects
 
-- ...
+List only affected projects:
+
+- `Entra.EventHandlers.Abstractions`
+- `Entra.EventHandlers`
+- `Entra.EventHandlers.Workforce`
+- `Entra.EventHandlers.Hosting`
+- `Entra.EventHandlers.AspNetCore`
+- `Entra.EventHandlers.AzureFunctions`
+- `Entra.EventHandlers.Security`
+- `Entra.EventHandlers.Observability`
+- Relevant unit or integration test projects
+
+## Dependency Direction
+
+Describe project references and confirm that host-specific dependencies do not enter Abstractions or core handler business logic.
 
 ---
 
@@ -53,9 +67,9 @@ What problem exists today?
 
 ## Proposed Changes
 
-Describe the implementation approach.
+## Handler Pipeline Impact
 
----
+Describe effects on protocol validation, `HandleAsync`, `HandleCoreAsync`, cancellation, exception handling, logging, and fallback responses.
 
 ## Public API Impact
 
@@ -67,7 +81,11 @@ None | Description
 
 Compatible | Breaking
 
-Description if required.
+## Package and Versioning Impact
+
+Describe package IDs, public API impact, licensing, versioning, package metadata, and changelog implications.
+
+## Alternatives Considered
 
 ---
 
@@ -123,6 +141,13 @@ Do not introduce unrelated refactoring.
 - [ ] No unrelated changes
 
 ---
+
+## Validation Commands
+
+- `dotnet restore`
+- `dotnet build`
+- `dotnet test`
+- Targeted test commands relevant to the change
 
 ## Recommendation
 
