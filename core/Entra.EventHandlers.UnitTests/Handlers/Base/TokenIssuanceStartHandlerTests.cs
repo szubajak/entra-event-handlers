@@ -39,9 +39,7 @@ public class TokenIssuanceStartHandlerTests
         {
             Data = new TokenIssuanceStartResponsePayload
             {
-                Actions = withAction
-                    ? new List<EntraAction> { new ProvideClaimsForTokenAction() }
-                    : Array.Empty<EntraAction>(),
+                Actions = withAction ? new List<EntraAction> { new ProvideClaimsForTokenAction() } : Array.Empty<EntraAction>(),
             },
         };
 
@@ -59,24 +57,16 @@ public class TokenIssuanceStartHandlerTests
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
         _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
-        _logger
-            .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Information
-                && e.Message.Contains("Starting Entra event handling.")
-            );
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Starting Entra event handling."));
 
         var success = _logger.Entries.Single(e =>
-            e.Level == LogLevel.Information
-            && e.Message.Contains("Entra event handled successfully.")
+            e.Level == LogLevel.Information && e.Message.Contains("Entra event handled successfully.")
         );
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
-        var expected = withAction
-            ? EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken
-            : "None";
+        var expected = withAction ? EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken : "None";
 
         _logger.Scopes.Should().ContainSingle();
 
@@ -85,10 +75,7 @@ public class TokenIssuanceStartHandlerTests
 
         dict.Should().ContainKey("CorrelationId").WhoseValue.Should().Be(evt.CorrelationId);
         dict.Should().ContainKey("EventType").WhoseValue.Should().Be(evt.Type);
-        dict.Should()
-            .ContainKey("EventName")
-            .WhoseValue.Should()
-            .Be(nameof(TokenIssuanceStartEvent));
+        dict.Should().ContainKey("EventName").WhoseValue.Should().Be(nameof(TokenIssuanceStartEvent));
     }
 
     [Fact]
@@ -107,10 +94,7 @@ public class TokenIssuanceStartHandlerTests
 
         _logger
             .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Error
-                && e.Message.Contains("Unexpected failure occurred during Entra event handling.")
-            );
+            .Contain(e => e.Level == LogLevel.Error && e.Message.Contains("Unexpected failure occurred during Entra event handling."));
 
         result.Should().NotBeNull();
 
@@ -118,11 +102,7 @@ public class TokenIssuanceStartHandlerTests
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
-        var action = response
-            .Data.Actions.Single()
-            .Should()
-            .BeOfType<ProvideClaimsForTokenAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<ProvideClaimsForTokenAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken);
         action.Claims.Should().BeEmpty();
@@ -146,11 +126,7 @@ public class TokenIssuanceStartHandlerTests
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
-        var action = response
-            .Data.Actions.Single()
-            .Should()
-            .BeOfType<ProvideClaimsForTokenAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<ProvideClaimsForTokenAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.TokenIssuanceStart.ProvideClaimsForToken);
         action.Claims.Should().BeEmpty();
@@ -171,18 +147,11 @@ public class TokenIssuanceStartHandlerTests
         var act = async () => await _sut.HandleAsync(evt, cts.Token);
 
         // Assert
-        await act.Should()
-            .ThrowAsync<OperationCanceledException>()
-            .WithMessage("The operation was canceled.");
+        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("The operation was canceled.");
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
 
-        _logger
-            .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Information
-                && e.Message.Contains("Entra event handling was canceled.")
-            );
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
     }
 }

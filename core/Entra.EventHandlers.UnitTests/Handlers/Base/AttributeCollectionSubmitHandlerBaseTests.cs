@@ -41,12 +41,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
             Data = new AttributeCollectionSubmitResponsePayload
             {
                 Actions = withAction
-                    ? new List<EntraAction>
-                    {
-                        new ContinueAction(
-                            ContinueActionType.AttributeCollectionSubmitContinueWithDefaultBehavior
-                        ),
-                    }
+                    ? new List<EntraAction> { new ContinueAction(ContinueActionType.AttributeCollectionSubmitContinueWithDefaultBehavior) }
                     : Array.Empty<EntraAction>(),
             },
         };
@@ -65,24 +60,16 @@ public class AttributeCollectionSubmitHandlerBaseTests
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
         _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
-        _logger
-            .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Information
-                && e.Message.Contains("Starting Entra event handling.")
-            );
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Starting Entra event handling."));
 
         var success = _logger.Entries.Single(e =>
-            e.Level == LogLevel.Information
-            && e.Message.Contains("Entra event handled successfully.")
+            e.Level == LogLevel.Information && e.Message.Contains("Entra event handled successfully.")
         );
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
-        var expected = withAction
-            ? EntraOdataTypes.AttributeCollectionSubmit.ContinueWithDefaultBehavior
-            : "None";
+        var expected = withAction ? EntraOdataTypes.AttributeCollectionSubmit.ContinueWithDefaultBehavior : "None";
 
         logged.Should().Be(expected);
 
@@ -93,10 +80,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
 
         dict.Should().ContainKey("CorrelationId").WhoseValue.Should().Be(evt.CorrelationId);
         dict.Should().ContainKey("EventType").WhoseValue.Should().Be(evt.Type);
-        dict.Should()
-            .ContainKey("EventName")
-            .WhoseValue.Should()
-            .Be(nameof(AttributeCollectionSubmitEvent));
+        dict.Should().ContainKey("EventName").WhoseValue.Should().Be(nameof(AttributeCollectionSubmitEvent));
     }
 
     [Fact]
@@ -115,10 +99,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
 
         _logger
             .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Error
-                && e.Message.Contains("Unexpected failure occurred during Entra event handling.")
-            );
+            .Contain(e => e.Level == LogLevel.Error && e.Message.Contains("Unexpected failure occurred during Entra event handling."));
 
         result.Should().NotBeNull();
 
@@ -126,11 +107,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
-        var action = response
-            .Data.Actions.Single()
-            .Should()
-            .BeOfType<ShowBlockPageAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<ShowBlockPageAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionSubmit.ShowBlockPage);
     }
@@ -153,11 +130,7 @@ public class AttributeCollectionSubmitHandlerBaseTests
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
-        var action = response
-            .Data.Actions.Single()
-            .Should()
-            .BeOfType<ShowBlockPageAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<ShowBlockPageAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.AttributeCollectionSubmit.ShowBlockPage);
     }
@@ -177,18 +150,11 @@ public class AttributeCollectionSubmitHandlerBaseTests
         var act = async () => await _sut.HandleAsync(evt, cts.Token);
 
         // Assert
-        await act.Should()
-            .ThrowAsync<OperationCanceledException>()
-            .WithMessage("The operation was canceled.");
+        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("The operation was canceled.");
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
 
-        _logger
-            .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Information
-                && e.Message.Contains("Entra event handling was canceled.")
-            );
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
     }
 }

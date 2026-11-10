@@ -41,12 +41,7 @@ public class EmailOtpSendHandlerBaseTests
             Data = new EmailOtpSendResponsePayload
             {
                 Actions = withAction
-                    ? new List<EntraAction>
-                    {
-                        new ContinueAction(
-                            ContinueActionType.EmailOtpSendContinueWithDefaultBehavior
-                        ),
-                    }
+                    ? new List<EntraAction> { new ContinueAction(ContinueActionType.EmailOtpSendContinueWithDefaultBehavior) }
                     : Array.Empty<EntraAction>(),
             },
         };
@@ -65,24 +60,16 @@ public class EmailOtpSendHandlerBaseTests
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
         _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
-        _logger
-            .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Information
-                && e.Message.Contains("Starting Entra event handling.")
-            );
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Starting Entra event handling."));
 
         var success = _logger.Entries.Single(e =>
-            e.Level == LogLevel.Information
-            && e.Message.Contains("Entra event handled successfully.")
+            e.Level == LogLevel.Information && e.Message.Contains("Entra event handled successfully.")
         );
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
         var logged = state.Single(kv => kv.Key == "ActionType").Value?.ToString();
 
-        var expected = withAction
-            ? EntraOdataTypes.EmailOtpSend.ContinueWithDefaultBehavior
-            : "None";
+        var expected = withAction ? EntraOdataTypes.EmailOtpSend.ContinueWithDefaultBehavior : "None";
 
         logged.Should().Be(expected);
 
@@ -112,10 +99,7 @@ public class EmailOtpSendHandlerBaseTests
 
         _logger
             .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Error
-                && e.Message.Contains("Unexpected failure occurred during Entra event handling.")
-            );
+            .Contain(e => e.Level == LogLevel.Error && e.Message.Contains("Unexpected failure occurred during Entra event handling."));
 
         result.Should().NotBeNull();
 
@@ -166,18 +150,11 @@ public class EmailOtpSendHandlerBaseTests
         var act = async () => await _sut.HandleAsync(evt, cts.Token);
 
         // Assert
-        await act.Should()
-            .ThrowAsync<OperationCanceledException>()
-            .WithMessage("The operation was canceled.");
+        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("The operation was canceled.");
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
 
-        _logger
-            .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Information
-                && e.Message.Contains("Entra event handling was canceled.")
-            );
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
     }
 }

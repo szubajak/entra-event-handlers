@@ -39,9 +39,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
         {
             Data = new VerifiedIdClaimValidationResponsePayload
             {
-                Actions = withAction
-                    ? new List<EntraAction> { new VerifiedIdClaimValidationPassAction() }
-                    : Array.Empty<EntraAction>(),
+                Actions = withAction ? new List<EntraAction> { new VerifiedIdClaimValidationPassAction() } : Array.Empty<EntraAction>(),
             },
         };
 
@@ -59,16 +57,10 @@ public class VerifiedIdClaimValidationHandlerBaseTests
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
         _sut.CoreTest.CapturedCancellationToken.Should().Be(cts.Token);
 
-        _logger
-            .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Information
-                && e.Message.Contains("Starting Entra event handling.")
-            );
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Starting Entra event handling."));
 
         var success = _logger.Entries.Single(e =>
-            e.Level == LogLevel.Information
-            && e.Message.Contains("Entra event handled successfully.")
+            e.Level == LogLevel.Information && e.Message.Contains("Entra event handled successfully.")
         );
 
         var state = success.State.As<IReadOnlyList<KeyValuePair<string, object>>>();
@@ -85,10 +77,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
 
         dict.Should().ContainKey("CorrelationId").WhoseValue.Should().Be(evt.CorrelationId);
         dict.Should().ContainKey("EventType").WhoseValue.Should().Be(evt.Type);
-        dict.Should()
-            .ContainKey("EventName")
-            .WhoseValue.Should()
-            .Be(nameof(VerifiedIdClaimValidationEvent));
+        dict.Should().ContainKey("EventName").WhoseValue.Should().Be(nameof(VerifiedIdClaimValidationEvent));
     }
 
     [Fact]
@@ -107,10 +96,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
 
         _logger
             .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Error
-                && e.Message.Contains("Unexpected failure occurred during Entra event handling.")
-            );
+            .Contain(e => e.Level == LogLevel.Error && e.Message.Contains("Unexpected failure occurred during Entra event handling."));
 
         result.Should().NotBeNull();
 
@@ -118,11 +104,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
-        var action = response
-            .Data.Actions.Single()
-            .Should()
-            .BeOfType<VerifiedIdClaimValidationFailedAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<VerifiedIdClaimValidationFailedAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.Failed);
         action.FailedClaims.Should().BeEmpty();
@@ -146,11 +128,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
 
-        var action = response
-            .Data.Actions.Single()
-            .Should()
-            .BeOfType<VerifiedIdClaimValidationFailedAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<VerifiedIdClaimValidationFailedAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.Failed);
         action.FailedClaims.Should().BeEmpty();
@@ -171,18 +149,11 @@ public class VerifiedIdClaimValidationHandlerBaseTests
         var act = async () => await _sut.HandleAsync(evt, cts.Token);
 
         // Assert
-        await act.Should()
-            .ThrowAsync<OperationCanceledException>()
-            .WithMessage("The operation was canceled.");
+        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("The operation was canceled.");
 
         // Assert
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
 
-        _logger
-            .Entries.Should()
-            .Contain(e =>
-                e.Level == LogLevel.Information
-                && e.Message.Contains("Entra event handling was canceled.")
-            );
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
     }
 }
