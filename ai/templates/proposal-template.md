@@ -67,6 +67,14 @@ Describe project references and confirm that host-specific dependencies do not e
 
 ## Proposed Changes
 
+### Implementation Changes
+
+Describe the implementation changes, including new, modified, or removed behavior.
+
+## Dependency Injection Impact
+
+Describe service registrations, lifetimes, scanning, decorator, and hosting-registration changes.
+
 ## Handler Pipeline Impact
 
 Describe effects on protocol validation, `HandleAsync`, `HandleCoreAsync`, cancellation, exception handling, logging, and fallback responses.
@@ -103,6 +111,17 @@ Describe package IDs, public API impact, licensing, versioning, package metadata
 - [ ] Integration tests
 - [ ] Existing tests pass
 
+Test names must follow `MethodName_StateUnderTest_ExpectedBehavior`. The only two-part exception is `MethodName_Success` for a straightforward happy-path test.
+
+Where applicable, cover:
+
+- Protocol validation
+- Successful behavior
+- Failure and exception behavior
+- Cancellation propagation
+- Fallback responses
+- Dependency interactions and service lifetimes
+
 Notes:
 
 ---
@@ -112,6 +131,15 @@ Notes:
 - [ ] None
 - [ ] XML Comments
 - [ ] README
+- [ ] `docs/architecture.md`
+- [ ] `docs/getting-started.md`
+- [ ] `docs/testing.md`
+- [ ] Event documentation
+- [ ] Hosting documentation
+- [ ] Security documentation
+- [ ] Observability documentation
+- [ ] Package README
+- [ ] `CHANGELOG.md`
 - [ ] Samples
 - [ ] Other
 
@@ -120,6 +148,12 @@ Notes:
 ---
 
 ## Risks
+
+- ...
+
+---
+
+## Open Questions
 
 - ...
 
