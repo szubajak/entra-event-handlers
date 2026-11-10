@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Text.Json;
+using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
@@ -6,14 +7,13 @@ using Entra.EventHandlers.Abstractions.Protocol.Authentication;
 using Entra.EventHandlers.TestData;
 using FluentAssertions;
 using FluentAssertions.Execution;
-using System.Text.Json;
 
 namespace Entra.EventHandlers.Abstractions.UnitTests.Events;
 
 public class VerifiedIdClaimValidationEventDeserializationTests
 {
     [Fact]
-    public void FullEventRequest_DeserializesCorrectly()
+    public void Deserialize_FullEventRequest_PopulatesProperties()
     {
         // Arrange
         var fixture = new Fixture();
@@ -29,33 +29,32 @@ public class VerifiedIdClaimValidationEventDeserializationTests
         var lastName = fixture.Create<string>();
         var dateOfBirth = fixture.Create<DateTime>().ToString("yyyy-MM-dd");
 
-        var json =
-        $$"""
-        {
-          "type": "microsoft.graph.authenticationEvent.verifiedIdClaimValidation",
-          "source": "/tenants/{{tenantId}}/applications/{{appId}}",
-          "data": {
-            "@odata.type": "microsoft.graph.onVerifiedIdClaimValidationCalloutData",
-            "tenantId": "{{tenantId}}",
-            "authenticationContext": {
-              "correlationId": "{{correlationId}}",
-              "user": {
-                "userPrincipalName": "{{userPrincipalName}}"
-              }
-            },
-            "verifiedIdClaimsContext": {
-              "additionalInfo": {
-                "employeeId": "{{employeeId}}"
-              },
-              "claims": {
-                "firstName": "{{firstName}}",
-                "lastName": "{{lastName}}",
-                "dateOfBirth": "{{dateOfBirth}}"
+        var json = $$"""
+            {
+              "type": "microsoft.graph.authenticationEvent.verifiedIdClaimValidation",
+              "source": "/tenants/{{tenantId}}/applications/{{appId}}",
+              "data": {
+                "@odata.type": "microsoft.graph.onVerifiedIdClaimValidationCalloutData",
+                "tenantId": "{{tenantId}}",
+                "authenticationContext": {
+                  "correlationId": "{{correlationId}}",
+                  "user": {
+                    "userPrincipalName": "{{userPrincipalName}}"
+                  }
+                },
+                "verifiedIdClaimsContext": {
+                  "additionalInfo": {
+                    "employeeId": "{{employeeId}}"
+                  },
+                  "claims": {
+                    "firstName": "{{firstName}}",
+                    "lastName": "{{lastName}}",
+                    "dateOfBirth": "{{dateOfBirth}}"
+                  }
+                }
               }
             }
-          }
-        }
-        """;
+            """;
 
         // Act
         var result = JsonSerializer.Deserialize<EntraEvent>(json);
@@ -77,10 +76,7 @@ public class VerifiedIdClaimValidationEventDeserializationTests
             var ctx = payload.AuthenticationContext;
             ctx.Should().NotBeNull();
             ctx.CorrelationId.Should().Be(correlationId);
-            ctx.User.Should().NotBeNull()
-                .And.Subject.Should().Match<UserInfo>(x =>
-                    x.UserPrincipalName == userPrincipalName
-                );
+            ctx.User.Should().NotBeNull().And.Subject.Should().Match<UserInfo>(x => x.UserPrincipalName == userPrincipalName);
 
             var vCtx = payload.VerifiedIdClaimsContext;
             vCtx.Should().NotBeNull();
@@ -97,7 +93,7 @@ public class VerifiedIdClaimValidationEventDeserializationTests
     }
 
     [Fact]
-    public void MinimalEventRequest_DeserializesCorrectly()
+    public void Deserialize_MinimalEventRequest_PopulatesDefaults()
     {
         // Act
         var result = JsonSerializer.Deserialize<EntraEvent>(EventSamples.VerifiedIdClaimValidation());
@@ -110,7 +106,7 @@ public class VerifiedIdClaimValidationEventDeserializationTests
 
             var payload = evt.Data;
             payload.Should().NotBeNull();
-            payload.VerifiedIdClaimsContext.Should().BeNull();  
+            payload.VerifiedIdClaimsContext.Should().BeNull();
 
             var ctx = payload.AuthenticationContext;
             ctx.Should().NotBeNull();
@@ -125,7 +121,7 @@ public class VerifiedIdClaimValidationEventDeserializationTests
     }
 
     [Fact]
-    public void InvalidOdataType_ThrowsEntraValidationException()
+    public void Deserialize_InvalidOdataType_ThrowsEntraValidationException()
     {
         // Arrange
         var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.VerifiedIdClaimValidation(odataType: "invalid"));
@@ -134,7 +130,6 @@ public class VerifiedIdClaimValidationEventDeserializationTests
         Action act = () => ((VerifiedIdClaimValidationEvent)evt!).Validate();
 
         // Assert
-        act.Should().Throw<EntraValidationException>()
-           .WithMessage("*@odata.type*");
+        act.Should().Throw<EntraValidationException>().WithMessage("*@odata.type*");
     }
 }

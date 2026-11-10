@@ -12,6 +12,14 @@ YYYY-MM-DD
 
 What problem are we solving?
 
+## Affected Projects
+
+List the affected projects and architectural layers.
+
+## Architecture Boundaries
+
+How does the decision preserve dependency direction, host independence, and optional extension boundaries?
+
 ## Decision
 
 What was decided?
@@ -22,6 +30,10 @@ What was decided?
 
 ### Negative
 
+## Public API and Compatibility Impact
+
+Describe changes to interfaces, event models, response models, result types, package metadata, versioning, and migration requirements.
+
 ## Alternatives Considered
 
 ### Alternative 1
@@ -31,3 +43,11 @@ What was decided?
 ## Related Specification
 
 ## Related Design Proposal
+
+## Testing and Validation
+
+Describe unit tests, integration tests, build validation, and other verification.
+
+## Documentation and Package Impact
+
+Describe affected README files, architecture, event, hosting, security, observability, testing documentation, and changelog entries.

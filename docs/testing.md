@@ -180,7 +180,7 @@ Example:
 
 ```csharp
 [Fact]
-public async Task HandleAsync_ReturnsExpectedResponse()
+public async Task HandleAsync_ValidRequest_ReturnsExpectedResponse()
 {
 }
 ```

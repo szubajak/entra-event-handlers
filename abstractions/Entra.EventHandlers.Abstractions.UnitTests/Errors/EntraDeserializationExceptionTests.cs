@@ -9,7 +9,7 @@ public class EntraDeserializationExceptionTests
     private readonly Fixture _fixture = new();
 
     [Fact]
-    public void Ctor_SetsMessage()
+    public void Constructor_MessageProvided_SetsMessage()
     {
         // Arrange
         var message = _fixture.Create<string>();
@@ -23,7 +23,7 @@ public class EntraDeserializationExceptionTests
     }
 
     [Fact]
-    public void Ctor_SetsMessageAndInnerException()
+    public void Constructor_MessageAndInnerExceptionProvided_SetsProperties()
     {
         // Arrange
         var message = _fixture.Create<string>();

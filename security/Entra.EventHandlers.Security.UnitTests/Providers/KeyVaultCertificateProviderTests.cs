@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Security.Cryptography;
+using AutoFixture;
 using Azure.Security.KeyVault.Secrets;
 using Entra.EventHandlers.Security.Clients;
 using Entra.EventHandlers.Security.Options;
@@ -10,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
-using System.Security.Cryptography;
 
 namespace Entra.EventHandlers.Security.UnitTests.Providers;
 
@@ -23,11 +23,8 @@ public class KeyVaultCertificateProviderTests
     private readonly Fixture _fixture = new();
 
     private readonly IOptions<KeyVaultCertificateOptions> _options = new OptionsWrapper<KeyVaultCertificateOptions>(
-        new KeyVaultCertificateOptions
-        {
-            VaultUrl = "https://dummy.vault.azure.net/",
-            CertificateName = CertificateName
-        });
+        new KeyVaultCertificateOptions { VaultUrl = "https://dummy.vault.azure.net/", CertificateName = CertificateName }
+    );
 
     private readonly TestLogger<KeyVaultCertificateProvider> _logger;
     private readonly ISecretClient _secretClient;
@@ -51,9 +48,7 @@ public class KeyVaultCertificateProviderTests
 
         var keyVaultSecret = new KeyVaultSecret(CertificateName, Convert.ToBase64String(certificate));
 
-        _secretClient
-            .GetSecretAsync(CertificateName, Arg.Is(ct))
-            .Returns(keyVaultSecret);
+        _secretClient.GetSecretAsync(CertificateName, Arg.Is(ct)).Returns(keyVaultSecret);
 
         // Act
         var rsa = await _sut.GetRsaAsync(ct);
@@ -64,7 +59,7 @@ public class KeyVaultCertificateProviderTests
     }
 
     [Fact]
-    public async Task GetRsaAsync_UsesCachedRsaOnSecondCall()
+    public async Task GetRsaAsync_CachedRsaExists_ReturnsCachedRsa()
     {
         // Arrange
         var ct = new CancellationTokenSource().Token;
@@ -74,9 +69,7 @@ public class KeyVaultCertificateProviderTests
 
         var keyVaultSecret = new KeyVaultSecret(CertificateName, Convert.ToBase64String(certificate));
 
-        _secretClient
-            .GetSecretAsync(CertificateName, Arg.Is(ct))
-            .Returns(keyVaultSecret);
+        _secretClient.GetSecretAsync(CertificateName, Arg.Is(ct)).Returns(keyVaultSecret);
 
         var t1 = _sut.GetRsaAsync(ct);
         var t2 = _sut.GetRsaAsync(ct);
@@ -94,7 +87,7 @@ public class KeyVaultCertificateProviderTests
     }
 
     [Fact]
-    public async Task GetRsaAsync_ManyConcurrentCallers_OnlySeedsOnce_And_AllReceiveSameInstance()
+    public async Task GetRsaAsync_ConcurrentCallers_ReturnSameRsaInstance()
     {
         // Arrange
         var ct = new CancellationTokenSource().Token;
@@ -104,9 +97,7 @@ public class KeyVaultCertificateProviderTests
 
         var keyVaultSecret = new KeyVaultSecret(CertificateName, Convert.ToBase64String(certificate));
 
-        _secretClient
-            .GetSecretAsync(CertificateName, Arg.Is(ct))
-            .Returns(keyVaultSecret);
+        _secretClient.GetSecretAsync(CertificateName, Arg.Is(ct)).Returns(keyVaultSecret);
 
         var callCount = 0;
         _secretClient
@@ -181,58 +172,54 @@ public class KeyVaultCertificateProviderTests
         var message = _fixture.Create<string>();
         var exception = new InvalidOperationException(message);
 
-        _secretClient
-            .GetSecretAsync(CertificateName, Arg.Any<CancellationToken>())
-            .Throws(exception);
+        _secretClient.GetSecretAsync(CertificateName, Arg.Any<CancellationToken>()).Throws(exception);
 
         // Act
         Func<Task> act = () => _sut.GetRsaAsync(TestContext.Current.CancellationToken);
 
         // Assert
-        await act.Should().ThrowAsync<InvalidOperationException>()
-           .WithMessage(message);
+        await act.Should().ThrowAsync<InvalidOperationException>().WithMessage(message);
 
-        _logger.Entries.Should().ContainSingle(e =>
-            e.Level == LogLevel.Error &&
-            e.Exception == exception &&
-            e.Message.Contains($"Failed to retrieve certificate secret '{CertificateName}' from Key Vault."));
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Error
+                && e.Exception == exception
+                && e.Message.Contains($"Failed to retrieve certificate secret '{CertificateName}' from Key Vault.")
+            );
     }
 
     [Fact]
-    public async Task GetRsaAsync_ThrowsWhenSecretIsEmpty()
+    public async Task GetRsaAsync_SecretIsEmpty_ThrowsInvalidOperationException()
     {
         // Arrange
         var keyVaultSecret = new KeyVaultSecret(CertificateName, string.Empty);
 
-        _secretClient
-            .GetSecretAsync(CertificateName, Arg.Any<CancellationToken>())
-            .Returns(keyVaultSecret);
+        _secretClient.GetSecretAsync(CertificateName, Arg.Any<CancellationToken>()).Returns(keyVaultSecret);
 
         // Act
         Func<Task> act = () => _sut.GetRsaAsync(TestContext.Current.CancellationToken);
 
         // Assert
-        await act.Should().ThrowAsync<InvalidOperationException>()
-           .WithMessage($"Secret '{CertificateName}' is empty.");
+        await act.Should().ThrowAsync<InvalidOperationException>().WithMessage($"Secret '{CertificateName}' is empty.");
     }
 
     [Fact]
-    public async Task GetRsaAsync_ThrowsWhenCertificateHasNoPrivateKey()
+    public async Task GetRsaAsync_CertificateHasNoPrivateKey_ThrowsInvalidOperationException()
     {
         // Arrange
         var certificate = TestCertificates.CreatePfxCertificateWithoutPrivateKey();
 
         var keyVaultSecret = new KeyVaultSecret(CertificateName, Convert.ToBase64String(certificate));
 
-        _secretClient
-            .GetSecretAsync(CertificateName, Arg.Any<CancellationToken>())
-            .Returns(keyVaultSecret);
+        _secretClient.GetSecretAsync(CertificateName, Arg.Any<CancellationToken>()).Returns(keyVaultSecret);
 
         // Act
         Func<Task> act = () => _sut.GetRsaAsync(TestContext.Current.CancellationToken);
 
         // Assert
-        await act.Should().ThrowAsync<InvalidOperationException>()
-           .WithMessage($"Certificate '{CertificateName}' does not contain an RSA private key.");
+        await act.Should()
+            .ThrowAsync<InvalidOperationException>()
+            .WithMessage($"Certificate '{CertificateName}' does not contain an RSA private key.");
     }
 }

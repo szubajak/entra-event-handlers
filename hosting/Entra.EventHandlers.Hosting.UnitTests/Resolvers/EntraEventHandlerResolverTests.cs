@@ -10,7 +10,7 @@ namespace Entra.EventHandlers.Hosting.UnitTests.Resolvers;
 public class EntraEventHandlerResolverTests
 {
     [Fact]
-    public void Resolve_ReturnsMatchingHandler()
+    public void Resolve_HandlerExists_ReturnsMatchingHandler()
     {
         // Arrange
         var handler = new TestHandler();
@@ -33,12 +33,11 @@ public class EntraEventHandlerResolverTests
         Action act = () => resolver.Resolve<TestEvent, TestResponse>();
 
         // Assert
-        act.Should().Throw<EntraHandlerNotFoundException>()
-           .WithMessage("*TestEvent*");
+        act.Should().Throw<EntraHandlerNotFoundException>().WithMessage("*TestEvent*");
     }
 
     [Fact]
-    public void Resolve_CanResolveTestHandler()
+    public void Resolve_TestHandlerRegistered_ReturnsHandler()
     {
         // Arrange
         var services = new ServiceCollection();

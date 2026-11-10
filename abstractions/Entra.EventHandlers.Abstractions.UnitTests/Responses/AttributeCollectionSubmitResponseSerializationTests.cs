@@ -1,11 +1,11 @@
-﻿using AutoFixture;
+﻿using System.Text.Json;
+using AutoFixture;
 using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Responses;
 using FluentAssertions;
 using JsonDiffPatchDotNet;
 using Newtonsoft.Json.Linq;
-using System.Text.Json;
 
 namespace Entra.EventHandlers.Abstractions.UnitTests.Responses;
 
@@ -15,29 +15,28 @@ public class AttributeCollectionSubmitResponseSerializationTests
     private readonly JsonDiffPatch _jsonDiffPatch = new();
 
     [Fact]
-    public void ContinueWithDefaultBehaviorAction_SerializesToExpectedJson()
+    public void Serialize_ContinueWithDefaultBehaviorAction_ReturnsExpectedJson()
     {
         // Arrange
-        var expectedJson =
-        """
-        {
-          "data": {
-            "@odata.type": "microsoft.graph.onAttributeCollectionSubmitResponseData",
-            "actions": [
-              {
-                "@odata.type": "microsoft.graph.attributeCollectionSubmit.continueWithDefaultBehavior"
+        var expectedJson = """
+            {
+              "data": {
+                "@odata.type": "microsoft.graph.onAttributeCollectionSubmitResponseData",
+                "actions": [
+                  {
+                    "@odata.type": "microsoft.graph.attributeCollectionSubmit.continueWithDefaultBehavior"
+                  }
+                ]
               }
-            ]
-          }
-        }
-        """;
+            }
+            """;
 
         var response = new AttributeCollectionSubmitResponse
         {
             Data = new AttributeCollectionSubmitResponsePayload
             {
-                Actions = [new ContinueAction(ContinueActionType.AttributeCollectionSubmitContinueWithDefaultBehavior)]
-            }
+                Actions = [new ContinueAction(ContinueActionType.AttributeCollectionSubmitContinueWithDefaultBehavior)],
+            },
         };
 
         // Act
@@ -49,46 +48,35 @@ public class AttributeCollectionSubmitResponseSerializationTests
     }
 
     [Fact]
-    public void ModifyAttributeValuesAction_SerializesToExpectedJson()
+    public void Serialize_ModifyAttributeValuesAction_ReturnsExpectedJson()
     {
         // Arrange
         var (attr1, val1) = (_fixture.Create<string>(), _fixture.Create<string>());
         var (attr2, val2) = (_fixture.Create<string>(), _fixture.Create<bool>());
 
-        var expectedJson =
-        $$"""
-        {
-          "data": {
-            "@odata.type": "microsoft.graph.onAttributeCollectionSubmitResponseData",
-            "actions": [
-              {
-                "@odata.type": "microsoft.graph.attributeCollectionSubmit.modifyAttributeValues",
-                "attributes": {
-                  "{{attr1}}": "{{val1}}",
-                  "{{attr2}}": {{val2.ToString().ToLowerInvariant()}}
-                }
+        var expectedJson = $$"""
+            {
+              "data": {
+                "@odata.type": "microsoft.graph.onAttributeCollectionSubmitResponseData",
+                "actions": [
+                  {
+                    "@odata.type": "microsoft.graph.attributeCollectionSubmit.modifyAttributeValues",
+                    "attributes": {
+                      "{{attr1}}": "{{val1}}",
+                      "{{attr2}}": {{val2.ToString().ToLowerInvariant()}}
+                    }
+                  }
+                ]
               }
-            ]
-          }
-        }
-        """;
+            }
+            """;
 
         var response = new AttributeCollectionSubmitResponse
         {
             Data = new AttributeCollectionSubmitResponsePayload
             {
-                Actions = 
-                [
-                    new ModifyAttributeValuesAction
-                    {
-                        Attributes =
-                        {
-                            [attr1] = val1,
-                            [attr2] = val2
-                        }
-                    }
-                ]
-            }
+                Actions = [new ModifyAttributeValuesAction { Attributes = { [attr1] = val1, [attr2] = val2 } }],
+            },
         };
 
         // Act
@@ -100,77 +88,26 @@ public class AttributeCollectionSubmitResponseSerializationTests
     }
 
     [Fact]
-    public void ShowBlockPageAction_SerializesToExpectedJson()
+    public void Serialize_ShowBlockPageAction_ReturnsExpectedJson()
     {
         // Arrange
         var title = _fixture.Create<string>();
         var message = _fixture.Create<string>();
 
-        var expectedJson =
-        $$"""
-        {
-          "data": {
-            "@odata.type": "microsoft.graph.onAttributeCollectionSubmitResponseData",
-            "actions": [
-              {
-                "@odata.type": "microsoft.graph.attributeCollectionSubmit.showBlockPage",
-                "title": "{{title}}",
-                "message": "{{message}}"
-              }
-            ]
-          }
-        }
-        """;
-
-        var response = new AttributeCollectionSubmitResponse
-        {
-            Data = new AttributeCollectionSubmitResponsePayload
+        var expectedJson = $$"""
             {
-                Actions = 
-                [
-                    new ShowBlockPageAction(ShowBlockPageActionType.AttributeCollectionSubmitShowBlockPage)
-                    {
-                        Title = title,
-                        Message = message
-                    }
+              "data": {
+                "@odata.type": "microsoft.graph.onAttributeCollectionSubmitResponseData",
+                "actions": [
+                  {
+                    "@odata.type": "microsoft.graph.attributeCollectionSubmit.showBlockPage",
+                    "title": "{{title}}",
+                    "message": "{{message}}"
+                  }
                 ]
-            }
-        };
-
-        // Act
-        var json = JsonSerializer.Serialize(response);
-
-        // Assert
-        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
-        diff.Should().BeNull();
-    }
-
-    [Fact]
-    public void ShowValidationErrorAction_SerializesToExpectedJson()
-    {
-        // Arrange
-        var message = _fixture.Create<string>();
-        var (attr1, msg1) = (_fixture.Create<string>(), _fixture.Create<string>());
-        var (attr2, msg2) = (_fixture.Create<string>(), _fixture.Create<string>());
-
-        var expectedJson =
-        $$"""
-        {
-          "data": {
-            "@odata.type": "microsoft.graph.onAttributeCollectionSubmitResponseData",
-            "actions": [
-              {
-                "@odata.type": "microsoft.graph.attributeCollectionSubmit.showValidationError",
-                "message": "{{message}}",
-                "attributeErrors": {
-                  "{{attr1}}": "{{msg1}}",
-                  "{{attr2}}": "{{msg2}}",
-                }
               }
-            ]
-          }
-        }
-        """;
+            }
+            """;
 
         var response = new AttributeCollectionSubmitResponse
         {
@@ -178,17 +115,55 @@ public class AttributeCollectionSubmitResponseSerializationTests
             {
                 Actions =
                 [
-                    new ShowValidationErrorAction
+                    new ShowBlockPageAction(ShowBlockPageActionType.AttributeCollectionSubmitShowBlockPage)
                     {
+                        Title = title,
                         Message = message,
-                        AttributeErrors =
-                        {
-                            [attr1] = msg1,
-                            [attr2] = msg2
-                        }
+                    },
+                ],
+            },
+        };
+
+        // Act
+        var json = JsonSerializer.Serialize(response);
+
+        // Assert
+        var diff = _jsonDiffPatch.Diff(JToken.Parse(json), JToken.Parse(expectedJson));
+        diff.Should().BeNull();
+    }
+
+    [Fact]
+    public void Serialize_ShowValidationErrorAction_ReturnsExpectedJson()
+    {
+        // Arrange
+        var message = _fixture.Create<string>();
+        var (attr1, msg1) = (_fixture.Create<string>(), _fixture.Create<string>());
+        var (attr2, msg2) = (_fixture.Create<string>(), _fixture.Create<string>());
+
+        var expectedJson = $$"""
+            {
+              "data": {
+                "@odata.type": "microsoft.graph.onAttributeCollectionSubmitResponseData",
+                "actions": [
+                  {
+                    "@odata.type": "microsoft.graph.attributeCollectionSubmit.showValidationError",
+                    "message": "{{message}}",
+                    "attributeErrors": {
+                      "{{attr1}}": "{{msg1}}",
+                      "{{attr2}}": "{{msg2}}",
                     }
+                  }
                 ]
+              }
             }
+            """;
+
+        var response = new AttributeCollectionSubmitResponse
+        {
+            Data = new AttributeCollectionSubmitResponsePayload
+            {
+                Actions = [new ShowValidationErrorAction { Message = message, AttributeErrors = { [attr1] = msg1, [attr2] = msg2 } }],
+            },
         };
 
         // Act

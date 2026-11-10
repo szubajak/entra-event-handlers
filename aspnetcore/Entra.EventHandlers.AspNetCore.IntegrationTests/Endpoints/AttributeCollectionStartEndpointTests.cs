@@ -29,7 +29,7 @@ public class AttributeCollectionStartTests(TestAppFactory factory) : IClassFixtu
     }
 
     [Fact]
-    public async Task CancellationToken_ShouldBePassed()
+    public async Task ExecuteAsync_CancellationTokenProvided_PassesCancellationToken()
     {
         // Arrange
         var payload = EventSamples.AttributeCollectionStart();

@@ -118,9 +118,10 @@ This package does not contain:
 - Hosting integrations
 - Dependency injection
 - Logging
-- Validation
 - Response builders
-- Business logic
+- Business workflow logic
+
+This package does contain protocol-level validation for event contracts and discriminator values. Business validation remains part of application or handler logic, while hosting-specific error shaping belongs to the hosting adapters.
 
 Example:
 

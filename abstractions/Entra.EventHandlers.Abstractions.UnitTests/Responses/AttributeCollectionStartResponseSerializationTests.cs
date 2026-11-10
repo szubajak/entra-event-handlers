@@ -1,11 +1,11 @@
-﻿using AutoFixture;
+﻿using System.Text.Json;
+using AutoFixture;
 using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Responses;
 using FluentAssertions;
 using JsonDiffPatchDotNet;
 using Newtonsoft.Json.Linq;
-using System.Text.Json;
 
 namespace Entra.EventHandlers.Abstractions.UnitTests.Responses;
 
@@ -15,29 +15,28 @@ public class AttributeCollectionStartResponseSerializationTests
     private readonly JsonDiffPatch _jsonDiffPatch = new();
 
     [Fact]
-    public void ContinueWithDefaultBehaviorAction_SerializesToExpectedJson()
+    public void Serialize_ContinueWithDefaultBehaviorAction_ReturnsExpectedJson()
     {
         // Arrange
-        var expectedJson =
-        """
-        {
-          "data": {
-            "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
-            "actions": [
-              {
-                "@odata.type": "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior"
+        var expectedJson = """
+            {
+              "data": {
+                "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
+                "actions": [
+                  {
+                    "@odata.type": "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior"
+                  }
+                ]
               }
-            ]
-          }
-        }
-        """;
+            }
+            """;
 
         var response = new AttributeCollectionStartResponse
         {
             Data = new AttributeCollectionStartResponsePayload
             {
-                Actions = [new ContinueAction(ContinueActionType.AttributeCollectionStartContinueWithDefaultBehavior)]
-            }
+                Actions = [new ContinueAction(ContinueActionType.AttributeCollectionStartContinueWithDefaultBehavior)],
+            },
         };
 
         // Act
@@ -49,46 +48,35 @@ public class AttributeCollectionStartResponseSerializationTests
     }
 
     [Fact]
-    public void SetPrefillValuesAction_SerializesToExpectedJson()
+    public void Serialize_SetPrefillValuesAction_ReturnsExpectedJson()
     {
         // Arrange
         var (input1, val1) = (_fixture.Create<string>(), _fixture.Create<string>());
         var (input2, val2) = (_fixture.Create<string>(), _fixture.Create<bool>());
 
-        var expectedJson =
-        $$"""
-        {
-          "data": {
-            "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
-            "actions": [
-              {
-                "@odata.type": "microsoft.graph.attributeCollectionStart.setPrefillValues",
-                "inputs": {
-                  "{{input1}}": "{{val1}}",
-                  "{{input2}}": {{val2.ToString().ToLowerInvariant()}}
-                }
+        var expectedJson = $$"""
+            {
+              "data": {
+                "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
+                "actions": [
+                  {
+                    "@odata.type": "microsoft.graph.attributeCollectionStart.setPrefillValues",
+                    "inputs": {
+                      "{{input1}}": "{{val1}}",
+                      "{{input2}}": {{val2.ToString().ToLowerInvariant()}}
+                    }
+                  }
+                ]
               }
-            ]
-          }
-        }
-        """;
+            }
+            """;
 
         var response = new AttributeCollectionStartResponse
         {
             Data = new AttributeCollectionStartResponsePayload
             {
-                Actions = 
-                [
-                    new SetPrefillValuesAction
-                    {
-                        Inputs =
-                        {
-                            [input1] = val1,
-                            [input2] = val2
-                        }
-                    }
-                ]
-            }
+                Actions = [new SetPrefillValuesAction { Inputs = { [input1] = val1, [input2] = val2 } }],
+            },
         };
 
         // Act
@@ -100,41 +88,40 @@ public class AttributeCollectionStartResponseSerializationTests
     }
 
     [Fact]
-    public void ShowBlockPageAction_SerializesToExpectedJson()
+    public void Serialize_ShowBlockPageAction_ReturnsExpectedJson()
     {
         // Arrange
         var title = _fixture.Create<string>();
         var message = _fixture.Create<string>();
 
-        var expectedJson =
-        $$"""
-        {
-          "data": {
-            "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
-            "actions": [
-              {
-                "@odata.type": "microsoft.graph.attributeCollectionStart.showBlockPage",
-                "title": "{{title}}",
-                "message": "{{message}}"
+        var expectedJson = $$"""
+            {
+              "data": {
+                "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
+                "actions": [
+                  {
+                    "@odata.type": "microsoft.graph.attributeCollectionStart.showBlockPage",
+                    "title": "{{title}}",
+                    "message": "{{message}}"
+                  }
+                ]
               }
-            ]
-          }
-        }
-        """;
+            }
+            """;
 
         var response = new AttributeCollectionStartResponse
         {
             Data = new AttributeCollectionStartResponsePayload
             {
-                Actions = 
+                Actions =
                 [
                     new ShowBlockPageAction(ShowBlockPageActionType.AttributeCollectionStartShowBlockPage)
                     {
                         Title = title,
-                        Message = message
-                    }
-                ]
-            }
+                        Message = message,
+                    },
+                ],
+            },
         };
 
         // Act
