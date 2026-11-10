@@ -1,10 +1,10 @@
-﻿using Entra.EventHandlers.Abstractions.Actions;
+﻿using System.Text.Json;
+using Entra.EventHandlers.Abstractions.Actions;
 using Entra.EventHandlers.Abstractions.Actions.Types;
 using Entra.EventHandlers.Abstractions.Responses;
 using FluentAssertions;
 using JsonDiffPatchDotNet;
 using Newtonsoft.Json.Linq;
-using System.Text.Json;
 
 namespace Entra.EventHandlers.Abstractions.UnitTests.Responses;
 
@@ -13,29 +13,28 @@ public class EmailOtpSendResponseSerializationTests
     private readonly JsonDiffPatch _jsonDiffPatch = new();
 
     [Fact]
-    public void ContinueWithDefaultBehaviorAction_SerializesToExpectedJson()
+    public void Serialize_ContinueWithDefaultBehaviorAction_ReturnsExpectedJson()
     {
         // Arrange
-        var expectedJson =
-        """
-        {
-          "data": {
-            "@odata.type": "microsoft.graph.OnOtpSendResponseData",
-            "actions": [
-              {
-                "@odata.type": "microsoft.graph.OtpSend.continueWithDefaultBehavior"
+        var expectedJson = """
+            {
+              "data": {
+                "@odata.type": "microsoft.graph.OnOtpSendResponseData",
+                "actions": [
+                  {
+                    "@odata.type": "microsoft.graph.OtpSend.continueWithDefaultBehavior"
+                  }
+                ]
               }
-            ]
-          }
-        }
-        """;
+            }
+            """;
 
         var response = new EmailOtpSendResponse
         {
             Data = new EmailOtpSendResponsePayload
             {
-                Actions = [new ContinueAction(ContinueActionType.EmailOtpSendContinueWithDefaultBehavior)]
-            }
+                Actions = [new ContinueAction(ContinueActionType.EmailOtpSendContinueWithDefaultBehavior)],
+            },
         };
 
         // Act

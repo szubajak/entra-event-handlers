@@ -81,7 +81,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
     }
 
     [Fact]
-    public async Task HandleAsync_Fail()
+    public async Task HandleAsync_HandlerThrows_ReturnsBlockPageResponse()
     {
         // Arrange
         var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture);
@@ -111,30 +111,7 @@ public class VerifiedIdClaimValidationHandlerBaseTests
     }
 
     [Fact]
-    public async Task HandleAsync_Cancelled()
-    {
-        // Arrange
-        using var cts = new CancellationTokenSource();
-        cts.Cancel();
-
-        var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture);
-
-        _sut.CoreTest.ExceptionToThrow = new OperationCanceledException(cts.Token);
-
-        // Act
-        var act = async () => await _sut.HandleAsync(evt, cts.Token);
-
-        // Assert
-        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("The operation was canceled.");
-
-        // Assert
-        _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
-
-        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
-    }
-
-    [Fact]
-    public async Task HandleAsync_InvalidRequest()
+    public async Task HandleAsync_InvalidRequest_ReturnsBlockPageResponse()
     {
         // Arrange
         var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture, valid: false);
@@ -155,5 +132,28 @@ public class VerifiedIdClaimValidationHandlerBaseTests
 
         action.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.Failed);
         action.FailedClaims.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task HandleAsync_TaskCancelled_ShouldThrowOperationCanceledException()
+    {
+        // Arrange
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        var evt = TestEvents.CreateVerifiedIdClaimValidationEvent(_fixture);
+
+        _sut.CoreTest.ExceptionToThrow = new OperationCanceledException(cts.Token);
+
+        // Act
+        var act = async () => await _sut.HandleAsync(evt, cts.Token);
+
+        // Assert
+        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("The operation was canceled.");
+
+        // Assert
+        _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
+
+        _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
     }
 }

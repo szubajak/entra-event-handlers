@@ -10,7 +10,7 @@ namespace Entra.EventHandlers.Observability.UnitTests.Factories;
 public class EventLogMapperFactoryTests
 {
     [Fact]
-    public void Get_Should_Return_Registered_Mapper()
+    public void Get_MapperRegistered_ReturnsMapper()
     {
         // Arrange
         var services = new ServiceCollection();
@@ -29,7 +29,7 @@ public class EventLogMapperFactoryTests
     }
 
     [Fact]
-    public void Get_Should_Throw_If_Missing_Mapper()
+    public void Get_MapperMissing_ThrowsInvalidOperationException()
     {
         // Arrange
         var services = new ServiceCollection();

@@ -14,14 +14,16 @@ Reusable validation handlers.
 
 Status: Idea
 
-### Event Telemetry
+### Advanced Event Telemetry
 
 Observability and diagnostics.
 
-Status: Idea
+Status: Candidate enhancement
 
 ### AI Integration
 
 Tools and metadata that improve AI discoverability.
 
 Status: In Progress
+
+The roadmap describes product direction and does not authorize implementation by itself. Confirm scope before implementing a roadmap item.

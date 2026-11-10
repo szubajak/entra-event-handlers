@@ -95,7 +95,7 @@ public class PasswordSubmitHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_Fail()
+    public async Task HandleAsync_HandlerThrows_ReturnsBlockPageResponse()
     {
         // Arrange
         var evt = TestEvents.CreatePasswordSubmitEvent(_fixture);
@@ -128,7 +128,20 @@ public class PasswordSubmitHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_Cancelled()
+    public async Task HandleAsync_InvalidRequest_ReturnsBlockPageResponse()
+    {
+        // Arrange
+        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture, valid: false);
+
+        // Act
+        Func<Task> act = () => _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
+
+        // Assert
+        await act.Should().ThrowAsync<Exception>();
+    }
+
+    [Fact]
+    public async Task HandleAsync_TaskCancelled_ShouldThrowOperationCanceledException()
     {
         // Arrange
         using var cts = new CancellationTokenSource();
@@ -148,18 +161,5 @@ public class PasswordSubmitHandlerTests
         _sut.CoreTest.HandleCoreCallCount.Should().Be(1);
 
         _logger.Entries.Should().Contain(e => e.Level == LogLevel.Information && e.Message.Contains("Entra event handling was canceled."));
-    }
-
-    [Fact]
-    public async Task HandleAsync_InvalidRequest()
-    {
-        // Arrange
-        var evt = TestEvents.CreatePasswordSubmitEvent(_fixture, valid: false);
-
-        // Act
-        Func<Task> act = () => _sut.HandleAsync(evt, TestContext.Current.CancellationToken);
-
-        // Assert
-        await act.Should().ThrowAsync<Exception>();
     }
 }

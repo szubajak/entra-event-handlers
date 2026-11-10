@@ -1,10 +1,10 @@
-﻿using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
+﻿using System.Net;
+using System.Text;
+using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.AppFactories;
 using Entra.EventHandlers.TestData;
 using Entra.EventHandlers.TestHelpers;
 using FluentAssertions;
-using System.Net;
-using System.Text;
 
 namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Endpoints;
 
@@ -14,7 +14,7 @@ public class EntraEventRouterEndpointTests(TestAppFactory factory) : IClassFixtu
 
     [Theory]
     [MemberData(nameof(RouterCases))]
-    public async Task Router_ShouldRouteToCorrectHandler(Type handlerType, string payload)
+    public async Task Route_HandlerTypeProvided_InvokesCorrectHandler(Type handlerType, string payload)
     {
         // Arrange
         var handler = (TestHandlerBase)factory.Services.GetRequiredService(handlerType);
@@ -23,7 +23,8 @@ public class EntraEventRouterEndpointTests(TestAppFactory factory) : IClassFixtu
         var response = await _client.PostAsync(
             "/router",
             new StringContent(payload, Encoding.UTF8, "application/json"),
-            TestContext.Current.CancellationToken);
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -34,17 +35,17 @@ public class EntraEventRouterEndpointTests(TestAppFactory factory) : IClassFixtu
     public async Task Router_ShouldReturnBadRequest_WhenDeserializationFails()
     {
         // Arrange
-        var invalidJson =
-        """
-        {
-          "@odata.type": "invalidJson"
-        """;
+        var invalidJson = """
+            {
+              "@odata.type": "invalidJson"
+            """;
 
         // Act
         var response = await _client.PostAsync(
             "/router",
             new StringContent(invalidJson, Encoding.UTF8, "application/json"),
-            TestContext.Current.CancellationToken);
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -57,18 +58,18 @@ public class EntraEventRouterEndpointTests(TestAppFactory factory) : IClassFixtu
     public async Task Router_ShouldReturnBadRequest_WhenUnknownEventType()
     {
         // Arrange
-        var invalidJson =
-        """
-        {
-          "@odata.type": "microsoft.graph.authenticationEvent.unknownEvent"
-        }
-        """;
+        var invalidJson = """
+            {
+              "@odata.type": "microsoft.graph.authenticationEvent.unknownEvent"
+            }
+            """;
 
         // Act
         var response = await _client.PostAsync(
             "/router",
             new StringContent(invalidJson, Encoding.UTF8, "application/json"),
-            TestContext.Current.CancellationToken);
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -78,7 +79,7 @@ public class EntraEventRouterEndpointTests(TestAppFactory factory) : IClassFixtu
     }
 
     [Fact]
-    public async Task Router_ShouldPassCancellationToken()
+    public async Task Route_CancellationTokenProvided_PassesCancellationToken()
     {
         // Arrange
         var handler = factory.Services.GetRequiredService<TestPasswordSubmitHandler>();
@@ -89,7 +90,8 @@ public class EntraEventRouterEndpointTests(TestAppFactory factory) : IClassFixtu
         await _client.PostAsync(
             "/router",
             new StringContent(payload, Encoding.UTF8, "application/json"),
-            TestContext.Current.CancellationToken);
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         handler.CapturedCancellationToken.CanBeCanceled.Should().BeTrue();
@@ -103,6 +105,6 @@ public class EntraEventRouterEndpointTests(TestAppFactory factory) : IClassFixtu
             { typeof(TestTokenIssuanceStartHandler), EventSamples.TokenIssuanceStart() },
             { typeof(TestEmailOtpSendHandler), EventSamples.EmailOtpSend() },
             { typeof(TestPasswordSubmitHandler), EventSamples.PasswordSubmit() },
-            { typeof(TestVerifiedIdClaimValidationHandler), EventSamples.VerifiedIdClaimValidation() }
+            { typeof(TestVerifiedIdClaimValidationHandler), EventSamples.VerifiedIdClaimValidation() },
         };
 }

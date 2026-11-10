@@ -59,3 +59,16 @@ Documentation review must include:
 Documentation should remain:
 - human friendly
 - AI friendly
+
+## Package Metadata
+
+When modifying a packable project:
+
+- Preserve the existing `PackageId`, license, package README, icon, and repository metadata unless the change explicitly requires an update.
+- Do not change package references or versions without explicit justification.
+- Evaluate package versioning for breaking or externally visible changes.
+- Update `CHANGELOG.md` for public Abstractions changes.
+
+## Validation
+
+After code changes, run the relevant restore, build, and test validation. Prefer targeted tests during iteration and a full solution build before completion.

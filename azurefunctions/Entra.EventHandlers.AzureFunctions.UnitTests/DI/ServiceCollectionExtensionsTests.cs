@@ -9,7 +9,7 @@ namespace Entra.EventHandlers.AzureFunctions.UnitTests.DI;
 public class ServiceCollectionExtensionsTests
 {
     [Fact]
-    public void AddEntraEventHandlers_Invokes_Hosting_Registrations()
+    public void AddEntraEventHandlers_HostingRegistrations_Invoked()
     {
         // Arrange
         var services = new ServiceCollection();

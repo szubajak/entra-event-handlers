@@ -21,9 +21,7 @@ public class VerifiedIdClaimValidationResponseBuilderTests
     public void Build_ReturnsResponseWith_PassAction()
     {
         // Act
-        var response = _sut
-            .Pass()
-            .Build();
+        var response = _sut.Pass().Build();
 
         // Assert
         response.Should().NotBeNull();
@@ -42,50 +40,35 @@ public class VerifiedIdClaimValidationResponseBuilderTests
         var failedClaims = _fixture.CreateMany<string>(3).ToList();
 
         // Act
-        var response = _sut
-            .Failed(failedClaims)
-            .Build();
+        var response = _sut.Failed(failedClaims).Build();
 
         // Assert
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
         response.Data.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.ResponseData);
 
-        var action = response.Data.Actions
-            .Single()
-            .Should()
-            .BeOfType<VerifiedIdClaimValidationFailedAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<VerifiedIdClaimValidationFailedAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.Failed);
         action.FailedClaims.Should().BeEquivalentTo(failedClaims);
     }
 
     [Fact]
-    public void Build_ReturnsResponseWith_FailedAction_UsingFluentBuilder()
+    public void Build_FailedAction_UsesFluentBuilder()
     {
         // Arrange
         var claim1 = _fixture.Create<string>();
         var claim2 = _fixture.Create<string>();
 
         // Act
-        var response = _sut
-            .Failed()
-                .Add(claim1)
-                .Add(claim2)
-            .Done()
-            .Build();
+        var response = _sut.Failed().Add(claim1).Add(claim2).Done().Build();
 
         // Assert
         response.Should().NotBeNull();
         response.Data.Should().NotBeNull();
         response.Data.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.ResponseData);
 
-        var action = response.Data.Actions
-            .Single()
-            .Should()
-            .BeOfType<VerifiedIdClaimValidationFailedAction>()
-            .Subject;
+        var action = response.Data.Actions.Single().Should().BeOfType<VerifiedIdClaimValidationFailedAction>().Subject;
 
         action.OdataType.Should().Be(EntraOdataTypes.VerifiedIdClaimValidation.Failed);
 
@@ -99,8 +82,6 @@ public class VerifiedIdClaimValidationResponseBuilderTests
         Action act = () => _sut.Build();
 
         // Assert
-        act.Should()
-            .Throw<InvalidOperationException>()
-            .WithMessage("An action must be selected before building the response.");
+        act.Should().Throw<InvalidOperationException>().WithMessage("An action must be selected before building the response.");
     }
 }

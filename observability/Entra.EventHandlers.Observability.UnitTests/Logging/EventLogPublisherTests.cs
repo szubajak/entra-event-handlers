@@ -31,16 +31,11 @@ public class EventLogPublisherTests
     public async Task Publish_Success()
     {
         // Arrange
-        var ctx = new EventLogContext
-        {
-            DefaultLog = _fixture.Create<EventLogEntry>()
-        };
+        var ctx = new EventLogContext { DefaultLog = _fixture.Create<EventLogEntry>() };
 
         var expectedDto = _fixture.Create<EventLogDto>();
 
-        _mapper
-            .Map(ctx)
-            .Returns(expectedDto);
+        _mapper.Map(ctx).Returns(expectedDto);
 
         // Act
         _sut.Publish(ctx);
@@ -52,23 +47,16 @@ public class EventLogPublisherTests
     }
 
     [Fact]
-    public void Publish_Should_Not_Throw_When_ApiClient_Fails()
+    public void Publish_ApiClientFails_DoesNotThrow()
     {
         // Arrange
-        var ctx = new EventLogContext
-        {
-            DefaultLog = _fixture.Create<EventLogEntry>()
-        };
+        var ctx = new EventLogContext { DefaultLog = _fixture.Create<EventLogEntry>() };
 
         var expectedDto = _fixture.Create<EventLogDto>();
 
-        _mapper
-            .Map(ctx)
-            .Returns(expectedDto);
+        _mapper.Map(ctx).Returns(expectedDto);
 
-        _client
-            .SendAsync(expectedDto)
-            .ThrowsAsync<Exception>();
+        _client.SendAsync(expectedDto).ThrowsAsync<Exception>();
 
         // Act
         var exception = Record.Exception(() => _sut.Publish(ctx));

@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Text.Json;
+using AutoFixture;
 using Entra.EventHandlers.Abstractions.Errors;
 using Entra.EventHandlers.Abstractions.Events;
 using Entra.EventHandlers.Abstractions.Protocol;
@@ -6,14 +7,13 @@ using Entra.EventHandlers.Abstractions.Protocol.Authentication;
 using Entra.EventHandlers.TestData;
 using FluentAssertions;
 using FluentAssertions.Execution;
-using System.Text.Json;
 
 namespace Entra.EventHandlers.Abstractions.UnitTests.Events;
 
 public class EmailOtpSendEventDeserializationTests
 {
     [Fact]
-    public void FullEventRequest_DeserializesCorrectly()
+    public void Deserialize_FullEventRequest_PopulatesProperties()
     {
         // Arrange
         var fixture = new Fixture();
@@ -39,44 +39,43 @@ public class EmailOtpSendEventDeserializationTests
         var identifier = "someone@example.com";
         var otp = fixture.Create<string>();
 
-        var json =
-        $$"""
-        {
-          "type": "microsoft.graph.authenticationEvent.emailOtpSend",
-          "source": "/tenants/{{tenantId}}/applications/{{appId}}",
-          "data": {
-            "@odata.type": "microsoft.graph.onOtpSendCalloutData",
-            "otpContext": {
-                "identifier": "{{identifier}}",
-                "oneTimeCode": "{{otp}}"
-            },
-            "tenantId": "{{tenantId}}",
-            "authenticationEventListenerId": "{{listenerId}}",
-            "customAuthenticationExtensionId": "{{extensionId}}",
-            "authenticationContext": {
-              "correlationId": "{{correlationId}}",
-              "client": {
-                "ip": "{{clientIp}}",
-                "locale": "{{clientLocale}}",
-                "market": "{{clientMarket}}"
-              },
-              "protocol": "OAUTH2.0",
-              "clientServicePrincipal": {
-                "id": "{{cspId}}",
-                "appId": "{{appId}}",
-                "appDisplayName": "{{cspAppDisplayName}}",
-                "displayName": "{{cspDisplayName}}"
-              },
-              "resourceServicePrincipal": {
-                "id": "{{rspId}}",
-                "appId": "{{appId}}",
-                "appDisplayName": "{{rspAppDisplayName}}",
-                "displayName": "{{rspDisplayName}}"
+        var json = $$"""
+            {
+              "type": "microsoft.graph.authenticationEvent.emailOtpSend",
+              "source": "/tenants/{{tenantId}}/applications/{{appId}}",
+              "data": {
+                "@odata.type": "microsoft.graph.onOtpSendCalloutData",
+                "otpContext": {
+                    "identifier": "{{identifier}}",
+                    "oneTimeCode": "{{otp}}"
+                },
+                "tenantId": "{{tenantId}}",
+                "authenticationEventListenerId": "{{listenerId}}",
+                "customAuthenticationExtensionId": "{{extensionId}}",
+                "authenticationContext": {
+                  "correlationId": "{{correlationId}}",
+                  "client": {
+                    "ip": "{{clientIp}}",
+                    "locale": "{{clientLocale}}",
+                    "market": "{{clientMarket}}"
+                  },
+                  "protocol": "OAUTH2.0",
+                  "clientServicePrincipal": {
+                    "id": "{{cspId}}",
+                    "appId": "{{appId}}",
+                    "appDisplayName": "{{cspAppDisplayName}}",
+                    "displayName": "{{cspDisplayName}}"
+                  },
+                  "resourceServicePrincipal": {
+                    "id": "{{rspId}}",
+                    "appId": "{{appId}}",
+                    "appDisplayName": "{{rspAppDisplayName}}",
+                    "displayName": "{{rspDisplayName}}"
+                  }
+                }
               }
             }
-          }
-        }
-        """;
+            """;
 
         // Act
         var result = JsonSerializer.Deserialize<EntraEvent>(json);
@@ -101,26 +100,22 @@ public class EmailOtpSendEventDeserializationTests
             ctx.Should().NotBeNull();
             ctx.CorrelationId.Should().Be(correlationId);
             ctx.Protocol.Should().Be("OAUTH2.0");
-            ctx.Client.Should().NotBeNull()
-                .And.Subject.Should().Match<ClientInfo>(x =>
-                    x.Ip == clientIp &&
-                    x.Locale == clientLocale &&
-                    x.Market == clientMarket
+            ctx.Client.Should()
+                .NotBeNull()
+                .And.Subject.Should()
+                .Match<ClientInfo>(x => x.Ip == clientIp && x.Locale == clientLocale && x.Market == clientMarket);
+            ctx.ClientServicePrincipal.Should()
+                .NotBeNull()
+                .And.Subject.Should()
+                .Match<ServicePrincipalInfo>(sp =>
+                    sp.Id == cspId && sp.AppId == appId && sp.AppDisplayName == cspAppDisplayName && sp.DisplayName == cspDisplayName
                 );
-            ctx.ClientServicePrincipal.Should().NotBeNull()
-                .And.Subject.Should().Match<ServicePrincipalInfo>(sp =>
-                    sp.Id == cspId &&
-                    sp.AppId == appId &&
-                    sp.AppDisplayName == cspAppDisplayName &&
-                    sp.DisplayName == cspDisplayName
+            ctx.ResourceServicePrincipal.Should()
+                .NotBeNull()
+                .And.Subject.Should()
+                .Match<ServicePrincipalInfo>(x =>
+                    x.Id == rspId && x.AppId == appId && x.AppDisplayName == rspAppDisplayName && x.DisplayName == rspDisplayName
                 );
-            ctx.ResourceServicePrincipal.Should().NotBeNull()
-               .And.Subject.Should().Match<ServicePrincipalInfo>(x =>
-                   x.Id == rspId &&
-                   x.AppId == appId &&
-                   x.AppDisplayName == rspAppDisplayName &&
-                   x.DisplayName == rspDisplayName
-               );
 
             var otpContext = payload.OtpContext;
             otpContext.Should().NotBeNull();
@@ -132,7 +127,7 @@ public class EmailOtpSendEventDeserializationTests
     }
 
     [Fact]
-    public void MinimalEventRequest_DeserializesCorrectly()
+    public void Deserialize_MinimalEventRequest_PopulatesDefaults()
     {
         // Act
         var result = JsonSerializer.Deserialize<EntraEvent>(EventSamples.EmailOtpSend());
@@ -154,7 +149,7 @@ public class EmailOtpSendEventDeserializationTests
     }
 
     [Fact]
-    public void InvalidOdataType_ThrowsEntraValidationException()
+    public void Deserialize_InvalidOdataType_ThrowsEntraValidationException()
     {
         // Arrange
         var evt = JsonSerializer.Deserialize<EntraEvent>(EventSamples.EmailOtpSend(odataType: "invalid"));
@@ -163,7 +158,6 @@ public class EmailOtpSendEventDeserializationTests
         Action act = () => ((EmailOtpSendEvent)evt!).Validate();
 
         // Assert
-        act.Should().Throw<EntraValidationException>()
-           .WithMessage("*@odata.type*");
+        act.Should().Throw<EntraValidationException>().WithMessage("*@odata.type*");
     }
 }

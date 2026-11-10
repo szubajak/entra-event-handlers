@@ -1,9 +1,9 @@
-﻿using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
+﻿using System.Net;
+using System.Text;
+using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils;
 using Entra.EventHandlers.AspNetCore.IntegrationTests.Utils.AppFactories;
 using Entra.EventHandlers.TestData;
 using FluentAssertions;
-using System.Net;
-using System.Text;
 
 namespace Entra.EventHandlers.AspNetCore.IntegrationTests.Endpoints;
 
@@ -20,15 +20,16 @@ public class PasswordSubmitEndpointTests(TestAppFactory factory) : IClassFixture
         // Act
         var response = await _client.PostAsync(
             "/passwordsubmit",
-            new StringContent(payload, Encoding.UTF8, "application/json"), 
-            TestContext.Current.CancellationToken);
+            new StringContent(payload, Encoding.UTF8, "application/json"),
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
     [Fact]
-    public async Task CancellationToken_ShouldBePassed()
+    public async Task ExecuteAsync_CancellationTokenProvided_PassesCancellationToken()
     {
         // Arrange
         var payload = EventSamples.PasswordSubmit();
@@ -36,9 +37,11 @@ public class PasswordSubmitEndpointTests(TestAppFactory factory) : IClassFixture
         var handler = factory.Services.GetRequiredService<TestPasswordSubmitHandler>();
 
         // Act
-        await _client.PostAsync("/passwordsubmit",
+        await _client.PostAsync(
+            "/passwordsubmit",
             new StringContent(payload, Encoding.UTF8, "application/json"),
-            TestContext.Current.CancellationToken);
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         handler.CapturedCancellationToken.CanBeCanceled.Should().BeTrue();
