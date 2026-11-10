@@ -3,14 +3,14 @@
 
 |||
 |:---|:---|
-| Generated on: | 11/06/2026 - 12:34:06 |
+| Generated on: | 11/10/2026 - 11:53:39 |
 | Parser: | MultiReport (10x Cobertura) |
 | Assemblies: | 8 |
 | Classes: | 102 |
 | Files: | 91 |
-| **Line coverage:** | 96.9% (1229 of 1268) |
-| Covered lines: | 1229 |
-| Uncovered lines: | 39 |
+| **Line coverage:** | 97.1% (1232 of 1268) |
+| Covered lines: | 1232 |
+| Uncovered lines: | 36 |
 | Coverable lines: | 1268 |
 | Total lines: | 3941 |
 | **Branch coverage:** | 100% (164 of 164) |
@@ -40,11 +40,11 @@
 |Entra.EventHandlers.Handlers.Base.TokenIssuanceStartHandlerBase|100%|100%|
 
 </details>
-<details><summary>Entra.EventHandlers.Abstractions - 96.5%</summary>
+<details><summary>Entra.EventHandlers.Abstractions - 100%</summary>
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**Entra.EventHandlers.Abstractions**|**96.5%**|**100%**|
+|**Entra.EventHandlers.Abstractions**|**100%**|**100%**|
 |Entra.EventHandlers.Abstractions.Actions.ContinueAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.ModifyAttributeValuesAction|100%||
 |Entra.EventHandlers.Abstractions.Actions.PasswordSubmitAction|100%||
@@ -60,7 +60,7 @@
 |Entra.EventHandlers.Abstractions.Errors.EntraDeserializationException|100%||
 |Entra.EventHandlers.Abstractions.Errors.EntraException|100%||
 |Entra.EventHandlers.Abstractions.Errors.EntraHandlerNotFoundException|100%||
-|Entra.EventHandlers.Abstractions.Errors.EntraSecurityException|50%||
+|Entra.EventHandlers.Abstractions.Errors.EntraSecurityException|100%||
 |Entra.EventHandlers.Abstractions.Errors.EntraValidationException|100%||
 |Entra.EventHandlers.Abstractions.Events.AttributeCollectionStartEvent|100%||
 |Entra.EventHandlers.Abstractions.Events.AttributeCollectionStartEventPayloa<br/>d|100%||
@@ -84,7 +84,7 @@
 |Entra.EventHandlers.Abstractions.Responses.PasswordSubmitResponsePayload|100%||
 |Entra.EventHandlers.Abstractions.Responses.TokenIssuanceStartResponsePayloa<br/>d|100%||
 |Entra.EventHandlers.Abstractions.Responses.VerifiedIdClaimValidationRespons<br/>ePayload|100%||
-|Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|0%||
+|Entra.EventHandlers.Abstractions.Results.EntraHandlerResult<TResponse>|100%||
 
 </details>
 <details><summary>Entra.EventHandlers.AspNetCore - 91.8%</summary>
@@ -145,8 +145,8 @@
 |**Entra.EventHandlers.Observability**|**95.2%**|**100%**|
 |Entra.EventHandlers.Observability.Clients.ObservabilityApiClient|28.5%||
 |Entra.EventHandlers.Observability.Context.EventLogContext|100%||
-|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%|100%|
 |Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%||
+|Entra.EventHandlers.Observability.Decorators.ObservabilityHandlerDecorator<<br/>TRequest, TResponse>|100%|100%|
 |Entra.EventHandlers.Observability.DI.ServiceCollectionExtenstions|100%|100%|
 |Entra.EventHandlers.Observability.Factories.EventLogMapperFactory|100%||
 |Entra.EventHandlers.Observability.Logging.EventLogPublisher|100%||
