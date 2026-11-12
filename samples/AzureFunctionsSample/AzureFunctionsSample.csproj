@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
-	<IsPackable>false</IsPackable>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,5 +18,4 @@
     <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
     <ProjectReference Include="..\Sample.Common\Sample.Common.csproj" />
   </ItemGroup>
-
 </Project>
