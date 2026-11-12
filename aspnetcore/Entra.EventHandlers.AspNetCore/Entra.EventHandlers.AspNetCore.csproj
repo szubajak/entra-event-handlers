@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
@@ -63,9 +64,9 @@
     </ProjectReference>
 
     <None
-      Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\Release\net10.0\Entra.EventHandlers.Hosting.dll"
+      Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\$(Configuration)\$(TargetFramework)\Entra.EventHandlers.Hosting.dll"
       Pack="true"
-      PackagePath="lib/net10.0/"
+      PackagePath="lib/$(TargetFramework)/"
     />
   </ItemGroup>
 </Project>

@@ -7,6 +7,18 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ---
 
+## v1.7.0 – 2026-11-12
+
+### Added
+
+- Added multi-targeting support for .NET 10 and .NET 11.
+- NuGet package now includes assemblies for both `net10.0` and `net11.0`.
+
+### Notes
+
+- No API or behavioral changes.
+- Existing .NET 10 consumers are not affected.
+
 ## v1.6.1 – 2026‑10‑27
 
 ### Updated

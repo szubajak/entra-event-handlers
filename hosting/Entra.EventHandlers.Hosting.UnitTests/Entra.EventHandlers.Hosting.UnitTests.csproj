@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	<IsTestProject>true</IsTestProject>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsTestProject>true</IsTestProject>
     <IsPackable>false</IsPackable>
-	<OutputType>Exe</OutputType>
-	<IsTestingPlatformApplication>true</IsTestingPlatformApplication>
+    <OutputType>Exe</OutputType>
+    <IsTestingPlatformApplication>true</IsTestingPlatformApplication>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,5 +16,4 @@
     <ProjectReference Include="..\..\common\Entra.EventHandlers.TestHelpers\Entra.EventHandlers.TestHelpers.csproj" />
     <ProjectReference Include="..\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
   </ItemGroup>
-
 </Project>
