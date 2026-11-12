@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	<IsTestProject>true</IsTestProject>
-	<IsPackable>false</IsPackable>
-	<OutputType>Exe</OutputType>
-	<IsTestingPlatformApplication>true</IsTestingPlatformApplication>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <IsTestingPlatformApplication>true</IsTestingPlatformApplication>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Entra.EventHandlers.Security.AspNetCore\Entra.EventHandlers.Security.AspNetCore.csproj" />
   </ItemGroup>
-
 </Project>
