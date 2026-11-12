@@ -16,7 +16,12 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: 10.0.x
+          dotnet-version: 11.0.x
+
+      - name: Display .NET Info
+        run: |
+          dotnet --version
+          dotnet --list-sdks
 
       - name: Restore Abstractions
         run: dotnet restore abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj
