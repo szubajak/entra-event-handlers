@@ -23,11 +23,8 @@ jobs:
           dotnet --version
           dotnet --list-sdks
 
-      - name: Restore solution
-        run: dotnet restore Entra.EventHandlers.slnx
-
       - name: Build solution (Release)
-        run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
+        run: dotnet build Entra.EventHandlers.slnx -c Release
 
       - name: Test with coverage
         run: |

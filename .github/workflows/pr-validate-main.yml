@@ -30,11 +30,8 @@ jobs:
           dotnet --version
           dotnet --list-sdks
 
-      - name: Restore solution
-        run: dotnet restore Entra.EventHandlers.slnx
-
       - name: Build solution (Release)
-        run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
+        run: dotnet build Entra.EventHandlers.slnx -c Release
 
       - name: Run unit tests
         run: dotnet test Entra.EventHandlers.slnx -c Release --no-build --verbosity normal

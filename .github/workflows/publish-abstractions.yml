@@ -35,11 +35,8 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Publishing Abstractions v$VERSION"
 
-      - name: Restore Abstractions
-        run: dotnet restore abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj
-
       - name: Build Abstractions
-        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release
 
       - name: Run Abstractions Unit Tests
         run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --verbosity normal

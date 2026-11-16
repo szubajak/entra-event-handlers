@@ -23,11 +23,8 @@ jobs:
           dotnet --version
           dotnet --list-sdks
 
-      - name: Restore Abstractions
-        run: dotnet restore abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj
-
       - name: Build Abstractions (Release)
-        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release --no-restore
+        run: dotnet build abstractions/Entra.EventHandlers.Abstractions/Entra.EventHandlers.Abstractions.csproj -c Release
 
       - name: Run Abstractions unit tests
         run: dotnet test abstractions/Entra.EventHandlers.Abstractions.UnitTests/Entra.EventHandlers.Abstractions.UnitTests.csproj -c Release --verbosity normal
