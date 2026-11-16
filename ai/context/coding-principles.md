@@ -24,7 +24,7 @@ Do not create abstractions solely to wrap a single private implementation withou
 
 ## C# and .NET Style
 
-- Target .NET 10.
+- Target .NET 10 and .NET 11 (`net10.0` and `net11.0`).
 - Preserve nullable reference type correctness.
 - Use implicit usings and avoid redundant framework usings.
 - Prefer file-scoped namespaces and primary constructors when consistent with surrounding code.

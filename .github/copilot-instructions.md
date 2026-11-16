@@ -2,7 +2,7 @@
 
 ## Repository Scope
 
-- This repository targets .NET 10.
+- This repository targets .NET 10 and .NET 11 (`net10.0` and `net11.0`).
 - Read the relevant files under `ai/context/` before making architectural, API, testing, or documentation changes.
 - Treat current source code, project references, `.editorconfig`, `Directory.Build.props`, and existing documentation as authoritative.
 
