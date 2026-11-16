@@ -42,8 +42,11 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Detected PACKAGE=$PACKAGE VERSION=$VERSION"
 
+      - name: Restore
+        run: dotnet restore Entra.EventHandlers.slnx
+
       - name: Build (produces NuGet packages)
-        run: dotnet build Entra.EventHandlers.slnx -c Release
+        run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
 
       - name: Run Unit Tests
         run: dotnet test Entra.EventHandlers.slnx -c Release --no-build --verbosity normal
