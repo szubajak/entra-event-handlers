@@ -61,12 +61,20 @@
   <ItemGroup Condition="'$(Configuration)'=='Release'">
     <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj">
       <IncludeAssets>none</IncludeAssets>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-
-    <None
-      Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\$(Configuration)\$(TargetFramework)\Entra.EventHandlers.Hosting.dll"
-      Pack="true"
-      PackagePath="lib/$(TargetFramework)/"
-    />
   </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludeHostingDll</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <Target Name="IncludeHostingDll" Condition="'$(Configuration)'=='Release'">
+    <ItemGroup>
+      <TfmSpecificPackageFile
+        Include="..\..\hosting\Entra.EventHandlers.Hosting\bin\$(Configuration)\$(TargetFramework)\Entra.EventHandlers.Hosting.dll"
+        PackagePath="lib/$(TargetFramework)/"
+      />
+    </ItemGroup>
+  </Target>
 </Project>
