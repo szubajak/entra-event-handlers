@@ -1,0 +1,17 @@
+﻿<Project Sdk="Azure.Functions.Sdk/1.0.1">
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.52.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\azurefunctions\Entra.EventHandlers.AzureFunctions\Entra.EventHandlers.AzureFunctions.csproj" />
+    <ProjectReference Include="..\..\hosting\Entra.EventHandlers.Hosting\Entra.EventHandlers.Hosting.csproj" />
+    <ProjectReference Include="..\Sample.Common\Sample.Common.csproj" />
+  </ItemGroup>
+</Project>
