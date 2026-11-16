@@ -112,7 +112,9 @@
     <Project Path="observability/Entra.EventHandlers.Observability.UnitTests/Entra.EventHandlers.Observability.UnitTests.csproj" />
   </Folder>
   <Folder Name="/samples/">
+    <Project Path="samples/ApiSample.Net11/ApiSample.Net11.csproj" />
     <Project Path="samples/ApiSample/ApiSample.csproj" />
+    <Project Path="samples/AzureFunctionsSample.Net11/AzureFunctionsSample.Net11.csproj" />
     <Project Path="samples/AzureFunctionsSample/AzureFunctionsSample.csproj" />
     <Project Path="samples/Sample.Common/Sample.Common.csproj" />
   </Folder>

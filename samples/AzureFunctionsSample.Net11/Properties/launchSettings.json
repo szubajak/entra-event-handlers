@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "AzureFunctionsSample.Net11": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7098",
+      "launchBrowser": false
+    }
+  }
+}

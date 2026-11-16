@@ -26,6 +26,9 @@ jobs:
       - name: Restore solution
         run: dotnet restore Entra.EventHandlers.slnx
 
+      - name: Restore AzureFunctionsSample project
+        run: dotnet restore samples/AzureFunctionsSample.Net11/AzureFunctionsSample.Net11.csproj
+
       - name: Build solution (Release)
         run: dotnet build Entra.EventHandlers.slnx -c Release --no-restore
 
