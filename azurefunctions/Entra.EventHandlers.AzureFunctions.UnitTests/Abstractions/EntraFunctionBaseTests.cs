@@ -74,6 +74,32 @@ public class EntraFunctionBaseTests
     }
 
     [Fact]
+    public async Task InvokeAsync_TaskCancelled_MapsToRequestTimeout()
+    {
+        // Arrange
+        var ctx = Substitute.For<FunctionContext>();
+        var req = Substitute.For<HttpRequestData>(ctx);
+
+        var exception = new TaskCanceledException();
+
+        _sut.ExecuteDelegate = _ => throw exception;
+
+        // Act
+        await _sut.Invoke(req);
+
+        // Assert
+        _ = _httpAdapter.Received(1).CreateErrorResponseAsync(req, HttpStatusCode.RequestTimeout, Arg.Any<EntraErrorResponse>());
+
+        _logger
+            .Entries.Should()
+            .ContainSingle(e =>
+                e.Level == LogLevel.Information
+                && e.Exception == exception
+                && e.Message.Contains("Entra event handling was canceled in hosting layer.")
+            );
+    }
+
+    [Fact]
     public async Task InvokeAsync_EntraException_MapsToBadRequest()
     {
         // Arrange
