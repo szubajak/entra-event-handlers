@@ -81,6 +81,26 @@ public class HttpAdapterTests
     }
 
     [Fact]
+    public async Task ReadEventAsync_TaskCancelled_ShouldThrowOperationCanceledException()
+    {
+        // Arrange
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        var body = new MemoryStream(Encoding.UTF8.GetBytes("{}"));
+
+        var ctx = Substitute.For<FunctionContext>();
+        ctx.CancellationToken.Returns(cts.Token);
+        var req = new TestHttpRequestData(ctx, body);
+
+        // Act
+        var act = async () => await _sut.ReadEventAsync<TestEvent>(req);
+
+        // Assert
+        await act.Should().ThrowAsync<OperationCanceledException>().WithMessage("A task was canceled.");
+    }
+
+    [Fact]
     public async Task ReadEventAsync_WhenJsonIsValid_ReturnsDeserializedEvent()
     {
         // Arrange
